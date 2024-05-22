@@ -11,33 +11,9 @@ import { NavigationBar } from "components/navigation-bar";
 import { RoleList } from "./admin/role-list";
 import { AdminList } from "./admin/admin-list";
 import { UserList } from "./user/user-list";
-import { AuthInfoList } from "./user/auth-info-list";
-import { MerchantList } from "./shopping/merchant-list/index";
-import { ShopCategoryList } from "./shopping/shop/category-list/index";
-import { ShopList } from "./shopping/shop/shop-list";
 import { ExpressList } from "./shopping/express-list";
 import { GoodsCategoryList } from "./shopping/goods/category-list";
 import { GoodsList } from "./shopping/goods/goods-list";
-import { ScenicCategoryList } from "./scenic/spot/category-list";
-import { ScenicList } from "./scenic/spot/spot-list";
-import { ScenicProviderList } from "./scenic/provider/provider-list";
-import { ScenicShopList } from "./scenic/provider/shop-list";
-import { ProviderScenicList } from "./scenic/provider/spot-apply-list";
-import { ScenicTicketCategoryList } from "./scenic/ticket/category-list";
-import { ScenicTicketList } from "./scenic/ticket/ticket-list";
-import { HotelCategoryList } from "./hotel/store/category-list";
-import { HotelList } from "./hotel/store/store-list";
-import { HotelRoomList } from "./hotel/store/room-list";
-import { HotelRoomTypeList } from "./hotel/store/room-type-list";
-import { HotelProviderList } from "./hotel/provider/provider-list";
-import { HotelShopList } from "./hotel/provider/shop-list";
-import { ProviderHotelList } from "./hotel/provider/hotel-apply-list";
-import { CateringProviderList } from "./catering/provider/provider-list";
-import { ProviderRestaurantList } from "./catering/provider/restaurant-apply-list";
-import { RestaurantCategoryList } from "./catering/restaurant/category-list";
-import { RestaurantList } from "./catering/restaurant/restaurant-list";
-import { MealTicketList } from "./catering/meal-ticket-list";
-import { SetMealList } from "./catering/set-meal-list";
 import { MallBannerList } from "./activity/mall-banner-list";
 
 import {
@@ -47,26 +23,15 @@ import {
   CaretDownOutlined,
   MehOutlined,
   TeamOutlined,
-  ShopOutlined,
   AppstoreOutlined,
   ShoppingOutlined,
   UnorderedListOutlined,
-  FileAddOutlined,
   VerifiedOutlined,
   UserOutlined,
   GiftOutlined,
   PictureOutlined,
 } from "@ant-design/icons";
-import {
-  ExpressIcon,
-  ScenicSpotIcon,
-  TicketIcon,
-  HotelIcon,
-  BedIcon,
-  CateringIcon,
-  CouponIcon,
-  SetMealIcon,
-} from "assets/icon";
+import { ExpressIcon } from "assets/icon";
 import logo from "assets/images/logo.png";
 import { UserInfo } from "types/auth";
 import { Row } from "components/lib";
@@ -93,89 +58,13 @@ export const AuthenticatedApp = () => {
               <Route path="auth/role_list" element={<RoleList />} />
               <Route path="auth/admin_list" element={<AdminList />} />
               <Route path="user/list" element={<UserList />} />
-              <Route path="user/auth_info_list" element={<AuthInfoList />} />
               <Route path="activity/mall_banner" element={<MallBannerList />} />
-              <Route path="shopping/merchant_list" element={<MerchantList />} />
-              <Route
-                path="shopping/shop/category_list"
-                element={<ShopCategoryList />}
-              />
-              <Route path="shopping/shop/list" element={<ShopList />} />
               <Route path="shopping/express_list" element={<ExpressList />} />
               <Route
                 path="shopping/goods/category_list"
                 element={<GoodsCategoryList />}
               />
               <Route path="shopping/goods/list" element={<GoodsList />} />
-              <Route
-                path="scenic/spot/category_list"
-                element={<ScenicCategoryList />}
-              />
-              <Route path="scenic/spot/list" element={<ScenicList />} />
-              <Route
-                path="scenic/provider/list"
-                element={<ScenicProviderList />}
-              />
-              <Route
-                path="scenic/provider/shop_list"
-                element={<ScenicShopList />}
-              />
-              <Route
-                path="scenic/provider/spot_apply"
-                element={<ProviderScenicList />}
-              />
-              <Route
-                path="scenic/ticket/category_list"
-                element={<ScenicTicketCategoryList />}
-              />
-              <Route path="scenic/ticket/list" element={<ScenicTicketList />} />
-              <Route
-                path="hotel/store/category_list"
-                element={<HotelCategoryList />}
-              />
-              <Route path="hotel/store/list" element={<HotelList />} />
-              <Route
-                path="hotel/store/list/room_type_list"
-                element={<HotelRoomTypeList />}
-              />
-              <Route path="hotel/store/room_list" element={<HotelRoomList />} />
-              <Route
-                path="hotel/provider/list"
-                element={<HotelProviderList />}
-              />
-              <Route
-                path="hotel/provider/shop_list"
-                element={<HotelShopList />}
-              />
-              <Route
-                path="hotel/provider/hotel_apply"
-                element={<ProviderHotelList />}
-              />
-              <Route
-                path="catering/provider_list"
-                element={<CateringProviderList />}
-              />
-              <Route
-                path="catering/provider/list"
-                element={<CateringProviderList />}
-              />
-              <Route
-                path="catering/provider/restaurant_apply"
-                element={<ProviderRestaurantList />}
-              />
-              <Route
-                path="catering/restaurant/category_list"
-                element={<RestaurantCategoryList />}
-              />
-              <Route
-                path="catering/restaurant/list"
-                element={<RestaurantList />}
-              />
-              <Route
-                path="catering/meal_ticket_list"
-                element={<MealTicketList />}
-              />
-              <Route path="catering/set_meal_list" element={<SetMealList />} />
               <Route
                 path={"*"}
                 element={<Navigate to={"user/list"} replace={true} />}
@@ -244,28 +133,6 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
       icon: <ShoppingOutlined />,
       children: [
         {
-          label: <Link to={"shopping/merchant_list"}>商家列表</Link>,
-          key: "shopping_merchant_list",
-          icon: <TeamOutlined />,
-        },
-        {
-          label: "店铺管理",
-          key: "shopping_shop",
-          icon: <ShopOutlined />,
-          children: [
-            {
-              label: <Link to={"shopping/shop/category_list"}>店铺分类</Link>,
-              key: "shopping_shop_category_list",
-              icon: <AppstoreOutlined />,
-            },
-            {
-              label: <Link to={"shopping/shop/list"}>店铺列表</Link>,
-              key: "shopping_shop_list",
-              icon: <UnorderedListOutlined />,
-            },
-          ],
-        },
-        {
           label: <Link to={"shopping/express_list"}>快递列表</Link>,
           key: "shopping_express_list",
           icon: <ExpressIcon />,
@@ -289,175 +156,6 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
         },
       ],
     },
-    {
-      label: "景区模块",
-      key: "scenic",
-      icon: <ScenicSpotIcon />,
-      children: [
-        {
-          label: "景区管理",
-          key: "scenic_spot",
-          icon: <ScenicSpotIcon />,
-          children: [
-            {
-              label: <Link to={"scenic/spot/category_list"}>景区分类</Link>,
-              key: "scenic_spot_category_list",
-              icon: <AppstoreOutlined />,
-            },
-            {
-              label: <Link to={"scenic/spot/list"}>景区列表</Link>,
-              key: "scenic_spot_list",
-              icon: <UnorderedListOutlined />,
-            },
-          ],
-        },
-        {
-          label: "服务商管理",
-          key: "scenic_provider",
-          icon: <TeamOutlined />,
-          children: [
-            {
-              label: <Link to={"scenic/provider/list"}>服务商列表</Link>,
-              key: "scenic_provider_list",
-              icon: <TeamOutlined />,
-            },
-            {
-              label: <Link to={"scenic/provider/shop_list"}>店铺列表</Link>,
-              key: "scenic_provider_shop_list",
-              icon: <ShopOutlined />,
-            },
-            {
-              label: <Link to={"scenic/provider/spot_apply"}>景区申请</Link>,
-              key: "scenic_provider_spot_apply",
-              icon: <FileAddOutlined />,
-            },
-          ],
-        },
-        {
-          label: "门票管理",
-          key: "scenic_ticket",
-          icon: <TicketIcon />,
-          children: [
-            {
-              label: <Link to={"scenic/ticket/category_list"}>门票分类</Link>,
-              key: "scenic_ticket_category_list",
-              icon: <AppstoreOutlined />,
-            },
-            {
-              label: <Link to={"scenic/ticket/list"}>门票列表</Link>,
-              key: "scenic_ticket_list",
-              icon: <UnorderedListOutlined />,
-            },
-          ],
-        },
-      ],
-    },
-    {
-      label: "酒店模块",
-      key: "hotel",
-      icon: <HotelIcon />,
-      children: [
-        {
-          label: "酒店管理",
-          key: "hotel_store",
-          icon: <HotelIcon />,
-          children: [
-            {
-              label: <Link to={"hotel/store/category_list"}>酒店分类</Link>,
-              key: "hotel_store_category_list",
-              icon: <AppstoreOutlined />,
-            },
-            {
-              label: <Link to={"hotel/store/list"}>酒店列表</Link>,
-              key: "hotel_store_list",
-              icon: <HotelIcon />,
-            },
-            {
-              label: <Link to={"hotel/store/room_list"}>房间列表</Link>,
-              key: "hotel_store_room_list",
-              icon: <BedIcon />,
-            },
-          ],
-        },
-        {
-          label: "服务商管理",
-          key: "hotel_provider",
-          icon: <TeamOutlined />,
-          children: [
-            {
-              label: <Link to={"hotel/provider/list"}>服务商列表</Link>,
-              key: "hotel_provider_list",
-              icon: <TeamOutlined />,
-            },
-            {
-              label: <Link to={"hotel/provider/shop_list"}>店铺列表</Link>,
-              key: "hotel_provider_shop_list",
-              icon: <ShopOutlined />,
-            },
-            {
-              label: <Link to={"hotel/provider/hotel_apply"}>酒店申请</Link>,
-              key: "hotel_provider_hotel_apply",
-              icon: <FileAddOutlined />,
-            },
-          ],
-        },
-      ],
-    },
-    {
-      label: "餐饮模块",
-      key: "catering",
-      icon: <CateringIcon />,
-      children: [
-        {
-          label: "服务商管理",
-          key: "catering_provider",
-          icon: <TeamOutlined />,
-          children: [
-            {
-              label: <Link to={"catering/provider/list"}>服务商列表</Link>,
-              key: "catering_provider_list",
-              icon: <TeamOutlined />,
-            },
-            {
-              label: (
-                <Link to={"catering/provider/restaurant_apply"}>门店申请</Link>
-              ),
-              key: "catering_provider_restaurant_apply",
-              icon: <FileAddOutlined />,
-            },
-          ],
-        },
-        {
-          label: "门店管理",
-          key: "catering_restaurant",
-          icon: <ShopOutlined />,
-          children: [
-            {
-              label: (
-                <Link to={"catering/restaurant/category_list"}>门店分类</Link>
-              ),
-              key: "catering_restaurant_category_list",
-              icon: <AppstoreOutlined />,
-            },
-            {
-              label: <Link to={"catering/restaurant/list"}>门店列表</Link>,
-              key: "catering_restaurant_list",
-              icon: <UnorderedListOutlined />,
-            },
-          ],
-        },
-        {
-          label: <Link to={"catering/meal_ticket_list"}>代金券列表</Link>,
-          key: "catering_meal_ticket_list",
-          icon: <CouponIcon />,
-        },
-        {
-          label: <Link to={"catering/set_meal_list"}>套餐列表</Link>,
-          key: "catering_set_meal_list",
-          icon: <SetMealIcon />,
-        },
-      ],
-    },
   ];
 
   return (
@@ -470,7 +168,7 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
       <Link to={"/"}>
         <Logo collapsed={collapsed}>
           <LogoImg src={logo} />
-          <div>小鱼游管理后台</div>
+          <div>有播甄选管理后台</div>
         </Logo>
       </Link>
       <Menu
