@@ -58,15 +58,15 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
             dataIndex: "name",
           },
           {
-            title: "销售佣金比例范围",
+            title: "团队长佣金比例范围",
             render: (value, category) => (
-              <>{`${category.minSalesCommissionRate}% ~ ${category.maxSalesCommissionRate}%`}</>
+              <>{`${category.minLeaderCommissionRate}% ~ ${category.maxLeaderCommissionRate}%`}</>
             ),
           },
           {
-            title: "推广佣金比例范围",
+            title: "分享佣金比例范围",
             render: (value, category) => (
-              <>{`${category.minPromotionCommissionRate}% ~ ${category.maxPromotionCommissionRate}%`}</>
+              <>{`${category.minShareCommissionRate}% ~ ${category.maxShareCommissionRate}%`}</>
             ),
           },
           {

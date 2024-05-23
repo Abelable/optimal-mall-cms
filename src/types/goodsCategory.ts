@@ -14,10 +14,10 @@ export interface GoodsCategory {
   id: number;
   shopCategoryId: number;
   name: string;
-  minSalesCommissionRate: number;
-  maxSalesCommissionRate: number;
-  minPromotionCommissionRate: number;
-  maxPromotionCommissionRate: number;
+  minLeaderCommissionRate: number;
+  maxLeaderCommissionRate: number;
+  minShareCommissionRate: number;
+  maxShareCommissionRate: number;
   createdAt: string;
 }
 
