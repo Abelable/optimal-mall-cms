@@ -12,7 +12,6 @@ import type {
   Goods,
   GoodsListResult,
   GoodsListSearchParams,
-  GoodsDetail,
 } from "types/goods";
 
 export const useGoodsList = (params: Partial<GoodsListSearchParams>) => {
@@ -24,7 +23,7 @@ export const useGoodsList = (params: Partial<GoodsListSearchParams>) => {
 
 export const useGoods = (id: number) => {
   const client = useHttp();
-  return useQuery<Partial<GoodsDetail>>(
+  return useQuery<Partial<Goods>>(
     ["goods", { id }],
     () => client(`goods/detail`, { data: { id } }),
     {

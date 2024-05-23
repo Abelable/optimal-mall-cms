@@ -15,20 +15,18 @@ import { useDeleteGoodsCategory } from "service/goodsCategory";
 import { useGoodsCategoryModal, useGoodsCategoriesQueryKey } from "../util";
 import { PlusOutlined } from "@ant-design/icons";
 
-import type { GoodsCategory } from "types/goodsCategory";
-import type { SearchPanelProps } from "./search-panel";
+import type {
+  GoodsCategoriesSearchParams,
+  GoodsCategory,
+} from "types/goodsCategory";
 
-interface ListProps extends TableProps<GoodsCategory>, SearchPanelProps {
+interface ListProps extends TableProps<GoodsCategory> {
   error: Error | unknown;
+  params: Partial<GoodsCategoriesSearchParams>;
+  setParams: (params: Partial<GoodsCategoriesSearchParams>) => void;
 }
 
-export const List = ({
-  shopCategoryOptions,
-  error,
-  params,
-  setParams,
-  ...restProps
-}: ListProps) => {
+export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
   const { open } = useGoodsCategoryModal();
 
   const setPagination = (pagination: TablePaginationConfig) =>
@@ -58,12 +56,6 @@ export const List = ({
           {
             title: "商品分类名称",
             dataIndex: "name",
-          },
-          {
-            title: "所属店铺分类",
-            dataIndex: "shopCategoryId",
-            render: (value) =>
-              shopCategoryOptions.find((item) => item.id === value)?.name,
           },
           {
             title: "销售佣金比例范围",

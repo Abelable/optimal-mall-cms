@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 
 import { useGoodsCategoryOptions } from "service/goodsCategory";
-import { useShopCategoryOptions } from "service/shopCategory";
 import { useGoodsList } from "service/goods";
 import { toNumber } from "utils";
 import { useGoodsListSearchParams } from "./util";
@@ -16,8 +15,6 @@ export const GoodsList = () => {
   const { isLoading, error, data } = useGoodsList(params);
   const { data: goodsCategoryOptions, error: goodsCategoryOptionsError } =
     useGoodsCategoryOptions();
-  const { data: shopCategoryOptions, error: shopCategoryOptionsError } =
-    useShopCategoryOptions();
   const statusOptions = [
     { text: "待审核", value: 0 },
     { text: "售卖中", value: 1 },
@@ -28,19 +25,17 @@ export const GoodsList = () => {
     <Container>
       <Main>
         <SearchPanel
-          shopCategoryOptions={shopCategoryOptions || []}
           categoryOptions={goodsCategoryOptions || []}
           statusOptions={statusOptions}
           params={params}
           setParams={setParams}
         />
         <List
-          shopCategoryOptions={shopCategoryOptions || []}
           categoryOptions={goodsCategoryOptions || []}
           statusOptions={statusOptions}
           params={params}
           setParams={setParams}
-          error={error || goodsCategoryOptionsError || shopCategoryOptionsError}
+          error={error || goodsCategoryOptionsError}
           loading={isLoading}
           dataSource={data?.list}
           pagination={{
@@ -50,10 +45,7 @@ export const GoodsList = () => {
           }}
         />
       </Main>
-      <GoodsModal
-        shopCategoryOptions={shopCategoryOptions || []}
-        goodsCategoryOptions={goodsCategoryOptions || []}
-      />
+      <GoodsModal goodsCategoryOptions={goodsCategoryOptions || []} />
       <RejectModal />
     </Container>
   );

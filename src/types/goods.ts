@@ -1,9 +1,5 @@
-import type { Shop } from "./shop";
-import type { MerchantDetail } from "./merchant";
-
 export interface GoodsListSearchParams {
   name: string;
-  shopCategoryId: number | undefined;
   categoryId: number | undefined;
   status: number | undefined;
   page: number;
@@ -17,8 +13,8 @@ export interface Goods {
   categoryId: number;
   price: number;
   stock: number;
-  salesCommissionRate: number;
-  promotionCommissionRate: number;
+  leaderCommissionRate: number;
+  shareCommissionRate: number;
   salesVolume: number;
   status: number;
   failureReason: string;
@@ -31,9 +27,4 @@ export interface GoodsListResult {
   page: string;
   limit: string;
   total: string;
-}
-
-export interface GoodsDetail extends Goods {
-  shopInfo: Partial<Shop>;
-  merchantInfo: Partial<MerchantDetail>;
 }

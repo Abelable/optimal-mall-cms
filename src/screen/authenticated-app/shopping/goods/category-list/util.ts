@@ -3,11 +3,7 @@ import { useCallback, useMemo } from "react";
 import { useGoodsCategory } from "service/goodsCategory";
 
 export const useGoodsCategoriesSearchParams = () => {
-  const [params, setParams] = useUrlQueryParams([
-    "shopCategoryId",
-    "page",
-    "limit",
-  ]);
+  const [params, setParams] = useUrlQueryParams(["page", "limit"]);
   return [
     useMemo(
       () => ({

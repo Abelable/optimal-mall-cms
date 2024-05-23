@@ -1,5 +1,4 @@
-import { Descriptions, Divider, Drawer, Image, Avatar, Tooltip } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { Descriptions, Divider, Drawer, Image, Tooltip } from "antd";
 
 import { ErrorBox, ModalLoading } from "components/lib";
 import dayjs from "dayjs";
@@ -9,10 +8,8 @@ import type { CategoryOption } from "types/category";
 
 export const GoodsModal = ({
   goodsCategoryOptions,
-  shopCategoryOptions,
 }: {
   goodsCategoryOptions: CategoryOption[];
-  shopCategoryOptions: CategoryOption[];
 }) => {
   const { close, goodsModalOpen, editingGoods, error, isLoading } =
     useGoodsModal();
@@ -69,76 +66,16 @@ export const GoodsModal = ({
               {editingGoods?.stock}
             </Descriptions.Item>
             <Descriptions.Item label="销售佣金比例">
-              {`${editingGoods?.salesCommissionRate}%`}
+              {`${editingGoods?.leaderCommissionRate}%`}
             </Descriptions.Item>
             <Descriptions.Item label="推广佣金比例">
-              {`${editingGoods?.promotionCommissionRate}%`}
+              {`${editingGoods?.shareCommissionRate}%`}
             </Descriptions.Item>
             <Descriptions.Item label="销量">
               {editingGoods?.salesVolume}
             </Descriptions.Item>
             <Descriptions.Item label=""> </Descriptions.Item>
             <Descriptions.Item label="创建时间">
-              {dayjs(editingGoods?.createdAt).format("YYYY-MM-DD HH:mm:ss")}
-            </Descriptions.Item>
-            <Descriptions.Item label="更新时间">
-              {dayjs(editingGoods?.updatedAt).format("YYYY-MM-DD HH:mm:ss")}
-            </Descriptions.Item>
-          </Descriptions>
-
-          <Divider orientation="left">店铺信息</Divider>
-          <Descriptions size={"small"} column={2}>
-            <Descriptions.Item label="ID">
-              {editingGoods?.shopInfo?.id}
-            </Descriptions.Item>
-            <Descriptions.Item label="店铺头像">
-              <Avatar
-                src={editingGoods?.shopInfo?.avatar}
-                icon={<UserOutlined />}
-                size="small"
-              />
-            </Descriptions.Item>
-            <Descriptions.Item label="店铺名称">
-              {editingGoods?.shopInfo?.name}
-            </Descriptions.Item>
-            <Descriptions.Item label="店铺分类">
-              {
-                shopCategoryOptions.find(
-                  (item) => item.id === editingGoods?.shopInfo?.categoryId
-                )?.name
-              }
-            </Descriptions.Item>
-            <Descriptions.Item label="注册时间">
-              {dayjs(editingGoods?.shopInfo?.createdAt).format(
-                "YYYY-MM-DD HH:mm:ss"
-              )}
-            </Descriptions.Item>
-            <Descriptions.Item label="更新时间">
-              {dayjs(editingGoods?.shopInfo?.updatedAt).format(
-                "YYYY-MM-DD HH:mm:ss"
-              )}
-            </Descriptions.Item>
-          </Descriptions>
-
-          <Divider orientation="left">商家信息</Divider>
-          <Descriptions
-            style={{ marginBottom: "3.2rem" }}
-            size={"small"}
-            column={2}
-          >
-            <Descriptions.Item label="ID">
-              {editingGoods?.merchantInfo?.id}
-            </Descriptions.Item>
-            <Descriptions.Item label="商家类型">
-              {editingGoods?.merchantInfo?.type === 1 ? "个人" : "企业"}
-            </Descriptions.Item>
-            <Descriptions.Item label="联系人姓名">
-              {editingGoods?.merchantInfo?.name}
-            </Descriptions.Item>
-            <Descriptions.Item label="手机号">
-              {editingGoods?.merchantInfo?.mobile}
-            </Descriptions.Item>
-            <Descriptions.Item label="入驻时间">
               {dayjs(editingGoods?.createdAt).format("YYYY-MM-DD HH:mm:ss")}
             </Descriptions.Item>
             <Descriptions.Item label="更新时间">

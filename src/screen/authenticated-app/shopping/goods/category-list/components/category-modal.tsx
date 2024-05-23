@@ -1,4 +1,4 @@
-import { Form, Input, InputNumber, Select, Modal } from "antd";
+import { Form, Input, InputNumber, Modal } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { ErrorBox, ModalLoading } from "components/lib";
 import {
@@ -7,13 +7,8 @@ import {
 } from "service/goodsCategory";
 import { useGoodsCategoryModal, useGoodsCategoriesQueryKey } from "../util";
 import { useEffect } from "react";
-import { CategoryOption } from "types/category";
 
-export const GoodsCategoryModal = ({
-  shopCategoryOptions,
-}: {
-  shopCategoryOptions: CategoryOption[];
-}) => {
+export const CategoryModal = () => {
   const [form] = useForm();
   const {
     goodsCategoryModalOpen,
@@ -69,29 +64,18 @@ export const GoodsCategoryModal = ({
           >
             <Input placeholder={"请输入商品分类名称"} />
           </Form.Item>
-          <Form.Item
-            name="shopCategoryId"
-            label="所属店铺分类"
-            rules={[{ required: true, message: "请选择所属店铺分类" }]}
-          >
-            <Select placeholder="请选择所属店铺分类">
-              {shopCategoryOptions.map((item) => (
-                <Select.Option key={item.id} value={item.id}>
-                  {item.name}
-                </Select.Option>
-              ))}
-            </Select>
-          </Form.Item>
-          <Form.Item label="销售佣金比例范围%" required>
+          <Form.Item label="团队长佣金比例范围%" required>
             <Input.Group compact>
               <Form.Item
                 style={{ marginBottom: 0, width: "46%" }}
-                name="minSalesCommissionRate"
-                rules={[{ required: true, message: "请输入最小销售佣金比例" }]}
+                name="minLeaderCommissionRate"
+                rules={[
+                  { required: true, message: "请输入团队长佣金最小比例" },
+                ]}
               >
                 <InputNumber
                   style={{ width: "100%", textAlign: "center" }}
-                  placeholder="请输入最小销售佣金比例"
+                  placeholder="请输入团队长佣金最小比例"
                 />
               </Form.Item>
               <Input
@@ -107,29 +91,31 @@ export const GoodsCategoryModal = ({
               />
               <Form.Item
                 style={{ marginBottom: 0, width: "46%" }}
-                name="maxSalesCommissionRate"
-                rules={[{ required: true, message: "请输入最大销售佣金比例" }]}
+                name="maxLeaderCommissionRate"
+                rules={[
+                  { required: true, message: "请输入团队长佣金最大比例" },
+                ]}
               >
                 <InputNumber
                   style={{
                     width: "100%",
                     textAlign: "center",
                   }}
-                  placeholder="请输入最大销售佣金比例"
+                  placeholder="请输入团队长佣金最大比例"
                 />
               </Form.Item>
             </Input.Group>
           </Form.Item>
-          <Form.Item label="推广佣金比例范围%" required>
+          <Form.Item label="分享佣金比例范围%" required>
             <Input.Group compact>
               <Form.Item
                 style={{ marginBottom: 0, width: "46%" }}
-                name="minPromotionCommissionRate"
-                rules={[{ required: true, message: "请输入最小推广佣金比例" }]}
+                name="minShareCommissionRate"
+                rules={[{ required: true, message: "请输入最小分享佣金比例" }]}
               >
                 <InputNumber
                   style={{ width: "100%", textAlign: "center" }}
-                  placeholder="请输入最小推广佣金比例"
+                  placeholder="请输入最小分享佣金比例"
                 />
               </Form.Item>
               <Input
@@ -145,15 +131,15 @@ export const GoodsCategoryModal = ({
               />
               <Form.Item
                 style={{ marginBottom: 0, width: "46%" }}
-                name="maxPromotionCommissionRate"
-                rules={[{ required: true, message: "请输入最大推广佣金比例" }]}
+                name="maxShareCommissionRate"
+                rules={[{ required: true, message: "请输入最大分享佣金比例" }]}
               >
                 <InputNumber
                   style={{
                     width: "100%",
                     textAlign: "center",
                   }}
-                  placeholder="请输入最大推广佣金比例"
+                  placeholder="请输入最大分享佣金比例"
                 />
               </Form.Item>
             </Input.Group>

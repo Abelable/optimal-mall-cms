@@ -23,7 +23,6 @@ interface ListProps extends TableProps<Goods>, SearchPanelProps {
 }
 
 export const List = ({
-  shopCategoryOptions,
   categoryOptions,
   statusOptions,
   error,
@@ -103,15 +102,7 @@ export const List = ({
             dataIndex: "stock",
           },
           {
-            title: "一级分类",
-            dataIndex: "shopCategoryId",
-            render: (value) => (
-              <>{shopCategoryOptions.find((item) => item.id === value)?.name}</>
-            ),
-            width: "12rem",
-          },
-          {
-            title: "二级分类",
+            title: "商品分类",
             dataIndex: "categoryId",
             render: (value) => (
               <>{categoryOptions.find((item) => item.id === value)?.name}</>
@@ -120,13 +111,13 @@ export const List = ({
           },
           {
             title: "销售佣金比例",
-            dataIndex: "salesCommissionRate",
+            dataIndex: "leaderCommissionRate",
             render: (value) => <>{`${value}%`}</>,
             width: "12rem",
           },
           {
             title: "推广佣金比例",
-            dataIndex: "promotionCommissionRate",
+            dataIndex: "shareCommissionRate",
             render: (value) => <>{`${value}%`}</>,
             width: "12rem",
           },

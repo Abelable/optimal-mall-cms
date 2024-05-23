@@ -4,11 +4,9 @@ import { Row } from "components/lib";
 import { Button, Input, Select } from "antd";
 
 import type { GoodsListSearchParams } from "types/goods";
-import type { CategoryOption } from "types/category";
 import type { GoodsCategoryOption } from "types/goodsCategory";
 
 export interface SearchPanelProps {
-  shopCategoryOptions: CategoryOption[];
   categoryOptions: GoodsCategoryOption[];
   statusOptions: { text: string; value: number }[];
   params: Partial<GoodsListSearchParams>;
@@ -17,13 +15,11 @@ export interface SearchPanelProps {
 
 const defaultParmas: Partial<GoodsListSearchParams> = {
   name: "",
-  shopCategoryId: undefined,
   categoryId: undefined,
   status: undefined,
 };
 
 export const SearchPanel = ({
-  shopCategoryOptions,
   categoryOptions,
   statusOptions,
   params,
@@ -45,11 +41,6 @@ export const SearchPanel = ({
       name: evt.target.value,
     });
   };
-
-  const setShopCategory = (shopCategoryId: number) =>
-    setTempParams({ ...tempParams, shopCategoryId });
-  const clearShopCategory = () =>
-    setTempParams({ ...tempParams, shopCategoryId: undefined });
 
   const setCategory = (categoryId: number) =>
     setTempParams({ ...tempParams, categoryId });
@@ -78,24 +69,7 @@ export const SearchPanel = ({
         />
       </Item>
       <Item>
-        <div>商品一级分类：</div>
-        <Select
-          style={{ width: "20rem" }}
-          value={tempParams.shopCategoryId}
-          placeholder="请选择一级商品分类"
-          allowClear={true}
-          onSelect={setShopCategory}
-          onClear={clearShopCategory}
-        >
-          {shopCategoryOptions?.map(({ id, name }) => (
-            <Select.Option key={id} value={id}>
-              {name}
-            </Select.Option>
-          ))}
-        </Select>
-      </Item>
-      <Item>
-        <div>商品二级分类：</div>
+        <div>商品分类：</div>
         <Select
           style={{ width: "20rem" }}
           value={tempParams.categoryId}
@@ -104,17 +78,11 @@ export const SearchPanel = ({
           onSelect={setCategory}
           onClear={clearCategory}
         >
-          {categoryOptions
-            .filter((item) =>
-              tempParams.shopCategoryId
-                ? item.shopCategoryId === tempParams.shopCategoryId
-                : true
-            )
-            ?.map(({ id, name }) => (
-              <Select.Option key={id} value={id}>
-                {name}
-              </Select.Option>
-            ))}
+          {categoryOptions?.map(({ id, name }) => (
+            <Select.Option key={id} value={id}>
+              {name}
+            </Select.Option>
+          ))}
         </Select>
       </Item>
       <Item>
