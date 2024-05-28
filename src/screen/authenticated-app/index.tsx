@@ -88,22 +88,22 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
 
   const items: MenuProps["items"] = [
     {
-      label: "数据概况",
+      label: <Link to={"dashboard"}>数据概况</Link>,
       key: "dashboard",
       icon: <DashboardOutlined />,
     },
     {
-      label: "用户列表",
+      label: <Link to={"user_list"}>用户列表</Link>,
       key: "user_list",
       icon: <TeamOutlined />,
     },
     {
-      label: "团长列表",
+      label: <Link to={"team_leader_list"}>团长列表</Link>,
       key: "team_leader_list",
       icon: <FlagOutlined />,
     },
     {
-      label: "活动列表",
+      label: <Link to={"banner_list"}>活动列表</Link>,
       key: "banner_list",
       icon: <GiftOutlined />,
     },
@@ -130,7 +130,7 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
       ],
     },
     {
-      label: "订单列表",
+      label: <Link to={"order_list"}>订单列表</Link>,
       key: "order_list",
       icon: <SnippetsOutlined />,
     },
