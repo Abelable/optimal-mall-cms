@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
-import { useMerchants } from "service/merchant";
+import { useTeamLeaders } from "service/teamLeader";
 import { toNumber } from "utils";
-import { useMerchantsSearchParams } from "./util";
+import { useTeamLeadersSearchParams } from "./util";
 
-import { MerchantModal } from "./components/merchant-modal";
+import { TeamLeaderModal } from "./components/team-leader-modal";
 import { List } from "./components/list";
 import { SearchPanel } from "./components/search-panel";
 import { RejectModal } from "./components/reject-modal";
@@ -19,9 +19,9 @@ const statusOptions = [
   { text: "已驳回", value: 3 },
 ];
 
-export const MerchantList = () => {
-  const [params, setParams] = useMerchantsSearchParams();
-  const { isLoading, error, data } = useMerchants(params);
+export const TeamLeaderList = () => {
+  const [params, setParams] = useTeamLeadersSearchParams();
+  const { isLoading, error, data } = useTeamLeaders(params);
 
   return (
     <Container>
@@ -47,7 +47,7 @@ export const MerchantList = () => {
           }}
         />
       </Main>
-      <MerchantModal />
+      <TeamLeaderModal />
       <RejectModal />
     </Container>
   );

@@ -13,16 +13,16 @@ import {
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
 import dayjs from "dayjs";
-import { Merchant } from "types/merchant";
+import { TeamLeader } from "types/teamLeader";
 import {
-  useMerchantModal,
-  useMerchantsQueryKey,
+  useTeamLeaderModal,
+  useTeamLeadersQueryKey,
   useRejectModal,
 } from "../util";
 import { SearchPanelProps } from "./search-panel";
-import { useApprovedMerchant } from "service/merchant";
+import { useApprovedTeamLeader } from "service/teamLeader";
 
-interface ListProps extends TableProps<Merchant>, SearchPanelProps {
+interface ListProps extends TableProps<TeamLeader>, SearchPanelProps {
   error: Error | unknown;
 }
 
@@ -60,7 +60,7 @@ export const List = ({
             dataIndex: "type",
             render: (value) => <>{value === 1 ? "个人" : "企业"}</>,
             filters: typeOptions,
-            onFilter: (value, merchant) => merchant.type === value,
+            onFilter: (value, teamLeader) => teamLeader.type === value,
           },
           {
             title: "联系人姓名",
@@ -73,7 +73,7 @@ export const List = ({
           {
             title: "状态",
             dataIndex: "status",
-            render: (value, merchant) =>
+            render: (value, teamLeader) =>
               value === 0 ? (
                 <span style={{ color: "#faad14" }}>待审核</span>
               ) : value === 1 ? (
@@ -83,20 +83,20 @@ export const List = ({
                   title="保证金支付信息"
                   content={
                     <div>
-                      <p>支付金额：{merchant.depositInfo.paymentAmount}元</p>
+                      <p>支付金额：{teamLeader.depositInfo.paymentAmount}元</p>
                       <p>
                         支付状态：
-                        {merchant.depositInfo.status === 1 ? (
+                        {teamLeader.depositInfo.status === 1 ? (
                           <Tag color="success">已支付</Tag>
                         ) : (
                           <Tag color="error">未支付</Tag>
                         )}
                       </p>
-                      <p>支付Id：{merchant.depositInfo.payId}</p>
-                      <p>支付编号：{merchant.depositInfo.orderSn}</p>
+                      <p>支付Id：{teamLeader.depositInfo.payId}</p>
+                      <p>支付编号：{teamLeader.depositInfo.orderSn}</p>
                       <p>
                         支付时间：
-                        {dayjs(merchant.depositInfo.updatedAt).format(
+                        {dayjs(teamLeader.depositInfo.updatedAt).format(
                           "YYYY-MM-DD HH:mm:ss"
                         )}
                       </p>
@@ -108,21 +108,21 @@ export const List = ({
                   </span>
                 </Popover>
               ) : (
-                <Tooltip title={merchant.failureReason}>
+                <Tooltip title={teamLeader.failureReason}>
                   <span style={{ color: "#ff4d4f", cursor: "pointer" }}>
                     已驳回
                   </span>
                 </Tooltip>
               ),
             filters: statusOptions,
-            onFilter: (value, merchant) => merchant.status === value,
+            onFilter: (value, teamLeader) => teamLeader.status === value,
           },
           {
             title: "入驻时间",
-            render: (value, merchant) => (
+            render: (value, teamLeader) => (
               <span>
-                {merchant.createdAt
-                  ? dayjs(merchant.createdAt).format("YYYY-MM-DD HH:mm:ss")
+                {teamLeader.createdAt
+                  ? dayjs(teamLeader.createdAt).format("YYYY-MM-DD HH:mm:ss")
                   : "无"}
               </span>
             ),
@@ -132,10 +132,10 @@ export const List = ({
           },
           {
             title: "更新时间",
-            render: (value, merchant) => (
+            render: (value, teamLeader) => (
               <span>
-                {merchant.updatedAt
-                  ? dayjs(merchant.updatedAt).format("YYYY-MM-DD HH:mm:ss")
+                {teamLeader.updatedAt
+                  ? dayjs(teamLeader.updatedAt).format("YYYY-MM-DD HH:mm:ss")
                   : "无"}
               </span>
             ),
@@ -145,8 +145,8 @@ export const List = ({
           },
           {
             title: "操作",
-            render(value, merchant) {
-              return <More id={merchant.id} status={merchant.status} />;
+            render(value, teamLeader) {
+              return <More id={teamLeader.id} status={teamLeader.status} />;
             },
             width: "8rem",
           },
@@ -159,9 +159,9 @@ export const List = ({
 };
 
 const More = ({ id, status }: { id: number; status: number }) => {
-  const { open } = useMerchantModal();
-  const { mutate: approvedMerchant } = useApprovedMerchant(
-    useMerchantsQueryKey()
+  const { open } = useTeamLeaderModal();
+  const { mutate: approvedTeamLeader } = useApprovedTeamLeader(
+    useTeamLeadersQueryKey()
   );
   const { open: openRejectModal } = useRejectModal();
 
@@ -171,7 +171,7 @@ const More = ({ id, status }: { id: number; status: number }) => {
       content: "请确保在商家信息无误的情况下进行该操作",
       okText: "确定",
       cancelText: "取消",
-      onOk: () => approvedMerchant(id),
+      onOk: () => approvedTeamLeader(id),
     });
   };
 

@@ -1,8 +1,8 @@
 import { useSetUrlSearchParams, useUrlQueryParams } from "utils/url";
 import { useCallback, useMemo } from "react";
-import { useMerchant } from "service/merchant";
+import { useTeamLeader } from "service/teamLeader";
 
-export const useMerchantsSearchParams = () => {
+export const useTeamLeadersSearchParams = () => {
   const [params, setParams] = useUrlQueryParams([
     "status",
     "type",
@@ -24,35 +24,35 @@ export const useMerchantsSearchParams = () => {
   ] as const;
 };
 
-export const useMerchantsQueryKey = () => {
-  const [params] = useMerchantsSearchParams();
-  return ["merchants", params];
+export const useTeamLeadersQueryKey = () => {
+  const [params] = useTeamLeadersSearchParams();
+  return ["team_leaders", params];
 };
 
-export const useMerchantModal = () => {
-  const [{ editingMerchantId }, setEditingMerchantId] = useUrlQueryParams([
-    "editingMerchantId",
+export const useTeamLeaderModal = () => {
+  const [{ editingTeamLeaderId }, setEditingTeamLeaderId] = useUrlQueryParams([
+    "editingTeamLeaderId",
   ]);
   const setUrlParams = useSetUrlSearchParams();
   const {
-    data: editingMerchant,
+    data: editingTeamLeader,
     isLoading,
     error,
-  } = useMerchant(Number(editingMerchantId));
+  } = useTeamLeader(Number(editingTeamLeaderId));
 
   const open = useCallback(
-    (id: number) => setEditingMerchantId({ editingMerchantId: `${id}` }),
-    [setEditingMerchantId]
+    (id: number) => setEditingTeamLeaderId({ editingTeamLeaderId: `${id}` }),
+    [setEditingTeamLeaderId]
   );
   const close = useCallback(
-    () => setUrlParams({ merchantCreate: "", editingMerchantId: "" }),
+    () => setUrlParams({ teamLeaderCreate: "", editingTeamLeaderId: "" }),
     [setUrlParams]
   );
 
   return {
-    merchantModalOpen: !!editingMerchantId,
-    editingMerchantId,
-    editingMerchant,
+    teamLeaderModalOpen: !!editingTeamLeaderId,
+    editingTeamLeaderId,
+    editingTeamLeader,
     isLoading,
     error,
     open,
@@ -61,23 +61,23 @@ export const useMerchantModal = () => {
 };
 
 export const useRejectModal = () => {
-  const [{ rejectMerchantId }, setRejectMerchantId] = useUrlQueryParams([
-    "rejectMerchantId",
+  const [{ rejectTeamLeaderId }, setRejectTeamLeaderId] = useUrlQueryParams([
+    "rejectTeamLeaderId",
   ]);
   const setUrlParams = useSetUrlSearchParams();
 
   const open = useCallback(
-    (id: number) => setRejectMerchantId({ rejectMerchantId: `${id}` }),
-    [setRejectMerchantId]
+    (id: number) => setRejectTeamLeaderId({ rejectTeamLeaderId: `${id}` }),
+    [setRejectTeamLeaderId]
   );
   const close = useCallback(
-    () => setUrlParams({ rejectMerchantId: "" }),
+    () => setUrlParams({ rejectTeamLeaderId: "" }),
     [setUrlParams]
   );
 
   return {
-    rejectModalOpen: !!rejectMerchantId,
-    rejectMerchantId,
+    rejectModalOpen: !!rejectTeamLeaderId,
+    rejectTeamLeaderId,
     open,
     close,
   };

@@ -5,16 +5,16 @@ import { Row } from "components/lib";
 import { Button, Input, Select } from "antd";
 
 import type { Option } from "types/common";
-import type { MerchantsSearchParams } from "types/merchant";
+import type { TeamLeadersSearchParams } from "types/teamLeader";
 
 export interface SearchPanelProps {
-  params: Partial<MerchantsSearchParams>;
-  setParams: (params: Partial<MerchantsSearchParams>) => void;
+  params: Partial<TeamLeadersSearchParams>;
+  setParams: (params: Partial<TeamLeadersSearchParams>) => void;
   typeOptions: Option[];
   statusOptions: Option[];
 }
 
-const defaultParmas: Partial<MerchantsSearchParams> = {
+const defaultParmas: Partial<TeamLeadersSearchParams> = {
   status: undefined,
   type: undefined,
   name: "",

@@ -9,13 +9,14 @@ import { Avatar, Button, Dropdown, Layout, Menu, MenuProps } from "antd";
 import { NavigationBar } from "components/navigation-bar";
 
 import { Dashboard } from "./dashboard";
-import { UserList } from "./user";
-import { BannerList } from "./activity";
+import { UserList } from "./user-list";
+import { TeamLeaderList } from "./team-leader-list";
+import { BannerList } from "./banner-list";
 import { MerchantList } from "./mall/merchant-list";
 import { GoodsCategoryList } from "./mall/category-list";
 import { GoodsList } from "./mall/goods-list";
-import { RoleList } from "./admin/role-list";
-import { AdminList } from "./admin/admin-list";
+import { RoleList } from "./auth/role-list";
+import { AdminList } from "./auth/admin-list";
 
 import {
   DashboardOutlined,
@@ -58,6 +59,7 @@ export const AuthenticatedApp = () => {
             <Routes>
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="user_list" element={<UserList />} />
+              <Route path="team_leader_list" element={<TeamLeaderList />} />
               <Route path="banner_list" element={<BannerList />} />
               <Route path="auth/role_list" element={<RoleList />} />
               <Route path="auth/admin_list" element={<AdminList />} />
@@ -127,7 +129,7 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
     },
     {
       label: "订单列表",
-      key: "order",
+      key: "order_list",
       icon: <SnippetsOutlined />,
     },
     {

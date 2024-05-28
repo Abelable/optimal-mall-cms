@@ -1,11 +1,11 @@
 import { Descriptions, Drawer, Image } from "antd";
 import { ErrorBox, ModalLoading } from "components/lib";
 import dayjs from "dayjs";
-import { useMerchantModal } from "../util";
+import { useTeamLeaderModal } from "../util";
 
-export const MerchantModal = () => {
-  const { close, merchantModalOpen, editingMerchant, error, isLoading } =
-    useMerchantModal();
+export const TeamLeaderModal = () => {
+  const { close, teamLeaderModalOpen, editingTeamLeader, error, isLoading } =
+    useTeamLeaderModal();
 
   return (
     <Drawer
@@ -13,7 +13,7 @@ export const MerchantModal = () => {
       title="商家详情"
       size={"large"}
       onClose={close}
-      open={merchantModalOpen}
+      open={teamLeaderModalOpen}
       bodyStyle={{ paddingBottom: 80 }}
     >
       <ErrorBox error={error} />
@@ -29,19 +29,23 @@ export const MerchantModal = () => {
             bordered
           >
             <Descriptions.Item label="ID">
-              {editingMerchant?.id}
+              {editingTeamLeader?.id}
             </Descriptions.Item>
             <Descriptions.Item label="商家类型">
-              {editingMerchant?.type === 1 ? "个人" : "企业"}
+              {editingTeamLeader?.type === 1 ? "个人" : "企业"}
             </Descriptions.Item>
             <Descriptions.Item label="入驻时间">
-              {dayjs(editingMerchant?.createdAt).format("YYYY-MM-DD HH:mm:ss")}
+              {dayjs(editingTeamLeader?.createdAt).format(
+                "YYYY-MM-DD HH:mm:ss"
+              )}
             </Descriptions.Item>
             <Descriptions.Item label="更新时间">
-              {dayjs(editingMerchant?.updatedAt).format("YYYY-MM-DD HH:mm:ss")}
+              {dayjs(editingTeamLeader?.updatedAt).format(
+                "YYYY-MM-DD HH:mm:ss"
+              )}
             </Descriptions.Item>
           </Descriptions>
-          {editingMerchant?.type === 1 ? (
+          {editingTeamLeader?.type === 1 ? (
             <>
               <Descriptions
                 style={{ marginBottom: "3.2rem" }}
@@ -51,30 +55,30 @@ export const MerchantModal = () => {
                 bordered
               >
                 <Descriptions.Item label="姓名">
-                  {editingMerchant?.name}
+                  {editingTeamLeader?.name}
                 </Descriptions.Item>
                 <Descriptions.Item label="身份证号">
-                  {editingMerchant?.idCardNumber}
+                  {editingTeamLeader?.idCardNumber}
                 </Descriptions.Item>
                 <Descriptions.Item label="身份证正面照片">
                   <Image
                     width={132}
                     height={86}
-                    src={editingMerchant?.idCardFrontPhoto}
+                    src={editingTeamLeader?.idCardFrontPhoto}
                   />
                 </Descriptions.Item>
                 <Descriptions.Item label="身份证反面照片">
                   <Image
                     width={132}
                     height={86}
-                    src={editingMerchant?.idCardFrontPhoto}
+                    src={editingTeamLeader?.idCardFrontPhoto}
                   />
                 </Descriptions.Item>
                 <Descriptions.Item label="手持身份证照片">
                   <Image
                     width={132}
                     height={86}
-                    src={editingMerchant?.holdIdCardPhoto}
+                    src={editingTeamLeader?.holdIdCardPhoto}
                   />
                 </Descriptions.Item>
               </Descriptions>
@@ -86,16 +90,16 @@ export const MerchantModal = () => {
                 bordered
               >
                 <Descriptions.Item label="手机号">
-                  {editingMerchant?.mobile}
+                  {editingTeamLeader?.mobile}
                 </Descriptions.Item>
                 <Descriptions.Item label="邮箱">
-                  {editingMerchant?.email}
+                  {editingTeamLeader?.email}
                 </Descriptions.Item>
                 <Descriptions.Item label="联系地址">
-                  {editingMerchant?.regionDesc}
+                  {editingTeamLeader?.regionDesc}
                 </Descriptions.Item>
                 <Descriptions.Item label="详细地址">
-                  {editingMerchant?.addressDetail}
+                  {editingTeamLeader?.addressDetail}
                 </Descriptions.Item>
               </Descriptions>
             </>
@@ -109,19 +113,19 @@ export const MerchantModal = () => {
                 bordered
               >
                 <Descriptions.Item label="企业名称">
-                  {editingMerchant?.companyName}
+                  {editingTeamLeader?.companyName}
                 </Descriptions.Item>
                 <Descriptions.Item label="企业经营地址">
-                  {editingMerchant?.regionDesc}
+                  {editingTeamLeader?.regionDesc}
                 </Descriptions.Item>
                 <Descriptions.Item label="企业地址详情">
-                  {editingMerchant?.addressDetail}
+                  {editingTeamLeader?.addressDetail}
                 </Descriptions.Item>
                 <Descriptions.Item label="营业执照照片">
                   <Image
                     width={132}
                     height={86}
-                    src={editingMerchant?.businessLicensePhoto}
+                    src={editingTeamLeader?.businessLicensePhoto}
                   />
                 </Descriptions.Item>
               </Descriptions>
@@ -132,36 +136,36 @@ export const MerchantModal = () => {
                 column={2}
               >
                 <Descriptions.Item label="姓名">
-                  {editingMerchant?.name}
+                  {editingTeamLeader?.name}
                 </Descriptions.Item>
                 <Descriptions.Item label="手机号">
-                  {editingMerchant?.mobile}
+                  {editingTeamLeader?.mobile}
                 </Descriptions.Item>
                 <Descriptions.Item label="邮箱">
-                  {editingMerchant?.email}
+                  {editingTeamLeader?.email}
                 </Descriptions.Item>
                 <Descriptions.Item label="身份证号">
-                  {editingMerchant?.idCardNumber}
+                  {editingTeamLeader?.idCardNumber}
                 </Descriptions.Item>
                 <Descriptions.Item label="身份证正面照片">
                   <Image
                     width={132}
                     height={86}
-                    src={editingMerchant?.idCardFrontPhoto}
+                    src={editingTeamLeader?.idCardFrontPhoto}
                   />
                 </Descriptions.Item>
                 <Descriptions.Item label="身份证反面照片">
                   <Image
                     width={132}
                     height={86}
-                    src={editingMerchant?.idCardFrontPhoto}
+                    src={editingTeamLeader?.idCardFrontPhoto}
                   />
                 </Descriptions.Item>
                 <Descriptions.Item label="手持身份证照片">
                   <Image
                     width={132}
                     height={86}
-                    src={editingMerchant?.holdIdCardPhoto}
+                    src={editingTeamLeader?.holdIdCardPhoto}
                   />
                 </Descriptions.Item>
               </Descriptions>
@@ -175,13 +179,13 @@ export const MerchantModal = () => {
             bordered
           >
             <Descriptions.Item label="持卡人姓名">
-              {editingMerchant?.bankCardOwnerName}
+              {editingTeamLeader?.bankCardOwnerName}
             </Descriptions.Item>
             <Descriptions.Item label="银行账号">
-              {editingMerchant?.bankCardNumber}
+              {editingTeamLeader?.bankCardNumber}
             </Descriptions.Item>
             <Descriptions.Item label="开户银行及支行名称">
-              {editingMerchant?.bankName}
+              {editingTeamLeader?.bankName}
             </Descriptions.Item>
           </Descriptions>
         </>

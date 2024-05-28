@@ -1,19 +1,19 @@
 import { Form, Input, Modal } from "antd";
 import { useForm } from "antd/lib/form/Form";
-import { useRejectMerchant } from "service/merchant";
-import { useRejectModal, useMerchantsQueryKey } from "../util";
+import { useRejectTeamLeader } from "service/teamLeader";
+import { useRejectModal, useTeamLeadersQueryKey } from "../util";
 
 export const RejectModal = () => {
   const [form] = useForm();
-  const { rejectModalOpen, rejectMerchantId, close } = useRejectModal();
+  const { rejectModalOpen, rejectTeamLeaderId, close } = useRejectModal();
 
-  const { mutateAsync, isLoading: mutateLoading } = useRejectMerchant(
-    useMerchantsQueryKey()
+  const { mutateAsync, isLoading: mutateLoading } = useRejectTeamLeader(
+    useTeamLeadersQueryKey()
   );
 
   const confirm = () => {
     form.validateFields().then(async () => {
-      await mutateAsync({ id: +rejectMerchantId, ...form.getFieldsValue() });
+      await mutateAsync({ id: +rejectTeamLeaderId, ...form.getFieldsValue() });
       closeModal();
     });
   };
@@ -26,7 +26,7 @@ export const RejectModal = () => {
   return (
     <Modal
       forceRender={true}
-      title={"驳回商家申请"}
+      title={"驳回团长申请"}
       open={rejectModalOpen}
       confirmLoading={mutateLoading}
       onOk={confirm}
