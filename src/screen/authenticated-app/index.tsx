@@ -15,6 +15,7 @@ import { BannerList } from "./banner-list";
 import { MerchantList } from "./mall/merchant-list";
 import { GoodsCategoryList } from "./mall/category-list";
 import { GoodsList } from "./mall/goods-list";
+import { OrderList } from "./order-list";
 import { RoleList } from "./auth/role-list";
 import { AdminList } from "./auth/admin-list";
 
@@ -61,14 +62,15 @@ export const AuthenticatedApp = () => {
               <Route path="user_list" element={<UserList />} />
               <Route path="team_leader_list" element={<TeamLeaderList />} />
               <Route path="banner_list" element={<BannerList />} />
-              <Route path="auth/role_list" element={<RoleList />} />
-              <Route path="auth/admin_list" element={<AdminList />} />
               <Route path="goods/merchant_list" element={<MerchantList />} />
               <Route
                 path="goods/category_list"
                 element={<GoodsCategoryList />}
               />
               <Route path="goods/list" element={<GoodsList />} />
+              <Route path="order_list" element={<OrderList />} />
+              <Route path="auth/role_list" element={<RoleList />} />
+              <Route path="auth/admin_list" element={<AdminList />} />
               <Route
                 path={"*"}
                 element={<Navigate to={"dashboard"} replace={true} />}

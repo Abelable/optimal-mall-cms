@@ -3,23 +3,18 @@ import { Breadcrumb } from "antd";
 import { Link, useLocation } from "react-router-dom";
 
 const breadcrumbNameMap: { [key: string]: string } = {
+  "/dashboard": "数据概况",
+  "/user_list": "用户列表",
+  "/team_leader_list": "团长列表",
+  "/banner_list": "活动列表",
+  "/goods": "商品管理",
+  "/goods/merchant_list": "商家列表",
+  "/goods/category_list": "商品分类",
+  "/goods/list": "商品列表",
+  "/order_list": "订单列表",
   "/auth": "权限管理",
-  "/auth/role_list": "角色列表",
-  "/auth/admin_list": "管理员列表",
-  "/user": "用户管理",
-  "/user/list": "用户列表",
-  "/user/auth_info_list": "实名认证",
-  "/activity": "活动管理",
-  "/activity/mall_banner": "商城banner",
-  "/shopping": "电商模块",
-  "/shopping/merchant_list": "商家列表",
-  "/shopping/shop": "店铺管理",
-  "/shopping/shop/category_list": "店铺分类",
-  "/shopping/shop/list": "店铺列表",
-  "/shopping/express_list": "快递列表",
-  "/shopping/goods": "商品管理",
-  "/shopping/goods/category_list": "商品分类",
-  "/shopping/goods/list": "商品列表",
+  "/auth/role_list": "岗位列表",
+  "/auth/admin_list": "团队列表",
 };
 
 export const NavigationBar = () => {
