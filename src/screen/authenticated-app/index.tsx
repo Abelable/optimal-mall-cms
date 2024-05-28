@@ -17,6 +17,7 @@ import { GoodsList } from "./shopping/goods/goods-list";
 import { MallBannerList } from "./activity/mall-banner-list";
 
 import {
+  DashboardOutlined,
   LockOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -24,14 +25,12 @@ import {
   MehOutlined,
   TeamOutlined,
   AppstoreOutlined,
+  ShopOutlined,
   ShoppingOutlined,
   UnorderedListOutlined,
-  VerifiedOutlined,
-  UserOutlined,
   GiftOutlined,
-  PictureOutlined,
+  SnippetsOutlined,
 } from "@ant-design/icons";
-import { ExpressIcon } from "assets/icon";
 import logo from "assets/images/logo.png";
 import { UserInfo } from "types/auth";
 import { Row } from "components/lib";
@@ -82,77 +81,61 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
 
   const items: MenuProps["items"] = [
     {
+      label: "数据总揽",
+      key: "dashboard",
+      icon: <DashboardOutlined />,
+    },
+    {
+      label: "用户列表",
+      key: "user",
+      icon: <TeamOutlined />,
+    },
+    {
+      label: "活动列表",
+      key: "activity",
+      icon: <GiftOutlined />,
+    },
+    {
+      label: "商品管理",
+      key: "goods",
+      icon: <ShoppingOutlined />,
+      children: [
+        {
+          label: <Link to={"goods/category_list"}>商家列表</Link>,
+          key: "goods_merchant_list",
+          icon: <ShopOutlined />,
+        },
+        {
+          label: <Link to={"goods/category_list"}>商品分类</Link>,
+          key: "goods_category_list",
+          icon: <AppstoreOutlined />,
+        },
+        {
+          label: <Link to={"goods/list"}>商品列表</Link>,
+          key: "goods_list",
+          icon: <UnorderedListOutlined />,
+        },
+      ],
+    },
+    {
+      label: "订单列表",
+      key: "order",
+      icon: <SnippetsOutlined />,
+    },
+    {
       label: "权限管理",
       key: "auth",
       icon: <LockOutlined />,
       children: [
         {
-          label: <Link to={"auth/role_list"}>角色列表</Link>,
+          label: <Link to={"auth/role_list"}>岗位列表</Link>,
           key: "auth_role_list",
           icon: <MehOutlined />,
         },
         {
-          label: <Link to={"auth/admin_list"}>管理员列表</Link>,
+          label: <Link to={"auth/admin_list"}>团队列表</Link>,
           key: "auth_admin_list",
           icon: <TeamOutlined />,
-        },
-      ],
-    },
-    {
-      label: "用户管理",
-      key: "user",
-      icon: <UserOutlined />,
-      children: [
-        {
-          label: <Link to={"user/list"}>用户列表</Link>,
-          key: "user_list",
-          icon: <TeamOutlined />,
-        },
-        {
-          label: <Link to={"user/auth_info_list"}>实名认证</Link>,
-          key: "user_auth_info_list",
-          icon: <VerifiedOutlined />,
-        },
-      ],
-    },
-    {
-      label: "活动管理",
-      key: "activity",
-      icon: <GiftOutlined />,
-      children: [
-        {
-          label: <Link to={"activity/mall_banner"}>商城Banner</Link>,
-          key: "activity_mall_banner",
-          icon: <PictureOutlined />,
-        },
-      ],
-    },
-    {
-      label: "电商模块",
-      key: "shopping",
-      icon: <ShoppingOutlined />,
-      children: [
-        {
-          label: <Link to={"shopping/express_list"}>快递列表</Link>,
-          key: "shopping_express_list",
-          icon: <ExpressIcon />,
-        },
-        {
-          label: "商品管理",
-          key: "shopping_goods",
-          icon: <ShoppingOutlined />,
-          children: [
-            {
-              label: <Link to={"shopping/goods/category_list"}>商品分类</Link>,
-              key: "shopping_goods_category_list",
-              icon: <AppstoreOutlined />,
-            },
-            {
-              label: <Link to={"shopping/goods/list"}>商品列表</Link>,
-              key: "shopping_goods_list",
-              icon: <UnorderedListOutlined />,
-            },
-          ],
         },
       ],
     },
