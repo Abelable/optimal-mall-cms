@@ -1,30 +1,18 @@
 import styled from "@emotion/styled";
-import { useBannerList } from "service/banner";
+import { useMerchantList } from "service/merchant";
 import { toNumber } from "utils";
-import { useBannerListSearchParams } from "./util";
-import { BannerModal } from "./components/banner-modal";
 import { List } from "./components/list";
-import { SearchPanel } from "./components/search-panel";
+import { MerchantModal } from "./components/merchant-modal";
+import { useMerchantListSearchParams } from "./util";
 
-const sceneOptions = [
-  { text: "H5活动", value: 1 },
-  { text: "商品详情", value: 2 },
-];
-
-export const BannerList = () => {
-  const [params, setParams] = useBannerListSearchParams();
-  const { isLoading, error, data } = useBannerList(params);
+export const MerchantList = () => {
+  const [params, setParams] = useMerchantListSearchParams();
+  const { isLoading, error, data } = useMerchantList(params);
 
   return (
     <Container>
       <Main>
-        <SearchPanel
-          sceneOptions={sceneOptions}
-          params={params}
-          setParams={setParams}
-        />
         <List
-          sceneOptions={sceneOptions}
           params={params}
           setParams={setParams}
           error={error}
@@ -37,7 +25,7 @@ export const BannerList = () => {
           }}
         />
       </Main>
-      <BannerModal sceneOptions={sceneOptions} />
+      <MerchantModal />
     </Container>
   );
 };

@@ -5,7 +5,7 @@ export interface BannerListSearchParams {
   limit: number;
 }
 
-export interface MallBanner {
+export interface Banner {
   id: number;
   status: number;
   cover: string;
@@ -17,7 +17,7 @@ export interface MallBanner {
 }
 
 export interface BannerListResult {
-  list: MallBanner[];
+  list: Banner[];
   page: string;
   limit: string;
   total: string;

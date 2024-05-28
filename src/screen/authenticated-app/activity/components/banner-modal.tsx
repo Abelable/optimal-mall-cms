@@ -1,9 +1,9 @@
 import { Button, Col, Drawer, Form, Input, Row, Space, Select } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { ErrorBox, ModalLoading } from "components/lib";
-import { useAddMallBanner } from "service/mallBanner";
-import { useMallBannerModal, useBannerListQueryKey } from "../util";
-import { useEditMallBanner } from "service/mallBanner";
+import { useAddBanner } from "service/banner";
+import { useBannerModal, useBannerListQueryKey } from "../util";
+import { useEditBanner } from "service/banner";
 import { useEffect } from "react";
 import { OssUpload } from "components/oss-upload";
 import { Option } from "types/common";
@@ -13,41 +13,30 @@ const normFile = (e: any) => {
   return e && e.fileList;
 };
 
-export const MallBannerModal = ({
-  sceneOptions,
-}: {
-  sceneOptions: Option[];
-}) => {
+export const BannerModal = ({ sceneOptions }: { sceneOptions: Option[] }) => {
   const [form] = useForm();
-  const {
-    mallBannerModalOpen,
-    editingMallBannerId,
-    editingMallBanner,
-    isLoading,
-    close,
-  } = useMallBannerModal();
+  const { bannerModalOpen, editingBannerId, editingBanner, isLoading, close } =
+    useBannerModal();
 
-  const useMutateMallBanner = editingMallBannerId
-    ? useEditMallBanner
-    : useAddMallBanner;
+  const useMutateBanner = editingBannerId ? useEditBanner : useAddBanner;
   const {
     mutateAsync,
     isLoading: mutateLoading,
     error,
-  } = useMutateMallBanner(useBannerListQueryKey());
+  } = useMutateBanner(useBannerListQueryKey());
 
   useEffect(() => {
-    if (editingMallBanner) {
-      const { cover, ...rest } = editingMallBanner;
+    if (editingBanner) {
+      const { cover, ...rest } = editingBanner;
       form.setFieldsValue({ cover: cover ? [{ url: cover }] : [], ...rest });
     }
-  }, [editingMallBanner, form]);
+  }, [editingBanner, form]);
 
   const submit = () => {
     form.validateFields().then(async () => {
       const { cover, ...rest } = form.getFieldsValue();
       await mutateAsync({
-        ...editingMallBanner,
+        ...editingBanner,
         ...rest,
         cover: cover && cover.length ? cover[0].url : "",
       });
@@ -63,10 +52,10 @@ export const MallBannerModal = ({
   return (
     <Drawer
       forceRender={true}
-      title={editingMallBannerId ? "编辑banner" : "新增banner"}
+      title={editingBannerId ? "编辑banner" : "新增banner"}
       size={"large"}
       onClose={closeModal}
-      open={mallBannerModalOpen}
+      open={bannerModalOpen}
       bodyStyle={{ paddingBottom: 80 }}
       extra={
         <Space>

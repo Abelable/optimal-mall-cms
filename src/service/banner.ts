@@ -7,10 +7,10 @@ import {
 } from "./use-optimistic-options";
 import { cleanObject } from "utils/index";
 import type {
-  MallBanner,
+  Banner,
   BannerListResult,
   BannerListSearchParams,
-} from "types/mallBanner";
+} from "types/banner";
 
 export const useBannerList = (params: Partial<BannerListSearchParams>) => {
   const client = useHttp();
@@ -19,9 +19,9 @@ export const useBannerList = (params: Partial<BannerListSearchParams>) => {
   );
 };
 
-export const useMallBanner = (id: number) => {
+export const useBanner = (id: number) => {
   const client = useHttp();
-  return useQuery<Partial<MallBanner>>(
+  return useQuery<Partial<Banner>>(
     ["mall_banner", { id }],
     () => client("mall_banner/detail", { data: { id } }),
     {
@@ -30,10 +30,10 @@ export const useMallBanner = (id: number) => {
   );
 };
 
-export const useAddMallBanner = (queryKey: QueryKey) => {
+export const useAddBanner = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
-    (params: Partial<MallBanner>) =>
+    (params: Partial<Banner>) =>
       client("mall_banner/add", {
         data: cleanObject(params),
         method: "POST",
@@ -42,10 +42,10 @@ export const useAddMallBanner = (queryKey: QueryKey) => {
   );
 };
 
-export const useEditMallBanner = (queryKey: QueryKey) => {
+export const useEditBanner = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
-    (params: Partial<MallBanner>) =>
+    (params: Partial<Banner>) =>
       client("mall_banner/edit", {
         data: cleanObject(params),
         method: "POST",
@@ -54,7 +54,7 @@ export const useEditMallBanner = (queryKey: QueryKey) => {
   );
 };
 
-export const useUpMallBanner = (queryKey: QueryKey) => {
+export const useUpBanner = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (id: number) =>
@@ -66,7 +66,7 @@ export const useUpMallBanner = (queryKey: QueryKey) => {
   );
 };
 
-export const useDownMallBanner = (queryKey: QueryKey) => {
+export const useDownBanner = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (id: number) =>
@@ -78,7 +78,7 @@ export const useDownMallBanner = (queryKey: QueryKey) => {
   );
 };
 
-export const useDeleteMallBanner = (queryKey: QueryKey) => {
+export const useDeleteBanner = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (id: number) =>

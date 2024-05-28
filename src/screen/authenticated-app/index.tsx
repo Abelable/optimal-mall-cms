@@ -8,13 +8,14 @@ import { Routes, Route, Navigate } from "react-router";
 import { Avatar, Button, Dropdown, Layout, Menu, MenuProps } from "antd";
 import { NavigationBar } from "components/navigation-bar";
 
+import { Dashboard } from "./dashboard";
+import { UserList } from "./user";
+import { BannerList } from "./activity";
+import { MerchantList } from "./mall/merchant-list";
+import { GoodsCategoryList } from "./mall/category-list";
+import { GoodsList } from "./mall/goods-list";
 import { RoleList } from "./admin/role-list";
 import { AdminList } from "./admin/admin-list";
-import { UserList } from "./user/user-list";
-import { ExpressList } from "./shopping/express-list";
-import { GoodsCategoryList } from "./shopping/goods/category-list";
-import { GoodsList } from "./shopping/goods/goods-list";
-import { BannerList } from "./activity";
 
 import {
   DashboardOutlined,
@@ -30,6 +31,7 @@ import {
   UnorderedListOutlined,
   GiftOutlined,
   SnippetsOutlined,
+  FlagOutlined,
 } from "@ant-design/icons";
 import logo from "assets/images/logo.png";
 import { UserInfo } from "types/auth";
@@ -54,19 +56,20 @@ export const AuthenticatedApp = () => {
           </Header>
           <Content>
             <Routes>
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="user_list" element={<UserList />} />
+              <Route path="banner_list" element={<BannerList />} />
               <Route path="auth/role_list" element={<RoleList />} />
               <Route path="auth/admin_list" element={<AdminList />} />
-              <Route path="user/list" element={<UserList />} />
-              <Route path="activity/mall_banner" element={<BannerList />} />
-              <Route path="shopping/express_list" element={<ExpressList />} />
+              <Route path="goods/merchant_list" element={<MerchantList />} />
               <Route
-                path="shopping/goods/category_list"
+                path="goods/category_list"
                 element={<GoodsCategoryList />}
               />
-              <Route path="shopping/goods/list" element={<GoodsList />} />
+              <Route path="goods/list" element={<GoodsList />} />
               <Route
                 path={"*"}
-                element={<Navigate to={"user/list"} replace={true} />}
+                element={<Navigate to={"dashboard"} replace={true} />}
               />
             </Routes>
           </Content>
@@ -87,12 +90,17 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
     },
     {
       label: "用户列表",
-      key: "user",
+      key: "user_list",
       icon: <TeamOutlined />,
     },
     {
+      label: "团长列表",
+      key: "team_leader_list",
+      icon: <FlagOutlined />,
+    },
+    {
       label: "活动列表",
-      key: "activity",
+      key: "banner_list",
       icon: <GiftOutlined />,
     },
     {
@@ -101,7 +109,7 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
       icon: <ShoppingOutlined />,
       children: [
         {
-          label: <Link to={"goods/category_list"}>商家列表</Link>,
+          label: <Link to={"goods/merchant_list"}>商家列表</Link>,
           key: "goods_merchant_list",
           icon: <ShopOutlined />,
         },

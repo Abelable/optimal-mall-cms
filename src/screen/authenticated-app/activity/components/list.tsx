@@ -12,17 +12,13 @@ import {
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
 import dayjs from "dayjs";
-import {
-  useDeleteMallBanner,
-  useDownMallBanner,
-  useUpMallBanner,
-} from "service/mallBanner";
-import { MallBanner } from "types/mallBanner";
-import { useMallBannerModal, useBannerListQueryKey } from "../util";
+import { useDeleteBanner, useDownBanner, useUpBanner } from "service/banner";
+import { Banner } from "types/banner";
+import { useBannerModal, useBannerListQueryKey } from "../util";
 import { PlusOutlined } from "@ant-design/icons";
 import { SearchPanelProps } from "./search-panel";
 
-interface ListProps extends TableProps<MallBanner>, SearchPanelProps {
+interface ListProps extends TableProps<Banner>, SearchPanelProps {
   error: Error | unknown;
 }
 
@@ -33,7 +29,7 @@ export const List = ({
   setParams,
   ...restProps
 }: ListProps) => {
-  const { open } = useMallBannerModal();
+  const { open } = useBannerModal();
 
   const setPagination = (pagination: TablePaginationConfig) =>
     setParams({
@@ -94,10 +90,10 @@ export const List = ({
           },
           {
             title: "更新时间",
-            render: (value, mallBanner) => (
+            render: (value, banner) => (
               <span>
-                {mallBanner.updatedAt
-                  ? dayjs(mallBanner.updatedAt).format("YYYY-MM-DD HH:mm:ss")
+                {banner.updatedAt
+                  ? dayjs(banner.updatedAt).format("YYYY-MM-DD HH:mm:ss")
                   : "无"}
               </span>
             ),
@@ -107,10 +103,10 @@ export const List = ({
           },
           {
             title: "创建时间",
-            render: (value, mallBanner) => (
+            render: (value, banner) => (
               <span>
-                {mallBanner.createdAt
-                  ? dayjs(mallBanner.createdAt).format("YYYY-MM-DD HH:mm:ss")
+                {banner.createdAt
+                  ? dayjs(banner.createdAt).format("YYYY-MM-DD HH:mm:ss")
                   : "无"}
               </span>
             ),
@@ -120,8 +116,8 @@ export const List = ({
           },
           {
             title: "操作",
-            render(value, mallBanner) {
-              return <More id={mallBanner.id} status={mallBanner.status} />;
+            render(value, banner) {
+              return <More id={banner.id} status={banner.status} />;
             },
             width: "8rem",
           },
@@ -134,12 +130,10 @@ export const List = ({
 };
 
 const More = ({ id, status }: { id: number; status: number }) => {
-  const { startEdit } = useMallBannerModal();
-  const { mutate: upMallBanner } = useUpMallBanner(useBannerListQueryKey());
-  const { mutate: downMallBanner } = useDownMallBanner(useBannerListQueryKey());
-  const { mutate: deleteMallBanner } = useDeleteMallBanner(
-    useBannerListQueryKey()
-  );
+  const { startEdit } = useBannerModal();
+  const { mutate: upBanner } = useUpBanner(useBannerListQueryKey());
+  const { mutate: downBanner } = useDownBanner(useBannerListQueryKey());
+  const { mutate: deleteBanner } = useDeleteBanner(useBannerListQueryKey());
 
   const confirmDelete = (id: number) => {
     Modal.confirm({
@@ -147,16 +141,14 @@ const More = ({ id, status }: { id: number; status: number }) => {
       content: "点击确定删除",
       okText: "确定",
       cancelText: "取消",
-      onOk: () => deleteMallBanner(id),
+      onOk: () => deleteBanner(id),
     });
   };
 
   const items: MenuProps["items"] = [
     {
       label: (
-        <div
-          onClick={() => (status === 1 ? downMallBanner(id) : upMallBanner(id))}
-        >
+        <div onClick={() => (status === 1 ? downBanner(id) : upBanner(id))}>
           {status === 1 ? "结束活动" : "恢复活动"}
         </div>
       ),

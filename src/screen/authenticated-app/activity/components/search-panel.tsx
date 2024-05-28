@@ -4,7 +4,7 @@ import { Row } from "components/lib";
 import { Button, Select } from "antd";
 
 import type { Option } from "types/common";
-import type { BannerListSearchParams } from "types/mallBanner";
+import type { BannerListSearchParams } from "types/banner";
 
 export interface SearchPanelProps {
   sceneOptions: Option[];
