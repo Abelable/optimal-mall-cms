@@ -1,22 +1,19 @@
 import styled from "@emotion/styled";
-import { useMallBannerList } from "service/mallBanner";
+import { useBannerList } from "service/mallBanner";
 import { toNumber } from "utils";
-import { useMallBannerListSearchParams } from "./util";
+import { useBannerListSearchParams } from "./util";
 import { MallBannerModal } from "./components/banner-modal";
 import { List } from "./components/list";
 import { SearchPanel } from "./components/search-panel";
 
 const sceneOptions = [
   { text: "H5活动", value: 1 },
-  { text: "景点详情", value: 2 },
-  { text: "酒店详情", value: 3 },
-  { text: "餐饮门店详情", value: 4 },
-  { text: "商品详情", value: 5 },
+  { text: "商品详情", value: 2 },
 ];
 
-export const MallBannerList = () => {
-  const [params, setParams] = useMallBannerListSearchParams();
-  const { isLoading, error, data } = useMallBannerList(params);
+export const BannerList = () => {
+  const [params, setParams] = useBannerListSearchParams();
+  const { isLoading, error, data } = useBannerList(params);
 
   return (
     <Container>

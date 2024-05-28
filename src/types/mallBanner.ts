@@ -1,4 +1,4 @@
-export interface MallBannerListSearchParams {
+export interface BannerListSearchParams {
   status: number | undefined;
   scene: number | undefined;
   page: number;
@@ -16,7 +16,7 @@ export interface MallBanner {
   updatedAt: string;
 }
 
-export interface MallBannerListResult {
+export interface BannerListResult {
   list: MallBanner[];
   page: string;
   limit: string;

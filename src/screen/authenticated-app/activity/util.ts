@@ -2,7 +2,7 @@ import { useSetUrlSearchParams, useUrlQueryParams } from "utils/url";
 import { useCallback, useMemo } from "react";
 import { useMallBanner } from "service/mallBanner";
 
-export const useMallBannerListSearchParams = () => {
+export const useBannerListSearchParams = () => {
   const [params, setParams] = useUrlQueryParams([
     "status",
     "scene",
@@ -22,8 +22,8 @@ export const useMallBannerListSearchParams = () => {
   ] as const;
 };
 
-export const useMallBannerListQueryKey = () => {
-  const [params] = useMallBannerListSearchParams();
+export const useBannerListQueryKey = () => {
+  const [params] = useBannerListSearchParams();
   return ["mall_banner_list", params];
 };
 

@@ -4,15 +4,15 @@ import { Row } from "components/lib";
 import { Button, Select } from "antd";
 
 import type { Option } from "types/common";
-import type { MallBannerListSearchParams } from "types/mallBanner";
+import type { BannerListSearchParams } from "types/mallBanner";
 
 export interface SearchPanelProps {
   sceneOptions: Option[];
-  params: Partial<MallBannerListSearchParams>;
-  setParams: (params: Partial<MallBannerListSearchParams>) => void;
+  params: Partial<BannerListSearchParams>;
+  setParams: (params: Partial<BannerListSearchParams>) => void;
 }
 
-const defaultParmas: Partial<MallBannerListSearchParams> = {
+const defaultParmas: Partial<BannerListSearchParams> = {
   status: undefined,
   scene: undefined,
 };

@@ -14,7 +14,7 @@ import { UserList } from "./user/user-list";
 import { ExpressList } from "./shopping/express-list";
 import { GoodsCategoryList } from "./shopping/goods/category-list";
 import { GoodsList } from "./shopping/goods/goods-list";
-import { MallBannerList } from "./activity/mall-banner-list";
+import { BannerList } from "./activity";
 
 import {
   DashboardOutlined,
@@ -57,7 +57,7 @@ export const AuthenticatedApp = () => {
               <Route path="auth/role_list" element={<RoleList />} />
               <Route path="auth/admin_list" element={<AdminList />} />
               <Route path="user/list" element={<UserList />} />
-              <Route path="activity/mall_banner" element={<MallBannerList />} />
+              <Route path="activity/mall_banner" element={<BannerList />} />
               <Route path="shopping/express_list" element={<ExpressList />} />
               <Route
                 path="shopping/goods/category_list"
@@ -81,7 +81,7 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
 
   const items: MenuProps["items"] = [
     {
-      label: "数据总揽",
+      label: "数据概况",
       key: "dashboard",
       icon: <DashboardOutlined />,
     },

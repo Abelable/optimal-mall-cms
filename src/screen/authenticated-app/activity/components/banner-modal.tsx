@@ -2,7 +2,7 @@ import { Button, Col, Drawer, Form, Input, Row, Space, Select } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { ErrorBox, ModalLoading } from "components/lib";
 import { useAddMallBanner } from "service/mallBanner";
-import { useMallBannerModal, useMallBannerListQueryKey } from "../util";
+import { useMallBannerModal, useBannerListQueryKey } from "../util";
 import { useEditMallBanner } from "service/mallBanner";
 import { useEffect } from "react";
 import { OssUpload } from "components/oss-upload";
@@ -34,7 +34,7 @@ export const MallBannerModal = ({
     mutateAsync,
     isLoading: mutateLoading,
     error,
-  } = useMutateMallBanner(useMallBannerListQueryKey());
+  } = useMutateMallBanner(useBannerListQueryKey());
 
   useEffect(() => {
     if (editingMallBanner) {

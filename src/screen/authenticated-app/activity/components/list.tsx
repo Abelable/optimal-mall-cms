@@ -18,7 +18,7 @@ import {
   useUpMallBanner,
 } from "service/mallBanner";
 import { MallBanner } from "types/mallBanner";
-import { useMallBannerModal, useMallBannerListQueryKey } from "../util";
+import { useMallBannerModal, useBannerListQueryKey } from "../util";
 import { PlusOutlined } from "@ant-design/icons";
 import { SearchPanelProps } from "./search-panel";
 
@@ -135,12 +135,10 @@ export const List = ({
 
 const More = ({ id, status }: { id: number; status: number }) => {
   const { startEdit } = useMallBannerModal();
-  const { mutate: upMallBanner } = useUpMallBanner(useMallBannerListQueryKey());
-  const { mutate: downMallBanner } = useDownMallBanner(
-    useMallBannerListQueryKey()
-  );
+  const { mutate: upMallBanner } = useUpMallBanner(useBannerListQueryKey());
+  const { mutate: downMallBanner } = useDownMallBanner(useBannerListQueryKey());
   const { mutate: deleteMallBanner } = useDeleteMallBanner(
-    useMallBannerListQueryKey()
+    useBannerListQueryKey()
   );
 
   const confirmDelete = (id: number) => {

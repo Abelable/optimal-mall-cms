@@ -8,15 +8,13 @@ import {
 import { cleanObject } from "utils/index";
 import type {
   MallBanner,
-  MallBannerListResult,
-  MallBannerListSearchParams,
+  BannerListResult,
+  BannerListSearchParams,
 } from "types/mallBanner";
 
-export const useMallBannerList = (
-  params: Partial<MallBannerListSearchParams>
-) => {
+export const useBannerList = (params: Partial<BannerListSearchParams>) => {
   const client = useHttp();
-  return useQuery<MallBannerListResult>(["mall_banner_list", params], () =>
+  return useQuery<BannerListResult>(["mall_banner_list", params], () =>
     client("mall_banner/list", { data: params, method: "POST" })
   );
 };
