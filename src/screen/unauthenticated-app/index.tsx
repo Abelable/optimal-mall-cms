@@ -11,7 +11,7 @@ export const UnauthenticatedApp = () => {
 
   return (
     <Container>
-      <Header>有播甄选后台管理系统</Header>
+      <Header>有播甄选管理后台</Header>
       <Background />
       <ShadowCard>
         <Title>请登录</Title>
