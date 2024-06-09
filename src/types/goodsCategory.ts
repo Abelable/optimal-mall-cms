@@ -19,6 +19,7 @@ export interface GoodsCategory {
   minShareCommissionRate: number;
   maxShareCommissionRate: number;
   createdAt: string;
+  updatedAt: string;
 }
 
 export interface GoodsCategoriesResult {

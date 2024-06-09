@@ -2,8 +2,6 @@ export interface MerchantListSearchParams {
   name: string;
   consigneeName: string;
   mobile: string;
-  addressDetail: string;
-  supplement: string;
   page: number;
   limit: number;
 }
@@ -11,6 +9,8 @@ export interface MerchantListSearchParams {
 export interface Merchant {
   id: number;
   name: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface MerchantListResult {
