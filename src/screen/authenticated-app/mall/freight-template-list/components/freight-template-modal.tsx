@@ -24,9 +24,9 @@ import {
 } from "../util";
 import { useEffect } from "react";
 import { getCityOptions } from "utils/region-options";
+import { FreightTemplate } from "types/freightTemplate";
 
 const regionOptions = getCityOptions();
-console.log("regionOptions", regionOptions);
 
 export const FreightTemplateModal = () => {
   const [form] = useForm();
@@ -48,7 +48,16 @@ export const FreightTemplateModal = () => {
   } = useMutateRole(useFreightTemplateListQueryKey());
 
   useEffect(() => {
-    form.setFieldsValue(editingFreightTemplate);
+    if (editingFreightTemplate) {
+      const { areaList, ...rest } = editingFreightTemplate as FreightTemplate;
+      form.setFieldsValue({
+        areaList: areaList.map((item) => ({
+          ...item,
+          pickedCityCodes: item.pickedCityCodes.split(","),
+        })),
+        ...rest,
+      });
+    }
   }, [editingFreightTemplate, form]);
 
   const submit = () => {

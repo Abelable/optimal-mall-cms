@@ -3,10 +3,8 @@ export interface FreightTemplateListSearchParams {
   limit: number;
 }
 
-interface AreaItem {
-  id: number;
-  pickedCityCodes: string[];
-  pickedCityDescs: string[];
+export interface AreaItem {
+  pickedCityCodes: string;
   fee: number;
 }
 
