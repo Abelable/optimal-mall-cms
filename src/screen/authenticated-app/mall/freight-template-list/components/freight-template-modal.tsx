@@ -24,7 +24,7 @@ import {
 } from "../util";
 import { useEffect } from "react";
 import { getCityOptions } from "utils/region-options";
-import { FreightTemplate } from "types/freightTemplate";
+import { FormAreaItem } from "types/freightTemplate";
 
 const regionOptions = getCityOptions();
 
@@ -49,7 +49,7 @@ export const FreightTemplateModal = () => {
 
   useEffect(() => {
     if (editingFreightTemplate) {
-      const { areaList, ...rest } = editingFreightTemplate as FreightTemplate;
+      const { areaList, ...rest } = editingFreightTemplate;
       form.setFieldsValue({
         areaList: areaList.map((item) => ({
           ...item,
@@ -62,9 +62,14 @@ export const FreightTemplateModal = () => {
 
   const submit = () => {
     form.validateFields().then(async () => {
+      const { areaList, ...rest } = form.getFieldsValue();
       await mutateAsync({
         ...editingFreightTemplate,
-        ...form.getFieldsValue(),
+        areaList: areaList.map((item: FormAreaItem) => ({
+          ...item,
+          pickedCityCodes: item.pickedCityCodes.join(),
+        })),
+        ...rest,
       });
       closeModal();
     });

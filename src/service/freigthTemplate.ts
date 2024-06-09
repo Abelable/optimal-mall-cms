@@ -26,7 +26,7 @@ export const useFreightTemplateList = (
 
 export const useFreightTemplate = (id: number) => {
   const client = useHttp();
-  return useQuery<Partial<FreightTemplate>>(
+  return useQuery<FreightTemplate>(
     ["freight_template", { id }],
     () => client(`freight_template/detail`, { data: { id } }),
     {
