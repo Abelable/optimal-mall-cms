@@ -1,4 +1,7 @@
 export interface MerchantListSearchParams {
+  name: string;
+  consigneeName: string;
+  mobile: string;
   page: number;
   limit: number;
 }

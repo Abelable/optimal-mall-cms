@@ -3,7 +3,13 @@ import { useCallback, useMemo } from "react";
 import { useMerchant } from "service/merchant";
 
 export const useMerchantListSearchParams = () => {
-  const [params, setParams] = useUrlQueryParams(["page", "limit"]);
+  const [params, setParams] = useUrlQueryParams([
+    "name",
+    "consigneeName",
+    "mobile",
+    "page",
+    "limit",
+  ]);
   return [
     useMemo(
       () => ({

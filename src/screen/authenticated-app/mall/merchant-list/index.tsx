@@ -4,6 +4,7 @@ import { toNumber } from "utils";
 import { List } from "./components/list";
 import { MerchantModal } from "./components/merchant-modal";
 import { useMerchantListSearchParams } from "./util";
+import { SearchPanel } from "./components/search-panel";
 
 export const MerchantList = () => {
   const [params, setParams] = useMerchantListSearchParams();
@@ -12,6 +13,7 @@ export const MerchantList = () => {
   return (
     <Container>
       <Main>
+        <SearchPanel params={params} setParams={setParams} />
         <List
           params={params}
           setParams={setParams}
