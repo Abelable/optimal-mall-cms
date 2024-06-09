@@ -8,7 +8,10 @@ import {
   Col,
   Select,
   InputNumber,
+  TreeSelect,
 } from "antd";
+import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+
 import { useForm } from "antd/lib/form/Form";
 import { ErrorBox, ModalLoading } from "components/lib";
 import {
@@ -130,6 +133,98 @@ export const FreightTemplateModal = () => {
                 />
               </Form.Item>
             </Col>
+            <Row gutter={16}>
+              <Col span={24}>
+                <Form.Item label="配送地区">
+                  <Form.List name="areaList">
+                    {(fields, { add, remove }) => (
+                      <>
+                        {fields.map(({ key, name, ...restField }) => (
+                          <Space
+                            key={key}
+                            style={{ display: "flex" }}
+                            align="baseline"
+                          >
+                            <Form.Item
+                              {...restField}
+                              name={[name, "closeTime"]}
+                              rules={[
+                                { required: true, message: "请选择地区" },
+                              ]}
+                            >
+                              <TreeSelect
+                                treeData={[
+                                  {
+                                    title: "Node1",
+                                    value: "0-0",
+                                    key: "0-0",
+                                    children: [
+                                      {
+                                        title: "Child Node1",
+                                        value: "0-0-0",
+                                        key: "0-0-0",
+                                      },
+                                    ],
+                                  },
+                                  {
+                                    title: "Node2",
+                                    value: "0-1",
+                                    key: "0-1",
+                                    children: [
+                                      {
+                                        title: "Child Node3",
+                                        value: "0-1-0",
+                                        key: "0-1-0",
+                                      },
+                                      {
+                                        title: "Child Node4",
+                                        value: "0-1-1",
+                                        key: "0-1-1",
+                                      },
+                                      {
+                                        title: "Child Node5",
+                                        value: "0-1-2",
+                                        key: "0-1-2",
+                                      },
+                                    ],
+                                  },
+                                ]}
+                                treeCheckable
+                                placeholder="请选择地区"
+                              />
+                            </Form.Item>
+                            <Form.Item
+                              {...restField}
+                              name={[name, "fee"]}
+                              rules={[
+                                { required: true, message: "请填写运费" },
+                              ]}
+                            >
+                              <InputNumber
+                                prefix="￥"
+                                placeholder="请填写运费"
+                              />
+                            </Form.Item>
+                            <MinusCircleOutlined
+                              style={{ color: "#ff4d4f" }}
+                              onClick={() => remove(name)}
+                            />
+                          </Space>
+                        ))}
+                        <Button
+                          type="dashed"
+                          onClick={() => add()}
+                          block
+                          icon={<PlusOutlined />}
+                        >
+                          添加配送地区
+                        </Button>
+                      </>
+                    )}
+                  </Form.List>
+                </Form.Item>
+              </Col>
+            </Row>
           </Row>
         </Form>
       )}
