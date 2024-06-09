@@ -53,6 +53,22 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
             dataIndex: "name",
           },
           {
+            title: "收件人姓名",
+            dataIndex: "consigneeName",
+          },
+          {
+            title: "收件人手机号",
+            dataIndex: "mobile",
+          },
+          {
+            title: "退货地址",
+            dataIndex: "addressDetail",
+          },
+          {
+            title: "补充说明",
+            dataIndex: "supplement",
+          },
+          {
             title: "操作",
             render(value, merchant) {
               return <More id={merchant.id} />;

@@ -61,6 +61,30 @@ export const MerchantModal = () => {
           >
             <Input placeholder={"请输入商家名称"} />
           </Form.Item>
+          <Form.Item
+            label={"收件人姓名"}
+            name={"consigneeName"}
+            rules={[{ required: true, message: "请输入收件人姓名" }]}
+          >
+            <Input placeholder={"请输入收件人姓名"} />
+          </Form.Item>
+          <Form.Item
+            label={"收件人手机号"}
+            name={"mobile"}
+            rules={[{ required: true, message: "请输入收件人手机号" }]}
+          >
+            <Input placeholder={"请输入收件人手机号"} />
+          </Form.Item>
+          <Form.Item
+            label={"收件地址"}
+            name={"addressDetail"}
+            rules={[{ required: true, message: "请输入收件地址" }]}
+          >
+            <Input placeholder={"请输入收件地址"} />
+          </Form.Item>
+          <Form.Item label={"补充说明"} name={"supplement"}>
+            <Input placeholder={"选填，例：只收顺丰快递"} />
+          </Form.Item>
         </Form>
       )}
     </Modal>
