@@ -73,7 +73,7 @@ export const SearchPanel = ({
         <Select
           style={{ width: "20rem" }}
           value={tempParams.categoryId}
-          placeholder="请选择二级商品分类"
+          placeholder="请选择商品分类"
           allowClear={true}
           onSelect={setCategory}
           onClear={clearCategory}

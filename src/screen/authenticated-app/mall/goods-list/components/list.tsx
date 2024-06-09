@@ -54,28 +54,6 @@ export const List = ({
             fixed: "left",
           },
           {
-            title: "状态",
-            dataIndex: "status",
-            render: (value, goods) =>
-              value === 0 ? (
-                <span style={{ color: "#87d068" }}>待审核</span>
-              ) : value === 1 ? (
-                <span style={{ color: "#296BEF" }}>售卖中</span>
-              ) : (
-                <Tooltip title={goods.failureReason}>
-                  <span style={{ color: "#f50", cursor: "pointer" }}>
-                    未过审
-                  </span>
-                </Tooltip>
-              ),
-            filters: [
-              { text: "待审核", value: 0 },
-              { text: "售卖中", value: 1 },
-              { text: "未过审", value: 2 },
-            ],
-            onFilter: (value, goods) => goods.status === value,
-          },
-          {
             title: "图片",
             dataIndex: "cover",
             render: (value) => <Image width={68} src={value} />,
@@ -96,6 +74,28 @@ export const List = ({
             title: "销量",
             dataIndex: "salesVolume",
             sorter: (a, b) => Number(a) - Number(b),
+          },
+          {
+            title: "状态",
+            dataIndex: "status",
+            render: (value, goods) =>
+              value === 0 ? (
+                <span style={{ color: "#87d068" }}>待审核</span>
+              ) : value === 1 ? (
+                <span style={{ color: "#296BEF" }}>售卖中</span>
+              ) : (
+                <Tooltip title={goods.failureReason}>
+                  <span style={{ color: "#f50", cursor: "pointer" }}>
+                    未过审
+                  </span>
+                </Tooltip>
+              ),
+            filters: [
+              { text: "待审核", value: 0 },
+              { text: "售卖中", value: 1 },
+              { text: "未过审", value: 2 },
+            ],
+            onFilter: (value, goods) => goods.status === value,
           },
           {
             title: "库存",
