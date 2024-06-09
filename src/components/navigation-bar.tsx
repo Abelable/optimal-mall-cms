@@ -9,6 +9,7 @@ const breadcrumbNameMap: { [key: string]: string } = {
   "/banner_list": "活动列表",
   "/goods": "商品管理",
   "/goods/merchant_list": "商家列表",
+  "/goods/freight_template_list": "运费模板",
   "/goods/category_list": "商品分类",
   "/goods/list": "商品列表",
   "/order_list": "订单列表",

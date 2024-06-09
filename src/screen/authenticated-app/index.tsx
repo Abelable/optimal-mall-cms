@@ -13,6 +13,7 @@ import { UserList } from "./user-list";
 import { TeamLeaderList } from "./team-leader-list";
 import { BannerList } from "./banner-list";
 import { MerchantList } from "./mall/merchant-list";
+import { FreightTemplateList } from "./mall/freight-template-list";
 import { GoodsCategoryList } from "./mall/category-list";
 import { GoodsList } from "./mall/goods-list";
 import { OrderList } from "./order-list";
@@ -28,6 +29,7 @@ import {
   MehOutlined,
   TeamOutlined,
   AppstoreOutlined,
+  CarOutlined,
   ShopOutlined,
   ShoppingOutlined,
   UnorderedListOutlined,
@@ -63,6 +65,10 @@ export const AuthenticatedApp = () => {
               <Route path="team_leader_list" element={<TeamLeaderList />} />
               <Route path="banner_list" element={<BannerList />} />
               <Route path="goods/merchant_list" element={<MerchantList />} />
+              <Route
+                path="goods/freight_template_list"
+                element={<FreightTemplateList />}
+              />
               <Route
                 path="goods/category_list"
                 element={<GoodsCategoryList />}
@@ -116,6 +122,11 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
           label: <Link to={"goods/merchant_list"}>商家列表</Link>,
           key: "goods_merchant_list",
           icon: <ShopOutlined />,
+        },
+        {
+          label: <Link to={"goods/freight_template_list"}>运费模板</Link>,
+          key: "freight_template_list",
+          icon: <CarOutlined />,
         },
         {
           label: <Link to={"goods/category_list"}>商品分类</Link>,
