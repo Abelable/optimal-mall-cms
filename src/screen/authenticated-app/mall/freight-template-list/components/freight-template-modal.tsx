@@ -133,26 +133,27 @@ export const FreightTemplateModal = () => {
                 />
               </Form.Item>
             </Col>
-            <Row gutter={16}>
-              <Col span={24}>
-                <Form.Item label="配送地区">
-                  <Form.List name="areaList">
-                    {(fields, { add, remove }) => (
-                      <>
-                        {fields.map(({ key, name, ...restField }) => (
-                          <Space
-                            key={key}
-                            style={{ display: "flex" }}
-                            align="baseline"
-                          >
+            <Col span={24}>
+              <Form.Item label="配送地区">
+                <Form.List name="areaList">
+                  {(fields, { add, remove }) => (
+                    <>
+                      {fields.map(({ key, name, ...restField }) => (
+                        <Space
+                          key={key}
+                          style={{ display: "flex" }}
+                          align="baseline"
+                        >
+                          <Space style={{ display: "flex" }} align="center">
                             <Form.Item
                               {...restField}
-                              name={[name, "closeTime"]}
+                              name={[name, "pickedCityCodes"]}
                               rules={[
                                 { required: true, message: "请选择地区" },
                               ]}
                             >
                               <TreeSelect
+                                style={{ width: "45rem" }}
                                 treeData={[
                                   {
                                     title: "Node1",
@@ -201,30 +202,31 @@ export const FreightTemplateModal = () => {
                               ]}
                             >
                               <InputNumber
+                                style={{ width: "20rem" }}
                                 prefix="￥"
                                 placeholder="请填写运费"
                               />
                             </Form.Item>
-                            <MinusCircleOutlined
-                              style={{ color: "#ff4d4f" }}
-                              onClick={() => remove(name)}
-                            />
                           </Space>
-                        ))}
-                        <Button
-                          type="dashed"
-                          onClick={() => add()}
-                          block
-                          icon={<PlusOutlined />}
-                        >
-                          添加配送地区
-                        </Button>
-                      </>
-                    )}
-                  </Form.List>
-                </Form.Item>
-              </Col>
-            </Row>
+                          <MinusCircleOutlined
+                            style={{ color: "#ff4d4f" }}
+                            onClick={() => remove(name)}
+                          />
+                        </Space>
+                      ))}
+                      <Button
+                        type="dashed"
+                        onClick={() => add()}
+                        block
+                        icon={<PlusOutlined />}
+                      >
+                        添加配送地区
+                      </Button>
+                    </>
+                  )}
+                </Form.List>
+              </Form.Item>
+            </Col>
           </Row>
         </Form>
       )}
