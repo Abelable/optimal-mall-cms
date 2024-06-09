@@ -1,4 +1,14 @@
-import { Form, Input, InputNumber, Modal } from "antd";
+import {
+  Form,
+  Input,
+  Drawer,
+  Space,
+  Button,
+  Row,
+  Col,
+  Select,
+  InputNumber,
+} from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { ErrorBox, ModalLoading } from "components/lib";
 import {
@@ -34,7 +44,7 @@ export const FreightTemplateModal = () => {
     form.setFieldsValue(editingFreightTemplate);
   }, [editingFreightTemplate, form]);
 
-  const confirm = () => {
+  const submit = () => {
     form.validateFields().then(async () => {
       await mutateAsync({
         ...editingFreightTemplate,
@@ -50,108 +60,79 @@ export const FreightTemplateModal = () => {
   };
 
   return (
-    <Modal
+    <Drawer
+      title={editingFreightTemplateId ? "编辑运费模板" : "新增运费模板"}
+      size={"large"}
       forceRender={true}
-      title={editingFreightTemplateId ? "编辑商品分类" : "新增商品分类"}
+      onClose={closeModal}
       open={freightTemplateModalOpen}
-      confirmLoading={mutateLoading}
-      onOk={confirm}
-      onCancel={closeModal}
+      bodyStyle={{ paddingBottom: 80 }}
+      extra={
+        <Space>
+          <Button onClick={closeModal}>取消</Button>
+          <Button onClick={submit} loading={mutateLoading} type="primary">
+            提交
+          </Button>
+        </Space>
+      }
     >
       <ErrorBox error={error} />
       {isLoading ? (
         <ModalLoading />
       ) : (
         <Form form={form} layout="vertical">
-          <Form.Item
-            label="商品分类名称"
-            name="name"
-            rules={[{ required: true, message: "请输入商品分类名称" }]}
-          >
-            <Input placeholder={"请输入商品分类名称"} />
-          </Form.Item>
-          <Form.Item label="团队长佣金比例范围%" required>
-            <Input.Group compact>
+          <Row gutter={16}>
+            <Col span={12}>
               <Form.Item
-                style={{ marginBottom: 0, width: "46%" }}
-                name="minLeaderCommissionRate"
-                rules={[
-                  { required: true, message: "请输入团队长佣金最小比例" },
-                ]}
+                name="name"
+                label="模板名称"
+                rules={[{ required: true, message: "请输入模板名称" }]}
               >
+                <Input placeholder="请输入模板名称" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name="title"
+                label="运费标题"
+                tooltip="可显示在商品详情页"
+                rules={[{ required: true, message: "请输入运费标题" }]}
+              >
+                <Input placeholder="请输入运费标题" />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                name="computeMode"
+                label="计算方式"
+                rules={[{ required: true, message: "请选择计算方式" }]}
+              >
+                <Select placeholder="请选择计算方式">
+                  {[
+                    { text: "不计重量和件数", value: 1 },
+                    { text: "按商品件数", value: 2 },
+                  ].map(({ text, value }) => (
+                    <Select.Option key={value} value={value}>
+                      {text}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item name="freeQuota" label="免费额度">
                 <InputNumber
-                  style={{ width: "100%", textAlign: "center" }}
-                  placeholder="请输入团队长佣金最小比例"
+                  prefix="￥"
+                  style={{ width: "100%" }}
+                  placeholder="请填写免费额度"
                 />
               </Form.Item>
-              <Input
-                style={{
-                  width: "8%",
-                  borderRight: 0,
-                  pointerEvents: "none",
-                  textAlign: "center",
-                  backgroundColor: "#fff",
-                }}
-                placeholder="~"
-                disabled
-              />
-              <Form.Item
-                style={{ marginBottom: 0, width: "46%" }}
-                name="maxLeaderCommissionRate"
-                rules={[
-                  { required: true, message: "请输入团队长佣金最大比例" },
-                ]}
-              >
-                <InputNumber
-                  style={{
-                    width: "100%",
-                    textAlign: "center",
-                  }}
-                  placeholder="请输入团队长佣金最大比例"
-                />
-              </Form.Item>
-            </Input.Group>
-          </Form.Item>
-          <Form.Item label="分享佣金比例范围%" required>
-            <Input.Group compact>
-              <Form.Item
-                style={{ marginBottom: 0, width: "46%" }}
-                name="minShareCommissionRate"
-                rules={[{ required: true, message: "请输入最小分享佣金比例" }]}
-              >
-                <InputNumber
-                  style={{ width: "100%", textAlign: "center" }}
-                  placeholder="请输入最小分享佣金比例"
-                />
-              </Form.Item>
-              <Input
-                style={{
-                  width: "8%",
-                  borderRight: 0,
-                  pointerEvents: "none",
-                  textAlign: "center",
-                  backgroundColor: "#fff",
-                }}
-                placeholder="~"
-                disabled
-              />
-              <Form.Item
-                style={{ marginBottom: 0, width: "46%" }}
-                name="maxShareCommissionRate"
-                rules={[{ required: true, message: "请输入最大分享佣金比例" }]}
-              >
-                <InputNumber
-                  style={{
-                    width: "100%",
-                    textAlign: "center",
-                  }}
-                  placeholder="请输入最大分享佣金比例"
-                />
-              </Form.Item>
-            </Input.Group>
-          </Form.Item>
+            </Col>
+          </Row>
         </Form>
       )}
-    </Modal>
+    </Drawer>
   );
 };

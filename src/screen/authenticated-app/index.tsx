@@ -125,7 +125,7 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
         },
         {
           label: <Link to={"goods/freight_template_list"}>运费模板</Link>,
-          key: "freight_template_list",
+          key: "goods_freight_template_list",
           icon: <CarOutlined />,
         },
         {
