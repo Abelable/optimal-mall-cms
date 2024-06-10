@@ -21,6 +21,7 @@ import { Map } from "components/map";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 
 import type { CategoryOption } from "types/category";
+import type { OperatorOption } from "types/common";
 
 const facilityOptions = [
   { id: 1, name: "停车场" },
@@ -51,8 +52,10 @@ const normFile = (e: any) => {
 
 export const GoodsModal = ({
   categoryOptions,
+  freightTemplateOptions,
 }: {
   categoryOptions: CategoryOption[];
+  freightTemplateOptions: OperatorOption[];
 }) => {
   const [form] = useForm();
 
@@ -168,6 +171,23 @@ export const GoodsModal = ({
               >
                 <Select placeholder="请选择商品分类">
                   {categoryOptions.map(({ id, name }) => (
+                    <Select.Option key={id} value={id}>
+                      {name}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                name="freightTemplateId"
+                label="运费模板"
+                rules={[{ required: true, message: "请选择运费模板" }]}
+              >
+                <Select placeholder="请选择运费模板">
+                  {freightTemplateOptions.map(({ id, name }) => (
                     <Select.Option key={id} value={id}>
                       {name}
                     </Select.Option>
