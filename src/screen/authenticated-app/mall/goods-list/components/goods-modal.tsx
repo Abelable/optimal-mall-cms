@@ -29,11 +29,12 @@ import type { CategoryOption } from "types/category";
 import type { OperatorOption } from "types/common";
 import type { Spec } from "types/goods";
 
-interface SkuData {
-  [x: string]: string | number;
+interface TableSku {
+  [x: string]: string | number | object;
+  image: string;
+  name: string;
   price: number;
   stock: number;
-  sku: string;
 }
 
 const normFile = (e: any) => {
@@ -62,8 +63,7 @@ export const GoodsModal = ({
     isLoading: mutateLoading,
   } = useMutationGoods(useGoodsListQueryKey());
 
-  const [submitList, setSubmitList] = useState<SkuData[]>([]); // 提交数据
-  console.log("submitList", submitList);
+  const [tableSkuList, setTableSkuList] = useState<TableSku[]>([]); // 提交数据
   const [specContent, setSpecContent] = useState<Spec[]>([]); //规格内容
   const [specLabelStr, setSpecLabelStr] = useState<string>(""); // 规格名称输入值
   const [visible, setVisible] = useState<boolean>(false); // 点击添加规格按钮控制获取input 元素,控制输入默认选择focus
@@ -74,6 +74,32 @@ export const GoodsModal = ({
   const tagInputRef = useRef(null);
 
   const columns: any[] = [
+    {
+      title: "图片",
+      render: (item: TableSku, _: TableSku, index: number) => {
+        return (
+          <OssUpload
+            defaultFileList={
+              tableSkuList[index].image
+                ? [
+                    {
+                      uid: `${index}`,
+                      name: "",
+                      url: tableSkuList[index].image,
+                    },
+                  ]
+                : []
+            }
+            onChange={(e) => {
+              tableSkuList[index].image = e.fileList[0]?.url || "";
+              setTableSkuList(tableSkuList);
+            }}
+            maxCount={1}
+            zoom={0.5}
+          />
+        );
+      },
+    },
     ...specContent.map((t) => {
       return {
         title: t.name,
@@ -84,14 +110,14 @@ export const GoodsModal = ({
     }),
     {
       title: "价格",
-      render: (item: SkuData, _: SkuData, index: number) => {
+      render: (item: TableSku, _: TableSku, index: number) => {
         return (
           <InputNumber
             min={0}
-            defaultValue={submitList[index].price}
+            defaultValue={tableSkuList[index].price}
             onChange={(e) => {
-              submitList[index].price = e || 0;
-              setSubmitList(submitList);
+              tableSkuList[index].price = e || 0;
+              setTableSkuList(tableSkuList);
             }}
           />
         );
@@ -99,14 +125,14 @@ export const GoodsModal = ({
     },
     {
       title: "库存",
-      render: (item: SkuData, _: SkuData, index: number) => {
+      render: (item: TableSku, _: TableSku, index: number) => {
         return (
           <InputNumber
             min={0}
-            defaultValue={submitList[index].stock}
+            defaultValue={tableSkuList[index].stock}
             onChange={(e) => {
-              submitList[index].stock = e || 0;
-              setSubmitList(submitList);
+              tableSkuList[index].stock = e || 0;
+              setTableSkuList(tableSkuList);
             }}
           />
         );
@@ -177,36 +203,32 @@ export const GoodsModal = ({
         // specContent当只有一个数据时候只需要
         temp.push(
           ...item.options.map((str) => {
-            const oldItem = submitList.find((t) => t.sku === str);
+            const oldItem = tableSkuList.find((t) => t.name === str);
             if (oldItem) {
               return { ...oldItem };
             } else {
               return {
-                [`skuName${index + 1}`]: item.name,
-                [`skuValue${index + 1}`]: str,
                 [item.name]: str,
                 stock: 0,
                 price: 0,
-                sku: str,
+                name: str,
               };
             }
           })
         );
       } else {
-        const array: SkuData[] = [];
+        const array: TableSku[] = [];
         temp.forEach((obj) => {
           if (item.options.length === 0) array.push(obj);
           array.push(
             ...item.options.map((t) => {
-              obj.sku && (obj.sku = obj.sku + t);
-              const oldItem = submitList.find((t) => t.sku === obj.sku);
+              obj.name && (obj.name = obj.name + "," + t);
+              const oldItem = tableSkuList.find((t) => t.name === obj.name);
               if (oldItem) {
                 return { ...oldItem };
               } else {
                 return {
                   ...obj,
-                  [`skuName${index + 1}`]: item.name,
-                  [`skuValue${index + 1}`]: t,
                   [item.name]: t,
                   stock: 0,
                   price: 0,
@@ -218,7 +240,7 @@ export const GoodsModal = ({
         temp = array;
       }
     });
-    setSubmitList(temp);
+    setTableSkuList(temp);
   };
 
   useEffect(() => {
@@ -241,14 +263,14 @@ export const GoodsModal = ({
         ...rest
       } = editingGoods;
 
-      setSubmitList(
-        skuList.map(({ price, stock, name }) => {
+      setTableSkuList(
+        skuList.map(({ name, image, price, stock }) => {
           const restData = Object.fromEntries(
             name
               .split(",")
               .map((value, index) => [`${specList[index].name}`, value])
           );
-          return { price, stock, sku: name, ...restData };
+          return { name, image, price, stock, ...restData };
         })
       );
       setSpecContent(specList || []);
@@ -577,8 +599,8 @@ export const GoodsModal = ({
             </div>
             <Table
               bordered
-              rowKey={"sku"}
-              dataSource={submitList}
+              rowKey={"name"}
+              dataSource={tableSkuList}
               columns={columns}
               pagination={false}
             />
