@@ -64,11 +64,11 @@ export const GoodsModal = ({
     isLoading: mutateLoading,
   } = useMutationGoods(useGoodsListQueryKey());
 
-  const [tableSkuList, setTableSkuList] = useState<TableSku[]>([]); // 提交数据
-  const [specContent, setSpecContent] = useState<Spec[]>([]); //规格内容
-  const [specLabelStr, setSpecLabelStr] = useState<string>(""); // 规格名称输入值
-  const [visible, setVisible] = useState<boolean>(false); // 点击添加规格按钮控制获取input 元素,控制输入默认选择focus
-  const inputRef = useRef<InputRef>(null); // 规格输入框
+  const [tableSkuList, setTableSkuList] = useState<TableSku[]>([]);
+  const [specContent, setSpecContent] = useState<Spec[]>([]);
+  const [specLabelStr, setSpecLabelStr] = useState<string>("");
+  const [visible, setVisible] = useState<boolean>(false);
+  const inputRef = useRef<InputRef>(null);
   const [inputVisible, setInputVisible] = useState<boolean>(false);
   const [inputTagValue, setInputTagValue] = useState<string>("");
   const [tagIndex, setTagIndex] = useState<number | null>(null);
@@ -356,6 +356,8 @@ export const GoodsModal = ({
 
   const closeModal = () => {
     form.resetFields();
+    setTableSkuList([]);
+    setSpecContent([]);
     close();
   };
 
