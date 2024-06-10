@@ -342,6 +342,13 @@ export const GoodsModal = ({
         ),
         defaultSpecImage: defaultSpecImage[0].url,
         stock,
+        specList: specContent,
+        skuList: tableSkuList.map(({ name, image, price, stock }) => ({
+          name,
+          image,
+          price,
+          stock,
+        })),
       });
       closeModal();
     });
