@@ -27,6 +27,7 @@ interface ListProps extends TableProps<Goods>, SearchPanelProps {
 export const List = ({
   statusOptions,
   categoryOptions,
+  merchantOptions,
   error,
   params,
   setParams,
@@ -71,17 +72,6 @@ export const List = ({
             dataIndex: "name",
             width: "32rem",
           },
-
-          {
-            title: "价格",
-            dataIndex: "price",
-            render: (value) => <>{`¥${value}`}</>,
-          },
-          {
-            title: "销量",
-            dataIndex: "salesVolume",
-            sorter: (a, b) => Number(a) - Number(b),
-          },
           {
             title: "状态",
             dataIndex: "status",
@@ -105,8 +95,12 @@ export const List = ({
             onFilter: (value, goods) => goods.status === value,
           },
           {
-            title: "库存",
-            dataIndex: "stock",
+            title: "商家",
+            dataIndex: "merchantId",
+            render: (value) => (
+              <>{merchantOptions.find((item) => item.id === value)?.name}</>
+            ),
+            width: "12rem",
           },
           {
             title: "商品分类",
@@ -115,6 +109,20 @@ export const List = ({
               <>{categoryOptions.find((item) => item.id === value)?.name}</>
             ),
             width: "12rem",
+          },
+          {
+            title: "价格",
+            dataIndex: "price",
+            render: (value) => <>{`¥${value}`}</>,
+          },
+          {
+            title: "销量",
+            dataIndex: "salesVolume",
+            sorter: (a, b) => Number(a) - Number(b),
+          },
+          {
+            title: "库存",
+            dataIndex: "stock",
           },
           {
             title: "团长佣金比例",

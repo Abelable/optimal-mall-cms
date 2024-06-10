@@ -5,8 +5,8 @@ import { useGoods } from "service/goods";
 export const useGoodsListSearchParams = () => {
   const [params, setParams] = useUrlQueryParams([
     "name",
-    "shopCategoryId",
     "categoryId",
+    "merchantId",
     "status",
     "page",
     "limit",
