@@ -49,11 +49,14 @@ export const GoodsModal = ({
 
   useEffect(() => {
     if (editingGoods) {
-      const { imageList, ...rest } = editingGoods;
+      const { imageList, detailImageList, ...rest } = editingGoods;
       form.setFieldsValue({
         imageList: imageList?.length
           ? imageList?.map((item) => ({ url: item }))
           : imageList,
+        detailImageList: detailImageList?.length
+          ? detailImageList?.map((item) => ({ url: item }))
+          : detailImageList,
         ...rest,
       });
     }
@@ -61,21 +64,11 @@ export const GoodsModal = ({
 
   const submit = () => {
     form.validateFields().then(async () => {
-      const { video, imageList, projectList, openTimeList, ...rest } =
-        form.getFieldsValue();
+      const { video, imageList, ...rest } = form.getFieldsValue();
       await mutateAsync({
         ...editingGoods,
         ...rest,
-        video: video && video.length ? video[0].url : "",
         imageList: imageList.map((item: { url: string }) => item.url),
-        projectList: projectList.length
-          ? projectList.map(
-              (item: { image: { url: string }[]; name: string }) => ({
-                ...item,
-                image: item.image[0].url,
-              })
-            )
-          : projectList,
       });
       closeModal();
     });
