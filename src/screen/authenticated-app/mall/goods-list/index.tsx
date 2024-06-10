@@ -40,12 +40,14 @@ export const GoodsList = () => {
       <Main>
         <SearchPanel
           categoryOptions={categoryOptions || []}
+          merchantOptions={merchantOptions}
           statusOptions={statusOptions}
           params={params}
           setParams={setParams}
         />
         <List
           categoryOptions={categoryOptions || []}
+          merchantOptions={merchantOptions}
           statusOptions={statusOptions}
           params={params}
           setParams={setParams}

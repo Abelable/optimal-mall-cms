@@ -3,12 +3,14 @@ import styled from "@emotion/styled";
 import { Row } from "components/lib";
 import { Button, Input, Select } from "antd";
 
+import type { Option, OperatorOption } from "types/common";
 import type { GoodsListSearchParams } from "types/goods";
 import type { GoodsCategoryOption } from "types/goodsCategory";
 
 export interface SearchPanelProps {
   categoryOptions: GoodsCategoryOption[];
-  statusOptions: { text: string; value: number }[];
+  statusOptions: Option[];
+  merchantOptions: OperatorOption[];
   params: Partial<GoodsListSearchParams>;
   setParams: (params: Partial<GoodsListSearchParams>) => void;
 }
@@ -16,11 +18,13 @@ export interface SearchPanelProps {
 const defaultParmas: Partial<GoodsListSearchParams> = {
   name: "",
   categoryId: undefined,
+  merchantId: undefined,
   status: undefined,
 };
 
 export const SearchPanel = ({
   categoryOptions,
+  merchantOptions,
   statusOptions,
   params,
   setParams,
@@ -46,6 +50,11 @@ export const SearchPanel = ({
     setTempParams({ ...tempParams, categoryId });
   const clearCategory = () =>
     setTempParams({ ...tempParams, categoryId: undefined });
+
+  const setMerchant = (merchantId: number) =>
+    setTempParams({ ...tempParams, merchantId });
+  const clearMerchant = () =>
+    setTempParams({ ...tempParams, merchantId: undefined });
 
   const setStatus = (status: number) =>
     setTempParams({ ...tempParams, status });
@@ -79,6 +88,23 @@ export const SearchPanel = ({
           onClear={clearCategory}
         >
           {categoryOptions?.map(({ id, name }) => (
+            <Select.Option key={id} value={id}>
+              {name}
+            </Select.Option>
+          ))}
+        </Select>
+      </Item>
+      <Item>
+        <div>商家：</div>
+        <Select
+          style={{ width: "20rem" }}
+          value={tempParams.merchantId}
+          placeholder="请选择商家"
+          allowClear={true}
+          onSelect={setMerchant}
+          onClear={clearMerchant}
+        >
+          {merchantOptions?.map(({ id, name }) => (
             <Select.Option key={id} value={id}>
               {name}
             </Select.Option>

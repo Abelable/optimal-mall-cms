@@ -1,6 +1,7 @@
 export interface GoodsListSearchParams {
   name: string;
   categoryId: number | undefined;
+  merchantId: number | undefined;
   status: number | undefined;
   page: number;
   limit: number;
