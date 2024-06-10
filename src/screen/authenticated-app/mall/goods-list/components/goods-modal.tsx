@@ -235,6 +235,38 @@ export const GoodsModal = ({
               </Form.Item>
             </Col>
           </Row>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                name="leaderCommissionRate"
+                label="团长佣金比例"
+                rules={[{ required: true, message: "请填写团长佣金比例" }]}
+              >
+                <InputNumber
+                  min={0}
+                  max={100}
+                  formatter={(value) => `${value}%`}
+                  style={{ width: "100%" }}
+                  placeholder="请填写团长佣金比例"
+                />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name="shareCommissionRate"
+                label="分享佣金比例"
+                rules={[{ required: true, message: "请填写分享佣金比例" }]}
+              >
+                <InputNumber
+                  min={0}
+                  max={100}
+                  formatter={(value) => `${value}%`}
+                  style={{ width: "100%" }}
+                  placeholder="请填写分享佣金比例"
+                />
+              </Form.Item>
+            </Col>
+          </Row>
           <Divider orientation="left" plain>
             商品规格
           </Divider>
