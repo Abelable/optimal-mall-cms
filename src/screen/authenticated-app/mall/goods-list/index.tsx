@@ -45,7 +45,7 @@ export const GoodsList = () => {
           }}
         />
       </Main>
-      <GoodsModal goodsCategoryOptions={goodsCategoryOptions || []} />
+      <GoodsModal categoryOptions={goodsCategoryOptions || []} />
       <RejectModal />
     </Container>
   );

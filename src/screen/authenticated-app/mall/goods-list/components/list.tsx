@@ -9,8 +9,10 @@ import {
   TablePaginationConfig,
   TableProps,
   Tooltip,
+  Button,
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
+import { PlusOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import { useApprovedGoods, useDeleteGoods } from "service/goods";
 import { useGoodsModal, useGoodsListQueryKey, useRejectModal } from "../util";
@@ -30,6 +32,8 @@ export const List = ({
   setParams,
   ...restProps
 }: ListProps) => {
+  const { open } = useGoodsModal();
+
   const setPagination = (pagination: TablePaginationConfig) =>
     setParams({
       ...params,
@@ -41,6 +45,9 @@ export const List = ({
     <Container>
       <Header between={true}>
         <PageTitle>商品列表</PageTitle>
+        <Button onClick={() => open()} type={"primary"} icon={<PlusOutlined />}>
+          新增
+        </Button>
       </Header>
       <ErrorBox error={error} />
       <Table
@@ -164,7 +171,7 @@ export const List = ({
 };
 
 const More = ({ id, status }: { id: number; status: number }) => {
-  const { open } = useGoodsModal();
+  const { startEdit } = useGoodsModal();
   const { mutate: deleteGoods } = useDeleteGoods(useGoodsListQueryKey());
   const { mutate: approvedGoods } = useApprovedGoods(useGoodsListQueryKey());
   const { open: openRejectModal } = useRejectModal();
@@ -194,7 +201,7 @@ const More = ({ id, status }: { id: number; status: number }) => {
     case 0:
       items = [
         {
-          label: <div onClick={() => open(id)}>详情</div>,
+          label: <div onClick={() => startEdit(id)}>详情</div>,
           key: "detail",
         },
         {
@@ -216,7 +223,7 @@ const More = ({ id, status }: { id: number; status: number }) => {
     case 1:
       items = [
         {
-          label: <div onClick={() => open(id)}>详情</div>,
+          label: <div onClick={() => startEdit(id)}>详情</div>,
           key: "detail",
         },
         {
@@ -233,7 +240,7 @@ const More = ({ id, status }: { id: number; status: number }) => {
     case 2:
       items = [
         {
-          label: <div onClick={() => open(id)}>详情</div>,
+          label: <div onClick={() => startEdit(id)}>详情</div>,
           key: "detail",
         },
         {

@@ -8,15 +8,19 @@ export interface GoodsListSearchParams {
 
 export interface Goods {
   id: number;
-  cover: string;
-  name: string;
+  merchantId: number;
   categoryId: number;
+  status: number;
+  name: string;
+  cover: string;
+  imageList: string[];
+  detailImageList: string[];
+  defaultSpecImage: string;
   price: number;
   stock: number;
   leaderCommissionRate: number;
   shareCommissionRate: number;
   salesVolume: number;
-  status: number;
   failureReason: string;
   createdAt: string;
   updatedAt: string;
