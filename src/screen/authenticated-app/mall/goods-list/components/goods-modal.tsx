@@ -20,6 +20,7 @@ import {
   Popover,
   Table,
   Tag,
+  Modal,
 } from "antd";
 import { PlusOutlined, DeleteOutlined, CloseOutlined } from "@ant-design/icons";
 import { OssUpload } from "components/oss-upload";
@@ -198,7 +199,7 @@ export const GoodsModal = ({
   const tableSku = () => {
     // 绘制商品规格sku
     let temp: any[] = [];
-    specContent.forEach((item, index) => {
+    specContent.forEach((item) => {
       if (!temp.length) {
         // specContent当只有一个数据时候只需要
         temp.push(
@@ -291,8 +292,46 @@ export const GoodsModal = ({
 
   const submit = () => {
     form.validateFields().then(async () => {
-      const { cover, imageList, detailImageList, defaultSpecImage, ...rest } =
-        form.getFieldsValue();
+      const {
+        cover,
+        imageList,
+        detailImageList,
+        defaultSpecImage,
+        stock,
+        ...rest
+      } = form.getFieldsValue();
+
+      if (
+        specContent.length &&
+        specContent.findIndex((item) => !item.name || !item.options.length) !==
+          -1
+      ) {
+        Modal.error({
+          title: "请完善商品规格信息",
+        });
+        return;
+      }
+      if (tableSkuList.length) {
+        if (
+          tableSkuList.findIndex((item) => !item.price || !item.stock) !== -1
+        ) {
+          Modal.error({
+            title: "部分商品规格未填写价格或库存",
+          });
+          return;
+        }
+        if (
+          stock <
+          tableSkuList.reduce((stock, sku) => stock + (sku.stock as number), 0)
+        ) {
+          Modal.error({
+            title: "请核对库存设置",
+            content: "商品总库存，小于商品各规格库存总和",
+          });
+          return;
+        }
+      }
+
       await mutateAsync({
         ...editingGoods,
         ...rest,
@@ -302,6 +341,7 @@ export const GoodsModal = ({
           (item: { url: string }) => item.url
         ),
         defaultSpecImage: defaultSpecImage[0].url,
+        stock,
       });
       closeModal();
     });
