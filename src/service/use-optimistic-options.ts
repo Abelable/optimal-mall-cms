@@ -64,6 +64,30 @@ export const useApprovedConfig = (queryKey: QueryKey) =>
       : null
   );
 
+export const useUpConfig = (queryKey: QueryKey) =>
+  useConfig(queryKey, (id, old) =>
+    old
+      ? {
+          ...old,
+          list: old.list.map((item: any) =>
+            item.id === id ? { ...item, status: 1 } : item
+          ),
+        }
+      : null
+  );
+
+export const useDownConfig = (queryKey: QueryKey) =>
+  useConfig(queryKey, (id, old) =>
+    old
+      ? {
+          ...old,
+          list: old.list.map((item: any) =>
+            item.id === id ? { ...item, status: 2 } : item
+          ),
+        }
+      : null
+  );
+
 export const useRejectConfig = (queryKey: QueryKey) =>
   useConfig(queryKey, (target, old) =>
     old

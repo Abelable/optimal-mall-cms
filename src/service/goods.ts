@@ -2,10 +2,10 @@ import { QueryKey, useMutation, useQuery } from "react-query";
 import { useHttp } from "./http";
 import {
   useAddConfig,
-  useApprovedConfig,
+  useDownConfig,
+  useUpConfig,
   useDeleteConfig,
   useEditConfig,
-  useRejectConfig,
 } from "./use-optimistic-options";
 import { cleanObject } from "utils/index";
 import type {
@@ -32,7 +32,7 @@ export const useGoods = (id: number) => {
   );
 };
 
-export const useApprovedGoods = (queryKey: QueryKey) => {
+export const useUpGoods = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (id: number) =>
@@ -40,19 +40,19 @@ export const useApprovedGoods = (queryKey: QueryKey) => {
         data: { id },
         method: "POST",
       }),
-    useApprovedConfig(queryKey)
+    useUpConfig(queryKey)
   );
 };
 
-export const useRejectGoods = (queryKey: QueryKey) => {
+export const useDownGoods = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
-    (data: { id: number; failureReason: string }) =>
-      client("goods/reject", {
-        data,
+    (id: number) =>
+      client("goods/down", {
+        data: { id },
         method: "POST",
       }),
-    useRejectConfig(queryKey)
+    useDownConfig(queryKey)
   );
 };
 

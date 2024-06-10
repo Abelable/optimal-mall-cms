@@ -14,8 +14,8 @@ import {
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
 import { PlusOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
-import { useApprovedGoods, useDeleteGoods } from "service/goods";
-import { useGoodsModal, useGoodsListQueryKey, useRejectModal } from "../util";
+import { useDeleteGoods, useDownGoods, useUpGoods } from "service/goods";
+import { useGoodsModal, useGoodsListQueryKey } from "../util";
 import { SearchPanelProps } from "./search-panel";
 
 import type { Goods } from "types/goods";
@@ -181,8 +181,8 @@ export const List = ({
 const More = ({ id, status }: { id: number; status: number }) => {
   const { startEdit } = useGoodsModal();
   const { mutate: deleteGoods } = useDeleteGoods(useGoodsListQueryKey());
-  const { mutate: approvedGoods } = useApprovedGoods(useGoodsListQueryKey());
-  const { open: openRejectModal } = useRejectModal();
+  const { mutate: upGoods } = useUpGoods(useGoodsListQueryKey());
+  const { mutate: downGoods } = useDownGoods(useGoodsListQueryKey());
 
   const confirmDelete = (id: number) => {
     Modal.confirm({
@@ -194,70 +194,44 @@ const More = ({ id, status }: { id: number; status: number }) => {
     });
   };
 
-  const confirmApproved = (id: number) => {
+  const confirmDown = (id: number) => {
     Modal.confirm({
-      title: "商品审核通过确认",
-      content: "请确保在商品信息无误的情况下进行该操作",
+      title: "确定下架该商品吗？",
+      content: "点击确定下架",
       okText: "确定",
       cancelText: "取消",
-      onOk: () => approvedGoods(id),
+      onOk: () => downGoods(id),
     });
   };
 
-  let items: MenuProps["items"];
-  switch (status) {
-    case 0:
-      items = [
-        {
-          label: <div onClick={() => startEdit(id)}>详情</div>,
-          key: "detail",
-        },
-        {
-          label: <div onClick={() => confirmApproved(id)}>通过</div>,
-          key: "approved",
-        },
-        {
-          label: <div onClick={() => openRejectModal(id)}>驳回</div>,
-          key: "reject",
-        },
+  const confirmUp = (id: number) => {
+    Modal.confirm({
+      title: "确定上架该商品吗？",
+      content: "点击确定上架",
+      okText: "确定",
+      cancelText: "取消",
+      onOk: () => upGoods(id),
+    });
+  };
 
-        {
-          label: <div onClick={() => confirmDelete(id)}>删除</div>,
-          key: "delete",
-        },
-      ];
-      break;
-
-    case 1:
-      items = [
-        {
-          label: <div onClick={() => startEdit(id)}>详情</div>,
-          key: "detail",
-        },
-        {
-          label: <div onClick={() => openRejectModal(id)}>驳回重审</div>,
-          key: "reject",
-        },
-        {
-          label: <div onClick={() => confirmDelete(id)}>删除</div>,
-          key: "delete",
-        },
-      ];
-      break;
-
-    case 2:
-      items = [
-        {
-          label: <div onClick={() => startEdit(id)}>详情</div>,
-          key: "detail",
-        },
-        {
-          label: <div onClick={() => confirmDelete(id)}>删除</div>,
-          key: "delete",
-        },
-      ];
-      break;
-  }
+  const items: MenuProps["items"] = [
+    {
+      label: <div onClick={() => startEdit(id)}>编辑</div>,
+      key: "edit",
+    },
+    {
+      label: (
+        <div onClick={() => (status === 1 ? confirmDown(id) : confirmUp(id))}>
+          {status === 1 ? "下架" : "下架"}
+        </div>
+      ),
+      key: status === 1 ? "down" : "up",
+    },
+    {
+      label: <div onClick={() => confirmDelete(id)}>删除</div>,
+      key: "delete",
+    },
+  ];
 
   return (
     <Dropdown overlay={<Menu items={items} />}>

@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { GoodsModal } from "./components/goods-modal";
 import { List } from "./components/list";
 import { SearchPanel } from "./components/search-panel";
-import { RejectModal } from "./components/reject-modal";
 
 import { useGoodsCategoryOptions } from "service/goodsCategory";
 import { useGoodsList } from "service/goods";
@@ -71,7 +70,6 @@ export const GoodsList = () => {
         freightTemplateOptions={freightTemplateOptions}
         merchantOptions={merchantOptions}
       />
-      <RejectModal />
     </Container>
   );
 };
