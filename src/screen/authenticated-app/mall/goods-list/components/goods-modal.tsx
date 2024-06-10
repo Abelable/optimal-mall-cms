@@ -485,6 +485,7 @@ export const GoodsModal = ({
             </Col>
           </Row>
           <Card
+            style={{ marginTop: "15px" }}
             title={
               <Popover
                 placement="bottomLeft"
@@ -493,6 +494,7 @@ export const GoodsModal = ({
               >
                 <Button
                   type="dashed"
+                  size="middle"
                   icon={<PlusOutlined />}
                   onClick={() => setVisible(!visible)}
                 >
@@ -500,17 +502,18 @@ export const GoodsModal = ({
                 </Button>
               </Popover>
             }
-            extra={<h3>商品规格</h3>}
           >
             <div>
               {specContent.map((item, index) => {
                 return (
-                  <div key={index}>
+                  <div key={index} style={{ marginBottom: "18px" }}>
                     <h3>
-                      <span style={{ marginRight: 12 }}>{item.label}</span>
+                      <span style={{ marginRight: "8px", fontSize: "14px" }}>
+                        {item.label}
+                      </span>
                       <DeleteOutlined
                         onClick={() => onDeleteSpec(index)}
-                        style={{ color: "red" }}
+                        style={{ color: "red", fontSize: "14px" }}
                       />
                     </h3>
                     <div
@@ -520,11 +523,7 @@ export const GoodsModal = ({
                       <div>
                         {" "}
                         {item.tags.map((str, strKey) => (
-                          <Tag
-                            style={{ fontSize: 16 }}
-                            color="processing"
-                            key={strKey}
-                          >
+                          <Tag color="processing" key={strKey}>
                             <span>{str}</span>
                             <CloseOutlined
                               onClick={() => onDeleteSpecTag(index, strKey)}
@@ -560,6 +559,7 @@ export const GoodsModal = ({
               })}
             </div>
             <Table
+              bordered
               rowKey={"sku"}
               dataSource={submitList}
               columns={columns}
