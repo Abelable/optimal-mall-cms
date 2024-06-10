@@ -117,13 +117,13 @@ export const List = ({
             width: "12rem",
           },
           {
-            title: "销售佣金比例",
+            title: "团长佣金比例",
             dataIndex: "leaderCommissionRate",
             render: (value) => <>{`${value}%`}</>,
             width: "12rem",
           },
           {
-            title: "推广佣金比例",
+            title: "分享佣金比例",
             dataIndex: "shareCommissionRate",
             render: (value) => <>{`${value}%`}</>,
             width: "12rem",

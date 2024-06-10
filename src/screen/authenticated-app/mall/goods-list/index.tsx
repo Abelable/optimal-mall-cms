@@ -1,25 +1,35 @@
 import styled from "@emotion/styled";
-
-import { useGoodsCategoryOptions } from "service/goodsCategory";
-import { useGoodsList } from "service/goods";
-import { toNumber } from "utils";
-import { useGoodsListSearchParams } from "./util";
-
 import { GoodsModal } from "./components/goods-modal";
 import { List } from "./components/list";
 import { SearchPanel } from "./components/search-panel";
 import { RejectModal } from "./components/reject-modal";
+
+import { useGoodsCategoryOptions } from "service/goodsCategory";
+import { useGoodsList } from "service/goods";
 import { useFreightTemplateOptions } from "service/freigthTemplate";
+import { useMerchantOptions } from "service/merchant";
+import { toNumber } from "utils";
+import { useGoodsListSearchParams } from "./util";
 
 export const GoodsList = () => {
   const [params, setParams] = useGoodsListSearchParams();
   const { isLoading, error, data } = useGoodsList(params);
-  const { data: goodsCategoryOptions, error: goodsCategoryOptionsError } =
+  const { data: categoryOptions = [], error: categoryOptionsError } =
     useGoodsCategoryOptions();
+
   const {
-    data: freightTemplateOptions = [],
+    data: originalFreightTemplateOptions = [],
     error: freightTemplateOptionsError,
   } = useFreightTemplateOptions();
+  const freightTemplateOptions = [
+    { id: 0, name: "全国包邮" },
+    ...originalFreightTemplateOptions,
+  ];
+
+  const { data: originalMerchantOptions = [], error: merchantOptionsError } =
+    useMerchantOptions();
+  const merchantOptions = [{ id: 0, name: "自营" }, ...originalMerchantOptions];
+
   const statusOptions = [
     { text: "售卖中", value: 1 },
     { text: "已下架", value: 2 },
@@ -29,18 +39,21 @@ export const GoodsList = () => {
     <Container>
       <Main>
         <SearchPanel
-          categoryOptions={goodsCategoryOptions || []}
+          categoryOptions={categoryOptions || []}
           statusOptions={statusOptions}
           params={params}
           setParams={setParams}
         />
         <List
-          categoryOptions={goodsCategoryOptions || []}
+          categoryOptions={categoryOptions || []}
           statusOptions={statusOptions}
           params={params}
           setParams={setParams}
           error={
-            error || goodsCategoryOptionsError || freightTemplateOptionsError
+            error ||
+            categoryOptionsError ||
+            freightTemplateOptionsError ||
+            merchantOptionsError
           }
           loading={isLoading}
           dataSource={data?.list}
@@ -52,11 +65,9 @@ export const GoodsList = () => {
         />
       </Main>
       <GoodsModal
-        categoryOptions={goodsCategoryOptions || []}
-        freightTemplateOptions={[
-          { id: 0, name: "全国包邮" },
-          ...freightTemplateOptions,
-        ]}
+        categoryOptions={categoryOptions}
+        freightTemplateOptions={freightTemplateOptions}
+        merchantOptions={merchantOptions}
       />
       <RejectModal />
     </Container>

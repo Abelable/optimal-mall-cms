@@ -53,9 +53,11 @@ const normFile = (e: any) => {
 export const GoodsModal = ({
   categoryOptions,
   freightTemplateOptions,
+  merchantOptions,
 }: {
   categoryOptions: CategoryOption[];
   freightTemplateOptions: OperatorOption[];
+  merchantOptions: OperatorOption[];
 }) => {
   const [form] = useForm();
 
@@ -180,6 +182,21 @@ export const GoodsModal = ({
             </Col>
           </Row>
           <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                name="merchantId"
+                label="商家"
+                rules={[{ required: true, message: "请选择商家" }]}
+              >
+                <Select placeholder="请选择商家">
+                  {merchantOptions.map(({ id, name }) => (
+                    <Select.Option key={id} value={id}>
+                      {name}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
             <Col span={12}>
               <Form.Item
                 name="freightTemplateId"
