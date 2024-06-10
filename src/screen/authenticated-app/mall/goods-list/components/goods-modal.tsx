@@ -27,14 +27,11 @@ import { ErrorBox, ModalLoading } from "components/lib";
 
 import type { CategoryOption } from "types/category";
 import type { OperatorOption } from "types/common";
+import type { Spec } from "types/goods";
 
-interface ISpecTagValue {
-  label: string;
-  tags: string[];
-}
 interface SkuData {
   [x: string]: string | number;
-  piece: number;
+  price: number;
   stock: number;
   sku: string;
 }
@@ -66,7 +63,8 @@ export const GoodsModal = ({
   } = useMutationGoods(useGoodsListQueryKey());
 
   const [submitList, setSubmitList] = useState<SkuData[]>([]); // 提交数据
-  const [specContent, setSpecContent] = useState<ISpecTagValue[]>([]); //规格内容
+  console.log("submitList", submitList);
+  const [specContent, setSpecContent] = useState<Spec[]>([]); //规格内容
   const [specLabelStr, setSpecLabelStr] = useState<string>(""); // 规格名称输入值
   const [visible, setVisible] = useState<boolean>(false); // 点击添加规格按钮控制获取input 元素,控制输入默认选择focus
   const inputRef = useRef<InputRef>(null); // 规格输入框
@@ -78,9 +76,9 @@ export const GoodsModal = ({
   const columns: any[] = [
     ...specContent.map((t) => {
       return {
-        title: t.label,
+        title: t.name,
         render: (item: any) => {
-          return item[t.label];
+          return item[t.name];
         },
       };
     }),
@@ -90,9 +88,9 @@ export const GoodsModal = ({
         return (
           <InputNumber
             min={0}
-            defaultValue={submitList[index].piece}
+            defaultValue={submitList[index].price}
             onChange={(e) => {
-              submitList[index].piece = e || 0;
+              submitList[index].price = e || 0;
               setSubmitList(submitList);
             }}
           />
@@ -134,7 +132,7 @@ export const GoodsModal = ({
   // 添加规格名称
   const onAddSpecLabel = () => {
     if (specLabelStr) {
-      setSpecContent(specContent.concat({ label: specLabelStr, tags: [] }));
+      setSpecContent(specContent.concat({ name: specLabelStr, options: [] }));
       setSpecLabelStr("");
       message.success("添加规格明成功");
       tableSku();
@@ -156,7 +154,7 @@ export const GoodsModal = ({
   const onAddSpecTag = (index: number) => {
     if (inputTagValue) {
       const specList = [...specContent];
-      specList[index].tags.push(inputTagValue);
+      specList[index].options.push(inputTagValue);
       setSpecContent(specList);
       setInputTagValue(""); // 清空输入内容
       tableSku();
@@ -167,7 +165,7 @@ export const GoodsModal = ({
 
   const onDeleteSpecTag = (labelIndex: number, tagIndex: number) => {
     const specList = [...specContent];
-    specList[labelIndex].tags.splice(tagIndex, 1);
+    specList[labelIndex].options.splice(tagIndex, 1);
     setSpecContent(specList);
     tableSku();
   };
@@ -178,17 +176,17 @@ export const GoodsModal = ({
       if (!temp.length) {
         // specContent当只有一个数据时候只需要
         temp.push(
-          ...item.tags.map((str) => {
+          ...item.options.map((str) => {
             const oldItem = submitList.find((t) => t.sku === str);
             if (oldItem) {
               return { ...oldItem };
             } else {
               return {
-                [`skuName${index + 1}`]: item.label,
+                [`skuName${index + 1}`]: item.name,
                 [`skuValue${index + 1}`]: str,
-                [item.label]: str,
+                [item.name]: str,
                 stock: 0,
-                piece: 0,
+                price: 0,
                 sku: str,
               };
             }
@@ -197,9 +195,9 @@ export const GoodsModal = ({
       } else {
         const array: SkuData[] = [];
         temp.forEach((obj) => {
-          if (item.tags.length === 0) array.push(obj);
+          if (item.options.length === 0) array.push(obj);
           array.push(
-            ...item.tags.map((t) => {
+            ...item.options.map((t) => {
               obj.sku && (obj.sku = obj.sku + t);
               const oldItem = submitList.find((t) => t.sku === obj.sku);
               if (oldItem) {
@@ -207,11 +205,11 @@ export const GoodsModal = ({
               } else {
                 return {
                   ...obj,
-                  [`skuName${index + 1}`]: item.label,
+                  [`skuName${index + 1}`]: item.name,
                   [`skuValue${index + 1}`]: t,
-                  [item.label]: t,
+                  [item.name]: t,
                   stock: 0,
-                  piece: 0,
+                  price: 0,
                 };
               }
             })
@@ -233,8 +231,28 @@ export const GoodsModal = ({
 
   useEffect(() => {
     if (editingGoods) {
-      const { cover, imageList, detailImageList, defaultSpecImage, ...rest } =
-        editingGoods;
+      const {
+        cover,
+        imageList,
+        detailImageList,
+        defaultSpecImage,
+        specList = [],
+        skuList = [],
+        ...rest
+      } = editingGoods;
+
+      setSubmitList(
+        skuList.map(({ price, stock, name }) => {
+          const restData = Object.fromEntries(
+            name
+              .split(",")
+              .map((value, index) => [`${specList[index].name}`, value])
+          );
+          return { price, stock, sku: name, ...restData };
+        })
+      );
+      setSpecContent(specList || []);
+
       form.setFieldsValue({
         cover: [{ url: cover }],
         imageList: imageList?.length
@@ -244,7 +262,6 @@ export const GoodsModal = ({
           ? detailImageList?.map((item) => ({ url: item }))
           : detailImageList,
         defaultSpecImage: [{ url: defaultSpecImage }],
-
         ...rest,
       });
     }
@@ -509,7 +526,7 @@ export const GoodsModal = ({
                   <div key={index} style={{ marginBottom: "18px" }}>
                     <h3>
                       <span style={{ marginRight: "8px", fontSize: "14px" }}>
-                        {item.label}
+                        {item.name}
                       </span>
                       <DeleteOutlined
                         onClick={() => onDeleteSpec(index)}
@@ -522,7 +539,7 @@ export const GoodsModal = ({
                     >
                       <div>
                         {" "}
-                        {item.tags.map((str, strKey) => (
+                        {item.options.map((str, strKey) => (
                           <Tag color="processing" key={strKey}>
                             <span>{str}</span>
                             <CloseOutlined

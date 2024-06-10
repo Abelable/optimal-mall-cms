@@ -7,6 +7,18 @@ export interface GoodsListSearchParams {
   limit: number;
 }
 
+export interface Spec {
+  name: string;
+  options: string[];
+}
+
+export interface Sku {
+  name: string;
+  image: string;
+  price: number;
+  stock: number;
+}
+
 export interface Goods {
   id: number;
   merchantId: number;
@@ -21,6 +33,8 @@ export interface Goods {
   stock: number;
   leaderCommissionRate: number;
   shareCommissionRate: number;
+  specList: Spec[];
+  skuList: Sku[];
   salesVolume: number;
   failureReason: string;
   createdAt: string;
