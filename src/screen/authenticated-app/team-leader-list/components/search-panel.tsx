@@ -10,27 +10,21 @@ import type { TeamLeadersSearchParams } from "types/teamLeader";
 export interface SearchPanelProps {
   params: Partial<TeamLeadersSearchParams>;
   setParams: (params: Partial<TeamLeadersSearchParams>) => void;
-  typeOptions: Option[];
   statusOptions: Option[];
 }
 
 const defaultParmas: Partial<TeamLeadersSearchParams> = {
   status: undefined,
-  type: undefined,
   name: "",
   mobile: "",
 };
 
 export const SearchPanel = ({
-  typeOptions,
   statusOptions,
   params,
   setParams,
 }: SearchPanelProps) => {
   const [tempParams, setTempParams] = useState(defaultParmas);
-
-  const setType = (type: number) => setTempParams({ ...tempParams, type });
-  const clearType = () => setTempParams({ ...tempParams, type: undefined });
 
   const setStatus = (status: number) =>
     setTempParams({ ...tempParams, status });
@@ -74,28 +68,11 @@ export const SearchPanel = ({
   return (
     <Container>
       <Item>
-        <div>商家类型：</div>
-        <Select
-          style={{ width: "20rem" }}
-          value={tempParams.type}
-          placeholder="请选择商家类型"
-          allowClear={true}
-          onSelect={setType}
-          onClear={clearType}
-        >
-          {typeOptions?.map(({ text, value }) => (
-            <Select.Option key={value} value={value}>
-              {text}
-            </Select.Option>
-          ))}
-        </Select>
-      </Item>
-      <Item>
-        <div>商家状态：</div>
+        <div>状态：</div>
         <Select
           style={{ width: "20rem" }}
           value={tempParams.status}
-          placeholder="请选择商家状态"
+          placeholder="请选择状态"
           allowClear={true}
           onSelect={setStatus}
           onClear={clearStatus}

@@ -8,8 +8,6 @@ import {
   TablePaginationConfig,
   TableProps,
   Tooltip,
-  Tag,
-  Popover,
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
 import dayjs from "dayjs";
@@ -28,7 +26,6 @@ interface ListProps extends TableProps<TeamLeader>, SearchPanelProps {
 
 export const List = ({
   statusOptions,
-  typeOptions,
   error,
   params,
   setParams,
@@ -44,7 +41,7 @@ export const List = ({
   return (
     <Container>
       <Header between={true}>
-        <PageTitle>商家列表</PageTitle>
+        <PageTitle>团长列表</PageTitle>
       </Header>
       <ErrorBox error={error} />
       <Table
@@ -54,13 +51,6 @@ export const List = ({
             title: "id",
             dataIndex: "id",
             width: "8rem",
-          },
-          {
-            title: "商家类型",
-            dataIndex: "type",
-            render: (value) => <>{value === 1 ? "个人" : "企业"}</>,
-            filters: typeOptions,
-            onFilter: (value, teamLeader) => teamLeader.type === value,
           },
           {
             title: "联系人姓名",
@@ -77,36 +67,7 @@ export const List = ({
               value === 0 ? (
                 <span style={{ color: "#faad14" }}>待审核</span>
               ) : value === 1 ? (
-                <span style={{ color: "#1890ff" }}>待支付保证金</span>
-              ) : value === 2 ? (
-                <Popover
-                  title="保证金支付信息"
-                  content={
-                    <div>
-                      <p>支付金额：{teamLeader.depositInfo.paymentAmount}元</p>
-                      <p>
-                        支付状态：
-                        {teamLeader.depositInfo.status === 1 ? (
-                          <Tag color="success">已支付</Tag>
-                        ) : (
-                          <Tag color="error">未支付</Tag>
-                        )}
-                      </p>
-                      <p>支付Id：{teamLeader.depositInfo.payId}</p>
-                      <p>支付编号：{teamLeader.depositInfo.orderSn}</p>
-                      <p>
-                        支付时间：
-                        {dayjs(teamLeader.depositInfo.updatedAt).format(
-                          "YYYY-MM-DD HH:mm:ss"
-                        )}
-                      </p>
-                    </div>
-                  }
-                >
-                  <span style={{ color: "#52c41a", cursor: "pointer" }}>
-                    入驻成功
-                  </span>
-                </Popover>
+                <span style={{ color: "#52c41a" }}>审核通过</span>
               ) : (
                 <Tooltip title={teamLeader.failureReason}>
                   <span style={{ color: "#ff4d4f", cursor: "pointer" }}>

@@ -5,7 +5,6 @@ import { useTeamLeader } from "service/teamLeader";
 export const useTeamLeadersSearchParams = () => {
   const [params, setParams] = useUrlQueryParams([
     "status",
-    "type",
     "name",
     "mobile",
     "page",

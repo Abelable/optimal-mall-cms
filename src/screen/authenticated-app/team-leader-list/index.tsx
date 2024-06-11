@@ -8,15 +8,10 @@ import { List } from "./components/list";
 import { SearchPanel } from "./components/search-panel";
 import { RejectModal } from "./components/reject-modal";
 
-const typeOptions = [
-  { text: "个人", value: 1 },
-  { text: "企业", value: 2 },
-];
 const statusOptions = [
   { text: "待审核", value: 0 },
-  { text: "待支付保证金", value: 1 },
-  { text: "入驻成功", value: 2 },
-  { text: "已驳回", value: 3 },
+  { text: "审核通过", value: 1 },
+  { text: "已驳回", value: 2 },
 ];
 
 export const TeamLeaderList = () => {
@@ -28,13 +23,11 @@ export const TeamLeaderList = () => {
       <Main>
         <SearchPanel
           statusOptions={statusOptions}
-          typeOptions={typeOptions}
           params={params}
           setParams={setParams}
         />
         <List
           statusOptions={statusOptions}
-          typeOptions={typeOptions}
           params={params}
           setParams={setParams}
           error={error}
