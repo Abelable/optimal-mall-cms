@@ -1,6 +1,10 @@
 import { QueryKey, useMutation, useQuery } from "react-query";
 import { useHttp } from "./http";
-import { useApprovedConfig, useRejectConfig } from "./use-optimistic-options";
+import {
+  useApprovedConfig,
+  useRejectConfig,
+  useDeleteConfig,
+} from "./use-optimistic-options";
 import type {
   TeamLeaderDetail,
   TeamLeadersResult,
@@ -46,5 +50,17 @@ export const useRejectTeamLeader = (queryKey: QueryKey) => {
         method: "POST",
       }),
     useRejectConfig(queryKey)
+  );
+};
+
+export const useDeleteTeamLeader = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    (id: number) =>
+      client("team_leader/delete", {
+        data: { id },
+        method: "POST",
+      }),
+    useDeleteConfig(queryKey)
   );
 };

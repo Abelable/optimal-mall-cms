@@ -1,6 +1,5 @@
 import { Descriptions, Drawer, Image } from "antd";
-import { ErrorBox, ModalLoading } from "components/lib";
-import dayjs from "dayjs";
+import { ErrorBox, ModalLoading, Row } from "components/lib";
 import { useTeamLeaderModal } from "../util";
 
 export const TeamLeaderModal = () => {
@@ -21,27 +20,6 @@ export const TeamLeaderModal = () => {
         <ModalLoading />
       ) : (
         <>
-          <Descriptions
-            style={{ marginBottom: "3.2rem" }}
-            title="基础信息"
-            size={"small"}
-            column={1}
-            bordered
-          >
-            <Descriptions.Item label="ID">
-              {editingTeamLeader?.id}
-            </Descriptions.Item>
-            <Descriptions.Item label="入驻时间">
-              {dayjs(editingTeamLeader?.createdAt).format(
-                "YYYY-MM-DD HH:mm:ss"
-              )}
-            </Descriptions.Item>
-            <Descriptions.Item label="更新时间">
-              {dayjs(editingTeamLeader?.updatedAt).format(
-                "YYYY-MM-DD HH:mm:ss"
-              )}
-            </Descriptions.Item>
-          </Descriptions>
           <>
             <Descriptions
               style={{ marginBottom: "3.2rem" }}
@@ -57,25 +35,20 @@ export const TeamLeaderModal = () => {
                 {editingTeamLeader?.idCardNumber}
               </Descriptions.Item>
               <Descriptions.Item label="身份证正面照片">
-                <Image
-                  width={132}
-                  height={86}
-                  src={editingTeamLeader?.idCardFrontPhoto}
-                />
+                <Image width={100} src={editingTeamLeader?.idCardFrontPhoto} />
               </Descriptions.Item>
               <Descriptions.Item label="身份证反面照片">
-                <Image
-                  width={132}
-                  height={86}
-                  src={editingTeamLeader?.idCardFrontPhoto}
-                />
+                <Image width={100} src={editingTeamLeader?.idCardFrontPhoto} />
               </Descriptions.Item>
               <Descriptions.Item label="手持身份证照片">
-                <Image
-                  width={132}
-                  height={86}
-                  src={editingTeamLeader?.holdIdCardPhoto}
-                />
+                <Image width={100} src={editingTeamLeader?.holdIdCardPhoto} />
+              </Descriptions.Item>
+              <Descriptions.Item label="团长资质照片">
+                <Row gap>
+                  {editingTeamLeader?.qualificationPhoto.map((item, index) => (
+                    <Image key={index} width={100} src={item} />
+                  ))}
+                </Row>
               </Descriptions.Item>
             </Descriptions>
             <Descriptions

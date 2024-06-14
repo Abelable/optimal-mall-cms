@@ -22,7 +22,7 @@ export interface TeamLeaderDetail extends TeamLeader {
   idCardFrontPhoto: string;
   idCardBackPhoto: string;
   holdIdCardPhoto: string;
-  qualificationPhoto: string;
+  qualificationPhoto: string[];
 }
 
 export interface TeamLeadersResult {

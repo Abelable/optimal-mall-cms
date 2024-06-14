@@ -68,23 +68,6 @@ export const SearchPanel = ({
   return (
     <Container>
       <Item>
-        <div>状态：</div>
-        <Select
-          style={{ width: "20rem" }}
-          value={tempParams.status}
-          placeholder="请选择状态"
-          allowClear={true}
-          onSelect={setStatus}
-          onClear={clearStatus}
-        >
-          {statusOptions?.map(({ text, value }) => (
-            <Select.Option key={value} value={value}>
-              {text}
-            </Select.Option>
-          ))}
-        </Select>
-      </Item>
-      <Item>
         <div>联系人姓名：</div>
         <Input
           style={{ width: "20rem" }}
@@ -103,6 +86,23 @@ export const SearchPanel = ({
           placeholder="请输入手机号"
           allowClear={true}
         />
+      </Item>
+      <Item>
+        <div>状态：</div>
+        <Select
+          style={{ width: "20rem" }}
+          value={tempParams.status}
+          placeholder="请选择状态"
+          allowClear={true}
+          onSelect={setStatus}
+          onClear={clearStatus}
+        >
+          {statusOptions?.map(({ text, value }) => (
+            <Select.Option key={value} value={value}>
+              {text}
+            </Select.Option>
+          ))}
+        </Select>
       </Item>
 
       <ButtonWrap gap={true}>

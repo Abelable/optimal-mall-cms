@@ -18,7 +18,7 @@ import {
   useRejectModal,
 } from "../util";
 import { SearchPanelProps } from "./search-panel";
-import { useApprovedTeamLeader } from "service/teamLeader";
+import { useApprovedTeamLeader, useDeleteTeamLeader } from "service/teamLeader";
 
 interface ListProps extends TableProps<TeamLeader>, SearchPanelProps {
   error: Error | unknown;
@@ -124,15 +124,28 @@ const More = ({ id, status }: { id: number; status: number }) => {
   const { mutate: approvedTeamLeader } = useApprovedTeamLeader(
     useTeamLeadersQueryKey()
   );
+  const { mutate: deleteTeamLeader } = useDeleteTeamLeader(
+    useTeamLeadersQueryKey()
+  );
   const { open: openRejectModal } = useRejectModal();
 
   const confirmApproved = (id: number) => {
     Modal.confirm({
-      title: "商家审核通过确认",
-      content: "请确保在商家信息无误的情况下进行该操作",
+      title: "团长审核通过确认",
+      content: "请确保在团长信息无误的情况下进行该操作",
       okText: "确定",
       cancelText: "取消",
       onOk: () => approvedTeamLeader(id),
+    });
+  };
+
+  const confirmDelete = (id: number) => {
+    Modal.confirm({
+      title: "确定删除该团长吗？",
+      content: "点击确定删除",
+      okText: "确定",
+      cancelText: "取消",
+      onOk: () => deleteTeamLeader(id),
     });
   };
 
@@ -156,6 +169,10 @@ const More = ({ id, status }: { id: number; status: number }) => {
           {
             label: <div onClick={() => open(id)}>详情</div>,
             key: "detail",
+          },
+          {
+            label: <div onClick={() => confirmDelete(id)}>删除</div>,
+            key: "delete",
           },
         ];
 
