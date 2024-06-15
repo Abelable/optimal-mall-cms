@@ -214,7 +214,7 @@ const More = ({ id, status }: { id: number; status: number }) => {
     {
       label: (
         <div onClick={() => (status === 1 ? confirmDown(id) : confirmUp(id))}>
-          {status === 1 ? "下架" : "下架"}
+          {status === 1 ? "下架" : "上架"}
         </div>
       ),
       key: status === 1 ? "down" : "up",
