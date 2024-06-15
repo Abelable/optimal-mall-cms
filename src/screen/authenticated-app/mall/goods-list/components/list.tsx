@@ -8,7 +8,6 @@ import {
   Table,
   TablePaginationConfig,
   TableProps,
-  Tooltip,
   Button,
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
@@ -76,21 +75,14 @@ export const List = ({
             title: "状态",
             dataIndex: "status",
             render: (value, goods) =>
-              value === 0 ? (
-                <span style={{ color: "#87d068" }}>待审核</span>
-              ) : value === 1 ? (
+              value === 1 ? (
                 <span style={{ color: "#296BEF" }}>售卖中</span>
               ) : (
-                <Tooltip title={goods.failureReason}>
-                  <span style={{ color: "#f50", cursor: "pointer" }}>
-                    未过审
-                  </span>
-                </Tooltip>
+                <span style={{ color: "#f50" }}>已下架</span>
               ),
             filters: [
-              { text: "待审核", value: 0 },
               { text: "售卖中", value: 1 },
-              { text: "未过审", value: 2 },
+              { text: "已下架", value: 2 },
             ],
             onFilter: (value, goods) => goods.status === value,
           },
