@@ -75,10 +75,10 @@ export const List = ({
             title: "状态",
             dataIndex: "status",
             render: (value, goods) =>
-              value === 1 ? (
-                <span style={{ color: "#296BEF" }}>售卖中</span>
-              ) : (
+              value === 2 ? (
                 <span style={{ color: "#f50" }}>已下架</span>
+              ) : (
+                <span style={{ color: "#296BEF" }}>售卖中</span>
               ),
             filters: [
               { text: "售卖中", value: 1 },
