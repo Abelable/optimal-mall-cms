@@ -320,12 +320,6 @@ export const GoodsModal = ({
           });
           return;
         }
-        console.log(
-          tableSkuList.reduce(
-            (stock, sku) => Number(stock) + Number(sku.stock),
-            0
-          )
-        );
         if (
           stock <
           tableSkuList.reduce(
