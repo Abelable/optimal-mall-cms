@@ -320,9 +320,18 @@ export const GoodsModal = ({
           });
           return;
         }
+        console.log(
+          tableSkuList.reduce(
+            (stock, sku) => Number(stock) + Number(sku.stock),
+            0
+          )
+        );
         if (
           stock <
-          tableSkuList.reduce((stock, sku) => stock + (sku.stock as number), 0)
+          tableSkuList.reduce(
+            (stock, sku) => Number(stock) + Number(sku.stock),
+            0
+          )
         ) {
           Modal.error({
             title: "请核对库存设置",
@@ -439,6 +448,13 @@ export const GoodsModal = ({
               </Form.Item>
             </Col>
             <Col span={12}>
+              <Form.Item name="introduction" label="商品介绍">
+                <Input placeholder="请输入商品介绍" />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={12}>
               <Form.Item
                 name="categoryId"
                 label="商品分类"
@@ -453,8 +469,6 @@ export const GoodsModal = ({
                 </Select>
               </Form.Item>
             </Col>
-          </Row>
-          <Row gutter={16}>
             <Col span={12}>
               <Form.Item
                 name="merchantId"
@@ -470,6 +484,8 @@ export const GoodsModal = ({
                 </Select>
               </Form.Item>
             </Col>
+          </Row>
+          <Row gutter={16}>
             <Col span={12}>
               <Form.Item
                 name="freightTemplateId"
@@ -485,8 +501,6 @@ export const GoodsModal = ({
                 </Select>
               </Form.Item>
             </Col>
-          </Row>
-          <Row gutter={16}>
             <Col span={12}>
               <Form.Item
                 name="price"
@@ -500,6 +514,8 @@ export const GoodsModal = ({
                 />
               </Form.Item>
             </Col>
+          </Row>
+          <Row gutter={16}>
             <Col span={12}>
               <Form.Item name="marketPrice" label="市场价格">
                 <InputNumber
@@ -509,8 +525,6 @@ export const GoodsModal = ({
                 />
               </Form.Item>
             </Col>
-          </Row>
-          <Row gutter={16}>
             <Col span={12}>
               <Form.Item
                 name="leaderCommissionRate"
@@ -526,6 +540,8 @@ export const GoodsModal = ({
                 />
               </Form.Item>
             </Col>
+          </Row>
+          <Row gutter={16}>
             <Col span={12}>
               <Form.Item
                 name="shareCommissionRate"

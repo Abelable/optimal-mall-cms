@@ -25,6 +25,7 @@ export interface Goods {
   categoryId: number;
   status: number;
   name: string;
+  introduction: string;
   cover: string;
   imageList: string[];
   detailImageList: string[];
