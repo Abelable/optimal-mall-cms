@@ -1,25 +1,20 @@
 export interface OrderListSearchParams {
-  name: string;
-  categoryId: number | undefined;
+  orderSn: string;
   status: number | undefined;
+  consignee: string;
+  mobile: string;
   page: number;
   limit: number;
 }
 
 export interface Order {
   id: number;
-  cover: string;
-  name: string;
-  categoryId: number;
-  price: number;
-  stock: number;
-  leaderCommissionRate: number;
-  shareCommissionRate: number;
-  salesVolume: number;
+  orderSn: string;
   status: number;
-  failureReason: string;
+  paymentAmount: string;
+  consignee: string;
+  mobile: string;
   createdAt: string;
-  updatedAt: string;
 }
 
 export interface OrderListResult {

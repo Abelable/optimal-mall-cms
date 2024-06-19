@@ -4,10 +4,10 @@ import { useOrder } from "service/order";
 
 export const useOrderListSearchParams = () => {
   const [params, setParams] = useUrlQueryParams([
-    "name",
-    "shopCategoryId",
-    "categoryId",
+    "orderSn",
     "status",
+    "consignee",
+    "mobile",
     "page",
     "limit",
   ]);

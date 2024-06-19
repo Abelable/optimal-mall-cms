@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import {
-  Image,
   Dropdown,
   Menu,
   MenuProps,
@@ -44,13 +43,15 @@ export const List = ({
       <ErrorBox error={error} />
       <Table
         rowKey={"id"}
-        scroll={{ x: 2000 }}
         columns={[
           {
             title: "id",
             dataIndex: "id",
             width: "8rem",
-            fixed: "left",
+          },
+          {
+            title: "订单编号",
+            dataIndex: "orderSn",
           },
           {
             title: "状态",
@@ -61,7 +62,7 @@ export const List = ({
               ) : value === 1 ? (
                 <span style={{ color: "#296BEF" }}>售卖中</span>
               ) : (
-                <Tooltip title={order.failureReason}>
+                <Tooltip>
                   <span style={{ color: "#f50", cursor: "pointer" }}>
                     未过审
                   </span>
@@ -75,42 +76,12 @@ export const List = ({
             onFilter: (value, order) => order.status === value,
           },
           {
-            title: "图片",
-            dataIndex: "image",
-            render: (value) => <Image width={68} src={value} />,
-            width: "14rem",
+            title: "收件人姓名",
+            dataIndex: "consignee",
           },
           {
-            title: "名称",
-            dataIndex: "name",
-            width: "32rem",
-          },
-
-          {
-            title: "价格",
-            dataIndex: "price",
-            render: (value) => <>{`¥${value}`}</>,
-          },
-          {
-            title: "销量",
-            dataIndex: "salesVolume",
-            sorter: (a, b) => Number(a) - Number(b),
-          },
-          {
-            title: "库存",
-            dataIndex: "stock",
-          },
-          {
-            title: "销售佣金比例",
-            dataIndex: "leaderCommissionRate",
-            render: (value) => <>{`${value}%`}</>,
-            width: "12rem",
-          },
-          {
-            title: "推广佣金比例",
-            dataIndex: "shareCommissionRate",
-            render: (value) => <>{`${value}%`}</>,
-            width: "12rem",
+            title: "收件人手机号",
+            dataIndex: "mobile",
           },
           {
             title: "创建时间",
@@ -121,22 +92,8 @@ export const List = ({
                   : "无"}
               </span>
             ),
-            width: "20rem",
             sorter: (a, b) =>
               dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf(),
-          },
-          {
-            title: "更新时间",
-            render: (value, order) => (
-              <span>
-                {order.updatedAt
-                  ? dayjs(order.updatedAt).format("YYYY-MM-DD HH:mm:ss")
-                  : "无"}
-              </span>
-            ),
-            width: "20rem",
-            sorter: (a, b) =>
-              dayjs(a.updatedAt).valueOf() - dayjs(b.updatedAt).valueOf(),
           },
           {
             title: "操作",
@@ -144,7 +101,6 @@ export const List = ({
               return <More id={order.id} status={order.status} />;
             },
             width: "8rem",
-            fixed: "right",
           },
         ]}
         onChange={setPagination}

@@ -12,9 +12,10 @@ export interface SearchPanelProps {
 }
 
 const defaultParmas: Partial<OrderListSearchParams> = {
-  name: "",
-  categoryId: undefined,
+  orderSn: "",
   status: undefined,
+  consignee: "",
+  mobile: "",
 };
 
 export const SearchPanel = ({
@@ -24,24 +25,54 @@ export const SearchPanel = ({
 }: SearchPanelProps) => {
   const [tempParams, setTempParams] = useState(defaultParmas);
 
-  const setName = (evt: any) => {
+  const setOrderSn = (evt: any) => {
     if (!evt.target.value && evt.type !== "change") {
       setTempParams({
         ...tempParams,
-        name: "",
+        orderSn: "",
       });
       return;
     }
 
     setTempParams({
       ...tempParams,
-      name: evt.target.value,
+      orderSn: evt.target.value,
     });
   };
 
   const setStatus = (status: number) =>
     setTempParams({ ...tempParams, status });
   const clearStatus = () => setTempParams({ ...tempParams, status: undefined });
+
+  const setConsignee = (evt: any) => {
+    if (!evt.target.value && evt.type !== "change") {
+      setTempParams({
+        ...tempParams,
+        consignee: "",
+      });
+      return;
+    }
+
+    setTempParams({
+      ...tempParams,
+      consignee: evt.target.value,
+    });
+  };
+
+  const setMobile = (evt: any) => {
+    if (!evt.target.value && evt.type !== "change") {
+      setTempParams({
+        ...tempParams,
+        mobile: "",
+      });
+      return;
+    }
+
+    setTempParams({
+      ...tempParams,
+      mobile: evt.target.value,
+    });
+  };
 
   const clear = () => {
     setParams({ ...params, ...defaultParmas });
@@ -51,12 +82,12 @@ export const SearchPanel = ({
   return (
     <Container>
       <Item>
-        <div>订单名称：</div>
+        <div>订单编号：</div>
         <Input
           style={{ width: "20rem" }}
-          value={tempParams.name}
-          onChange={setName}
-          placeholder="请输入订单名称"
+          value={tempParams.orderSn}
+          onChange={setOrderSn}
+          placeholder="请输入订单编号"
           allowClear={true}
         />
       </Item>
@@ -76,6 +107,26 @@ export const SearchPanel = ({
             </Select.Option>
           ))}
         </Select>
+      </Item>
+      <Item>
+        <div>收件人姓名：</div>
+        <Input
+          style={{ width: "20rem" }}
+          value={tempParams.consignee}
+          onChange={setConsignee}
+          placeholder="请输入收件人姓名"
+          allowClear={true}
+        />
+      </Item>
+      <Item>
+        <div>收件人手机号：</div>
+        <Input
+          style={{ width: "20rem" }}
+          value={tempParams.mobile}
+          onChange={setMobile}
+          placeholder="请输入收件人手机号"
+          allowClear={true}
+        />
       </Item>
 
       <ButtonWrap gap={true}>
