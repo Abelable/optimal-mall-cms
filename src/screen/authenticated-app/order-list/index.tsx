@@ -11,10 +11,19 @@ import { RejectModal } from "./components/reject-modal";
 export const OrderList = () => {
   const [params, setParams] = useOrderListSearchParams();
   const { isLoading, error, data } = useOrderList(params);
+
   const statusOptions = [
-    { text: "待审核", value: 0 },
-    { text: "售卖中", value: 1 },
-    { text: "未过审", value: 2 },
+    { text: "待付款", value: 101 },
+    { text: "用户取消", value: 102 },
+    { text: "系统取消", value: 103 },
+    { text: "管理员取消", value: 104 },
+    { text: "待发货", value: 201 },
+    { text: "待退款", value: 202 },
+    { text: "退款成功", value: 203 },
+    { text: "待收货", value: 301 },
+    { text: "用户签收", value: 401 },
+    { text: "系统签收", value: 402 },
+    { text: "已完成", value: 501 },
   ];
 
   return (
