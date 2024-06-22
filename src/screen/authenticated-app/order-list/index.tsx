@@ -92,7 +92,7 @@ export const OrderList = () => {
             >
               {[
                 { name: "批量发货", value: 1 },
-                { name: "关闭订单", value: 2 },
+                { name: "取消订单", value: 2 },
                 { name: "删除订单", value: 3 },
               ].map(({ name, value }) => (
                 <Select.Option
