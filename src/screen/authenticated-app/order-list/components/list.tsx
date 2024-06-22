@@ -10,8 +10,8 @@ import {
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
 import dayjs from "dayjs";
-import { useApprovedOrder, useDeleteOrder } from "service/order";
-import { useOrderModal, useOrderListQueryKey, useRejectModal } from "../util";
+import { useDeleteOrder } from "service/order";
+import { useOrderModal, useOrderListQueryKey } from "../util";
 import { SearchPanelProps } from "./search-panel";
 
 import type { Order } from "types/order";
@@ -114,8 +114,6 @@ export const List = ({
 const More = ({ id, status }: { id: number; status: number }) => {
   const { open } = useOrderModal();
   const { mutate: deleteOrder } = useDeleteOrder(useOrderListQueryKey());
-  const { mutate: approvedOrder } = useApprovedOrder(useOrderListQueryKey());
-  const { open: openRejectModal } = useRejectModal();
 
   const confirmDelete = (id: number) => {
     Modal.confirm({
@@ -127,49 +125,28 @@ const More = ({ id, status }: { id: number; status: number }) => {
     });
   };
 
-  const confirmApproved = (id: number) => {
-    Modal.confirm({
-      title: "订单审核通过确认",
-      content: "请确保在订单信息无误的情况下进行该操作",
-      okText: "确定",
-      cancelText: "取消",
-      onOk: () => approvedOrder(id),
-    });
-  };
-
   let items: MenuProps["items"];
   switch (status) {
-    case 0:
+    case 101:
       items = [
         {
           label: <div onClick={() => open(id)}>详情</div>,
           key: "detail",
         },
         {
-          label: <div onClick={() => confirmApproved(id)}>通过</div>,
-          key: "approved",
-        },
-        {
-          label: <div onClick={() => openRejectModal(id)}>驳回</div>,
-          key: "reject",
-        },
-
-        {
-          label: <div onClick={() => confirmDelete(id)}>删除</div>,
-          key: "delete",
+          label: <div onClick={() => open(id)}>取消</div>,
+          key: "cancel",
         },
       ];
       break;
 
-    case 1:
+    case 102:
+    case 103:
+    case 104:
       items = [
         {
           label: <div onClick={() => open(id)}>详情</div>,
           key: "detail",
-        },
-        {
-          label: <div onClick={() => openRejectModal(id)}>驳回重审</div>,
-          key: "reject",
         },
         {
           label: <div onClick={() => confirmDelete(id)}>删除</div>,
@@ -178,11 +155,42 @@ const More = ({ id, status }: { id: number; status: number }) => {
       ];
       break;
 
-    case 2:
+    case 201:
       items = [
         {
           label: <div onClick={() => open(id)}>详情</div>,
           key: "detail",
+        },
+        {
+          label: <div onClick={() => open(id)}>发货</div>,
+          key: "delivery",
+        },
+      ];
+      break;
+
+    case 301:
+      items = [
+        {
+          label: <div onClick={() => open(id)}>详情</div>,
+          key: "detail",
+        },
+        {
+          label: <div onClick={() => open(id)}>物流</div>,
+          key: "express",
+        },
+      ];
+      break;
+
+    case 401:
+    case 402:
+      items = [
+        {
+          label: <div onClick={() => open(id)}>详情</div>,
+          key: "detail",
+        },
+        {
+          label: <div onClick={() => open(id)}>物流</div>,
+          key: "express",
         },
         {
           label: <div onClick={() => confirmDelete(id)}>删除</div>,

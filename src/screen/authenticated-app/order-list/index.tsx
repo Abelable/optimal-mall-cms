@@ -22,7 +22,6 @@ const statusOptions = [
   { text: "待收货", value: 301 },
   { text: "用户签收", value: 401 },
   { text: "系统签收", value: 402 },
-  { text: "已完成", value: 501 },
 ];
 
 export const OrderList = () => {
