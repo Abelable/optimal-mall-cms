@@ -18,10 +18,14 @@ import type { Order } from "types/order";
 
 interface ListProps extends TableProps<Order>, SearchPanelProps {
   error: Error | unknown;
+  selectedRowKeys: React.Key[];
+  setSelectedRowKeys: (selectedRowKeys: []) => void;
 }
 
 export const List = ({
   statusOptions,
+  selectedRowKeys,
+  setSelectedRowKeys,
   error,
   params,
   setParams,
@@ -42,6 +46,12 @@ export const List = ({
       <ErrorBox error={error} />
       <Table
         rowKey={"id"}
+        rowSelection={{
+          type: "checkbox",
+          selectedRowKeys,
+          onChange: (selectedRowKeys) =>
+            setSelectedRowKeys(selectedRowKeys as []),
+        }}
         columns={[
           {
             title: "id",
