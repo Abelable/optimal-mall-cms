@@ -35,7 +35,7 @@ export const useOrderModal = () => {
   ]);
   const setUrlParams = useSetUrlSearchParams();
   const {
-    data: editingOrder,
+    data: orderInfo,
     isLoading,
     error,
   } = useOrder(Number(editingOrderId));
@@ -52,7 +52,7 @@ export const useOrderModal = () => {
   return {
     orderModalOpen: !!editingOrderId,
     editingOrderId,
-    editingOrder,
+    orderInfo,
     isLoading,
     error,
     open,

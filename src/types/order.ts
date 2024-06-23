@@ -23,3 +23,15 @@ export interface OrderListResult {
   limit: string;
   total: string;
 }
+
+export interface OrderDetail extends Order {
+  consignee: string;
+  mobile: string;
+  address: string;
+  payTime: string;
+  shipChannel: string;
+  shipSn: string;
+  shipTime: string;
+  confirmTime: string;
+  finishTime: string;
+}

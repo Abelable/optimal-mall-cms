@@ -3,6 +3,7 @@ import { useHttp } from "./http";
 import {
   useAddConfig,
   useApprovedConfig,
+  useCancelOrderConfig,
   useDeleteConfig,
   useEditConfig,
   useRejectConfig,
@@ -10,6 +11,7 @@ import {
 import { cleanObject } from "utils/index";
 import type {
   Order,
+  OrderDetail,
   OrderListResult,
   OrderListSearchParams,
 } from "types/order";
@@ -23,7 +25,7 @@ export const useOrderList = (params: Partial<OrderListSearchParams>) => {
 
 export const useOrder = (id: number) => {
   const client = useHttp();
-  return useQuery<Partial<Order>>(
+  return useQuery<Partial<OrderDetail>>(
     ["order", { id }],
     () => client(`order/detail`, { data: { id } }),
     {
@@ -89,5 +91,17 @@ export const useDeleteOrder = (queryKey: QueryKey) => {
         method: "POST",
       }),
     useDeleteConfig(queryKey)
+  );
+};
+
+export const useCancelOrder = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    (id: number) =>
+      client("order/cancel", {
+        data: { id },
+        method: "POST",
+      }),
+    useCancelOrderConfig(queryKey)
   );
 };

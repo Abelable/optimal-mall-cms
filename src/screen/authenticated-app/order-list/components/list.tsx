@@ -169,20 +169,9 @@ const More = ({ id, status }: { id: number; status: number }) => {
       break;
 
     case 301:
-      items = [
-        {
-          label: <div onClick={() => open(id)}>详情</div>,
-          key: "detail",
-        },
-        {
-          label: <div onClick={() => open(id)}>物流</div>,
-          key: "express",
-        },
-      ];
-      break;
-
     case 401:
     case 402:
+    case 501:
       items = [
         {
           label: <div onClick={() => open(id)}>详情</div>,
@@ -191,10 +180,6 @@ const More = ({ id, status }: { id: number; status: number }) => {
         {
           label: <div onClick={() => open(id)}>物流</div>,
           key: "express",
-        },
-        {
-          label: <div onClick={() => confirmDelete(id)}>删除</div>,
-          key: "delete",
         },
       ];
       break;

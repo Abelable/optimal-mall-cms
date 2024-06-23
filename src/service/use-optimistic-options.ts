@@ -99,3 +99,15 @@ export const useRejectConfig = (queryKey: QueryKey) =>
         }
       : null
   );
+
+export const useCancelOrderConfig = (queryKey: QueryKey) =>
+  useConfig(queryKey, (id, old) =>
+    old
+      ? {
+          ...old,
+          list: old.list.map((item: any) =>
+            item.id === id ? { ...item, status: 103 } : item
+          ),
+        }
+      : null
+  );
