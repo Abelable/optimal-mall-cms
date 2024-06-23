@@ -11,7 +11,7 @@ export interface Order {
   id: number;
   orderSn: string;
   status: number;
-  paymentAmount: string;
+  paymentAmount: number;
   consignee: string;
   mobile: string;
   createdAt: string;
@@ -24,7 +24,19 @@ export interface OrderListResult {
   total: string;
 }
 
+export interface Goods {
+  id: number;
+  cover: string;
+  name: string;
+  selectedSkuName: string;
+  price: number;
+  number: number;
+}
+
 export interface OrderDetail extends Order {
+  goodsList: Goods[];
+  goodsPrice: number;
+  freightPrice: number;
   consignee: string;
   mobile: string;
   address: string;

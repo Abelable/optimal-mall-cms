@@ -220,6 +220,7 @@ export const OrderModal = ({ statusOptions }: { statusOptions: Option[] }) => {
                 {orderInfo?.shipChannel || "暂无"}
               </Descriptions.Item>
             </Descriptions>
+
             <Divider orientation="left">收货人信息</Divider>
             <Descriptions size={"small"} layout="vertical" bordered>
               <Descriptions.Item label="收货人">
@@ -232,6 +233,7 @@ export const OrderModal = ({ statusOptions }: { statusOptions: Option[] }) => {
                 {orderInfo?.address}
               </Descriptions.Item>
             </Descriptions>
+
             <Divider orientation="left">商品信息</Divider>
             <Table
               columns={[
@@ -249,20 +251,37 @@ export const OrderModal = ({ statusOptions }: { statusOptions: Option[] }) => {
                 {
                   title: "价格",
                   dataIndex: "price",
-                  render: (value) => <Image width={68} src={value} />,
+                  render: (value) => <>¥{value}</>,
                 },
                 {
                   title: "数量",
-                  dataIndex: "num",
-                  render: (value) => <Image width={68} src={value} />,
+                  dataIndex: "number",
                 },
                 {
-                  title: "小记",
-                  render: (value, goods) => <>¥{goods.price * goods.num}</>,
+                  title: "小计",
+                  render: (value, goods) => <>¥{goods.price * goods.number}</>,
                 },
               ]}
+              dataSource={orderInfo?.goodsList}
+              pagination={false}
               bordered
             />
+
+            <Divider orientation="left">费用信息</Divider>
+            <Descriptions size={"small"} layout="vertical" bordered>
+              <Descriptions.Item label="商品合计">
+                ¥{orderInfo?.goodsPrice}
+              </Descriptions.Item>
+              <Descriptions.Item label="运费">
+                ¥{orderInfo?.freightPrice}
+              </Descriptions.Item>
+              <Descriptions.Item label="应付款金额">
+                <span style={{ color: "#f56c6c" }}>
+                  {" "}
+                  ¥{orderInfo?.paymentAmount}
+                </span>
+              </Descriptions.Item>
+            </Descriptions>
           </Card>
         </>
       )}
