@@ -3,8 +3,6 @@ import {
   Divider,
   Drawer,
   Image,
-  Avatar,
-  Tooltip,
   Steps,
   Card,
   Button,
@@ -12,7 +10,6 @@ import {
   Table,
 } from "antd";
 import { ErrorBox, ModalLoading } from "components/lib";
-import { UserOutlined } from "@ant-design/icons";
 
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
@@ -236,6 +233,7 @@ export const OrderModal = ({ statusOptions }: { statusOptions: Option[] }) => {
 
             <Divider orientation="left">商品信息</Divider>
             <Table
+              rowKey={"id"}
               columns={[
                 {
                   title: "商品图片",
@@ -275,7 +273,7 @@ export const OrderModal = ({ statusOptions }: { statusOptions: Option[] }) => {
               <Descriptions.Item label="运费">
                 ¥{orderInfo?.freightPrice}
               </Descriptions.Item>
-              <Descriptions.Item label="应付款金额">
+              <Descriptions.Item label="订单总金额">
                 <span style={{ color: "#f56c6c" }}>
                   {" "}
                   ¥{orderInfo?.paymentAmount}
