@@ -10,6 +10,7 @@ import { List } from "./components/list";
 import { SearchPanel } from "./components/search-panel";
 import { RejectModal } from "./components/reject-modal";
 import { Row } from "components/lib";
+import { OrderModal } from "./components/order-modal";
 
 const statusOptions = [
   { text: "待付款", value: 101 },
@@ -20,6 +21,11 @@ const statusOptions = [
   { text: "待收货", value: 301 },
   { text: "用户签收", value: 401 },
   { text: "系统签收", value: 402 },
+];
+const batchOprationOptions = [
+  { name: "批量发货", value: 1 },
+  { name: "取消订单", value: 2 },
+  { name: "删除订单", value: 3 },
 ];
 
 export const OrderList = () => {
@@ -88,11 +94,7 @@ export const OrderList = () => {
               allowClear={true}
               placeholder="批量操作"
             >
-              {[
-                { name: "批量发货", value: 1 },
-                { name: "取消订单", value: 2 },
-                { name: "删除订单", value: 3 },
-              ].map(({ name, value }) => (
+              {batchOprationOptions.map(({ name, value }) => (
                 <Select.Option
                   key={value}
                   value={value}
@@ -113,6 +115,7 @@ export const OrderList = () => {
         </Row>
       </Drawer>
       <RejectModal />
+      <OrderModal statusOptions={statusOptions} />
     </Container>
   );
 };

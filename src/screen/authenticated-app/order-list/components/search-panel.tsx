@@ -3,10 +3,11 @@ import styled from "@emotion/styled";
 import { Row } from "components/lib";
 import { Button, Input, Select } from "antd";
 
+import type { Option } from "types/common";
 import type { OrderListSearchParams } from "types/order";
 
 export interface SearchPanelProps {
-  statusOptions: { text: string; value: number }[];
+  statusOptions: Option[];
   params: Partial<OrderListSearchParams>;
   setParams: (params: Partial<OrderListSearchParams>) => void;
 }
