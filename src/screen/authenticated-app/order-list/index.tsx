@@ -6,10 +6,10 @@ import { toNumber } from "utils";
 import { useOrderListSearchParams } from "./util";
 
 import { Drawer, Select, Button } from "antd";
+import { Row } from "components/lib";
 import { List } from "./components/list";
 import { SearchPanel } from "./components/search-panel";
 import { RejectModal } from "./components/reject-modal";
-import { Row } from "components/lib";
 import { OrderModal } from "./components/order-modal";
 
 const statusOptions = [
@@ -76,7 +76,7 @@ export const OrderList = () => {
         />
       </Main>
       <Drawer
-        visible={!!selectedRowKeys.length}
+        open={!!selectedRowKeys.length}
         style={{ position: "absolute" }}
         height={"8rem"}
         placement="bottom"

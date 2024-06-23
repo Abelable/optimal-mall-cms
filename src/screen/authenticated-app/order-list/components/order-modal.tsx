@@ -14,7 +14,7 @@ export const OrderModal = ({ statusOptions }: { statusOptions: Option[] }) => {
   return (
     <Drawer
       forceRender={true}
-      title="商品详情"
+      title="订单详情"
       size={"large"}
       onClose={close}
       open={orderModalOpen}
@@ -25,7 +25,7 @@ export const OrderModal = ({ statusOptions }: { statusOptions: Option[] }) => {
         <ModalLoading />
       ) : (
         <>
-          <Divider orientation="left">商品信息</Divider>
+          <Divider orientation="left">订单信息</Divider>
           {/* <Descriptions size={"small"} column={2}>
             <Descriptions.Item label="ID">{editingOrder?.id}</Descriptions.Item>
             <Descriptions.Item label="状态">
