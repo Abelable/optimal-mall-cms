@@ -405,7 +405,7 @@ export const GoodsModal = ({
             <Col span={24}>
               <Form.Item
                 name="video"
-                label="上传商品视频"
+                label="商品视频"
                 valuePropName="fileList"
                 getValueFromEvent={normFile}
               >
