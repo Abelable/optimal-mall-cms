@@ -26,6 +26,7 @@ export interface Goods {
   status: number;
   name: string;
   introduction: string;
+  video: string;
   cover: string;
   imageList: string[];
   detailImageList: string[];

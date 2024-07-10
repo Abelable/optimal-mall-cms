@@ -255,6 +255,7 @@ export const GoodsModal = ({
   useEffect(() => {
     if (editingGoods) {
       const {
+        video,
         cover,
         imageList,
         detailImageList,
@@ -277,6 +278,14 @@ export const GoodsModal = ({
       setSpecContent(specList || []);
 
       form.setFieldsValue({
+        video: video
+          ? [
+              {
+                url: video,
+                thumbUrl: `${video}?x-oss-process=video/snapshot,t_0`,
+              },
+            ]
+          : [],
         cover: [{ url: cover }],
         imageList: imageList?.length
           ? imageList?.map((item) => ({ url: item }))
@@ -293,6 +302,7 @@ export const GoodsModal = ({
   const submit = () => {
     form.validateFields().then(async () => {
       const {
+        video,
         cover,
         imageList,
         detailImageList,
@@ -338,6 +348,7 @@ export const GoodsModal = ({
       await mutateAsync({
         ...editingGoods,
         ...rest,
+        video: video && video.length ? video[0].url : "",
         cover: cover[0].url,
         imageList: imageList.map((item: { url: string }) => item.url),
         detailImageList: detailImageList.map(
@@ -390,6 +401,18 @@ export const GoodsModal = ({
           <Divider orientation="left" plain>
             基本信息
           </Divider>
+          <Row gutter={16}>
+            <Col span={24}>
+              <Form.Item
+                name="video"
+                label="上传商品视频"
+                valuePropName="fileList"
+                getValueFromEvent={normFile}
+              >
+                <OssUpload accept=".mp4" maxCount={1} />
+              </Form.Item>
+            </Col>
+          </Row>
           <Row gutter={16}>
             <Col span={24}>
               <Form.Item
