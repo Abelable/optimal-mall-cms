@@ -436,7 +436,7 @@ export const GoodsModal = ({
                 getValueFromEvent={normFile}
                 rules={[{ required: true, message: "请上传主图图片" }]}
               >
-                <OssUpload maxCount={10} />
+                <OssUpload maxCount={10} multiple />
               </Form.Item>
             </Col>
           </Row>
@@ -450,7 +450,7 @@ export const GoodsModal = ({
                 getValueFromEvent={normFile}
                 rules={[{ required: true, message: "请上传详情图片" }]}
               >
-                <OssUpload />
+                <OssUpload multiple />
               </Form.Item>
             </Col>
           </Row>
