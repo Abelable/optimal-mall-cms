@@ -24,8 +24,7 @@ export const OssUpload = ({
     };
   };
   const beforeUpload = (file: any) => {
-    const suffix = file.name.slice(file.name.lastIndexOf("."));
-    const filename = Date.now() + suffix;
+    const filename = Date.now() + file.name;
     file.key = ossConfig?.dir + filename;
     file.url = `${ossConfig?.host}/${ossConfig?.dir}${filename}`;
     if (accept === ".mp4") {
