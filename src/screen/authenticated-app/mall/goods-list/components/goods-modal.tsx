@@ -199,7 +199,7 @@ export const GoodsModal = ({
   const tableSku = () => {
     // 绘制商品规格sku
     let temp: any[] = [];
-    specContent.forEach((item) => {
+    specContent.forEach((item, index) => {
       if (!temp.length) {
         // specContent当只有一个数据时候只需要
         temp.push(
@@ -223,8 +223,16 @@ export const GoodsModal = ({
           if (item.options.length === 0) array.push(obj);
           array.push(
             ...item.options.map((t) => {
-              obj.name && (obj.name = obj.name + "," + t);
-              const oldItem = tableSkuList.find((t) => t.name === obj.name);
+              if (obj.name) {
+                const nameList = obj.name.split(",");
+                if (index > nameList.length - 1) {
+                  obj.name = [...nameList, t].join();
+                } else {
+                  nameList[index] = t;
+                  obj.name = nameList.join();
+                }
+              }
+              const oldItem = tableSkuList.find((_t) => _t.name === obj.name);
               if (oldItem) {
                 return { ...oldItem };
               } else {
