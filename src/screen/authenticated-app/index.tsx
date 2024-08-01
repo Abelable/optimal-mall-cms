@@ -174,7 +174,7 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
       <Link to={"/"}>
         <Logo collapsed={collapsed}>
           <LogoImg src={logo} />
-          <div>有播甄选管理后台</div>
+          <div>诚信星球管理后台</div>
         </Logo>
       </Link>
       <Menu
