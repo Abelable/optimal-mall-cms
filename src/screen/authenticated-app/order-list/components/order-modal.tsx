@@ -297,7 +297,7 @@ const Extra = ({ id, status }: { id: number; status: number }) => {
       content: "点击确定取消",
       okText: "确定",
       cancelText: "取消",
-      onOk: () => cancelOrder(id),
+      onOk: () => cancelOrder([id]),
     });
   };
   const confirmDelete = () => {

@@ -97,9 +97,9 @@ export const useDeleteOrder = (queryKey: QueryKey) => {
 export const useCancelOrder = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
-    (id: number) =>
+    (ids: number[]) =>
       client("order/cancel", {
-        data: { id },
+        data: { ids },
         method: "POST",
       }),
     useCancelOrderConfig(queryKey)
