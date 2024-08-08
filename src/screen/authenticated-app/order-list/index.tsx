@@ -1,11 +1,11 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 
-import { useOrderList } from "service/order";
+import { useCancelOrder, useDeleteOrder, useOrderList } from "service/order";
 import { toNumber } from "utils";
-import { useOrderListSearchParams } from "./util";
+import { useOrderListQueryKey, useOrderListSearchParams } from "./util";
 
-import { Drawer, Select, Button } from "antd";
+import { Drawer, Select, Button, Modal } from "antd";
 import { Row } from "components/lib";
 import { List } from "./components/list";
 import { SearchPanel } from "./components/search-panel";
@@ -34,6 +34,8 @@ export const OrderList = () => {
   const [batchOprationType, setBatchOprationType] = useState(-1);
   const [params, setParams] = useOrderListSearchParams();
   const { isLoading, error, data } = useOrderList(params);
+  const { mutate: cancelOrder } = useCancelOrder(useOrderListQueryKey());
+  const { mutate: deleteOrder } = useDeleteOrder(useOrderListQueryKey());
 
   const selectBatchOprationType = () => (type: number) => {
     setBatchOprationType(type);
@@ -41,13 +43,52 @@ export const OrderList = () => {
   const batchOprate = () => {
     switch (batchOprationType) {
       case 1:
-        console.log("batchOprationType", batchOprationType);
+        console.log("selectedRowKeys", selectedRowKeys);
         break;
 
       case 2:
+        Modal.confirm({
+          title: "确定批量取消该订单吗？",
+          content: "点击确定取消",
+          okText: "确定",
+          cancelText: "取消",
+          onOk: () => {
+            const ids = selectedRowKeys.filter((id) =>
+              data?.list
+                .filter((item) => item.status === 101)
+                .map((item) => item.id)
+                .includes(id)
+            );
+            cancelOrder(ids);
+            setSelectedRowKeys([]);
+          },
+        });
         break;
 
       case 3:
+        const ids = selectedRowKeys.filter((id) =>
+          data?.list
+            .filter((item) => [102, 103, 104].includes(item.status))
+            .map((item) => item.id)
+            .includes(id)
+        );
+        console.log(ids);
+        Modal.confirm({
+          title: "确定批量删除该订单吗？",
+          content: "点击确定删除",
+          okText: "确定",
+          cancelText: "取消",
+          onOk: () => {
+            const ids = selectedRowKeys.filter((id) =>
+              data?.list
+                .filter((item) => [102, 103, 104].includes(item.status))
+                .map((item) => item.id)
+                .includes(id)
+            );
+            deleteOrder(ids);
+            setSelectedRowKeys([]);
+          },
+        });
         break;
     }
   };
@@ -93,14 +134,11 @@ export const OrderList = () => {
             <Select
               style={{ width: "14rem" }}
               allowClear={true}
+              onSelect={selectBatchOprationType()}
               placeholder="批量操作"
             >
               {batchOprationOptions.map(({ name, value }) => (
-                <Select.Option
-                  key={value}
-                  value={value}
-                  onSelect={selectBatchOprationType()}
-                >
+                <Select.Option key={value} value={value}>
                   {name}
                 </Select.Option>
               ))}
