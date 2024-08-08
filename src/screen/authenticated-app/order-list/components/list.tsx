@@ -121,7 +121,7 @@ const More = ({ id, status }: { id: number; status: number }) => {
       content: "点击确定删除",
       okText: "确定",
       cancelText: "取消",
-      onOk: () => deleteOrder(id),
+      onOk: () => deleteOrder([id]),
     });
   };
 

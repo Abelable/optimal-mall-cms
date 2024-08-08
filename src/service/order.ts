@@ -85,9 +85,9 @@ export const useEditOrder = (queryKey: QueryKey) => {
 export const useDeleteOrder = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
-    (id: number) =>
+    (ids: number[]) =>
       client("order/delete", {
-        data: { id },
+        data: { ids },
         method: "POST",
       }),
     useDeleteConfig(queryKey)
