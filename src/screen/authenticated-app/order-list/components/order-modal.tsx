@@ -210,11 +210,11 @@ export const OrderModal = ({ statusOptions }: { statusOptions: Option[] }) => {
               <Descriptions.Item label="订单编号">
                 {orderInfo?.orderSn}
               </Descriptions.Item>
-              <Descriptions.Item label="物流单号">
-                {orderInfo?.shipSn || "暂无"}
-              </Descriptions.Item>
               <Descriptions.Item label="快递公司">
                 {orderInfo?.shipChannel || "暂无"}
+              </Descriptions.Item>
+              <Descriptions.Item label="物流单号">
+                {orderInfo?.shipSn || "暂无"}
               </Descriptions.Item>
             </Descriptions>
 
