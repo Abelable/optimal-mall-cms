@@ -3,7 +3,7 @@ import { useHttp } from "./http";
 import {
   useAddConfig,
   useApprovedConfig,
-  useCancelDeleteConfig,
+  useDeleteOrderConfig,
   useCancelOrderConfig,
   useEditConfig,
   useRejectConfig,
@@ -90,7 +90,7 @@ export const useDeleteOrder = (queryKey: QueryKey) => {
         data: { ids },
         method: "POST",
       }),
-    useCancelDeleteConfig(queryKey)
+    useDeleteOrderConfig(queryKey)
   );
 };
 

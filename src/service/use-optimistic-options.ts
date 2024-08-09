@@ -100,7 +100,7 @@ export const useRejectConfig = (queryKey: QueryKey) =>
       : null
   );
 
-export const useCancelDeleteConfig = (queryKey: QueryKey) =>
+export const useDeleteOrderConfig = (queryKey: QueryKey) =>
   useConfig(queryKey, (ids, old) =>
     old
       ? {
