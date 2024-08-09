@@ -66,13 +66,6 @@ export const OrderList = () => {
         break;
 
       case 3:
-        const ids = selectedRowKeys.filter((id) =>
-          data?.list
-            .filter((item) => [102, 103, 104].includes(item.status))
-            .map((item) => item.id)
-            .includes(id)
-        );
-        console.log(ids);
         Modal.confirm({
           title: "确定批量删除该订单吗？",
           content: "点击确定删除",
