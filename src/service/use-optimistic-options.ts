@@ -100,13 +100,25 @@ export const useRejectConfig = (queryKey: QueryKey) =>
       : null
   );
 
-export const useCancelOrderConfig = (queryKey: QueryKey) =>
-  useConfig(queryKey, (id, old) =>
+export const useCancelDeleteConfig = (queryKey: QueryKey) =>
+  useConfig(queryKey, (ids, old) =>
     old
       ? {
           ...old,
           list: old.list.map((item: any) =>
-            item.id === id ? { ...item, status: 103 } : item
+            ids.includes(item.id) ? { ...item, status: 103 } : item
+          ),
+        }
+      : null
+  );
+
+export const useCancelOrderConfig = (queryKey: QueryKey) =>
+  useConfig(queryKey, (ids, old) =>
+    old
+      ? {
+          ...old,
+          list: old.list.map((item: any) =>
+            ids.includes(item.id) ? { ...item, status: 103 } : item
           ),
         }
       : null

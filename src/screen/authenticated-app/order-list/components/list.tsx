@@ -10,7 +10,7 @@ import {
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
 import dayjs from "dayjs";
-import { useDeleteOrder } from "service/order";
+import { useCancelOrder, useDeleteOrder } from "service/order";
 import { useOrderModal, useOrderListQueryKey } from "../util";
 import { SearchPanelProps } from "./search-panel";
 
@@ -113,7 +113,18 @@ export const List = ({
 
 const More = ({ id, status }: { id: number; status: number }) => {
   const { open } = useOrderModal();
+  const { mutate: cancelOrder } = useCancelOrder(useOrderListQueryKey());
   const { mutate: deleteOrder } = useDeleteOrder(useOrderListQueryKey());
+
+  const confirmCancel = (id: number) => {
+    Modal.confirm({
+      title: "确定取消该订单吗？",
+      content: "点击确定取消",
+      okText: "确定",
+      cancelText: "取消",
+      onOk: () => cancelOrder([id]),
+    });
+  };
 
   const confirmDelete = (id: number) => {
     Modal.confirm({
@@ -134,7 +145,7 @@ const More = ({ id, status }: { id: number; status: number }) => {
           key: "detail",
         },
         {
-          label: <div onClick={() => open(id)}>取消</div>,
+          label: <div onClick={() => confirmCancel(id)}>取消</div>,
           key: "cancel",
         },
       ];
