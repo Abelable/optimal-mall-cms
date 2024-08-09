@@ -118,7 +118,7 @@ export const useCancelOrderConfig = (queryKey: QueryKey) =>
       ? {
           ...old,
           list: old.list.map((item: any) =>
-            ids.includes(item.id) ? { ...item, status: 103 } : item
+            ids.includes(item.id) ? { ...item, status: 104 } : item
           ),
         }
       : null
