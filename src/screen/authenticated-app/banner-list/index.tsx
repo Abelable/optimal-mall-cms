@@ -35,6 +35,7 @@ export const BannerList = () => {
             pageSize: toNumber(data?.limit),
             total: toNumber(data?.total),
           }}
+          bordered
         />
       </Main>
       <BannerModal sceneOptions={sceneOptions} />

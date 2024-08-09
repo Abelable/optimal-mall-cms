@@ -38,6 +38,7 @@ export const TeamLeaderList = () => {
             pageSize: toNumber(data?.limit),
             total: toNumber(data?.total),
           }}
+          bordered
         />
       </Main>
       <TeamLeaderModal />

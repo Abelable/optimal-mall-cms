@@ -14,6 +14,7 @@ export interface Order {
   paymentAmount: number;
   consignee: string;
   mobile: string;
+  address: string;
   createdAt: string;
 }
 

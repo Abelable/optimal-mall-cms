@@ -63,7 +63,7 @@ export const List = ({
             dataIndex: "orderSn",
           },
           {
-            title: "状态",
+            title: "订单状态",
             dataIndex: "status",
             render: (value) => (
               <>{statusOptions.find((item) => item.value === value)?.text}</>
@@ -77,12 +77,21 @@ export const List = ({
             render: (value) => <>¥{value}</>,
           },
           {
-            title: "收件人姓名",
-            dataIndex: "consignee",
-          },
-          {
-            title: "收件人手机号",
-            dataIndex: "mobile",
+            title: "收件人信息",
+            children: [
+              {
+                title: "姓名",
+                dataIndex: "consignee",
+              },
+              {
+                title: "手机号",
+                dataIndex: "mobile",
+              },
+              {
+                title: "收件地址",
+                dataIndex: "address",
+              },
+            ],
           },
           {
             title: "创建时间",

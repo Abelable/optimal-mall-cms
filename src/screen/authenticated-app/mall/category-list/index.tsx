@@ -24,6 +24,7 @@ export const GoodsCategoryList = () => {
             pageSize: toNumber(data?.limit),
             total: toNumber(data?.total),
           }}
+          bordered
         />
       </Main>
       <CategoryModal />

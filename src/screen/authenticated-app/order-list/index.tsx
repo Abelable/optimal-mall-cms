@@ -108,6 +108,7 @@ export const OrderList = () => {
             pageSize: toNumber(data?.limit),
             total: toNumber(data?.total),
           }}
+          bordered
         />
       </Main>
       <Drawer
