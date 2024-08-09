@@ -66,7 +66,9 @@ export const List = ({
             title: "订单状态",
             dataIndex: "status",
             render: (value) => (
-              <>{statusOptions.find((item) => item.value === value)?.text}</>
+              <div style={{ color: value === 201 ? "#faad14" : "#000" }}>
+                {statusOptions.find((item) => item.value === value)?.text}
+              </div>
             ),
             filters: statusOptions,
             onFilter: (value, order) => order.status === value,
@@ -94,7 +96,7 @@ export const List = ({
             ],
           },
           {
-            title: "创建时间",
+            title: "提交时间",
             render: (value, order) => (
               <span>
                 {order.createdAt
