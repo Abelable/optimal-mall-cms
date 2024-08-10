@@ -10,6 +10,7 @@ const breadcrumbNameMap: { [key: string]: string } = {
   "/activity/home_banner_list": "首页头图",
   "/rural": "诚信乡村",
   "/rural/banner_list": "头图列表",
+  "/rural/region_list": "地区列表",
   "/goods": "商品管理",
   "/goods/merchant_list": "商家列表",
   "/goods/freight_template_list": "运费模板",
