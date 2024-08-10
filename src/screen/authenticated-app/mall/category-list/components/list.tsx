@@ -6,12 +6,17 @@ import {
   Menu,
   MenuProps,
   Modal,
+  Switch,
   Table,
   TablePaginationConfig,
   TableProps,
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
-import { useDeleteGoodsCategory, useEditSort } from "service/goodsCategory";
+import {
+  useDeleteGoodsCategory,
+  useEditSort,
+  useEditStatus,
+} from "service/goodsCategory";
 import { useGoodsCategoryModal, useGoodsCategoriesQueryKey } from "../util";
 import { PlusOutlined } from "@ant-design/icons";
 
@@ -37,6 +42,7 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
     });
 
   const { mutate: editSort } = useEditSort(useGoodsCategoriesQueryKey());
+  const { mutate: editStatus } = useEditStatus(useGoodsCategoriesQueryKey());
 
   return (
     <Container>
@@ -81,6 +87,18 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
               />
             ),
             sorter: (a, b) => a.sort - b.sort,
+          },
+          {
+            title: "显示",
+            dataIndex: "status",
+            render: (value, category) => (
+              <Switch
+                checked={value === 1}
+                onChange={(truthy) =>
+                  editStatus({ id: category.id, status: truthy ? 1 : 2 })
+                }
+              />
+            ),
           },
           {
             title: "操作",
