@@ -93,11 +93,9 @@ export const useDeleteGoods = (queryKey: QueryKey) => {
   );
 };
 
-export const useGoodsOptions = ({ keywords }: { keywords: string }) => {
+export const useGoodsOptions = () => {
   const client = useHttp();
-  return useQuery<GoodsOption[]>(["goods_options", { keywords }], () =>
-    client("goods/options", {
-      data: { keywords },
-    })
+  return useQuery<GoodsOption[]>(["goods_options"], () =>
+    client("goods/options")
   );
 };

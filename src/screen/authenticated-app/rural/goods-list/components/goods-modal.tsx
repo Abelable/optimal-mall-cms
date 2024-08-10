@@ -1,16 +1,13 @@
 import { Form, Image, Modal, Select } from "antd";
 import { ErrorBox } from "components/lib";
 
-import { useEffect, useState } from "react";
+import styled from "@emotion/styled";
 import { useForm } from "antd/lib/form/Form";
-import _ from "lodash";
 import { useGoodsOptions } from "service/goods";
 import { useAddRuralGoods } from "service/ruralGoods";
 import { useRuralGoodsModal, useRuralGoodsListQueryKey } from "../util";
 
 import type { RuralRegionOption } from "types/ruralRegion";
-import styled from "@emotion/styled";
-import { GoodsOption } from "types/goods";
 
 export const RuralGoodsModal = ({
   regionOptions,
@@ -20,17 +17,8 @@ export const RuralGoodsModal = ({
   const [form] = useForm();
   const { ruralGoodsModalOpen, close } = useRuralGoodsModal();
 
-  const [keywords, setKeywords] = useState("");
-  const [options, setOptions] = useState<GoodsOption[]>([]);
-  const { data: goodsOptions = [], error: goodsOptionsError } = useGoodsOptions(
-    { keywords }
-  );
-
-  useEffect(() => {
-    if (goodsOptions.length) {
-      setOptions(goodsOptions);
-    }
-  }, [goodsOptions]);
+  const { data: goodsOptions = [], error: goodsOptionsError } =
+    useGoodsOptions();
 
   const {
     mutateAsync,
@@ -80,15 +68,16 @@ export const RuralGoodsModal = ({
           rules={[{ required: true, message: "请选择商品" }]}
         >
           <Select
-            onSearch={_.debounce((value) => {
-              setKeywords(value);
-              setOptions(goodsOptions);
-            }, 500)}
             mode="multiple"
             showSearch
+            filterOption={(input, option) =>
+              (option!.children as any)[1].props.children
+                .toLowerCase()
+                .includes(input.toLowerCase())
+            }
             placeholder="请选择商品"
           >
-            {options.map(({ id, cover, name }) => (
+            {goodsOptions.map(({ id, cover, name }) => (
               <Select.Option key={id} value={id}>
                 <GoodsCover src={cover} />
                 <span>{name}</span>
