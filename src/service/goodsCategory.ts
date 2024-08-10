@@ -59,6 +59,30 @@ export const useEditGoodsCategory = (queryKey: QueryKey) => {
   );
 };
 
+export const useEditSort = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    ({ id, sort }: { id: number; sort: number }) =>
+      client("goods/category/edit_sort", {
+        data: cleanObject({ id, sort }),
+        method: "POST",
+      }),
+    useEditConfig(queryKey)
+  );
+};
+
+export const useEditStatus = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    ({ id, status }: { id: number; status: number }) =>
+      client("goods/category/edit_status", {
+        data: cleanObject({ id, status }),
+        method: "POST",
+      }),
+    useEditConfig(queryKey)
+  );
+};
+
 export const useDeleteGoodsCategory = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(

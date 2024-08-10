@@ -11,12 +11,11 @@ export interface GoodsCategoriesSearchParams {
 export interface GoodsCategory {
   id: number;
   name: string;
+  sort: number;
   minLeaderCommissionRate: number;
   maxLeaderCommissionRate: number;
   minShareCommissionRate: number;
   maxShareCommissionRate: number;
-  createdAt: string;
-  updatedAt: string;
 }
 
 export interface GoodsCategoriesResult {

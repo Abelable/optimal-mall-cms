@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import {
   Button,
   Dropdown,
+  InputNumber,
   Menu,
   MenuProps,
   Modal,
@@ -10,8 +11,7 @@ import {
   TableProps,
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
-import dayjs from "dayjs";
-import { useDeleteGoodsCategory } from "service/goodsCategory";
+import { useDeleteGoodsCategory, useEditSort } from "service/goodsCategory";
 import { useGoodsCategoryModal, useGoodsCategoriesQueryKey } from "../util";
 import { PlusOutlined } from "@ant-design/icons";
 
@@ -35,6 +35,8 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
       page: pagination.current,
       limit: pagination.pageSize,
     });
+
+  const { mutate: editSort } = useEditSort(useGoodsCategoriesQueryKey());
 
   return (
     <Container>
@@ -70,30 +72,15 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
             ),
           },
           {
-            title: "创建时间",
-            render: (value, role) => (
-              <span>
-                {role.createdAt
-                  ? dayjs(role.createdAt).format("YYYY-MM-DD HH:mm:ss")
-                  : "无"}
-              </span>
+            title: "排序",
+            dataIndex: "sort",
+            render: (value, category) => (
+              <InputNumber
+                value={value}
+                onChange={(sort) => editSort({ id: category.id, sort })}
+              />
             ),
-            width: "20rem",
-            sorter: (a, b) =>
-              dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf(),
-          },
-          {
-            title: "更新时间",
-            render: (value, role) => (
-              <span>
-                {role.updatedAt
-                  ? dayjs(role.updatedAt).format("YYYY-MM-DD HH:mm:ss")
-                  : "无"}
-              </span>
-            ),
-            width: "20rem",
-            sorter: (a, b) =>
-              dayjs(a.updatedAt).valueOf() - dayjs(b.updatedAt).valueOf(),
+            sorter: (a, b) => a.sort - b.sort,
           },
           {
             title: "操作",
