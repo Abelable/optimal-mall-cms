@@ -24,7 +24,7 @@ export const useBannerListSearchParams = () => {
 
 export const useBannerListQueryKey = () => {
   const [params] = useBannerListSearchParams();
-  return ["mall_banner_list", params];
+  return ["rural_banner_list", params];
 };
 
 export const useBannerModal = () => {
