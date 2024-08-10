@@ -11,7 +11,7 @@ const sceneOptions = [
   { text: "商品详情", value: 2 },
 ];
 
-export const BannerList = () => {
+export const HomeBannerList = () => {
   const [params, setParams] = useBannerListSearchParams();
   const { isLoading, error, data } = useBannerList(params);
 

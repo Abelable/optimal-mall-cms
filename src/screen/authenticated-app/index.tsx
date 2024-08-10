@@ -11,7 +11,7 @@ import { NavigationBar } from "components/navigation-bar";
 import { Dashboard } from "./dashboard";
 import { UserList } from "./user-list";
 import { TeamLeaderList } from "./team-leader-list";
-import { BannerList } from "./banner-list";
+import { HomeBannerList } from "./activity/home-banner-list";
 import { MerchantList } from "./mall/merchant-list";
 import { FreightTemplateList } from "./mall/freight-template-list";
 import { GoodsCategoryList } from "./mall/category-list";
@@ -36,6 +36,8 @@ import {
   GiftOutlined,
   SnippetsOutlined,
   FlagOutlined,
+  CloudOutlined,
+  PictureOutlined,
 } from "@ant-design/icons";
 import logo from "assets/images/logo.png";
 import { UserInfo } from "types/auth";
@@ -63,7 +65,10 @@ export const AuthenticatedApp = () => {
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="user_list" element={<UserList />} />
               <Route path="team_leader_list" element={<TeamLeaderList />} />
-              <Route path="banner_list" element={<BannerList />} />
+              <Route
+                path="activity/home_banner_list"
+                element={<HomeBannerList />}
+              />
               <Route path="goods/merchant_list" element={<MerchantList />} />
               <Route
                 path="goods/freight_template_list"
@@ -109,9 +114,28 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
       icon: <FlagOutlined />,
     },
     {
-      label: <Link to={"banner_list"}>活动列表</Link>,
-      key: "banner_list",
+      label: "活动管理",
+      key: "activity",
       icon: <GiftOutlined />,
+      children: [
+        {
+          label: <Link to={"activity/home_banner_list"}>首页头图</Link>,
+          key: "activity_home_banner_list",
+          icon: <PictureOutlined />,
+        },
+      ],
+    },
+    {
+      label: "诚信乡村",
+      key: "rural",
+      icon: <CloudOutlined />,
+      children: [
+        {
+          label: <Link to={"banner_list"}>头图列表</Link>,
+          key: "rural_banner_list",
+          icon: <PictureOutlined />,
+        },
+      ],
     },
     {
       label: "商品管理",
