@@ -12,6 +12,7 @@ import { Dashboard } from "./dashboard";
 import { UserList } from "./user-list";
 import { TeamLeaderList } from "./team-leader-list";
 import { HomeBannerList } from "./activity/home-banner-list";
+import { RuralBannerList } from "./rural/banner-list";
 import { MerchantList } from "./mall/merchant-list";
 import { FreightTemplateList } from "./mall/freight-template-list";
 import { GoodsCategoryList } from "./mall/category-list";
@@ -69,6 +70,7 @@ export const AuthenticatedApp = () => {
                 path="activity/home_banner_list"
                 element={<HomeBannerList />}
               />
+              <Route path="rural/banner_list" element={<RuralBannerList />} />
               <Route path="goods/merchant_list" element={<MerchantList />} />
               <Route
                 path="goods/freight_template_list"
@@ -131,7 +133,7 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
       icon: <CloudOutlined />,
       children: [
         {
-          label: <Link to={"banner_list"}>头图列表</Link>,
+          label: <Link to={"rural/banner_list"}>头图列表</Link>,
           key: "rural_banner_list",
           icon: <PictureOutlined />,
         },
