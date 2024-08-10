@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import {
   Button,
   Dropdown,
@@ -12,11 +11,14 @@ import {
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
 import { PlusOutlined } from "@ant-design/icons";
+
+import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import { useDeleteBanner, useDownBanner, useUpBanner } from "service/banner";
-import { Banner } from "types/banner";
 import { useBannerModal, useBannerListQueryKey } from "../util";
-import { SearchPanelProps } from "./search-panel";
+
+import type { Banner } from "types/banner";
+import type { SearchPanelProps } from "./search-panel";
 
 interface ListProps extends TableProps<Banner>, SearchPanelProps {
   error: Error | unknown;

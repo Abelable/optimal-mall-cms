@@ -1,11 +1,13 @@
 import { Button, Col, Drawer, Form, Input, Row, Space, Select } from "antd";
-import { useForm } from "antd/lib/form/Form";
 import { ErrorBox, ModalLoading } from "components/lib";
+import { OssUpload } from "components/oss-upload";
+
+import { useEffect } from "react";
+import { useForm } from "antd/lib/form/Form";
 import { useAddBanner, useEditBanner } from "service/ruralBanner";
 import { useBannerModal, useBannerListQueryKey } from "../util";
-import { useEffect } from "react";
-import { OssUpload } from "components/oss-upload";
-import { Option } from "types/common";
+
+import type { Option } from "types/common";
 
 const normFile = (e: any) => {
   if (Array.isArray(e)) return e;

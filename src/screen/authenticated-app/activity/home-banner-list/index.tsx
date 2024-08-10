@@ -1,10 +1,11 @@
+import { BannerModal } from "./components/banner-modal";
+import { List } from "./components/list";
+import { SearchPanel } from "./components/search-panel";
+
 import styled from "@emotion/styled";
 import { useBannerList } from "service/banner";
 import { toNumber } from "utils";
 import { useBannerListSearchParams } from "./util";
-import { BannerModal } from "./components/banner-modal";
-import { List } from "./components/list";
-import { SearchPanel } from "./components/search-panel";
 
 const sceneOptions = [
   { text: "H5活动", value: 1 },
