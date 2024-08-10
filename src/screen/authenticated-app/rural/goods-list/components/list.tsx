@@ -97,7 +97,6 @@ export const List = ({
                   : "无"}
               </span>
             ),
-            width: "20rem",
             sorter: (a, b) =>
               dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf(),
           },
