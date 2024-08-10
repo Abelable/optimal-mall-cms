@@ -17,8 +17,9 @@ export const RuralGoodsModal = ({
   const [form] = useForm();
   const { ruralGoodsModalOpen, close } = useRuralGoodsModal();
 
-  const { data: goodsOptions = [], error: goodsOptionsError } =
-    useGoodsOptions();
+  const { data: goodsOptions = [], error: goodsOptionsError } = useGoodsOptions(
+    { keywords: "" }
+  );
 
   const {
     mutateAsync,
@@ -67,16 +68,7 @@ export const RuralGoodsModal = ({
           label="商品"
           rules={[{ required: true, message: "请选择商品" }]}
         >
-          <Select
-            mode="multiple"
-            showSearch
-            filterOption={(input, option) =>
-              (option!.children as any)[1].props.children
-                .toLowerCase()
-                .includes(input.toLowerCase())
-            }
-            placeholder="请选择商品"
-          >
+          <Select mode="multiple" showSearch placeholder="请选择商品">
             {goodsOptions.map(({ id, cover, name }) => (
               <Select.Option key={id} value={id}>
                 <GoodsCover src={cover} />
