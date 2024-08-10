@@ -1,6 +1,9 @@
 import { QueryKey, useMutation, useQuery } from "react-query";
 import { useHttp } from "./http";
-import { useAddConfig, useDeleteConfig } from "./use-optimistic-options";
+import {
+  useAddRuralGoodsConfig,
+  useDeleteConfig,
+} from "./use-optimistic-options";
 import { cleanObject } from "utils/index";
 import type {
   RuralGoodsListResult,
@@ -24,7 +27,7 @@ export const useAddRuralGoods = (queryKey: QueryKey) => {
         data: cleanObject({ regionId, goodsIds }),
         method: "POST",
       }),
-    useAddConfig(queryKey)
+    useAddRuralGoodsConfig(queryKey)
   );
 };
 

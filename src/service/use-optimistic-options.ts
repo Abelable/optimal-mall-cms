@@ -123,3 +123,19 @@ export const useCancelOrderConfig = (queryKey: QueryKey) =>
         }
       : null
   );
+
+export const useAddRuralGoodsConfig = (queryKey: QueryKey) =>
+  useConfig(queryKey, (target, old) =>
+    old
+      ? {
+          ...old,
+          list: [
+            ...target.goodsIds.map((id: number, index: number) => ({
+              id: old.list[0] ? `${Number(old.list[0].id) + 1 + index}` : "1",
+              ...target,
+            })),
+            ...old.list,
+          ],
+        }
+      : null
+  );
