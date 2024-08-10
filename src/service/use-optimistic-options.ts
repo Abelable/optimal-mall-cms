@@ -130,9 +130,8 @@ export const useAddRuralGoodsConfig = (queryKey: QueryKey) =>
       ? {
           ...old,
           list: [
-            ...target.goodsIds.map((id: number, index: number) => ({
-              id: old.list[0] ? `${Number(old.list[0].id) + 1 + index}` : "1",
-              ...target,
+            ...target.goodsIds.map((id: number) => ({
+              id,
             })),
             ...old.list,
           ],
