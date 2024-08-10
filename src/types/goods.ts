@@ -49,3 +49,9 @@ export interface GoodsListResult {
   limit: string;
   total: string;
 }
+
+export interface GoodsOption {
+  id: number;
+  cover: string;
+  name: string;
+}

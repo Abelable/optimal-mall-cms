@@ -7,12 +7,15 @@ import { useRuralGoodsList } from "service/ruralGoods";
 import { toNumber } from "utils";
 import { useRuralGoodsListSearchParams } from "./util";
 import { useRuralRegionOptions } from "service/ruralRegion";
+import { useGoodsOptions } from "service/goods";
 
 export const RuralGoodsList = () => {
   const [params, setParams] = useRuralGoodsListSearchParams();
   const { isLoading, error, data } = useRuralGoodsList(params);
   const { data: regionOptions = [], error: regionOptionsError } =
     useRuralRegionOptions();
+  const { data: goodsOptions = [], error: goodsOptionsError } =
+    useGoodsOptions();
 
   return (
     <Container>
@@ -26,7 +29,7 @@ export const RuralGoodsList = () => {
           regionOptions={regionOptions}
           params={params}
           setParams={setParams}
-          error={error || regionOptionsError}
+          error={error || regionOptionsError || goodsOptionsError}
           loading={isLoading}
           dataSource={data?.list}
           pagination={{
@@ -37,7 +40,10 @@ export const RuralGoodsList = () => {
           bordered
         />
       </Main>
-      <RuralGoodsModal regionOptions={regionOptions} />
+      <RuralGoodsModal
+        regionOptions={regionOptions}
+        goodsOptions={goodsOptions}
+      />
     </Container>
   );
 };
