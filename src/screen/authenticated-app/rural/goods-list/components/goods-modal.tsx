@@ -1,4 +1,4 @@
-import { Form, Modal, Select } from "antd";
+import { Form, Image, Modal, Select } from "antd";
 import { ErrorBox } from "components/lib";
 
 import { useForm } from "antd/lib/form/Form";
@@ -7,6 +7,7 @@ import { useAddRuralGoods } from "service/ruralGoods";
 import { useRuralGoodsModal, useRuralGoodsListQueryKey } from "../util";
 
 import type { RuralRegionOption } from "types/ruralRegion";
+import styled from "@emotion/styled";
 
 export const RuralGoodsModal = ({
   regionOptions,
@@ -70,7 +71,7 @@ export const RuralGoodsModal = ({
             mode="multiple"
             showSearch
             filterOption={(input, option) =>
-              (option!.children as unknown as string)
+              (option!.children as any)[1].props.children
                 .toLowerCase()
                 .includes(input.toLowerCase())
             }
@@ -78,7 +79,8 @@ export const RuralGoodsModal = ({
           >
             {goodsOptions.map(({ id, cover, name }) => (
               <Select.Option key={id} value={id}>
-                {name}
+                <GoodsCover src={cover} />
+                <span>{name}</span>
               </Select.Option>
             ))}
           </Select>
@@ -87,3 +89,10 @@ export const RuralGoodsModal = ({
     </Modal>
   );
 };
+
+const GoodsCover = styled(Image)`
+  margin-right: 0.6rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 0.4rem;
+`;
