@@ -69,6 +69,7 @@ export const RuralGoodsModal = ({
         rules={[{ required: true, message: "请选择商品" }]}
       >
         <Select
+          mode="multiple"
           onChange={(keywords: string) => setKeywords(keywords)}
           placeholder="请选择商品"
           showSearch

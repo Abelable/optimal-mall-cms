@@ -14,6 +14,7 @@ import { TeamLeaderList } from "./team-leader-list";
 import { HomeBannerList } from "./activity/home-banner-list";
 import { RuralBannerList } from "./rural/banner-list";
 import { RuralRegionList } from "./rural/region-list";
+import { RuralGoodsList } from "./rural/goods-list";
 import { MerchantList } from "./mall/merchant-list";
 import { FreightTemplateList } from "./mall/freight-template-list";
 import { GoodsCategoryList } from "./mall/category-list";
@@ -74,6 +75,7 @@ export const AuthenticatedApp = () => {
               />
               <Route path="rural/banner_list" element={<RuralBannerList />} />
               <Route path="rural/region_list" element={<RuralRegionList />} />
+              <Route path="rural/goods_list" element={<RuralGoodsList />} />
               <Route path="goods/merchant_list" element={<MerchantList />} />
               <Route
                 path="goods/freight_template_list"
@@ -144,6 +146,11 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
           label: <Link to={"rural/region_list"}>地区列表</Link>,
           key: "rural_region_list",
           icon: <EnvironmentOutlined />,
+        },
+        {
+          label: <Link to={"rural/goods_list"}>商品列表</Link>,
+          key: "rural_goods_list",
+          icon: <ShoppingOutlined />,
         },
       ],
     },
