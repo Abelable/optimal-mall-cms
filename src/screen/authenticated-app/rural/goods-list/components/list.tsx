@@ -82,7 +82,7 @@ export const List = ({
           {
             title: "商品封面",
             dataIndex: "goodsCover",
-            render: (value) => <Image width={88} src={value} />,
+            render: (value) => <Image width={68} src={value} />,
           },
           {
             title: "商品名称",
