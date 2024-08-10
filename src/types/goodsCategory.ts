@@ -10,6 +10,7 @@ export interface GoodsCategoriesSearchParams {
 
 export interface GoodsCategory {
   id: number;
+  status: number;
   name: string;
   sort: number;
   minLeaderCommissionRate: number;

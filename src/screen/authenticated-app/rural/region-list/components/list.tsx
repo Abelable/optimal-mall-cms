@@ -2,15 +2,21 @@ import styled from "@emotion/styled";
 import {
   Button,
   Dropdown,
+  InputNumber,
   Menu,
   MenuProps,
   Modal,
+  Switch,
   Table,
   TablePaginationConfig,
   TableProps,
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
-import { useDeleteRuralRegion } from "service/ruralRegion";
+import {
+  useDeleteRuralRegion,
+  useEditSort,
+  useEditStatus,
+} from "service/ruralRegion";
 import { RuralRegion, RuralRegionListSearchParams } from "types/ruralRegion";
 import { useRuralRegionModal, useRuralRegionListQueryKey } from "../util";
 import { PlusOutlined } from "@ant-design/icons";
@@ -31,10 +37,13 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
       limit: pagination.pageSize,
     });
 
+  const { mutate: editSort } = useEditSort(useRuralRegionListQueryKey());
+  const { mutate: editStatus } = useEditStatus(useRuralRegionListQueryKey());
+
   return (
     <Container>
       <Header between={true}>
-        <PageTitle>角色列表</PageTitle>
+        <PageTitle>地区列表</PageTitle>
         <Button onClick={() => open()} type={"primary"} icon={<PlusOutlined />}>
           新增
         </Button>
@@ -49,12 +58,31 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
             width: "8rem",
           },
           {
-            title: "角色名称",
+            title: "地区名称",
             dataIndex: "name",
           },
           {
-            title: "角色描述",
-            dataIndex: "desc",
+            title: "排序",
+            dataIndex: "sort",
+            render: (value, region) => (
+              <InputNumber
+                value={value}
+                onChange={(sort) => editSort({ id: region.id, sort })}
+              />
+            ),
+            sorter: (a, b) => a.sort - b.sort,
+          },
+          {
+            title: "显示",
+            dataIndex: "status",
+            render: (value, region) => (
+              <Switch
+                checked={value === 1}
+                onChange={(truthy) =>
+                  editStatus({ id: region.id, status: truthy ? 1 : 2 })
+                }
+              />
+            ),
           },
           {
             title: "操作",
@@ -79,7 +107,7 @@ const More = ({ id }: { id: number }) => {
 
   const confirmDelete = (id: number) => {
     Modal.confirm({
-      title: "确定删除该管理员角色吗？",
+      title: "确定删除该管理员地区吗？",
       content: "点击确定删除",
       okText: "确定",
       cancelText: "取消",

@@ -5,7 +5,9 @@ export interface RuralRegionListSearchParams {
 
 export interface RuralRegion {
   id: number;
+  status: number;
   name: string;
+  sort: number;
 }
 
 export interface RuralRegionListResult {
