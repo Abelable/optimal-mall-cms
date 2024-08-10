@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useBannerList } from "service/banner";
+import { useBannerList } from "service/ruralBanner";
 import { toNumber } from "utils";
 import { useBannerListSearchParams } from "./util";
 import { BannerModal } from "./components/banner-modal";

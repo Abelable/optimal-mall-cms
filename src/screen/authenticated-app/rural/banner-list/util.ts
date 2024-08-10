@@ -1,6 +1,6 @@
-import { useSetUrlSearchParams, useUrlQueryParams } from "utils/url";
 import { useCallback, useMemo } from "react";
-import { useBanner } from "service/banner";
+import { useSetUrlSearchParams, useUrlQueryParams } from "utils/url";
+import { useBanner } from "service/ruralBanner";
 
 export const useBannerListSearchParams = () => {
   const [params, setParams] = useUrlQueryParams([

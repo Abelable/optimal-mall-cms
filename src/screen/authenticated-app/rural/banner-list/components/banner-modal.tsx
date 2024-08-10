@@ -1,9 +1,8 @@
 import { Button, Col, Drawer, Form, Input, Row, Space, Select } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { ErrorBox, ModalLoading } from "components/lib";
-import { useAddBanner } from "service/banner";
+import { useAddBanner, useEditBanner } from "service/ruralBanner";
 import { useBannerModal, useBannerListQueryKey } from "../util";
-import { useEditBanner } from "service/banner";
 import { useEffect } from "react";
 import { OssUpload } from "components/oss-upload";
 import { Option } from "types/common";
