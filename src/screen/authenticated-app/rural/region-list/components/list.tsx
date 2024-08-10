@@ -10,19 +10,19 @@ import {
   TableProps,
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
-import { useDeleteRole } from "service/role";
-import { Role, RolesSearchParams } from "types/role";
-import { useRoleModal, useRolesQueryKey } from "../util";
+import { useDeleteRuralRegion } from "service/ruralRegion";
+import { RuralRegion, RuralRegionListSearchParams } from "types/ruralRegion";
+import { useRuralRegionModal, useRuralRegionListQueryKey } from "../util";
 import { PlusOutlined } from "@ant-design/icons";
 
-interface ListProps extends TableProps<Role> {
-  params: Partial<RolesSearchParams>;
-  setParams: (params: Partial<RolesSearchParams>) => void;
+interface ListProps extends TableProps<RuralRegion> {
+  params: Partial<RuralRegionListSearchParams>;
+  setParams: (params: Partial<RuralRegionListSearchParams>) => void;
   error: Error | unknown;
 }
 
 export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
-  const { open } = useRoleModal();
+  const { open } = useRuralRegionModal();
 
   const setPagination = (pagination: TablePaginationConfig) =>
     setParams({
@@ -58,8 +58,8 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
           },
           {
             title: "操作",
-            render(value, role) {
-              return <More id={role.id} />;
+            render(value, ruralRegion) {
+              return <More id={ruralRegion.id} />;
             },
             width: "8rem",
           },
@@ -72,8 +72,10 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
 };
 
 const More = ({ id }: { id: number }) => {
-  const { startEdit } = useRoleModal();
-  const { mutate: deleteRole } = useDeleteRole(useRolesQueryKey());
+  const { startEdit } = useRuralRegionModal();
+  const { mutate: deleteRuralRegion } = useDeleteRuralRegion(
+    useRuralRegionListQueryKey()
+  );
 
   const confirmDelete = (id: number) => {
     Modal.confirm({
@@ -81,7 +83,7 @@ const More = ({ id }: { id: number }) => {
       content: "点击确定删除",
       okText: "确定",
       cancelText: "取消",
-      onOk: () => deleteRole(id),
+      onOk: () => deleteRuralRegion(id),
     });
   };
 

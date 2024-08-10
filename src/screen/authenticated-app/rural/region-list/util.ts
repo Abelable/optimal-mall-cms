@@ -1,8 +1,8 @@
 import { useSetUrlSearchParams, useUrlQueryParams } from "utils/url";
 import { useCallback, useMemo } from "react";
-import { useRole } from "service/role";
+import { useRuralRegion } from "service/ruralRegion";
 
-export const useRolesSearchParams = () => {
+export const useRuralRegionListSearchParams = () => {
   const [params, setParams] = useUrlQueryParams(["page", "limit"]);
   return [
     useMemo(
@@ -16,36 +16,41 @@ export const useRolesSearchParams = () => {
   ] as const;
 };
 
-export const useRolesQueryKey = () => {
-  const [params] = useRolesSearchParams();
-  return ["roles", params];
+export const useRuralRegionListQueryKey = () => {
+  const [params] = useRuralRegionListSearchParams();
+  return ["rural_region_list", params];
 };
 
-export const useRoleModal = () => {
-  const [{ roleCreate }, setRoleModalOpen] = useUrlQueryParams(["roleCreate"]);
-  const [{ editingRoleId }, setEditingRoleId] = useUrlQueryParams([
-    "editingRoleId",
+export const useRuralRegionModal = () => {
+  const [{ ruralRegionCreate }, setRuralRegionModalOpen] = useUrlQueryParams([
+    "ruralRegionCreate",
   ]);
+  const [{ editingRuralRegionId }, setEditingRuralRegionId] = useUrlQueryParams(
+    ["editingRuralRegionId"]
+  );
   const setUrlParams = useSetUrlSearchParams();
-  const { data: editingRole, isLoading } = useRole(Number(editingRoleId));
+  const { data: editingRuralRegion, isLoading } = useRuralRegion(
+    Number(editingRuralRegionId)
+  );
 
   const open = useCallback(
-    () => setRoleModalOpen({ roleCreate: true }),
-    [setRoleModalOpen]
+    () => setRuralRegionModalOpen({ ruralRegionCreate: true }),
+    [setRuralRegionModalOpen]
   );
   const startEdit = useCallback(
-    (id: number) => setEditingRoleId({ editingRoleId: `${id}` }),
-    [setEditingRoleId]
+    (id: number) => setEditingRuralRegionId({ editingRuralRegionId: `${id}` }),
+    [setEditingRuralRegionId]
   );
   const close = useCallback(
-    () => setUrlParams({ roleCreate: "", editingRoleId: "" }),
+    () => setUrlParams({ ruralRegionCreate: "", editingRuralRegionId: "" }),
     [setUrlParams]
   );
 
   return {
-    roleModalOpen: roleCreate === "true" || !!editingRoleId,
-    editingRoleId,
-    editingRole,
+    ruralRegionModalOpen:
+      ruralRegionCreate === "true" || !!editingRuralRegionId,
+    editingRuralRegionId,
+    editingRuralRegion,
     isLoading,
     open,
     startEdit,

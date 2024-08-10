@@ -1,13 +1,13 @@
 import styled from "@emotion/styled";
-import { useRoles } from "service/role";
+import { useRuralRegionList } from "service/ruralRegion";
 import { toNumber } from "utils";
 import { List } from "./components/list";
-import { RoleModal } from "./components/role-modal";
-import { useRolesSearchParams } from "./util";
+import { RuralRegionModal } from "./components/region-modal";
+import { useRuralRegionListSearchParams } from "./util";
 
 export const RuralRegionList = () => {
-  const [params, setParams] = useRolesSearchParams();
-  const { isLoading, error, data } = useRoles(params);
+  const [params, setParams] = useRuralRegionListSearchParams();
+  const { isLoading, error, data } = useRuralRegionList(params);
 
   return (
     <Container>
@@ -26,7 +26,7 @@ export const RuralRegionList = () => {
           bordered
         />
       </Main>
-      <RoleModal />
+      <RuralRegionModal />
     </Container>
   );
 };
