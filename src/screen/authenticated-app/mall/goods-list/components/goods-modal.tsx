@@ -263,6 +263,7 @@ export const GoodsModal = ({
   useEffect(() => {
     if (editingGoods) {
       const {
+        categoryIds,
         video,
         cover,
         imageList,
@@ -286,6 +287,7 @@ export const GoodsModal = ({
       setSpecContent(specList || []);
 
       form.setFieldsValue({
+        categoryIds: categoryIds?.split(",").map((id) => +id),
         video: video
           ? [
               {
@@ -310,6 +312,7 @@ export const GoodsModal = ({
   const submit = () => {
     form.validateFields().then(async () => {
       const {
+        categoryIds,
         video,
         cover,
         imageList,
@@ -356,6 +359,7 @@ export const GoodsModal = ({
       await mutateAsync({
         ...editingGoods,
         ...rest,
+        categoryIds: categoryIds.join(),
         video: video && video.length ? video[0].url : "",
         cover: cover[0].url,
         imageList: imageList.map((item: { url: string }) => item.url),
@@ -481,11 +485,11 @@ export const GoodsModal = ({
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
-                name="categoryId"
+                name="categoryIds"
                 label="商品分类"
                 rules={[{ required: true, message: "请选择商品分类" }]}
               >
-                <Select placeholder="请选择商品分类">
+                <Select mode="multiple" placeholder="请选择商品分类">
                   {categoryOptions.map(({ id, name }) => (
                     <Select.Option key={id} value={id}>
                       {name}

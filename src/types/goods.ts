@@ -22,7 +22,7 @@ export interface Sku {
 export interface Goods {
   id: number;
   merchantId: number;
-  categoryId: number;
+  categoryIds: string;
   status: number;
   name: string;
   introduction: string;
