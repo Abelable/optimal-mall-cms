@@ -15,7 +15,7 @@ import type {
 export const useBannerList = (params: Partial<BannerListSearchParams>) => {
   const client = useHttp();
   return useQuery<BannerListResult>(["mall_banner_list", params], () =>
-    client("mall_banner/list", { data: params, method: "POST" })
+    client("mall/banner/list", { data: params, method: "POST" })
   );
 };
 
@@ -23,7 +23,7 @@ export const useBanner = (id: number) => {
   const client = useHttp();
   return useQuery<Partial<Banner>>(
     ["mall_banner", { id }],
-    () => client("mall_banner/detail", { data: { id } }),
+    () => client("mall/banner/detail", { data: { id } }),
     {
       enabled: !!id,
     }
@@ -34,7 +34,7 @@ export const useAddBanner = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (params: Partial<Banner>) =>
-      client("mall_banner/add", {
+      client("mall/banner/add", {
         data: cleanObject(params),
         method: "POST",
       }),
@@ -46,7 +46,7 @@ export const useEditBanner = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (params: Partial<Banner>) =>
-      client("mall_banner/edit", {
+      client("mall/banner/edit", {
         data: cleanObject(params),
         method: "POST",
       }),
@@ -58,7 +58,7 @@ export const useUpBanner = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (id: number) =>
-      client("mall_banner/up", {
+      client("mall/banner/up", {
         data: { id },
         method: "POST",
       }),
@@ -70,7 +70,7 @@ export const useDownBanner = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (id: number) =>
-      client("mall_banner/down", {
+      client("mall/banner/down", {
         data: { id },
         method: "POST",
       }),
@@ -82,7 +82,7 @@ export const useDeleteBanner = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (id: number) =>
-      client("mall_banner/delete", {
+      client("mall/banner/delete", {
         data: { id },
         method: "POST",
       }),
