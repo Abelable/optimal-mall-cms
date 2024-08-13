@@ -44,6 +44,7 @@ import {
   CloudOutlined,
   PictureOutlined,
   EnvironmentOutlined,
+  SafetyCertificateOutlined,
 } from "@ant-design/icons";
 import logo from "assets/images/logo.png";
 import { UserInfo } from "types/auth";
@@ -167,7 +168,7 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
     {
       label: "诚信甄品",
       key: "integrity",
-      icon: <CloudOutlined />,
+      icon: <SafetyCertificateOutlined />,
       children: [
         {
           label: <Link to={"integrity/banner_list"}>头图列表</Link>,
