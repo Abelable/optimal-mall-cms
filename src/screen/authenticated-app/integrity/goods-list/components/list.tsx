@@ -115,7 +115,6 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
 };
 
 const Container = styled.div`
-  margin-top: 2.4rem;
   padding: 2.4rem;
   background: #fff;
 `;
