@@ -15,6 +15,8 @@ import { HomeBannerList } from "./activity/home-banner-list";
 import { RuralBannerList } from "./rural/banner-list";
 import { RuralRegionList } from "./rural/region-list";
 import { RuralGoodsList } from "./rural/goods-list";
+import { IntegrityBannerList } from "./integrity/banner-list";
+import { IntegrityGoodsList } from "./integrity/goods-list";
 import { MerchantList } from "./mall/merchant-list";
 import { FreightTemplateList } from "./mall/freight-template-list";
 import { GoodsCategoryList } from "./mall/category-list";
@@ -76,6 +78,14 @@ export const AuthenticatedApp = () => {
               <Route path="rural/banner_list" element={<RuralBannerList />} />
               <Route path="rural/region_list" element={<RuralRegionList />} />
               <Route path="rural/goods_list" element={<RuralGoodsList />} />
+              <Route
+                path="integrity/banner_list"
+                element={<IntegrityBannerList />}
+              />
+              <Route
+                path="integrity/goods_list"
+                element={<IntegrityGoodsList />}
+              />
               <Route path="goods/merchant_list" element={<MerchantList />} />
               <Route
                 path="goods/freight_template_list"
@@ -150,6 +160,23 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
         {
           label: <Link to={"rural/goods_list"}>商品列表</Link>,
           key: "rural_goods_list",
+          icon: <ShoppingOutlined />,
+        },
+      ],
+    },
+    {
+      label: "诚信甄品",
+      key: "interity",
+      icon: <CloudOutlined />,
+      children: [
+        {
+          label: <Link to={"interity/banner_list"}>头图列表</Link>,
+          key: "interity_banner_list",
+          icon: <PictureOutlined />,
+        },
+        {
+          label: <Link to={"interity/goods_list"}>商品列表</Link>,
+          key: "interity_goods_list",
           icon: <ShoppingOutlined />,
         },
       ],

@@ -138,3 +138,18 @@ export const useAddRuralGoodsConfig = (queryKey: QueryKey) =>
         }
       : null
   );
+
+export const useAddIntegrityGoodsConfig = (queryKey: QueryKey) =>
+  useConfig(queryKey, (target, old) =>
+    old
+      ? {
+          ...old,
+          list: [
+            ...target.goodsIds.map((id: number) => ({
+              id,
+            })),
+            ...old.list,
+          ],
+        }
+      : null
+  );
