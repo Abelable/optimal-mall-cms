@@ -166,17 +166,17 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
     },
     {
       label: "诚信甄品",
-      key: "interity",
+      key: "integrity",
       icon: <CloudOutlined />,
       children: [
         {
-          label: <Link to={"interity/banner_list"}>头图列表</Link>,
-          key: "interity_banner_list",
+          label: <Link to={"integrity/banner_list"}>头图列表</Link>,
+          key: "integrity_banner_list",
           icon: <PictureOutlined />,
         },
         {
-          label: <Link to={"interity/goods_list"}>商品列表</Link>,
-          key: "interity_goods_list",
+          label: <Link to={"integrity/goods_list"}>商品列表</Link>,
+          key: "integrity_goods_list",
           icon: <ShoppingOutlined />,
         },
       ],
