@@ -124,22 +124,7 @@ export const useCancelOrderConfig = (queryKey: QueryKey) =>
       : null
   );
 
-export const useAddRuralGoodsConfig = (queryKey: QueryKey) =>
-  useConfig(queryKey, (target, old) =>
-    old
-      ? {
-          ...old,
-          list: [
-            ...target.goodsIds.map((id: number) => ({
-              id,
-            })),
-            ...old.list,
-          ],
-        }
-      : null
-  );
-
-export const useAddIntegrityGoodsConfig = (queryKey: QueryKey) =>
+export const useAddActivityGoodsConfig = (queryKey: QueryKey) =>
   useConfig(queryKey, (target, old) =>
     old
       ? {

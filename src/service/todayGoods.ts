@@ -10,20 +10,18 @@ import type {
   GoodsListSearchParams,
 } from "types/activityGoods";
 
-export const useIntegrityGoodsList = (
-  params: Partial<GoodsListSearchParams>
-) => {
+export const useTodayGoodsList = (params: Partial<GoodsListSearchParams>) => {
   const client = useHttp();
-  return useQuery<GoodsListResult>(["integrity_goods_list", params], () =>
-    client("integrity/goods/list", { data: params, method: "POST" })
+  return useQuery<GoodsListResult>(["today_goods_list", params], () =>
+    client("mall/today_goods/list", { data: params, method: "POST" })
   );
 };
 
-export const useAddIntegrityGoods = (queryKey: QueryKey) => {
+export const useAddTodayGoods = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     ({ goodsIds }: { goodsIds: number[] }) =>
-      client("integrity/goods/add", {
+      client("mall/today_goods/add", {
         data: cleanObject({ goodsIds }),
         method: "POST",
       }),
@@ -31,11 +29,11 @@ export const useAddIntegrityGoods = (queryKey: QueryKey) => {
   );
 };
 
-export const useDeleteIntegrityGoods = (queryKey: QueryKey) => {
+export const useDeleteTodayGoods = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (id: number) =>
-      client("integrity/goods/delete", {
+      client("mall/today_goods/delete", {
         data: { id },
         method: "POST",
       }),

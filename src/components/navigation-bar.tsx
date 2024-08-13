@@ -8,6 +8,8 @@ const breadcrumbNameMap: { [key: string]: string } = {
   "/team_leader_list": "团长列表",
   "/activity": "活动管理",
   "/activity/home_banner_list": "首页头图",
+  "/activity/today_goods_list": "今日主推",
+  "/activity/advance_goods_list": "活动预告",
   "/rural": "诚信乡村",
   "/rural/banner_list": "头图列表",
   "/rural/region_list": "地区列表",

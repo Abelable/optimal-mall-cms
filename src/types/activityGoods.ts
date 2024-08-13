@@ -1,9 +1,9 @@
-export interface IntegrityGoodsListSearchParams {
+export interface GoodsListSearchParams {
   page: number;
   limit: number;
 }
 
-export interface IntegrityGoods {
+export interface Goods {
   id: number;
   goodsId: number;
   goodsName: string;
@@ -11,8 +11,8 @@ export interface IntegrityGoods {
   createdAt: string;
 }
 
-export interface IntegrityGoodsListResult {
-  list: IntegrityGoods[];
+export interface GoodsListResult {
+  list: Goods[];
   page: string;
   limit: string;
   total: string;

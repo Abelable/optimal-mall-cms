@@ -12,6 +12,8 @@ import { Dashboard } from "./dashboard";
 import { UserList } from "./user-list";
 import { TeamLeaderList } from "./team-leader-list";
 import { HomeBannerList } from "./activity/home-banner-list";
+import { TodayGoodsList } from "./activity/today-goods-list";
+import { AdvanceGoodsList } from "./activity/advance-goods-list";
 import { RuralBannerList } from "./rural/banner-list";
 import { RuralRegionList } from "./rural/region-list";
 import { RuralGoodsList } from "./rural/goods-list";
@@ -75,6 +77,14 @@ export const AuthenticatedApp = () => {
               <Route
                 path="activity/home_banner_list"
                 element={<HomeBannerList />}
+              />
+              <Route
+                path="activity/today_goods_list"
+                element={<TodayGoodsList />}
+              />
+              <Route
+                path="activity/advance_goods_list"
+                element={<AdvanceGoodsList />}
               />
               <Route path="rural/banner_list" element={<RuralBannerList />} />
               <Route path="rural/region_list" element={<RuralRegionList />} />
@@ -140,6 +150,16 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
           label: <Link to={"activity/home_banner_list"}>首页头图</Link>,
           key: "activity_home_banner_list",
           icon: <PictureOutlined />,
+        },
+        {
+          label: <Link to={"activity/today_goods_list"}>今日主推</Link>,
+          key: "activity_today_goods_list",
+          icon: <ShoppingOutlined />,
+        },
+        {
+          label: <Link to={"activity/advance_goods_list"}>活动预告</Link>,
+          key: "activity_advance_goods_list",
+          icon: <ShoppingOutlined />,
         },
       ],
     },

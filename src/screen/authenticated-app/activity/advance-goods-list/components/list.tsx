@@ -11,8 +11,8 @@ import { PlusOutlined } from "@ant-design/icons";
 
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
-import { useDeleteIntegrityGoods } from "service/integrityGoods";
-import { useIntegrityGoodsModal, useIntegrityGoodsListQueryKey } from "../util";
+import { useDeleteAdvanceGoods } from "service/advanceGoods";
+import { useAdvanceGoodsModal, useAdvanceGoodsListQueryKey } from "../util";
 
 import type { Goods, GoodsListSearchParams } from "types/activityGoods";
 
@@ -23,7 +23,7 @@ interface ListProps extends TableProps<Goods> {
 }
 
 export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
-  const { open } = useIntegrityGoodsModal();
+  const { open } = useAdvanceGoodsModal();
 
   const setPagination = (pagination: TablePaginationConfig) =>
     setParams({
@@ -32,8 +32,8 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
       limit: pagination.pageSize,
     });
 
-  const { mutate: deleteIntegrityGoods } = useDeleteIntegrityGoods(
-    useIntegrityGoodsListQueryKey()
+  const { mutate: deleteAdvanceGoods } = useDeleteAdvanceGoods(
+    useAdvanceGoodsListQueryKey()
   );
 
   const confirmDelete = (id: number) => {
@@ -42,7 +42,7 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
       content: "点击确定删除",
       okText: "确定",
       cancelText: "取消",
-      onOk: () => deleteIntegrityGoods(id),
+      onOk: () => deleteAdvanceGoods(id),
     });
   };
 
