@@ -14,7 +14,7 @@ const breadcrumbNameMap: { [key: string]: string } = {
   "/rural/banner_list": "头图列表",
   "/rural/region_list": "地区列表",
   "/rural/goods_list": "商品列表",
-  "/integrity": "诚信甄品",
+  "/integrity": "诚信臻品",
   "/integrity/banner_list": "头图列表",
   "/integrity/goods_list": "商品列表",
   "/goods": "商品管理",

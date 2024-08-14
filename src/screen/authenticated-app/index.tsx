@@ -186,7 +186,7 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
       ],
     },
     {
-      label: "诚信甄品",
+      label: "诚信臻品",
       key: "integrity",
       icon: <SafetyCertificateOutlined />,
       children: [
