@@ -7,6 +7,7 @@ import { Button, Input } from "antd";
 export interface SearchPanelProps {
   params: Partial<UsersSearchParams>;
   setParams: (params: Partial<UsersSearchParams>) => void;
+  levelOptions: { name: string; value: number }[];
 }
 
 const defaultParmas: Partial<UsersSearchParams> = {
@@ -14,7 +15,11 @@ const defaultParmas: Partial<UsersSearchParams> = {
   mobile: "",
 };
 
-export const SearchPanel = ({ params, setParams }: SearchPanelProps) => {
+export const SearchPanel = ({
+  params,
+  setParams,
+  levelOptions,
+}: SearchPanelProps) => {
   const [tempParams, setTempParams] = useState(defaultParmas);
 
   const setNickname = (evt: any) => {

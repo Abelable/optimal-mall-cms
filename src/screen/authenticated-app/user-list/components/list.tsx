@@ -8,6 +8,7 @@ import {
   Table,
   TablePaginationConfig,
   TableProps,
+  Tag,
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
 import dayjs from "dayjs";
@@ -21,7 +22,13 @@ interface ListProps extends TableProps<User>, SearchPanelProps {
   error: Error | unknown;
 }
 
-export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
+export const List = ({
+  levelOptions,
+  error,
+  params,
+  setParams,
+  ...restProps
+}: ListProps) => {
   const setPagination = (pagination: TablePaginationConfig) =>
     setParams({
       ...params,
@@ -68,6 +75,15 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
               { text: "女", value: 2 },
             ],
             onFilter: (value, user) => user.gender === value,
+          },
+          {
+            title: "用户身份",
+            dataIndex: "level",
+            render: (value) => (
+              <Tag color="geekblue">
+                {levelOptions.find((item) => item.value === value)?.name}
+              </Tag>
+            ),
           },
           {
             title: "注册时间",

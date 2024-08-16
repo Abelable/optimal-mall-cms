@@ -11,6 +11,8 @@ export interface User {
   nickname: string;
   mobile: string;
   gender: number;
+  level: number;
+  superiorId: number;
   createdAt: string;
 }
 

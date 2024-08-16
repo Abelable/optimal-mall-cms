@@ -6,6 +6,15 @@ import { UserModal } from "./components/user-modal";
 import { List } from "./components/list";
 import { SearchPanel } from "./components/search-panel";
 
+const levelOptions = [
+  { name: "普通用户", value: 0 },
+  { name: "乡村推广员", value: 1 },
+  { name: "乡村组织者C1", value: 2 },
+  { name: "乡村组织者C2", value: 3 },
+  { name: "乡村组织者C3", value: 4 },
+  { name: "乡村委员会", value: 5 },
+];
+
 export const UserList = () => {
   const [params, setParams] = useUsersSearchParams();
   const { isLoading, error, data } = useUsers(params);
@@ -13,8 +22,13 @@ export const UserList = () => {
   return (
     <Container>
       <Main>
-        <SearchPanel params={params} setParams={setParams} />
+        <SearchPanel
+          levelOptions={levelOptions}
+          params={params}
+          setParams={setParams}
+        />
         <List
+          levelOptions={levelOptions}
           params={params}
           setParams={setParams}
           error={error}
