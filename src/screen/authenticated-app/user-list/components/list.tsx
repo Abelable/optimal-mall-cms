@@ -5,12 +5,19 @@ import {
   Menu,
   MenuProps,
   Modal,
+  Popover,
   Table,
   TablePaginationConfig,
   TableProps,
   Tag,
 } from "antd";
-import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
+import {
+  ButtonNoPadding,
+  ErrorBox,
+  Row,
+  PageTitle,
+  OptionAvatar,
+} from "components/lib";
 import dayjs from "dayjs";
 import { useDeleteUser } from "service/user";
 import { User } from "types/user";
@@ -89,12 +96,19 @@ export const List = ({
           {
             title: "用户上级",
             dataIndex: "superiorId",
-            render: (value) => (
-              <>
-                {superiorOptions.find((item) => item.id === value)?.nickname ||
-                  "暂无上级"}
-              </>
-            ),
+            render: (value) => {
+              const option = superiorOptions.find((item) => item.id === value);
+              return option ? (
+                <Popover content={`id: ${option.id}`}>
+                  <div style={{ cursor: "pointer", width: "fit-content" }}>
+                    <OptionAvatar src={option.avatar} icon={<UserOutlined />} />
+                    <span>{option.nickname}</span>
+                  </div>
+                </Popover>
+              ) : (
+                <>暂无上级</>
+              );
+            },
           },
           {
             title: "注册时间",

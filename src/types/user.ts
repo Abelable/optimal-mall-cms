@@ -27,5 +27,6 @@ export interface UsersResult {
 
 export interface SuperiorOption {
   id: number;
+  avatar: string;
   nickname: string;
 }

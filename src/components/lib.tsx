@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Button, Spin, Typography } from "antd";
+import { Button, Avatar, Spin, Typography } from "antd";
 
 export const ButtonNoPadding = styled(Button)`
   padding: 0;
@@ -100,4 +100,11 @@ export const PageTitle = styled.div`
   &:first-of-type {
     margin-top: 0;
   }
+`;
+
+export const OptionAvatar = styled(Avatar)`
+  margin-right: 0.6rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 0.6rem;
 `;
