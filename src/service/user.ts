@@ -1,7 +1,13 @@
 import { QueryKey, useMutation, useQuery } from "react-query";
 import { useHttp } from "./http";
 import { useDeleteConfig } from "./use-optimistic-options";
-import type { User, UsersResult, UsersSearchParams } from "types/user";
+
+import type {
+  SuperiorOption,
+  User,
+  UsersResult,
+  UsersSearchParams,
+} from "types/user";
 
 export const useUsers = (params: Partial<UsersSearchParams>) => {
   const client = useHttp();
@@ -30,5 +36,12 @@ export const useDeleteUser = (queryKey: QueryKey) => {
         method: "POST",
       }),
     useDeleteConfig(queryKey)
+  );
+};
+
+export const useSuperiorOptions = () => {
+  const client = useHttp();
+  return useQuery<SuperiorOption[]>(["superior_options"], () =>
+    client("user/superior_options")
   );
 };

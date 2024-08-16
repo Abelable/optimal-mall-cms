@@ -81,9 +81,14 @@ export const List = ({
             dataIndex: "level",
             render: (value) => (
               <Tag color="geekblue">
-                {levelOptions.find((item) => item.value === value)?.name}
+                {levelOptions.find((item) => item.value === value)?.text}
               </Tag>
             ),
+          },
+          {
+            title: "用户上级",
+            dataIndex: "superiorId",
+            render: (value) => <></>,
           },
           {
             title: "注册时间",

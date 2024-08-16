@@ -1,13 +1,17 @@
-import type { UsersSearchParams } from "types/user";
+import { Row } from "components/lib";
+import { Button, Input, Select } from "antd";
+
 import { useState } from "react";
 import styled from "@emotion/styled";
-import { Row } from "components/lib";
-import { Button, Input } from "antd";
+
+import type { Option } from "types/common";
+import type { SuperiorOption, UsersSearchParams } from "types/user";
 
 export interface SearchPanelProps {
   params: Partial<UsersSearchParams>;
   setParams: (params: Partial<UsersSearchParams>) => void;
-  levelOptions: { name: string; value: number }[];
+  levelOptions: Option[];
+  superiorOptions: SuperiorOption[];
 }
 
 const defaultParmas: Partial<UsersSearchParams> = {
@@ -19,6 +23,7 @@ export const SearchPanel = ({
   params,
   setParams,
   levelOptions,
+  superiorOptions,
 }: SearchPanelProps) => {
   const [tempParams, setTempParams] = useState(defaultParmas);
 
@@ -52,6 +57,14 @@ export const SearchPanel = ({
     });
   };
 
+  const setLevel = (level: number) => setTempParams({ ...tempParams, level });
+  const clearLevel = () => setTempParams({ ...tempParams, level: undefined });
+
+  const setSuperiorId = (superiorId: number) =>
+    setTempParams({ ...tempParams, superiorId });
+  const clearSuperiorId = () =>
+    setTempParams({ ...tempParams, superiorId: undefined });
+
   const clear = () => {
     setParams({ ...params, ...defaultParmas });
     setTempParams({ ...tempParams, ...defaultParmas });
@@ -78,6 +91,40 @@ export const SearchPanel = ({
           placeholder="请输入用户手机号"
           allowClear={true}
         />
+      </Item>
+      <Item>
+        <div>用户身份：</div>
+        <Select
+          style={{ width: "20rem" }}
+          value={tempParams.level}
+          placeholder="请选择用户身份"
+          allowClear={true}
+          onSelect={setLevel}
+          onClear={clearLevel}
+        >
+          {levelOptions?.map(({ text, value }) => (
+            <Select.Option key={value} value={value}>
+              {text}
+            </Select.Option>
+          ))}
+        </Select>
+      </Item>
+      <Item>
+        <div>用户上级：</div>
+        <Select
+          style={{ width: "20rem" }}
+          value={tempParams.superiorId}
+          placeholder="请选择用户上级"
+          allowClear={true}
+          onSelect={setSuperiorId}
+          onClear={clearSuperiorId}
+        >
+          {superiorOptions?.map(({ id, nickname }) => (
+            <Select.Option key={id} value={id}>
+              {nickname}
+            </Select.Option>
+          ))}
+        </Select>
       </Item>
 
       <ButtonWrap gap={true}>
