@@ -5,7 +5,6 @@ import { Link, useLocation } from "react-router-dom";
 const breadcrumbNameMap: { [key: string]: string } = {
   "/dashboard": "数据概况",
   "/user_list": "用户列表",
-  "/team_leader_list": "团长列表",
   "/activity": "活动管理",
   "/activity/home_banner_list": "首页头图",
   "/activity/today_goods_list": "今日主推",

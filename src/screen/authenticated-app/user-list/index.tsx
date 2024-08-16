@@ -18,7 +18,7 @@ const levelOptions = [
 export const UserList = () => {
   const [params, setParams] = useUsersSearchParams();
   const { isLoading, error, data } = useUsers(params);
-  const { data: superiorOptions = [], error: teamLeaderError } =
+  const { data: superiorOptions = [], error: superiorError } =
     useSuperiorOptions();
 
   return (
@@ -35,7 +35,7 @@ export const UserList = () => {
           superiorOptions={superiorOptions}
           params={params}
           setParams={setParams}
-          error={error || teamLeaderError}
+          error={error || superiorError}
           loading={isLoading}
           dataSource={data?.list}
           pagination={{

@@ -10,7 +10,6 @@ import { NavigationBar } from "components/navigation-bar";
 
 import { Dashboard } from "./dashboard";
 import { UserList } from "./user-list";
-import { TeamLeaderList } from "./team-leader-list";
 import { HomeBannerList } from "./activity/home-banner-list";
 import { TodayGoodsList } from "./activity/today-goods-list";
 import { AdvanceGoodsList } from "./activity/advance-goods-list";
@@ -42,7 +41,6 @@ import {
   UnorderedListOutlined,
   GiftOutlined,
   SnippetsOutlined,
-  FlagOutlined,
   CloudOutlined,
   PictureOutlined,
   EnvironmentOutlined,
@@ -73,7 +71,6 @@ export const AuthenticatedApp = () => {
             <Routes>
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="user_list" element={<UserList />} />
-              <Route path="team_leader_list" element={<TeamLeaderList />} />
               <Route
                 path="activity/home_banner_list"
                 element={<HomeBannerList />}
@@ -135,11 +132,6 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
       label: <Link to={"user_list"}>用户列表</Link>,
       key: "user_list",
       icon: <TeamOutlined />,
-    },
-    {
-      label: <Link to={"team_leader_list"}>团长列表</Link>,
-      key: "team_leader_list",
-      icon: <FlagOutlined />,
     },
     {
       label: "活动管理",
