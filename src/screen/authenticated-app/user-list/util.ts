@@ -6,6 +6,8 @@ export const useUsersSearchParams = () => {
   const [params, setParams] = useUrlQueryParams([
     "nickname",
     "mobile",
+    "level",
+    "superiorId",
     "page",
     "limit",
   ]);

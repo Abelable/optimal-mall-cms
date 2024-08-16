@@ -17,6 +17,8 @@ export interface SearchPanelProps {
 const defaultParmas: Partial<UsersSearchParams> = {
   nickname: "",
   mobile: "",
+  level: undefined,
+  superiorId: undefined,
 };
 
 export const SearchPanel = ({
