@@ -24,6 +24,7 @@ interface ListProps extends TableProps<User>, SearchPanelProps {
 
 export const List = ({
   levelOptions,
+  superiorOptions,
   error,
   params,
   setParams,
@@ -88,7 +89,12 @@ export const List = ({
           {
             title: "用户上级",
             dataIndex: "superiorId",
-            render: (value) => <></>,
+            render: (value) => (
+              <>
+                {superiorOptions.find((item) => item.id === value)?.nickname ||
+                  "暂无上级"}
+              </>
+            ),
           },
           {
             title: "注册时间",
