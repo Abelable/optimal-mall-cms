@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import {
   Avatar,
   Dropdown,
@@ -18,12 +17,15 @@ import {
   PageTitle,
   OptionAvatar,
 } from "components/lib";
+import { UserOutlined } from "@ant-design/icons";
+
+import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import { useDeleteUser } from "service/user";
-import { User } from "types/user";
 import { useUserModal, useUsersQueryKey } from "../util";
-import { UserOutlined } from "@ant-design/icons";
-import { SearchPanelProps } from "./search-panel";
+
+import type { SearchPanelProps } from "./search-panel";
+import type { User } from "types/user";
 
 interface ListProps extends TableProps<User>, SearchPanelProps {
   error: Error | unknown;

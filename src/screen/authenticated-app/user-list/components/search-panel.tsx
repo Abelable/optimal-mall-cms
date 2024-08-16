@@ -1,5 +1,6 @@
-import { Row } from "components/lib";
+import { OptionAvatar, Row } from "components/lib";
 import { Button, Input, Select } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 
 import { useState } from "react";
 import styled from "@emotion/styled";
@@ -120,10 +121,17 @@ export const SearchPanel = ({
           allowClear={true}
           onSelect={setSuperiorId}
           onClear={clearSuperiorId}
+          showSearch
+          filterOption={(input, option) =>
+            (option!.children as any)[1].props.children
+              .toLowerCase()
+              .includes(input.toLowerCase())
+          }
         >
-          {superiorOptions?.map(({ id, nickname }) => (
+          {superiorOptions?.map(({ id, avatar, nickname }) => (
             <Select.Option key={id} value={id}>
-              {nickname}
+              <OptionAvatar src={avatar} icon={<UserOutlined />} />
+              <span>{nickname}</span>
             </Select.Option>
           ))}
         </Select>
