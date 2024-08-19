@@ -11,7 +11,7 @@ import type {
 export const usePromoterList = (params: Partial<PromoterListSearchParams>) => {
   const client = useHttp();
   return useQuery<PromoterListResult>(["promoter_list", params], () =>
-    client("promoter/list", { data: params, method: "POST" })
+    client("team/promoter/list", { data: params, method: "POST" })
   );
 };
 
@@ -19,7 +19,7 @@ export const useDeletePromoter = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (id: number) =>
-      client("promoter/delete", {
+      client("team/promoter/delete", {
         data: { id },
         method: "POST",
       }),
@@ -30,6 +30,6 @@ export const useDeletePromoter = (queryKey: QueryKey) => {
 export const usePromoterOptions = () => {
   const client = useHttp();
   return useQuery<PromoterOption[]>(["promoter_options"], () =>
-    client("promoter/options")
+    client("team/promoter/options")
   );
 };
