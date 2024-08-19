@@ -2,7 +2,7 @@ import { List } from "./components/list";
 import { SearchPanel } from "./components/search-panel";
 
 import styled from "@emotion/styled";
-import { useUsers } from "service/user";
+import { usePromoterList } from "service/promoter";
 import { usePromoterOptions } from "service/promoter";
 import { toNumber } from "utils";
 import { usePromoterListSearchParams } from "./util";
@@ -17,7 +17,7 @@ const levelOptions = [
 
 export const PromoterList = () => {
   const [params, setParams] = usePromoterListSearchParams();
-  const { isLoading, error, data } = useUsers(params);
+  const { isLoading, error, data } = usePromoterList(params);
   const { data: superiorOptions = [], error: superiorError } =
     usePromoterOptions();
 

@@ -16,9 +16,9 @@ import { useDeletePromoter } from "service/promoter";
 import { usePromoterListQueryKey } from "../util";
 
 import type { SearchPanelProps } from "./search-panel";
-import type { User } from "types/user";
+import type { Promoter } from "types/promoter";
 
-interface ListProps extends TableProps<User>, SearchPanelProps {
+interface ListProps extends TableProps<Promoter>, SearchPanelProps {
   error: Error | unknown;
 }
 
@@ -53,7 +53,7 @@ export const List = ({
   return (
     <Container>
       <Header between={true}>
-        <PageTitle>推官员列表</PageTitle>
+        <PageTitle>推广员列表</PageTitle>
       </Header>
       <ErrorBox error={error} />
       <Table
@@ -70,28 +70,7 @@ export const List = ({
             render: (value) => <Avatar src={value} icon={<UserOutlined />} />,
           },
           {
-            title: "昵称",
-            dataIndex: "nickname",
-          },
-          {
-            title: "手机号",
-            dataIndex: "mobile",
-          },
-          {
-            title: "性别",
-            dataIndex: "gender",
-            render: (value) => (
-              <>{value === 1 ? "男" : value === 2 ? "女" : "未知"}</>
-            ),
-            filters: [
-              { text: "未知", value: 0 },
-              { text: "男", value: 1 },
-              { text: "女", value: 2 },
-            ],
-            onFilter: (value, user) => user.gender === value,
-          },
-          {
-            title: "用户身份",
+            title: "推广员身份",
             dataIndex: "level",
             render: (value) => (
               <Tag color="geekblue">
@@ -100,11 +79,11 @@ export const List = ({
             ),
           },
           {
-            title: "注册时间",
-            render: (value, user) => (
+            title: "创建时间",
+            render: (value, promoter) => (
               <span>
-                {user.createdAt
-                  ? dayjs(user.createdAt).format("YYYY-MM-DD HH:mm:ss")
+                {promoter.createdAt
+                  ? dayjs(promoter.createdAt).format("YYYY-MM-DD HH:mm:ss")
                   : "无"}
               </span>
             ),
@@ -113,11 +92,24 @@ export const List = ({
               dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf(),
           },
           {
+            title: "创建时间",
+            render: (value, promoter) => (
+              <span>
+                {promoter.updatedAt
+                  ? dayjs(promoter.updatedAt).format("YYYY-MM-DD HH:mm:ss")
+                  : "无"}
+              </span>
+            ),
+            width: "20rem",
+            sorter: (a, b) =>
+              dayjs(a.updatedAt).valueOf() - dayjs(b.updatedAt).valueOf(),
+          },
+          {
             title: "操作",
-            render(value, user) {
+            render(value, promoter) {
               return (
                 <Button
-                  onClick={() => confirmDelete(user.id)}
+                  onClick={() => confirmDelete(promoter.id)}
                   type="link"
                   danger
                 >

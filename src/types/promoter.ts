@@ -12,7 +12,7 @@ export interface Promoter {
   level: number;
   scene: number;
   createdAt: string;
-  updateAt: string;
+  updatedAt: string;
 }
 
 export interface PromoterListResult {
