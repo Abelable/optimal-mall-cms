@@ -17,3 +17,9 @@ export interface GoodsListResult {
   limit: string;
   total: string;
 }
+
+export interface GiftGoodsListSearchParams {
+  type: number;
+  page: number;
+  limit: number;
+}
