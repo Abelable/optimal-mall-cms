@@ -5,13 +5,12 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 
 import type { Option } from "types/common";
-import type { PromoterListSearchParams, PromoterOption } from "types/promoter";
+import type { PromoterListSearchParams } from "types/promoter";
 
 export interface SearchPanelProps {
   params: Partial<PromoterListSearchParams>;
   setParams: (params: Partial<PromoterListSearchParams>) => void;
   levelOptions: Option[];
-  superiorOptions: PromoterOption[];
 }
 
 const defaultParmas: Partial<PromoterListSearchParams> = {
@@ -22,7 +21,6 @@ export const SearchPanel = ({
   params,
   setParams,
   levelOptions,
-  superiorOptions,
 }: SearchPanelProps) => {
   const [tempParams, setTempParams] = useState(defaultParmas);
 

@@ -24,7 +24,6 @@ interface ListProps extends TableProps<Promoter>, SearchPanelProps {
 
 export const List = ({
   levelOptions,
-  superiorOptions,
   error,
   params,
   setParams,
