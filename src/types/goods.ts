@@ -33,8 +33,7 @@ export interface Goods {
   defaultSpecImage: string;
   price: number;
   stock: number;
-  leaderCommissionRate: number;
-  shareCommissionRate: number;
+  commissionRate: number;
   specList: Spec[];
   skuList: Sku[];
   salesVolume: number;

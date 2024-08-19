@@ -13,10 +13,6 @@ export interface GoodsCategory {
   status: number;
   name: string;
   sort: number;
-  minLeaderCommissionRate: number;
-  maxLeaderCommissionRate: number;
-  minShareCommissionRate: number;
-  maxShareCommissionRate: number;
 }
 
 export interface GoodsCategoriesResult {

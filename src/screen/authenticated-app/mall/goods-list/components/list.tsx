@@ -124,14 +124,8 @@ export const List = ({
             dataIndex: "stock",
           },
           {
-            title: "团长佣金比例",
-            dataIndex: "leaderCommissionRate",
-            render: (value) => <>{`${value}%`}</>,
-            width: "12rem",
-          },
-          {
-            title: "分享佣金比例",
-            dataIndex: "shareCommissionRate",
+            title: "佣金比例",
+            dataIndex: "commissionRate",
             render: (value) => <>{`${value}%`}</>,
             width: "12rem",
           },

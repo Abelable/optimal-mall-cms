@@ -62,20 +62,8 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
             width: "8rem",
           },
           {
-            title: "商品分类名称",
+            title: "分类名称",
             dataIndex: "name",
-          },
-          {
-            title: "团队长佣金比例范围",
-            render: (value, category) => (
-              <>{`${category.minLeaderCommissionRate}% ~ ${category.maxLeaderCommissionRate}%`}</>
-            ),
-          },
-          {
-            title: "分享佣金比例范围",
-            render: (value, category) => (
-              <>{`${category.minShareCommissionRate}% ~ ${category.maxShareCommissionRate}%`}</>
-            ),
           },
           {
             title: "排序",
