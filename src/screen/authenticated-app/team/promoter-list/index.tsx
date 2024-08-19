@@ -7,11 +7,11 @@ import { toNumber } from "utils";
 import { usePromoterListSearchParams } from "./util";
 
 const levelOptions = [
-  { text: "推广员", value: 1 },
-  { text: "组织者C1", value: 2 },
-  { text: "组织者C2", value: 3 },
-  { text: "组织者C3", value: 4 },
-  { text: "委员会", value: 5 },
+  { text: "乡村振兴推广员", value: 1 },
+  { text: "乡村振兴组织者C1", value: 2 },
+  { text: "乡村振兴组织者C2", value: 3 },
+  { text: "乡村振兴组织者C3", value: 4 },
+  { text: "乡村振兴委员会", value: 5 },
 ];
 
 export const PromoterList = () => {

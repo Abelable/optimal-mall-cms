@@ -35,11 +35,11 @@ export const SearchPanel = ({
   return (
     <Container>
       <Item>
-        <div>推广员等级：</div>
+        <div>推广员身份：</div>
         <Select
           style={{ width: "20rem" }}
           value={tempParams.level}
-          placeholder="请选择推广员等级"
+          placeholder="请选择推广员身份"
           allowClear={true}
           onSelect={setLevel}
           onClear={clearLevel}

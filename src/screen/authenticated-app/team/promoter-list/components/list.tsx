@@ -69,6 +69,10 @@ export const List = ({
             render: (value) => <Avatar src={value} icon={<UserOutlined />} />,
           },
           {
+            title: "昵称",
+            dataIndex: "nickname",
+          },
+          {
             title: "推广员身份",
             dataIndex: "level",
             render: (value) => (
@@ -91,7 +95,7 @@ export const List = ({
               dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf(),
           },
           {
-            title: "创建时间",
+            title: "更新时间",
             render: (value, promoter) => (
               <span>
                 {promoter.updatedAt
