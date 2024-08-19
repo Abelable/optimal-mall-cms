@@ -1,12 +1,12 @@
 import { useCallback, useMemo } from "react";
 import { useSetUrlSearchParams, useUrlQueryParams } from "utils/url";
 
-export const useLivestockListSearchParams = () => {
+export const useGiftGoodsListSearchParams = () => {
   const [params, setParams] = useUrlQueryParams(["page", "limit"]);
   return [
     useMemo(
       () => ({
-        type: 1,
+        type: 2,
         page: Number(params.page) || 1,
         limit: Number(params.limit) || 10,
         ...params,
@@ -17,28 +17,28 @@ export const useLivestockListSearchParams = () => {
   ] as const;
 };
 
-export const useLivestockListQueryKey = () => {
-  const [params] = useLivestockListSearchParams();
-  return ["livestock_list", params];
+export const useGiftGoodsListQueryKey = () => {
+  const [params] = useGiftGoodsListSearchParams();
+  return ["gift_goods_list", params];
 };
 
-export const useLivestockModal = () => {
-  const [{ livestockCreate }, setLivestockModalOpen] = useUrlQueryParams([
-    "livestockCreate",
+export const useGiftGoodsModal = () => {
+  const [{ giftGoodsCreate }, setGiftGoodsModalOpen] = useUrlQueryParams([
+    "giftGoodsCreate",
   ]);
   const setUrlParams = useSetUrlSearchParams();
 
   const open = useCallback(
-    () => setLivestockModalOpen({ livestockCreate: true }),
-    [setLivestockModalOpen]
+    () => setGiftGoodsModalOpen({ giftGoodsCreate: true }),
+    [setGiftGoodsModalOpen]
   );
   const close = useCallback(
-    () => setUrlParams({ livestockCreate: "" }),
+    () => setUrlParams({ giftGoodsCreate: "" }),
     [setUrlParams]
   );
 
   return {
-    livestockModalOpen: livestockCreate === "true",
+    giftGoodsModalOpen: giftGoodsCreate === "true",
     open,
     close,
   };

@@ -4,13 +4,12 @@ import { Button, Select } from "antd";
 import { useState } from "react";
 import styled from "@emotion/styled";
 
-import type { Option } from "types/common";
 import type { PromoterListSearchParams } from "types/promoter";
 
 export interface SearchPanelProps {
   params: Partial<PromoterListSearchParams>;
   setParams: (params: Partial<PromoterListSearchParams>) => void;
-  levelOptions: Option[];
+  levelOptions: { text: string; value: number; scene: number }[];
 }
 
 const defaultParmas: Partial<PromoterListSearchParams> = {

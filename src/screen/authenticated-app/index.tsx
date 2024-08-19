@@ -11,6 +11,8 @@ import { NavigationBar } from "components/navigation-bar";
 import { Dashboard } from "./dashboard";
 import { UserList } from "./user-list";
 import { PromoterList } from "./team/promoter-list";
+import { LivestockList } from "./team/livestock-list";
+import { GiftGoodsList } from "./team/gift-goods-list";
 import { HomeBannerList } from "./activity/home-banner-list";
 import { TodayGoodsList } from "./activity/today-goods-list";
 import { AdvanceGoodsList } from "./activity/advance-goods-list";
@@ -74,6 +76,8 @@ export const AuthenticatedApp = () => {
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="user_list" element={<UserList />} />
               <Route path="team/promoter_list" element={<PromoterList />} />
+              <Route path="team/livestock_list" element={<LivestockList />} />
+              <Route path="team/gift_goods_list" element={<GiftGoodsList />} />
               <Route
                 path="activity/home_banner_list"
                 element={<HomeBannerList />}
@@ -145,6 +149,16 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
           label: <Link to={"team/promoter_list"}>推广员列表</Link>,
           key: "team_promoter_list",
           icon: <UserOutlined />,
+        },
+        {
+          label: <Link to={"team/livestock_list"}>认养专区</Link>,
+          key: "team_livestock_list",
+          icon: <ShoppingOutlined />,
+        },
+        {
+          label: <Link to={"team/gift_goods_list"}>礼包专区</Link>,
+          key: "team_gift_goods_list",
+          icon: <ShoppingOutlined />,
         },
       ],
     },

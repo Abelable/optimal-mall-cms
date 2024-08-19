@@ -82,6 +82,21 @@ export const List = ({
             ),
           },
           {
+            title: "场景值",
+            dataIndex: "scene",
+            render: (value, promoter) => (
+              <>
+                {value ===
+                levelOptions.find((item) => item.value === promoter.level)
+                  ?.scene ? (
+                  <Tag color="success">{value}</Tag>
+                ) : (
+                  <Tag color="error">{value}（场景值错误）</Tag>
+                )}
+              </>
+            ),
+          },
+          {
             title: "创建时间",
             render: (value, promoter) => (
               <span>
