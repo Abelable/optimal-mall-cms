@@ -10,6 +10,7 @@ import { NavigationBar } from "components/navigation-bar";
 
 import { Dashboard } from "./dashboard";
 import { UserList } from "./user-list";
+import { PromoterList } from "./team/promoter-list";
 import { HomeBannerList } from "./activity/home-banner-list";
 import { TodayGoodsList } from "./activity/today-goods-list";
 import { AdvanceGoodsList } from "./activity/advance-goods-list";
@@ -33,6 +34,7 @@ import {
   MenuFoldOutlined,
   CaretDownOutlined,
   MehOutlined,
+  UserOutlined,
   TeamOutlined,
   AppstoreOutlined,
   CarOutlined,
@@ -71,6 +73,7 @@ export const AuthenticatedApp = () => {
             <Routes>
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="user_list" element={<UserList />} />
+              <Route path="team/promoter_list" element={<PromoterList />} />
               <Route
                 path="activity/home_banner_list"
                 element={<HomeBannerList />}
@@ -131,7 +134,19 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
     {
       label: <Link to={"user_list"}>用户列表</Link>,
       key: "user_list",
+      icon: <UserOutlined />,
+    },
+    {
+      label: "团队管理",
+      key: "team",
       icon: <TeamOutlined />,
+      children: [
+        {
+          label: <Link to={"team/promoter_list"}>推广员列表</Link>,
+          key: "team_promoter_list",
+          icon: <UserOutlined />,
+        },
+      ],
     },
     {
       label: "活动管理",

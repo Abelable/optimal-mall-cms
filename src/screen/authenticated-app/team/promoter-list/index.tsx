@@ -1,4 +1,3 @@
-import { UserModal } from "./components/user-modal";
 import { List } from "./components/list";
 import { SearchPanel } from "./components/search-panel";
 
@@ -6,10 +5,18 @@ import styled from "@emotion/styled";
 import { useUsers } from "service/user";
 import { usePromoterOptions } from "service/promoter";
 import { toNumber } from "utils";
-import { useUsersSearchParams } from "./util";
+import { usePromoterListSearchParams } from "./util";
 
-export const UserList = () => {
-  const [params, setParams] = useUsersSearchParams();
+const levelOptions = [
+  { text: "推广员", value: 1 },
+  { text: "组织者C1", value: 2 },
+  { text: "组织者C2", value: 3 },
+  { text: "组织者C3", value: 4 },
+  { text: "委员会", value: 5 },
+];
+
+export const PromoterList = () => {
+  const [params, setParams] = usePromoterListSearchParams();
   const { isLoading, error, data } = useUsers(params);
   const { data: superiorOptions = [], error: superiorError } =
     usePromoterOptions();
@@ -18,11 +25,13 @@ export const UserList = () => {
     <Container>
       <Main>
         <SearchPanel
+          levelOptions={levelOptions}
           superiorOptions={superiorOptions}
           params={params}
           setParams={setParams}
         />
         <List
+          levelOptions={levelOptions}
           superiorOptions={superiorOptions}
           params={params}
           setParams={setParams}
@@ -37,7 +46,6 @@ export const UserList = () => {
           bordered
         />
       </Main>
-      <UserModal />
     </Container>
   );
 };

@@ -1,27 +1,19 @@
 import {
   Avatar,
-  Dropdown,
-  Menu,
-  MenuProps,
+  Button,
   Modal,
-  Popover,
   Table,
   TablePaginationConfig,
   TableProps,
+  Tag,
 } from "antd";
-import {
-  ButtonNoPadding,
-  ErrorBox,
-  Row,
-  PageTitle,
-  OptionAvatar,
-} from "components/lib";
+import { ErrorBox, Row, PageTitle } from "components/lib";
 import { UserOutlined } from "@ant-design/icons";
 
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
-import { useDeleteUser } from "service/user";
-import { useUserModal, useUsersQueryKey } from "../util";
+import { useDeletePromoter } from "service/promoter";
+import { usePromoterListQueryKey } from "../util";
 
 import type { SearchPanelProps } from "./search-panel";
 import type { User } from "types/user";
@@ -31,6 +23,7 @@ interface ListProps extends TableProps<User>, SearchPanelProps {
 }
 
 export const List = ({
+  levelOptions,
   superiorOptions,
   error,
   params,
@@ -44,10 +37,23 @@ export const List = ({
       limit: pagination.pageSize,
     });
 
+  const { mutate: deletePromoter } = useDeletePromoter(
+    usePromoterListQueryKey()
+  );
+  const confirmDelete = (id: number) => {
+    Modal.confirm({
+      title: "确定删除该用户吗？",
+      content: "点击确定删除",
+      okText: "确定",
+      cancelText: "取消",
+      onOk: () => deletePromoter(id),
+    });
+  };
+
   return (
     <Container>
       <Header between={true}>
-        <PageTitle>用户列表</PageTitle>
+        <PageTitle>推官员列表</PageTitle>
       </Header>
       <ErrorBox error={error} />
       <Table
@@ -85,21 +91,13 @@ export const List = ({
             onFilter: (value, user) => user.gender === value,
           },
           {
-            title: "用户上级",
-            dataIndex: "superiorId",
-            render: (value) => {
-              const option = superiorOptions.find((item) => item.id === value);
-              return option ? (
-                <Popover content={`id: ${option.id}`}>
-                  <div style={{ cursor: "pointer", width: "fit-content" }}>
-                    <OptionAvatar src={option.avatar} icon={<UserOutlined />} />
-                    <span>{option.nickname}</span>
-                  </div>
-                </Popover>
-              ) : (
-                <>暂无上级</>
-              );
-            },
+            title: "用户身份",
+            dataIndex: "level",
+            render: (value) => (
+              <Tag color="geekblue">
+                {levelOptions.find((item) => item.value === value)?.text}
+              </Tag>
+            ),
           },
           {
             title: "注册时间",
@@ -117,7 +115,15 @@ export const List = ({
           {
             title: "操作",
             render(value, user) {
-              return <More id={user.id} />;
+              return (
+                <Button
+                  onClick={() => confirmDelete(user.id)}
+                  type="link"
+                  danger
+                >
+                  删除
+                </Button>
+              );
             },
             width: "8rem",
           },
@@ -126,38 +132,6 @@ export const List = ({
         {...restProps}
       />
     </Container>
-  );
-};
-
-const More = ({ id }: { id: number }) => {
-  const { open } = useUserModal();
-  const { mutate: deleteUser } = useDeleteUser(useUsersQueryKey());
-
-  const confirmDelete = (id: number) => {
-    Modal.confirm({
-      title: "确定删除该用户吗？",
-      content: "点击确定删除",
-      okText: "确定",
-      cancelText: "取消",
-      onOk: () => deleteUser(id),
-    });
-  };
-
-  const items: MenuProps["items"] = [
-    {
-      label: <div onClick={() => open(id)}>详情</div>,
-      key: "detail",
-    },
-    {
-      label: <div onClick={() => confirmDelete(id)}>删除</div>,
-      key: "delete",
-    },
-  ];
-
-  return (
-    <Dropdown overlay={<Menu items={items} />}>
-      <ButtonNoPadding type={"link"}>...</ButtonNoPadding>
-    </Dropdown>
   );
 };
 

@@ -5,27 +5,24 @@ import { UserOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import styled from "@emotion/styled";
 
-import type { Option } from "types/common";
-import type { SuperiorOption, UsersSearchParams } from "types/user";
+import type { UsersSearchParams } from "types/user";
+import type { PromoterOption } from "types/promoter";
 
 export interface SearchPanelProps {
   params: Partial<UsersSearchParams>;
   setParams: (params: Partial<UsersSearchParams>) => void;
-  levelOptions: Option[];
-  superiorOptions: SuperiorOption[];
+  superiorOptions: PromoterOption[];
 }
 
 const defaultParmas: Partial<UsersSearchParams> = {
   nickname: "",
   mobile: "",
-  level: undefined,
   superiorId: undefined,
 };
 
 export const SearchPanel = ({
   params,
   setParams,
-  levelOptions,
   superiorOptions,
 }: SearchPanelProps) => {
   const [tempParams, setTempParams] = useState(defaultParmas);
@@ -60,9 +57,6 @@ export const SearchPanel = ({
     });
   };
 
-  const setLevel = (level: number) => setTempParams({ ...tempParams, level });
-  const clearLevel = () => setTempParams({ ...tempParams, level: undefined });
-
   const setSuperiorId = (superiorId: number) =>
     setTempParams({ ...tempParams, superiorId });
   const clearSuperiorId = () =>
@@ -94,23 +88,6 @@ export const SearchPanel = ({
           placeholder="请输入用户手机号"
           allowClear={true}
         />
-      </Item>
-      <Item>
-        <div>用户身份：</div>
-        <Select
-          style={{ width: "20rem" }}
-          value={tempParams.level}
-          placeholder="请选择用户身份"
-          allowClear={true}
-          onSelect={setLevel}
-          onClear={clearLevel}
-        >
-          {levelOptions?.map(({ text, value }) => (
-            <Select.Option key={value} value={value}>
-              {text}
-            </Select.Option>
-          ))}
-        </Select>
       </Item>
       <Item>
         <div>用户上级：</div>
