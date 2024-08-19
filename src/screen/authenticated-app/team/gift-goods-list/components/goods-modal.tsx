@@ -22,7 +22,7 @@ export const GoodsModal = () => {
 
   const confirm = () => {
     form.validateFields().then(async () => {
-      await mutateAsync(form.getFieldsValue());
+      await mutateAsync({ type: 2, ...form.getFieldsValue() });
       closeModal();
     });
   };

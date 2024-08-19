@@ -19,7 +19,7 @@ export const useLivestockListSearchParams = () => {
 
 export const useLivestockListQueryKey = () => {
   const [params] = useLivestockListSearchParams();
-  return ["livestock_list", params];
+  return ["gift_goods_list", params];
 };
 
 export const useLivestockModal = () => {

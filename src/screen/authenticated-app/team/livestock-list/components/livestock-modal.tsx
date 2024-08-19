@@ -22,7 +22,7 @@ export const LivestockModal = () => {
 
   const confirm = () => {
     form.validateFields().then(async () => {
-      await mutateAsync(form.getFieldsValue());
+      await mutateAsync({ type: 1, ...form.getFieldsValue() });
       closeModal();
     });
   };
