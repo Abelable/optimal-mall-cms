@@ -77,7 +77,7 @@ export const BannerModal = ({ sceneOptions }: { sceneOptions: Option[] }) => {
               <Form.Item
                 name="cover"
                 label="活动封面"
-                tooltip="图片大小不能超过10MB"
+                tooltip="图片尺寸：75 * 53"
                 valuePropName="fileList"
                 getValueFromEvent={normFile}
                 rules={[{ required: true, message: "请上传活动封面" }]}
