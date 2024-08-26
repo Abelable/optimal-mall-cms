@@ -1,6 +1,6 @@
 import { useSetUrlSearchParams, useUrlQueryParams } from "utils/url";
 import { useCallback, useMemo } from "react";
-import { useFreightTemplate } from "service/freigthTemplate";
+import { useFreightTemplate } from "service/freightTemplate";
 
 export const useFreightTemplateListSearchParams = () => {
   const [params, setParams] = useUrlQueryParams(["page", "limit"]);
@@ -19,7 +19,7 @@ export const useFreightTemplateListSearchParams = () => {
 
 export const useFreightTemplateListQueryKey = () => {
   const [params] = useFreightTemplateListSearchParams();
-  return ["freigth_template_list", params];
+  return ["freight_template_list", params];
 };
 
 export const useFreightTemplateModal = () => {

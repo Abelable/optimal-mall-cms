@@ -11,7 +11,7 @@ import {
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
 import dayjs from "dayjs";
-import { useDeleteFreightTemplate } from "service/freigthTemplate";
+import { useDeleteFreightTemplate } from "service/freightTemplate";
 import {
   useFreightTemplateModal,
   useFreightTemplateListQueryKey,
@@ -103,7 +103,7 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
 
 const More = ({ id }: { id: number }) => {
   const { startEdit } = useFreightTemplateModal();
-  const { mutate: deleteRole } = useDeleteFreightTemplate(
+  const { mutate: deleteFreightTemplate } = useDeleteFreightTemplate(
     useFreightTemplateListQueryKey()
   );
 
@@ -113,7 +113,7 @@ const More = ({ id }: { id: number }) => {
       content: "点击确定删除",
       okText: "确定",
       cancelText: "取消",
-      onOk: () => deleteRole(id),
+      onOk: () => deleteFreightTemplate(id),
     });
   };
 

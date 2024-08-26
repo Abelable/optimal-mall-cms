@@ -73,7 +73,7 @@ export const useDeleteFreightTemplate = (queryKey: QueryKey) => {
 
 export const useFreightTemplateOptions = () => {
   const client = useHttp();
-  return useQuery<FreightTemplateOption[]>(["freigth_template_options"], () =>
+  return useQuery<FreightTemplateOption[]>(["freight_template_options"], () =>
     client("freight_template/options")
   );
 };

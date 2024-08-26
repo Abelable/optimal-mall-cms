@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { toNumber } from "utils";
 import { useFreightTemplateListSearchParams } from "./util";
-import { useFreightTemplateList } from "service/freigthTemplate";
+import { useFreightTemplateList } from "service/freightTemplate";
 
 import { List } from "./components/list";
 import { FreightTemplateModal } from "./components/freight-template-modal";

@@ -17,7 +17,7 @@ import { ErrorBox, ModalLoading } from "components/lib";
 import {
   useAddFreightTemplate,
   useEditFreightTemplate,
-} from "service/freigthTemplate";
+} from "service/freightTemplate";
 import {
   useFreightTemplateModal,
   useFreightTemplateListQueryKey,

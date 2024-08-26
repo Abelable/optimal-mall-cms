@@ -5,7 +5,7 @@ import { SearchPanel } from "./components/search-panel";
 
 import { useGoodsCategoryOptions } from "service/goodsCategory";
 import { useGoodsList } from "service/goods";
-import { useFreightTemplateOptions } from "service/freigthTemplate";
+import { useFreightTemplateOptions } from "service/freightTemplate";
 import { useMerchantOptions } from "service/merchant";
 import { toNumber } from "utils";
 import { useGoodsListSearchParams } from "./util";
