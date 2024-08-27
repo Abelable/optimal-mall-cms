@@ -130,8 +130,12 @@ export const useAddActivityGoodsConfig = (queryKey: QueryKey) =>
       ? {
           ...old,
           list: [
-            ...target.goodsIds.map((id: number) => ({
-              id,
+            ...target.goodsIds.map((id: number, index: number) => ({
+              id: `${
+                (old.list[0] ? Number(old.list[0].id) : 1) +
+                target.goodsIds.length -
+                index
+              }`,
               type: target.type,
             })),
             ...old.list,
