@@ -105,7 +105,6 @@ export const MerchantModal = () => {
             label="经营资质"
             valuePropName="fileList"
             getValueFromEvent={normFile}
-            rules={[{ required: true, message: "请上传经营资质" }]}
           >
             <OssUpload multiple />
           </Form.Item>
