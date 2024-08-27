@@ -5,6 +5,7 @@ import {
   TablePaginationConfig,
   TableProps,
   Image,
+  Tag,
 } from "antd";
 import { ErrorBox, Row, PageTitle } from "components/lib";
 import { PlusOutlined } from "@ant-design/icons";
@@ -72,6 +73,15 @@ export const List = ({
             width: "8rem",
           },
           {
+            title: "商品类型",
+            dataIndex: "type",
+            render: (value) => (
+              <Tag color={value === 1 ? "green" : "volcano"}>
+                {typeOptions.find((item) => item.value === value)?.text}
+              </Tag>
+            ),
+          },
+          {
             title: "商品id",
             dataIndex: "goodsId",
           },
@@ -83,13 +93,6 @@ export const List = ({
           {
             title: "商品名称",
             dataIndex: "goodsName",
-          },
-          {
-            title: "商品类型",
-            dataIndex: "type",
-            render: (value) => (
-              <>{typeOptions.find((item) => item.value === value)?.text}</>
-            ),
           },
           {
             title: "创建时间",
