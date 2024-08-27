@@ -35,7 +35,7 @@ export const MerchantModal = () => {
     if (editingMerchant) {
       const { license, ...rest } = editingMerchant;
       form.setFieldsValue({
-        license: license?.map((item) => ({ url: item })),
+        license: license ? license?.map((item) => ({ url: item })) : [],
         ...rest,
       });
     }
@@ -47,7 +47,9 @@ export const MerchantModal = () => {
       await mutateAsync({
         ...editingMerchant,
         ...rest,
-        license: license.map((item: { url: string }) => item.url),
+        license: license
+          ? license.map((item: { url: string }) => item.url)
+          : [],
       });
       closeModal();
     });
