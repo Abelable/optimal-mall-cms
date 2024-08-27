@@ -7,7 +7,13 @@ import { useGoodsOptions } from "service/goods";
 import { useAddAdvanceGoods } from "service/advanceGoods";
 import { useAdvanceGoodsModal, useAdvanceGoodsListQueryKey } from "../util";
 
-export const AdvanceGoodsModal = () => {
+import type { Option } from "types/common";
+
+export const AdvanceGoodsModal = ({
+  typeOptions,
+}: {
+  typeOptions: Option[];
+}) => {
   const [form] = useForm();
   const { advanceGoodsModalOpen, close } = useAdvanceGoodsModal();
 
@@ -62,6 +68,19 @@ export const AdvanceGoodsModal = () => {
               <Select.Option key={id} value={id}>
                 <GoodsCover src={cover} />
                 <span>{name}</span>
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+        <Form.Item
+          name="type"
+          label="商品类型"
+          rules={[{ required: true, message: "请选择商品类型" }]}
+        >
+          <Select placeholder="请选择商品类型">
+            {typeOptions.map((item) => (
+              <Select.Option key={item.value} value={item.value}>
+                {item.text}
               </Select.Option>
             ))}
           </Select>

@@ -8,6 +8,7 @@ export interface Goods {
   goodsId: number;
   goodsName: string;
   goodsCover: string;
+  type?: number;
   createdAt: string;
 }
 

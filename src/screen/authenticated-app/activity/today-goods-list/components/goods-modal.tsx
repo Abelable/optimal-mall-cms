@@ -7,7 +7,9 @@ import { useGoodsOptions } from "service/goods";
 import { useAddTodayGoods } from "service/todayGoods";
 import { useTodayGoodsModal, useTodayGoodsListQueryKey } from "../util";
 
-export const TodayGoodsModal = () => {
+import type { Option } from "types/common";
+
+export const TodayGoodsModal = ({ typeOptions }: { typeOptions: Option[] }) => {
   const [form] = useForm();
   const { todayGoodsModalOpen, close } = useTodayGoodsModal();
 
@@ -62,6 +64,19 @@ export const TodayGoodsModal = () => {
               <Select.Option key={id} value={id}>
                 <GoodsCover src={cover} />
                 <span>{name}</span>
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+        <Form.Item
+          name="type"
+          label="商品类型"
+          rules={[{ required: true, message: "请选择商品类型" }]}
+        >
+          <Select placeholder="请选择商品类型">
+            {typeOptions.map((item) => (
+              <Select.Option key={item.value} value={item.value}>
+                {item.text}
               </Select.Option>
             ))}
           </Select>

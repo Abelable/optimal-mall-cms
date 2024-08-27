@@ -6,6 +6,11 @@ import { useTodayGoodsList } from "service/todayGoods";
 import { toNumber } from "utils";
 import { useTodayGoodsListSearchParams } from "./util";
 
+const typeOptions = [
+  { text: "农产品", value: 1 },
+  { text: "爆品", value: 2 },
+];
+
 export const TodayGoodsList = () => {
   const [params, setParams] = useTodayGoodsListSearchParams();
   const { isLoading, error, data } = useTodayGoodsList(params);
@@ -14,6 +19,7 @@ export const TodayGoodsList = () => {
     <Container>
       <Main>
         <List
+          typeOptions={typeOptions}
           params={params}
           setParams={setParams}
           error={error}
@@ -28,7 +34,7 @@ export const TodayGoodsList = () => {
           bordered
         />
       </Main>
-      <TodayGoodsModal />
+      <TodayGoodsModal typeOptions={typeOptions} />
     </Container>
   );
 };

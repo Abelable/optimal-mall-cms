@@ -6,6 +6,11 @@ import { useAdvanceGoodsList } from "service/advanceGoods";
 import { toNumber } from "utils";
 import { useAdvanceGoodsListSearchParams } from "./util";
 
+const typeOptions = [
+  { text: "农产品", value: 1 },
+  { text: "爆品", value: 2 },
+];
+
 export const AdvanceGoodsList = () => {
   const [params, setParams] = useAdvanceGoodsListSearchParams();
   const { isLoading, error, data } = useAdvanceGoodsList(params);
@@ -14,6 +19,7 @@ export const AdvanceGoodsList = () => {
     <Container>
       <Main>
         <List
+          typeOptions={typeOptions}
           params={params}
           setParams={setParams}
           error={error}
@@ -28,7 +34,7 @@ export const AdvanceGoodsList = () => {
           bordered
         />
       </Main>
-      <AdvanceGoodsModal />
+      <AdvanceGoodsModal typeOptions={typeOptions} />
     </Container>
   );
 };

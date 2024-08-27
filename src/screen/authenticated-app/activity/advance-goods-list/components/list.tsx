@@ -14,15 +14,23 @@ import dayjs from "dayjs";
 import { useDeleteAdvanceGoods } from "service/advanceGoods";
 import { useAdvanceGoodsModal, useAdvanceGoodsListQueryKey } from "../util";
 
+import type { Option } from "types/common";
 import type { Goods, GoodsListSearchParams } from "types/activityGoods";
 
 interface ListProps extends TableProps<Goods> {
+  typeOptions: Option[];
   params: Partial<GoodsListSearchParams>;
   setParams: (params: Partial<GoodsListSearchParams>) => void;
   error: Error | unknown;
 }
 
-export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
+export const List = ({
+  typeOptions,
+  error,
+  params,
+  setParams,
+  ...restProps
+}: ListProps) => {
   const { open } = useAdvanceGoodsModal();
 
   const setPagination = (pagination: TablePaginationConfig) =>
@@ -75,6 +83,13 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
           {
             title: "商品名称",
             dataIndex: "goodsName",
+          },
+          {
+            title: "商品类型",
+            dataIndex: "type",
+            render: (value) => (
+              <>{typeOptions.find((item) => item.value === value)?.text}</>
+            ),
           },
           {
             title: "创建时间",
