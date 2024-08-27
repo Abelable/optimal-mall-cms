@@ -4,7 +4,6 @@ import {
   useAddActivityGoodsConfig,
   useDeleteConfig,
 } from "./use-optimistic-options";
-import { cleanObject } from "utils/index";
 import type {
   GoodsListResult,
   GoodsListSearchParams,
@@ -20,9 +19,9 @@ export const useTodayGoodsList = (params: Partial<GoodsListSearchParams>) => {
 export const useAddTodayGoods = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
-    ({ goodsIds }: { goodsIds: number[] }) =>
+    ({ goodsIds, type }: { goodsIds: number[]; type: number }) =>
       client("mall/today_goods/add", {
-        data: cleanObject({ goodsIds }),
+        data: { goodsIds, type },
         method: "POST",
       }),
     useAddActivityGoodsConfig(queryKey)

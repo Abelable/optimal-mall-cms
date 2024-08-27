@@ -132,6 +132,7 @@ export const useAddActivityGoodsConfig = (queryKey: QueryKey) =>
           list: [
             ...target.goodsIds.map((id: number) => ({
               id,
+              type: target.type,
             })),
             ...old.list,
           ],
