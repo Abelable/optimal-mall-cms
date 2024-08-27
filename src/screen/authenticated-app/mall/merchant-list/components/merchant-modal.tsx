@@ -1,9 +1,16 @@
 import { Form, Input, Modal } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { ErrorBox, ModalLoading } from "components/lib";
+import { OssUpload } from "components/oss-upload";
+
+import { useEffect } from "react";
 import { useAddMerchant, useEditMerchant } from "service/merchant";
 import { useMerchantModal, useMerchantListQueryKey } from "../util";
-import { useEffect } from "react";
+
+const normFile = (e: any) => {
+  if (Array.isArray(e)) return e;
+  return e && e.fileList;
+};
 
 export const MerchantModal = () => {
   const [form] = useForm();
@@ -25,12 +32,23 @@ export const MerchantModal = () => {
   } = useMutateMerchant(useMerchantListQueryKey());
 
   useEffect(() => {
-    form.setFieldsValue(editingMerchant);
+    if (editingMerchant) {
+      const { license, ...rest } = editingMerchant;
+      form.setFieldsValue({
+        license: license?.map((item) => ({ url: item })),
+        ...rest,
+      });
+    }
   }, [editingMerchant, form]);
 
   const confirm = () => {
     form.validateFields().then(async () => {
-      await mutateAsync({ ...editingMerchant, ...form.getFieldsValue() });
+      const { license, ...rest } = form.getFieldsValue();
+      await mutateAsync({
+        ...editingMerchant,
+        ...rest,
+        license: license.map((item: { url: string }) => item.url),
+      });
       closeModal();
     });
   };
@@ -82,6 +100,16 @@ export const MerchantModal = () => {
           >
             <Input placeholder={"请输入收件地址"} />
           </Form.Item>
+          <Form.Item
+            name="license"
+            label="经营资质"
+            valuePropName="fileList"
+            getValueFromEvent={normFile}
+            rules={[{ required: true, message: "请上传经营资质" }]}
+          >
+            <OssUpload multiple />
+          </Form.Item>
+
           <Form.Item label={"补充说明"} name={"supplement"}>
             <Input placeholder={"选填，例：只收顺丰快递"} />
           </Form.Item>

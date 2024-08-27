@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import {
   Button,
   Dropdown,
+  Image,
   Menu,
   MenuProps,
   Modal,
@@ -14,7 +15,6 @@ import { useDeleteMerchant } from "service/merchant";
 import { Merchant, MerchantListSearchParams } from "types/merchant";
 import { useMerchantModal, useMerchantListQueryKey } from "../util";
 import { PlusOutlined } from "@ant-design/icons";
-import dayjs from "dayjs";
 
 interface ListProps extends TableProps<Merchant> {
   params: Partial<MerchantListSearchParams>;
@@ -66,34 +66,19 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
             dataIndex: "addressDetail",
           },
           {
+            title: "经营资质",
+            dataIndex: "license",
+            render: (value) => (
+              <>
+                {value.length
+                  ? value.map((img: string) => <Image width={68} src={value} />)
+                  : "暂未经营资质"}
+              </>
+            ),
+          },
+          {
             title: "补充说明",
             dataIndex: "supplement",
-          },
-          {
-            title: "创建时间",
-            render: (value, merchant) => (
-              <span>
-                {merchant.createdAt
-                  ? dayjs(merchant.createdAt).format("YYYY-MM-DD HH:mm:ss")
-                  : "无"}
-              </span>
-            ),
-            width: "20rem",
-            sorter: (a, b) =>
-              dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf(),
-          },
-          {
-            title: "更新时间",
-            render: (value, merchant) => (
-              <span>
-                {merchant.updatedAt
-                  ? dayjs(merchant.updatedAt).format("YYYY-MM-DD HH:mm:ss")
-                  : "无"}
-              </span>
-            ),
-            width: "20rem",
-            sorter: (a, b) =>
-              dayjs(a.updatedAt).valueOf() - dayjs(b.updatedAt).valueOf(),
           },
           {
             title: "操作",
