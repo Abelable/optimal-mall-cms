@@ -16,11 +16,11 @@ import { useDeleteActivity } from "service/activity";
 import { useActivityModal, useActivityListQueryKey } from "../util";
 
 import type { SearchPanelProps } from "./search-panel";
-import type { Goods, GoodsListSearchParams } from "types/activityGoods";
+import type { Activity, ActivityListSearchParams } from "types/activity";
 
-interface ListProps extends TableProps<Goods>, SearchPanelProps {
-  params: Partial<GoodsListSearchParams>;
-  setParams: (params: Partial<GoodsListSearchParams>) => void;
+interface ListProps extends TableProps<Activity>, SearchPanelProps {
+  params: Partial<ActivityListSearchParams>;
+  setParams: (params: Partial<ActivityListSearchParams>) => void;
   error: Error | unknown;
 }
 
@@ -129,6 +129,14 @@ export const List = ({
                 ),
               },
             ],
+          },
+          {
+            title: "活动关注数",
+            dataIndex: "followers",
+          },
+          {
+            title: "活动销量",
+            dataIndex: "sales",
           },
           {
             title: "创建时间",
