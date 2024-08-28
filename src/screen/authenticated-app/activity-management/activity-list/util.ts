@@ -2,7 +2,13 @@ import { useCallback, useMemo } from "react";
 import { useSetUrlSearchParams, useUrlQueryParams } from "utils/url";
 
 export const useActivityListSearchParams = () => {
-  const [params, setParams] = useUrlQueryParams(["page", "limit"]);
+  const [params, setParams] = useUrlQueryParams([
+    "name",
+    "status",
+    "goodsType",
+    "page",
+    "limit",
+  ]);
   return [
     useMemo(
       () => ({
