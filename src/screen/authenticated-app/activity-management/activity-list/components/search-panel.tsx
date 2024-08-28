@@ -1,5 +1,5 @@
 import { Row } from "components/lib";
-import { Button, Select } from "antd";
+import { Button, Input, Select } from "antd";
 
 import { useState } from "react";
 import styled from "@emotion/styled";
@@ -15,6 +15,7 @@ export interface SearchPanelProps {
 }
 
 const defaultParmas: Partial<ActivityListSearchParams> = {
+  name: "",
   status: undefined,
   goodsType: undefined,
 };
@@ -26,6 +27,21 @@ export const SearchPanel = ({
   setParams,
 }: SearchPanelProps) => {
   const [tempParams, setTempParams] = useState(defaultParmas);
+
+  const setName = (evt: any) => {
+    if (!evt.target.value && evt.type !== "change") {
+      setTempParams({
+        ...tempParams,
+        name: "",
+      });
+      return;
+    }
+
+    setTempParams({
+      ...tempParams,
+      name: evt.target.value,
+    });
+  };
 
   const setStatus = (status: number) =>
     setTempParams({ ...tempParams, status });
@@ -43,6 +59,16 @@ export const SearchPanel = ({
 
   return (
     <Container>
+      <Item>
+        <div>活动名称：</div>
+        <Input
+          style={{ width: "20rem" }}
+          value={tempParams.name}
+          onChange={setName}
+          placeholder="请输入活动名称"
+          allowClear={true}
+        />
+      </Item>
       <Item>
         <div>活动状态：</div>
         <Select

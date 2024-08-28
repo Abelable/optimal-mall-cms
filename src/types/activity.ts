@@ -1,4 +1,5 @@
 export interface ActivityListSearchParams {
+  name: string;
   status: number;
   goodsType: number;
   page: number;
