@@ -13,9 +13,10 @@ import { UserList } from "./user-list";
 import { PromoterList } from "./team/promoter-list";
 import { LivestockList } from "./team/livestock-list";
 import { GiftGoodsList } from "./team/gift-goods-list";
-import { HomeBannerList } from "./activity/home-banner-list";
-import { TodayGoodsList } from "./activity/today-goods-list";
-import { AdvanceGoodsList } from "./activity/advance-goods-list";
+import { HomeBannerList } from "./activity-management/home-banner-list";
+import { TodayGoodsList } from "./activity-management/today-goods-list";
+import { AdvanceGoodsList } from "./activity-management/advance-goods-list";
+import { ActivityList } from "./activity-management/activity-list";
 import { RuralBannerList } from "./rural/banner-list";
 import { RuralRegionList } from "./rural/region-list";
 import { RuralGoodsList } from "./rural/goods-list";
@@ -49,6 +50,7 @@ import {
   PictureOutlined,
   EnvironmentOutlined,
   SafetyCertificateOutlined,
+  FlagOutlined,
 } from "@ant-design/icons";
 import logo from "assets/images/logo.png";
 import { UserInfo } from "types/auth";
@@ -90,6 +92,7 @@ export const AuthenticatedApp = () => {
                 path="activity/advance_goods_list"
                 element={<AdvanceGoodsList />}
               />
+              <Route path="activity/list" element={<ActivityList />} />
               <Route path="rural/banner_list" element={<RuralBannerList />} />
               <Route path="rural/region_list" element={<RuralRegionList />} />
               <Route path="rural/goods_list" element={<RuralGoodsList />} />
@@ -181,6 +184,11 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
           label: <Link to={"activity/advance_goods_list"}>活动预告</Link>,
           key: "activity_advance_goods_list",
           icon: <ShoppingOutlined />,
+        },
+        {
+          label: <Link to={"activity/list"}>商品活动</Link>,
+          key: "activity_list",
+          icon: <FlagOutlined />,
         },
       ],
     },
