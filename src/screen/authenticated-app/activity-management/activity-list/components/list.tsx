@@ -9,13 +9,19 @@ import {
   Dropdown,
   Menu,
   MenuProps,
+  InputNumber,
 } from "antd";
 import { ErrorBox, Row, PageTitle, ButtonNoPadding } from "components/lib";
 import { PlusOutlined } from "@ant-design/icons";
 
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
-import { useDeleteActivity, useEndActivity } from "service/activity";
+import {
+  useDeleteActivity,
+  useEditFollowers,
+  useEditSales,
+  useEndActivity,
+} from "service/activity";
 import { useActivityModal, useActivityListQueryKey } from "../util";
 
 import type { SearchPanelProps } from "./search-panel";
@@ -43,6 +49,9 @@ export const List = ({
       page: pagination.current,
       limit: pagination.pageSize,
     });
+
+  const { mutate: editFollowers } = useEditFollowers(useActivityListQueryKey());
+  const { mutate: editSales } = useEditSales(useActivityListQueryKey());
 
   return (
     <Container>
@@ -122,10 +131,24 @@ export const List = ({
           {
             title: "活动关注数",
             dataIndex: "followers",
+            render: (value, activity) => (
+              <InputNumber
+                value={value}
+                onChange={(followers) =>
+                  editFollowers({ id: activity.id, followers })
+                }
+              />
+            ),
           },
           {
             title: "活动销量",
             dataIndex: "sales",
+            render: (value, activity) => (
+              <InputNumber
+                value={value}
+                onChange={(sales) => editSales({ id: activity.id, sales })}
+              />
+            ),
           },
           {
             title: "创建时间",

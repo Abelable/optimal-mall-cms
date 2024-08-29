@@ -57,6 +57,30 @@ export const useEditActivity = (queryKey: QueryKey) => {
   );
 };
 
+export const useEditFollowers = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    ({ id, followers }: { id: number; followers: number }) =>
+      client("mall/activity/edit_followers", {
+        data: { id, followers },
+        method: "POST",
+      }),
+    useEditConfig(queryKey)
+  );
+};
+
+export const useEditSales = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    ({ id, sales }: { id: number; sales: number }) =>
+      client("mall/activity/edit_sales", {
+        data: { id, sales },
+        method: "POST",
+      }),
+    useEditConfig(queryKey)
+  );
+};
+
 export const useEndActivity = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
