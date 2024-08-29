@@ -4,9 +4,11 @@ import { cleanObject } from "utils";
 import {
   useAddActivityGoodsConfig,
   useDeleteConfig,
+  useEditConfig,
 } from "./use-optimistic-options";
 
 import type {
+  Activity,
   ActivityForm,
   ActivityListResult,
   ActivityListSearchParams,
@@ -19,6 +21,17 @@ export const useActivityList = (params: Partial<ActivityListSearchParams>) => {
   );
 };
 
+export const useActivity = (id: number) => {
+  const client = useHttp();
+  return useQuery<Partial<Activity>>(
+    ["activity", { id }],
+    () => client(`mall/activity/detail`, { data: { id } }),
+    {
+      enabled: !!id,
+    }
+  );
+};
+
 export const useAddActivity = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
@@ -28,6 +41,30 @@ export const useAddActivity = (queryKey: QueryKey) => {
         method: "POST",
       }),
     useAddActivityGoodsConfig(queryKey)
+  );
+};
+
+export const useEditActivity = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    (params: Partial<Activity>) =>
+      client("mall/activity/edit", {
+        data: cleanObject(params),
+        method: "POST",
+      }),
+    useEditConfig(queryKey)
+  );
+};
+
+export const useEndActivity = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    (id: number) =>
+      client("mall/activity/end", {
+        data: { id },
+        method: "POST",
+      }),
+    useDeleteConfig(queryKey)
   );
 };
 

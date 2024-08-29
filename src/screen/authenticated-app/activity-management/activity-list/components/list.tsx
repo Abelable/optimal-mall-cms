@@ -6,13 +6,16 @@ import {
   TableProps,
   Image,
   Tag,
+  Dropdown,
+  Menu,
+  MenuProps,
 } from "antd";
-import { ErrorBox, Row, PageTitle } from "components/lib";
+import { ErrorBox, Row, PageTitle, ButtonNoPadding } from "components/lib";
 import { PlusOutlined } from "@ant-design/icons";
 
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
-import { useDeleteActivity } from "service/activity";
+import { useDeleteActivity, useEndActivity } from "service/activity";
 import { useActivityModal, useActivityListQueryKey } from "../util";
 
 import type { SearchPanelProps } from "./search-panel";
@@ -40,20 +43,6 @@ export const List = ({
       page: pagination.current,
       limit: pagination.pageSize,
     });
-
-  const { mutate: deleteActivity } = useDeleteActivity(
-    useActivityListQueryKey()
-  );
-
-  const confirmDelete = (id: number) => {
-    Modal.confirm({
-      title: "确定删除该活动吗？",
-      content: "点击确定删除",
-      okText: "确定",
-      cancelText: "取消",
-      onOk: () => deleteActivity(id),
-    });
-  };
 
   return (
     <Container>
@@ -153,15 +142,7 @@ export const List = ({
           {
             title: "操作",
             render(value, goods) {
-              return (
-                <Button
-                  onClick={() => confirmDelete(goods.id)}
-                  type="link"
-                  danger
-                >
-                  删除
-                </Button>
-              );
+              return <More id={goods.id} status={goods.status} />;
             },
             width: "8rem",
           },
@@ -170,6 +151,55 @@ export const List = ({
         {...restProps}
       />
     </Container>
+  );
+};
+
+const More = ({ id, status }: { id: number; status: number }) => {
+  const { startEdit } = useActivityModal();
+  const { mutate: deleteActivity } = useDeleteActivity(
+    useActivityListQueryKey()
+  );
+  const { mutate: endActivity } = useEndActivity(useActivityListQueryKey());
+
+  const confirmEnd = (id: number) => {
+    Modal.confirm({
+      title: "确定结束该活动吗？",
+      content: "点击确定结束",
+      okText: "确定",
+      cancelText: "取消",
+      onOk: () => endActivity(id),
+    });
+  };
+
+  const confirmDelete = (id: number) => {
+    Modal.confirm({
+      title: "确定删除该活动吗？",
+      content: "点击确定删除",
+      okText: "确定",
+      cancelText: "取消",
+      onOk: () => deleteActivity(id),
+    });
+  };
+
+  const items: MenuProps["items"] = [
+    {
+      label: <div onClick={() => startEdit(id)}>编辑</div>,
+      key: "edit",
+    },
+    {
+      label: <div onClick={() => confirmEnd(id)}>结束</div>,
+      key: "end",
+    },
+    {
+      label: <div onClick={() => confirmDelete(id)}>删除</div>,
+      key: "delete",
+    },
+  ];
+
+  return (
+    <Dropdown overlay={<Menu items={items} />}>
+      <ButtonNoPadding type={"link"}>...</ButtonNoPadding>
+    </Dropdown>
   );
 };
 

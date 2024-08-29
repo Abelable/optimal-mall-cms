@@ -143,3 +143,15 @@ export const useAddActivityGoodsConfig = (queryKey: QueryKey) =>
         }
       : null
   );
+
+export const useEndActivityConfig = (queryKey: QueryKey) =>
+  useConfig(queryKey, (id, old) =>
+    old
+      ? {
+          ...old,
+          list: old.list.map((item: any) =>
+            item.id === id ? { ...item, status: 2 } : item
+          ),
+        }
+      : null
+  );
