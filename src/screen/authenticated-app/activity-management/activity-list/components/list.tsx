@@ -64,6 +64,7 @@ export const List = ({
       <ErrorBox error={error} />
       <Table
         rowKey={"id"}
+        scroll={{ x: 2000 }}
         columns={[
           {
             title: "id",
@@ -77,6 +78,7 @@ export const List = ({
           {
             title: "活动状态",
             dataIndex: "status",
+            width: "10rem",
             render: (value) => (
               <div style={{ color: ["#faad14", "#1890ff", "#ff4d4f"][value] }}>
                 {statusOptions.find((item) => item.value === value)?.text}
@@ -86,6 +88,7 @@ export const List = ({
           {
             title: "开始时间",
             dataIndex: "startTime",
+            width: "20rem",
             render: (value) => (
               <span>
                 {value ? dayjs(value).format("YYYY-MM-DD HH:mm:ss") : "无"}
@@ -95,6 +98,7 @@ export const List = ({
           {
             title: "结束时间",
             dataIndex: "endTime",
+            width: "20rem",
             render: (value) => (
               <span>
                 {value ? dayjs(value).format("YYYY-MM-DD HH:mm:ss") : "无"}
@@ -107,10 +111,12 @@ export const List = ({
               {
                 title: "id",
                 dataIndex: "goodsId",
+                width: "8rem",
               },
               {
                 title: "封面",
                 dataIndex: "goodsCover",
+                width: "12rem",
                 render: (value) => <Image width={68} src={value} />,
               },
               {
@@ -120,6 +126,7 @@ export const List = ({
               {
                 title: "类型",
                 dataIndex: "goodsType",
+                width: "8rem",
                 render: (value) => (
                   <Tag color={value === 1 ? "green" : "volcano"}>
                     {typeOptions.find((item) => item.value === value)?.text}
@@ -131,6 +138,7 @@ export const List = ({
           {
             title: "活动关注数",
             dataIndex: "followers",
+            width: "12rem",
             render: (value, activity) => (
               <InputNumber
                 value={value}
@@ -143,6 +151,7 @@ export const List = ({
           {
             title: "活动销量",
             dataIndex: "sales",
+            width: "12rem",
             render: (value, activity) => (
               <InputNumber
                 value={value}
@@ -152,6 +161,7 @@ export const List = ({
           },
           {
             title: "创建时间",
+            width: "20rem",
             render: (value, goods) => (
               <span>
                 {goods.createdAt
@@ -168,6 +178,7 @@ export const List = ({
               return <More id={goods.id} status={goods.status} />;
             },
             width: "8rem",
+            fixed: "right",
           },
         ]}
         onChange={setPagination}
