@@ -5,6 +5,7 @@ import {
   useAddActivityGoodsConfig,
   useDeleteConfig,
   useEditConfig,
+  useEndActivityConfig,
 } from "./use-optimistic-options";
 
 import type {
@@ -64,7 +65,7 @@ export const useEndActivity = (queryKey: QueryKey) => {
         data: { id },
         method: "POST",
       }),
-    useDeleteConfig(queryKey)
+    useEndActivityConfig(queryKey)
   );
 };
 
