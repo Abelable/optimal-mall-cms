@@ -14,8 +14,6 @@ import { PromoterList } from "./team/promoter-list";
 import { LivestockList } from "./team/livestock-list";
 import { GiftGoodsList } from "./team/gift-goods-list";
 import { HomeBannerList } from "./activity-management/home-banner-list";
-import { TodayGoodsList } from "./activity-management/today-goods-list";
-import { AdvanceGoodsList } from "./activity-management/advance-goods-list";
 import { ActivityList } from "./activity-management/activity-list";
 import { RuralBannerList } from "./rural/banner-list";
 import { RuralRegionList } from "./rural/region-list";
@@ -83,14 +81,6 @@ export const AuthenticatedApp = () => {
               <Route
                 path="activity/home_banner_list"
                 element={<HomeBannerList />}
-              />
-              <Route
-                path="activity/today_goods_list"
-                element={<TodayGoodsList />}
-              />
-              <Route
-                path="activity/advance_goods_list"
-                element={<AdvanceGoodsList />}
               />
               <Route path="activity/list" element={<ActivityList />} />
               <Route path="rural/banner_list" element={<RuralBannerList />} />
@@ -174,16 +164,6 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
           label: <Link to={"activity/home_banner_list"}>首页头图</Link>,
           key: "activity_home_banner_list",
           icon: <PictureOutlined />,
-        },
-        {
-          label: <Link to={"activity/today_goods_list"}>今日主推</Link>,
-          key: "activity_today_goods_list",
-          icon: <ShoppingOutlined />,
-        },
-        {
-          label: <Link to={"activity/advance_goods_list"}>活动预告</Link>,
-          key: "activity_advance_goods_list",
-          icon: <ShoppingOutlined />,
         },
         {
           label: <Link to={"activity/list"}>商品活动</Link>,

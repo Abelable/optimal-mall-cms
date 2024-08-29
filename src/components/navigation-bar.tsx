@@ -11,8 +11,6 @@ const breadcrumbNameMap: { [key: string]: string } = {
   "/team/gift_goods_list": "礼包专区",
   "/activity": "活动管理",
   "/activity/home_banner_list": "首页头图",
-  "/activity/today_goods_list": "今日主推",
-  "/activity/advance_goods_list": "活动预告",
   "/activity/list": "商品活动",
   "/rural": "诚信乡村",
   "/rural/banner_list": "头图列表",
