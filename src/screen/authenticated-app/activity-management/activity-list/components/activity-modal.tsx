@@ -3,6 +3,7 @@ import { ErrorBox, ModalLoading } from "components/lib";
 
 import styled from "@emotion/styled";
 import { useForm } from "antd/lib/form/Form";
+import moment from "moment";
 import { useGoodsOptions } from "service/goods";
 import { useAddActivity, useEditActivity } from "service/activity";
 import { useActivityModal, useActivityListQueryKey } from "../util";
@@ -38,7 +39,12 @@ export const ActivityModal = ({ typeOptions }: { typeOptions: Option[] }) => {
 
   useEffect(() => {
     if (editingActivity) {
-      form.setFieldsValue(editingActivity);
+      const { startTime, endTime, ...rest } = editingActivity;
+      form.setFieldsValue({
+        startTime: moment(startTime),
+        endTime: moment(endTime),
+        ...rest,
+      });
     }
   }, [editingActivity, form]);
 
