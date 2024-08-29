@@ -70,10 +70,12 @@ export const List = ({
             title: "id",
             dataIndex: "id",
             width: "8rem",
+            fixed: "left",
           },
           {
             title: "活动名称",
             dataIndex: "name",
+            width: "16rem",
           },
           {
             title: "活动状态",
@@ -83,26 +85,6 @@ export const List = ({
               <div style={{ color: ["#faad14", "#1890ff", "#ff4d4f"][value] }}>
                 {statusOptions.find((item) => item.value === value)?.text}
               </div>
-            ),
-          },
-          {
-            title: "开始时间",
-            dataIndex: "startTime",
-            width: "20rem",
-            render: (value) => (
-              <span>
-                {value ? dayjs(value).format("YYYY-MM-DD HH:mm:ss") : "无"}
-              </span>
-            ),
-          },
-          {
-            title: "结束时间",
-            dataIndex: "endTime",
-            width: "20rem",
-            render: (value) => (
-              <span>
-                {value ? dayjs(value).format("YYYY-MM-DD HH:mm:ss") : "无"}
-              </span>
             ),
           },
           {
@@ -122,11 +104,12 @@ export const List = ({
               {
                 title: "名称",
                 dataIndex: "goodsName",
+                width: "30rem",
               },
               {
                 title: "类型",
                 dataIndex: "goodsType",
-                width: "8rem",
+                width: "9rem",
                 render: (value) => (
                   <Tag color={value === 1 ? "green" : "volcano"}>
                     {typeOptions.find((item) => item.value === value)?.text}
@@ -157,6 +140,26 @@ export const List = ({
                 value={value}
                 onChange={(sales) => editSales({ id: activity.id, sales })}
               />
+            ),
+          },
+          {
+            title: "开始时间",
+            dataIndex: "startTime",
+            width: "20rem",
+            render: (value) => (
+              <span>
+                {value ? dayjs(value).format("YYYY-MM-DD HH:mm:ss") : "无"}
+              </span>
+            ),
+          },
+          {
+            title: "结束时间",
+            dataIndex: "endTime",
+            width: "20rem",
+            render: (value) => (
+              <span>
+                {value ? dayjs(value).format("YYYY-MM-DD HH:mm:ss") : "无"}
+              </span>
             ),
           },
           {

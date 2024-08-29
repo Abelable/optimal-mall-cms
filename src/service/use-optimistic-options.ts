@@ -132,7 +132,13 @@ export const useAddActivityGoodsConfig = (queryKey: QueryKey) =>
           list: [
             ...target.goodsIds.map((id: number, index: number) => ({
               id: `${
-                (old.list[0] ? Number(old.list[0].id) : 1) +
+                (old.list[0]
+                  ? Number(
+                      old.list.sort(
+                        (a: { id: number }, b: { id: number }) => b.id - a.id
+                      )[0].id
+                    )
+                  : 1) +
                 target.goodsIds.length -
                 index
               }`,

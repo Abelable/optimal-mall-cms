@@ -41,8 +41,8 @@ export const ActivityModal = ({ typeOptions }: { typeOptions: Option[] }) => {
     if (editingActivity) {
       const { startTime, endTime, ...rest } = editingActivity;
       form.setFieldsValue({
-        startTime: moment(startTime),
-        endTime: moment(endTime),
+        startTime: startTime ? moment(startTime) : startTime,
+        endTime: endTime ? moment(endTime) : endTime,
         ...rest,
       });
     }
@@ -50,7 +50,7 @@ export const ActivityModal = ({ typeOptions }: { typeOptions: Option[] }) => {
 
   const confirm = () => {
     form.validateFields().then(async () => {
-      await mutateAsync(form.getFieldsValue());
+      await mutateAsync({ ...editingActivity, ...form.getFieldsValue() });
       closeModal();
     });
   };
