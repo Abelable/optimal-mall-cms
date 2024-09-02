@@ -76,7 +76,7 @@ export const SearchPanel = ({
           value={tempParams.nickname}
           onChange={setNickname}
           placeholder="请输入用户昵称"
-          allowClear={true}
+          allowClear
         />
       </Item>
       <Item>
@@ -86,7 +86,7 @@ export const SearchPanel = ({
           value={tempParams.mobile}
           onChange={setMobile}
           placeholder="请输入用户手机号"
-          allowClear={true}
+          allowClear
         />
       </Item>
       <Item>
@@ -95,7 +95,7 @@ export const SearchPanel = ({
           style={{ width: "20rem" }}
           value={tempParams.superiorId}
           placeholder="请选择用户上级"
-          allowClear={true}
+          allowClear
           onSelect={setSuperiorId}
           onClear={clearSuperiorId}
           showSearch

@@ -71,7 +71,7 @@ export const SearchPanel = ({
           value={tempParams.account}
           onChange={setAccount}
           placeholder="请输入管理员账号"
-          allowClear={true}
+          allowClear
         />
       </Item>
       <Item>
@@ -81,7 +81,7 @@ export const SearchPanel = ({
           value={tempParams.nickname}
           onChange={setNickname}
           placeholder="请输入管理员昵称"
-          allowClear={true}
+          allowClear
         />
       </Item>
       <Item>
@@ -90,7 +90,7 @@ export const SearchPanel = ({
           style={{ width: "20rem" }}
           value={tempParams.roleId}
           placeholder="请选择管理员角色"
-          allowClear={true}
+          allowClear
           onSelect={setRole}
           onClear={clearRole}
         >

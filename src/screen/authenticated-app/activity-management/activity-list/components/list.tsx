@@ -5,7 +5,6 @@ import {
   TablePaginationConfig,
   TableProps,
   Image,
-  Tag,
   Dropdown,
   Menu,
   MenuProps,
@@ -86,13 +85,15 @@ export const List = ({
           {
             title: "活动标签",
             dataIndex: "tag",
-            width: "14rem",
+            width: "16.3rem",
             render: (value, activity) => (
               <Select
-                style={{ width: "20rem" }}
-                value={value}
-                placeholder="设置活动标签"
+                style={{ width: "13rem" }}
+                value={value || undefined}
                 onSelect={(tag: number) => editTag({ id: activity.id, tag })}
+                onClear={() => editTag({ id: activity.id, tag: 0 })}
+                allowClear
+                placeholder="设置活动标签"
               >
                 {tagOptions?.map(({ text, value }) => (
                   <Select.Option key={value} value={value}>
@@ -104,16 +105,18 @@ export const List = ({
           },
           {
             title: "商品标签",
-            dataIndex: "tag",
-            width: "14rem",
+            dataIndex: "goodsTag",
+            width: "16.3rem",
             render: (value, activity) => (
               <Select
-                style={{ width: "20rem" }}
-                value={value}
-                placeholder="设置商品标签"
+                style={{ width: "13rem" }}
+                value={value || undefined}
                 onSelect={(goodsTag: number) =>
                   editGoodsTag({ id: activity.id, goodsTag })
                 }
+                onClear={() => editGoodsTag({ id: activity.id, goodsTag: 0 })}
+                allowClear
+                placeholder="设置商品标签"
               >
                 {goodsTagOptions?.map(({ text, value }) => (
                   <Select.Option key={value} value={value}>
@@ -126,7 +129,7 @@ export const List = ({
           {
             title: "活动状态",
             dataIndex: "status",
-            width: "8.2rem",
+            width: "9rem",
             render: (value) => (
               <div style={{ color: ["#faad14", "#1890ff", "#ff4d4f"][value] }}>
                 {statusOptions.find((item) => item.value === value)?.text}
@@ -151,16 +154,6 @@ export const List = ({
                 title: "名称",
                 dataIndex: "goodsName",
                 width: "30rem",
-              },
-              {
-                title: "标签",
-                dataIndex: "goodsType",
-                width: "8rem",
-                render: (value) => (
-                  <Tag color={value === 1 ? "green" : "volcano"}>
-                    {goodsTagOptions.find((item) => item.value === value)?.text}
-                  </Tag>
-                ),
               },
             ],
           },

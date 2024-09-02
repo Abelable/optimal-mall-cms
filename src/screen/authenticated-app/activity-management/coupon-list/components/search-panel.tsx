@@ -70,7 +70,7 @@ export const SearchPanel = ({
           value={tempParams.name}
           onChange={setName}
           placeholder="请输入优惠券名称"
-          allowClear={true}
+          allowClear
         />
       </Item>
       <Item>
@@ -79,7 +79,7 @@ export const SearchPanel = ({
           style={{ width: "20rem" }}
           value={tempParams.status}
           placeholder="请选择优惠券状态"
-          allowClear={true}
+          allowClear
           onSelect={setStatus}
           onClear={clearStatus}
         >
@@ -96,7 +96,7 @@ export const SearchPanel = ({
           style={{ width: "20rem" }}
           value={tempParams.status}
           placeholder="请选择优惠券类型"
-          allowClear={true}
+          allowClear
           onSelect={setStatus}
           onClear={clearStatus}
         >
@@ -113,7 +113,7 @@ export const SearchPanel = ({
           style={{ width: "20rem" }}
           value={tempParams.goodsId}
           placeholder="请选择对应商品"
-          allowClear={true}
+          allowClear
           onSelect={setGoodsId}
           onClear={clearGoodsId}
           showSearch

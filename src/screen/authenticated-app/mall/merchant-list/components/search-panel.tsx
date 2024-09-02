@@ -77,7 +77,7 @@ export const SearchPanel = ({ params, setParams }: SearchPanelProps) => {
           value={tempParams.name}
           onChange={setName}
           placeholder="请输入商家名称"
-          allowClear={true}
+          allowClear
         />
       </Item>
       <Item>
@@ -87,7 +87,7 @@ export const SearchPanel = ({ params, setParams }: SearchPanelProps) => {
           value={tempParams.consigneeName}
           onChange={setConsigneeName}
           placeholder="请输入收件人姓名"
-          allowClear={true}
+          allowClear
         />
       </Item>
       <Item>
@@ -97,7 +97,7 @@ export const SearchPanel = ({ params, setParams }: SearchPanelProps) => {
           value={tempParams.mobile}
           onChange={setMobile}
           placeholder="请输入收件人手机号"
-          allowClear={true}
+          allowClear
         />
       </Item>
 

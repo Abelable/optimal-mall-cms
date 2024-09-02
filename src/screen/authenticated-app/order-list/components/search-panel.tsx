@@ -89,7 +89,7 @@ export const SearchPanel = ({
           value={tempParams.orderSn}
           onChange={setOrderSn}
           placeholder="请输入订单编号"
-          allowClear={true}
+          allowClear
         />
       </Item>
       <Item>
@@ -98,7 +98,7 @@ export const SearchPanel = ({
           style={{ width: "20rem" }}
           value={tempParams.status}
           placeholder="请选择订单状态"
-          allowClear={true}
+          allowClear
           onSelect={setStatus}
           onClear={clearStatus}
         >
@@ -116,7 +116,7 @@ export const SearchPanel = ({
           value={tempParams.consignee}
           onChange={setConsignee}
           placeholder="请输入收件人姓名"
-          allowClear={true}
+          allowClear
         />
       </Item>
       <Item>
@@ -126,7 +126,7 @@ export const SearchPanel = ({
           value={tempParams.mobile}
           onChange={setMobile}
           placeholder="请输入收件人手机号"
-          allowClear={true}
+          allowClear
         />
       </Item>
 

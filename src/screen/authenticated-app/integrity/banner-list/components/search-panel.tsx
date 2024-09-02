@@ -45,7 +45,7 @@ export const SearchPanel = ({
           style={{ width: "20rem" }}
           value={tempParams.scene}
           placeholder="请选择场景"
-          allowClear={true}
+          allowClear
           onSelect={setScene}
           onClear={clearScene}
         >
@@ -62,7 +62,7 @@ export const SearchPanel = ({
           style={{ width: "20rem" }}
           value={tempParams.status}
           placeholder="请选择活动状态"
-          allowClear={true}
+          allowClear
           onSelect={setStatus}
           onClear={clearStatus}
         >

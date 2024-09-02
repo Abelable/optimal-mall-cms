@@ -72,7 +72,7 @@ export const SearchPanel = ({
           value={tempParams.name}
           onChange={setName}
           placeholder="请输入活动名称"
-          allowClear={true}
+          allowClear
         />
       </Item>
       <Item>
@@ -81,7 +81,7 @@ export const SearchPanel = ({
           style={{ width: "20rem" }}
           value={tempParams.status}
           placeholder="请选择活动状态"
-          allowClear={true}
+          allowClear
           onSelect={setStatus}
           onClear={clearStatus}
         >
@@ -98,7 +98,7 @@ export const SearchPanel = ({
           style={{ width: "20rem" }}
           value={tempParams.status}
           placeholder="请选择活动标签"
-          allowClear={true}
+          allowClear
           onSelect={setTag}
           onClear={clearTag}
         >
@@ -115,7 +115,7 @@ export const SearchPanel = ({
           style={{ width: "20rem" }}
           value={tempParams.goodsType}
           placeholder="请选择商品标签"
-          allowClear={true}
+          allowClear
           onSelect={setGoodsType}
           onClear={clearGoodsType}
         >

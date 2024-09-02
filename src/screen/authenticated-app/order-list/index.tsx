@@ -127,7 +127,7 @@ export const OrderList = () => {
           <Row gap>
             <Select
               style={{ width: "14rem" }}
-              allowClear={true}
+              allowClear
               onSelect={selectBatchOprationType()}
               placeholder="批量操作"
             >

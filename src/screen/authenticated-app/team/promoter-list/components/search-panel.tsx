@@ -39,7 +39,7 @@ export const SearchPanel = ({
           style={{ width: "20rem" }}
           value={tempParams.level}
           placeholder="请选择推广员身份"
-          allowClear={true}
+          allowClear
           onSelect={setLevel}
           onClear={clearLevel}
         >

@@ -42,7 +42,7 @@ export const SearchPanel = ({
           style={{ width: "20rem" }}
           value={tempParams.regionId}
           placeholder="请选择地区"
-          allowClear={true}
+          allowClear
           onSelect={setRegion}
           onClear={clearRegion}
         >
