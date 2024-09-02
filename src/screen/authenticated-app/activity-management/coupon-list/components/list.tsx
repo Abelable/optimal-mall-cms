@@ -9,6 +9,7 @@ import {
   Menu,
   MenuProps,
   InputNumber,
+  Tag,
 } from "antd";
 import { ErrorBox, Row, PageTitle, ButtonNoPadding } from "components/lib";
 import { PlusOutlined } from "@ant-design/icons";
@@ -81,13 +82,18 @@ export const List = ({
           {
             title: "面额",
             dataIndex: "denomination",
+            render: (value) => <>{`¥${value}`}</>,
+            width: "10rem",
           },
           {
             title: "类型",
             dataIndex: "type",
             render: (value) => (
-              <>{typeOptions.find((item) => item.value === value)?.text}</>
+              <Tag color="gold">
+                {typeOptions.find((item) => item.value === value)?.text}
+              </Tag>
             ),
+            width: "12rem",
           },
           {
             title: "使用门槛",
@@ -101,13 +107,14 @@ export const List = ({
                   : `满${coupon.priceLimit}元可用`}
               </>
             ),
+            width: "12rem",
           },
           {
             title: "状态",
             dataIndex: "status",
-            width: "10rem",
+            width: "8rem",
             render: (value) => (
-              <div style={{ color: ["#faad14", "#1890ff", "#ff4d4f"][value] }}>
+              <div style={{ color: ["#1890ff", "#999", "#ff4d4f"][value - 1] }}>
                 {statusOptions.find((item) => item.value === value)?.text}
               </div>
             ),
@@ -147,6 +154,7 @@ export const List = ({
           {
             title: "补充说明",
             dataIndex: "description",
+            width: "30rem",
           },
           {
             title: "失效时间",

@@ -9,14 +9,14 @@ import { SearchPanel } from "./components/search-panel";
 import { useGoodsOptions } from "service/goods";
 
 const statusOptions = [
-  { text: "进行中", value: 1 },
+  { text: "发放中", value: 1 },
   { text: "已过期", value: 2 },
   { text: "已下架", value: 3 },
 ];
 const typeOptions = [
-  { text: "无门槛", value: 1 },
-  { text: "商品数量满减", value: 2 },
-  { text: "价格满减", value: 3 },
+  { text: "无门槛券", value: 1 },
+  { text: "数量满减券", value: 2 },
+  { text: "价格满减券", value: 3 },
 ];
 
 export const CouponList = () => {

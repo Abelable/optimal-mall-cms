@@ -31,7 +31,9 @@ export const CouponModal = ({
     if (editingCoupon) {
       const { expirationTime, ...rest } = editingCoupon;
       form.setFieldsValue({
-        startTime: expirationTime ? moment(expirationTime) : expirationTime,
+        expirationTime: expirationTime
+          ? moment(expirationTime)
+          : expirationTime,
         ...rest,
       });
     }

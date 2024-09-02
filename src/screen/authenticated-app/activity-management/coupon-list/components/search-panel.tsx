@@ -116,6 +116,12 @@ export const SearchPanel = ({
           allowClear={true}
           onSelect={setGoodsId}
           onClear={clearGoodsId}
+          showSearch
+          filterOption={(input, option) =>
+            (option!.children as any)[1].props.children
+              .toLowerCase()
+              .includes(input.toLowerCase())
+          }
         >
           {goodsOptions.map(({ id, cover, name }) => (
             <Select.Option key={id} value={id}>
