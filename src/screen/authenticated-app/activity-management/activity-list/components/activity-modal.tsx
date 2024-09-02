@@ -7,15 +7,14 @@ import { useGoodsOptions } from "service/goods";
 import { useAddActivity, useEditActivity } from "service/activity";
 import { useActivityModal, useActivityListQueryKey } from "../util";
 
-import type { Option } from "types/common";
 import { useEffect } from "react";
 
 const statusOptions = [
-  { text: "活动预告", value: 0 },
-  { text: "今日主推", value: 1 },
+  { text: "预告", value: 0 },
+  { text: "进行中", value: 1 },
 ];
 
-export const ActivityModal = ({ typeOptions }: { typeOptions: Option[] }) => {
+export const ActivityModal = () => {
   const [form] = useForm();
   const { data: goodsOptions = [], error: goodsOptionsError } =
     useGoodsOptions();
@@ -82,10 +81,10 @@ export const ActivityModal = ({ typeOptions }: { typeOptions: Option[] }) => {
           </Form.Item>
           <Form.Item
             name="status"
-            label="活动类型"
-            rules={[{ required: true, message: "请选择活动类型" }]}
+            label="活动状态"
+            rules={[{ required: true, message: "请选择活动状态" }]}
           >
-            <Select placeholder="请选择活动类型">
+            <Select placeholder="请选择活动状态">
               {statusOptions.map((item) => (
                 <Select.Option key={item.value} value={item.value}>
                   {item.text}
@@ -121,19 +120,6 @@ export const ActivityModal = ({ typeOptions }: { typeOptions: Option[] }) => {
               showTime
               placeholder="请选择活动结束时间"
             />
-          </Form.Item>
-          <Form.Item
-            name="goodsType"
-            label="商品类型"
-            rules={[{ required: true, message: "请选择商品类型" }]}
-          >
-            <Select placeholder="请选择商品类型">
-              {typeOptions.map((item) => (
-                <Select.Option key={item.value} value={item.value}>
-                  {item.text}
-                </Select.Option>
-              ))}
-            </Select>
           </Form.Item>
           {editingActivityId ? (
             <></>

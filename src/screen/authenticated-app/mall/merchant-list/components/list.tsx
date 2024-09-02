@@ -52,18 +52,22 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
           {
             title: "商家名称",
             dataIndex: "name",
+            width: "30rem",
           },
           {
             title: "收件人姓名",
             dataIndex: "consigneeName",
+            width: "14rem",
           },
           {
             title: "收件人手机号",
             dataIndex: "mobile",
+            width: "14rem",
           },
           {
             title: "退货地址",
             dataIndex: "addressDetail",
+            width: "30rem",
           },
           {
             title: "经营资质",
@@ -75,6 +79,7 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
                   : "暂无经营资质"}
               </>
             ),
+            width: "20rem",
           },
           {
             title: "补充说明",

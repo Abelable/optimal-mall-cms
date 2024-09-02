@@ -9,7 +9,8 @@ import type { ActivityListSearchParams } from "types/activity";
 
 export interface SearchPanelProps {
   statusOptions: Option[];
-  typeOptions: Option[];
+  tagOptions: Option[];
+  goodsTagOptions: Option[];
   params: Partial<ActivityListSearchParams>;
   setParams: (params: Partial<ActivityListSearchParams>) => void;
 }
@@ -17,12 +18,14 @@ export interface SearchPanelProps {
 const defaultParmas: Partial<ActivityListSearchParams> = {
   name: "",
   status: undefined,
+  tag: undefined,
   goodsType: undefined,
 };
 
 export const SearchPanel = ({
   statusOptions,
-  typeOptions,
+  tagOptions,
+  goodsTagOptions,
   params,
   setParams,
 }: SearchPanelProps) => {
@@ -46,6 +49,9 @@ export const SearchPanel = ({
   const setStatus = (status: number) =>
     setTempParams({ ...tempParams, status });
   const clearStatus = () => setTempParams({ ...tempParams, status: undefined });
+
+  const setTag = (tag: number) => setTempParams({ ...tempParams, tag });
+  const clearTag = () => setTempParams({ ...tempParams, tag: undefined });
 
   const setGoodsType = (goodsType: number) =>
     setTempParams({ ...tempParams, goodsType });
@@ -87,16 +93,33 @@ export const SearchPanel = ({
         </Select>
       </Item>
       <Item>
-        <div>商品类型：</div>
+        <div>活动标签：</div>
+        <Select
+          style={{ width: "20rem" }}
+          value={tempParams.status}
+          placeholder="请选择活动标签"
+          allowClear={true}
+          onSelect={setTag}
+          onClear={clearTag}
+        >
+          {tagOptions?.map(({ text, value }) => (
+            <Select.Option key={value} value={value}>
+              {text}
+            </Select.Option>
+          ))}
+        </Select>
+      </Item>
+      <Item>
+        <div>商品标签：</div>
         <Select
           style={{ width: "20rem" }}
           value={tempParams.goodsType}
-          placeholder="请选择商品类型"
+          placeholder="请选择商品标签"
           allowClear={true}
           onSelect={setGoodsType}
           onClear={clearGoodsType}
         >
-          {typeOptions?.map(({ text, value }) => (
+          {goodsTagOptions?.map(({ text, value }) => (
             <Select.Option key={value} value={value}>
               {text}
             </Select.Option>

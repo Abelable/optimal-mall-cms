@@ -57,6 +57,30 @@ export const useEditActivity = (queryKey: QueryKey) => {
   );
 };
 
+export const useEditTag = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    ({ id, tag }: { id: number; tag: number }) =>
+      client("mall/activity/edit_tag", {
+        data: { id, tag },
+        method: "POST",
+      }),
+    useEditConfig(queryKey)
+  );
+};
+
+export const useEditGoodsTag = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    ({ id, goodsTag }: { id: number; goodsTag: number }) =>
+      client("mall/activity/edit_goods_tag", {
+        data: { id, goodsTag },
+        method: "POST",
+      }),
+    useEditConfig(queryKey)
+  );
+};
+
 export const useEditFollowers = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(

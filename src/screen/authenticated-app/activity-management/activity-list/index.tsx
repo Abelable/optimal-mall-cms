@@ -8,11 +8,15 @@ import { useActivityListSearchParams } from "./util";
 import { SearchPanel } from "./components/search-panel";
 
 const statusOptions = [
-  { text: "活动预告", value: 0 },
-  { text: "今日主推", value: 1 },
-  { text: "活动结束", value: 2 },
+  { text: "预告", value: 0 },
+  { text: "进行中", value: 1 },
+  { text: "结束", value: 2 },
 ];
-const typeOptions = [
+const tagOptions = [
+  { text: "今日主推", value: 1 },
+  { text: "活动预告", value: 2 },
+];
+const goodsTagOptions = [
   { text: "农产品", value: 1 },
   { text: "爆品", value: 2 },
 ];
@@ -26,13 +30,15 @@ export const ActivityList = () => {
       <Main>
         <SearchPanel
           statusOptions={statusOptions}
-          typeOptions={typeOptions}
+          tagOptions={tagOptions}
+          goodsTagOptions={goodsTagOptions}
           params={params}
           setParams={setParams}
         />
         <List
           statusOptions={statusOptions}
-          typeOptions={typeOptions}
+          tagOptions={tagOptions}
+          goodsTagOptions={goodsTagOptions}
           params={params}
           setParams={setParams}
           error={error}
@@ -47,7 +53,7 @@ export const ActivityList = () => {
           bordered
         />
       </Main>
-      <ActivityModal typeOptions={typeOptions} />
+      <ActivityModal />
     </Container>
   );
 };

@@ -10,6 +10,7 @@ import {
   Menu,
   MenuProps,
   InputNumber,
+  Select,
 } from "antd";
 import { ErrorBox, Row, PageTitle, ButtonNoPadding } from "components/lib";
 import { PlusOutlined } from "@ant-design/icons";
@@ -19,7 +20,9 @@ import dayjs from "dayjs";
 import {
   useDeleteActivity,
   useEditFollowers,
+  useEditGoodsTag,
   useEditSales,
+  useEditTag,
   useEndActivity,
 } from "service/activity";
 import { useActivityModal, useActivityListQueryKey } from "../util";
@@ -35,7 +38,8 @@ interface ListProps extends TableProps<Activity>, SearchPanelProps {
 
 export const List = ({
   statusOptions,
-  typeOptions,
+  tagOptions,
+  goodsTagOptions,
   error,
   params,
   setParams,
@@ -50,6 +54,8 @@ export const List = ({
       limit: pagination.pageSize,
     });
 
+  const { mutate: editTag } = useEditTag(useActivityListQueryKey());
+  const { mutate: editGoodsTag } = useEditGoodsTag(useActivityListQueryKey());
   const { mutate: editFollowers } = useEditFollowers(useActivityListQueryKey());
   const { mutate: editSales } = useEditSales(useActivityListQueryKey());
 
@@ -75,12 +81,52 @@ export const List = ({
           {
             title: "活动名称",
             dataIndex: "name",
-            width: "16rem",
+            width: "14rem",
+          },
+          {
+            title: "活动标签",
+            dataIndex: "tag",
+            width: "14rem",
+            render: (value, activity) => (
+              <Select
+                style={{ width: "20rem" }}
+                value={value}
+                placeholder="设置活动标签"
+                onSelect={(tag: number) => editTag({ id: activity.id, tag })}
+              >
+                {tagOptions?.map(({ text, value }) => (
+                  <Select.Option key={value} value={value}>
+                    {text}
+                  </Select.Option>
+                ))}
+              </Select>
+            ),
+          },
+          {
+            title: "商品标签",
+            dataIndex: "tag",
+            width: "14rem",
+            render: (value, activity) => (
+              <Select
+                style={{ width: "20rem" }}
+                value={value}
+                placeholder="设置商品标签"
+                onSelect={(goodsTag: number) =>
+                  editGoodsTag({ id: activity.id, goodsTag })
+                }
+              >
+                {goodsTagOptions?.map(({ text, value }) => (
+                  <Select.Option key={value} value={value}>
+                    {text}
+                  </Select.Option>
+                ))}
+              </Select>
+            ),
           },
           {
             title: "活动状态",
             dataIndex: "status",
-            width: "10rem",
+            width: "8.2rem",
             render: (value) => (
               <div style={{ color: ["#faad14", "#1890ff", "#ff4d4f"][value] }}>
                 {statusOptions.find((item) => item.value === value)?.text}
@@ -107,12 +153,12 @@ export const List = ({
                 width: "30rem",
               },
               {
-                title: "类型",
+                title: "标签",
                 dataIndex: "goodsType",
-                width: "9rem",
+                width: "8rem",
                 render: (value) => (
                   <Tag color={value === 1 ? "green" : "volcano"}>
-                    {typeOptions.find((item) => item.value === value)?.text}
+                    {goodsTagOptions.find((item) => item.value === value)?.text}
                   </Tag>
                 ),
               },

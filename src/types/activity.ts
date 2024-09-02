@@ -1,6 +1,7 @@
 export interface ActivityListSearchParams {
   name: string;
   status: number;
+  tag: number;
   goodsType: number;
   page: number;
   limit: number;
@@ -9,6 +10,7 @@ export interface ActivityListSearchParams {
 export interface Activity {
   id: number;
   status: number;
+  tag: number;
   startTime: string;
   endTime: string;
   goodsType: number;
