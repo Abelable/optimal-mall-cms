@@ -1,7 +1,6 @@
-import { Form, Image, Modal, Select } from "antd";
-import { ErrorBox } from "components/lib";
+import { Form, Modal, Select } from "antd";
+import { ErrorBox, GoodsCover } from "components/lib";
 
-import styled from "@emotion/styled";
 import { useForm } from "antd/lib/form/Form";
 import { useGoodsOptions } from "service/goods";
 import { useAddGiftGoods } from "service/giftGoods";
@@ -70,10 +69,3 @@ export const GoodsModal = () => {
     </Modal>
   );
 };
-
-const GoodsCover = styled(Image)`
-  margin-right: 0.6rem;
-  width: 1.8rem;
-  height: 1.8rem;
-  border-radius: 0.4rem;
-`;

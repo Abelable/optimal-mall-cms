@@ -161,3 +161,15 @@ export const useEndActivityConfig = (queryKey: QueryKey) =>
         }
       : null
   );
+
+export const useDownCouponConfig = (queryKey: QueryKey) =>
+  useConfig(queryKey, (id, old) =>
+    old
+      ? {
+          ...old,
+          list: old.list.map((item: any) =>
+            item.id === id ? { ...item, status: 3 } : item
+          ),
+        }
+      : null
+  );

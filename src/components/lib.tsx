@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Button, Avatar, Spin, Typography } from "antd";
+import { Button, Avatar, Spin, Typography, Image } from "antd";
 
 export const ButtonNoPadding = styled(Button)`
   padding: 0;
@@ -107,4 +107,11 @@ export const OptionAvatar = styled(Avatar)`
   width: 2.4rem;
   height: 2.4rem;
   border-radius: 0.6rem;
+`;
+
+export const GoodsCover = styled(Image)`
+  margin-right: 0.6rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 0.4rem;
 `;

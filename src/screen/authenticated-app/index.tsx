@@ -5,28 +5,10 @@ import styled from "@emotion/styled";
 import { useUserInfo } from "service/auth";
 import { HashRouter as Router, Link } from "react-router-dom";
 import { Routes, Route, Navigate } from "react-router";
+
 import { Avatar, Button, Dropdown, Layout, Menu, MenuProps } from "antd";
 import { NavigationBar } from "components/navigation-bar";
-
-import { Dashboard } from "./dashboard";
-import { UserList } from "./user-list";
-import { PromoterList } from "./team/promoter-list";
-import { LivestockList } from "./team/livestock-list";
-import { GiftGoodsList } from "./team/gift-goods-list";
-import { HomeBannerList } from "./activity-management/home-banner-list";
-import { ActivityList } from "./activity-management/activity-list";
-import { RuralBannerList } from "./rural/banner-list";
-import { RuralRegionList } from "./rural/region-list";
-import { RuralGoodsList } from "./rural/goods-list";
-import { IntegrityBannerList } from "./integrity/banner-list";
-import { IntegrityGoodsList } from "./integrity/goods-list";
-import { MerchantList } from "./mall/merchant-list";
-import { FreightTemplateList } from "./mall/freight-template-list";
-import { GoodsCategoryList } from "./mall/category-list";
-import { GoodsList } from "./mall/goods-list";
-import { OrderList } from "./order-list";
-import { RoleList } from "./auth/role-list";
-import { AdminList } from "./auth/admin-list";
+import { Row } from "components/lib";
 
 import {
   DashboardOutlined,
@@ -51,8 +33,30 @@ import {
   FlagOutlined,
 } from "@ant-design/icons";
 import logo from "assets/images/logo.png";
-import { UserInfo } from "types/auth";
-import { Row } from "components/lib";
+import { CouponIcon } from "assets/icon";
+
+import { Dashboard } from "./dashboard";
+import { UserList } from "./user-list";
+import { PromoterList } from "./team/promoter-list";
+import { LivestockList } from "./team/livestock-list";
+import { GiftGoodsList } from "./team/gift-goods-list";
+import { HomeBannerList } from "./activity-management/home-banner-list";
+import { ActivityList } from "./activity-management/activity-list";
+import { CouponList } from "./activity-management/coupon-list";
+import { RuralBannerList } from "./rural/banner-list";
+import { RuralRegionList } from "./rural/region-list";
+import { RuralGoodsList } from "./rural/goods-list";
+import { IntegrityBannerList } from "./integrity/banner-list";
+import { IntegrityGoodsList } from "./integrity/goods-list";
+import { MerchantList } from "./mall/merchant-list";
+import { FreightTemplateList } from "./mall/freight-template-list";
+import { GoodsCategoryList } from "./mall/category-list";
+import { GoodsList } from "./mall/goods-list";
+import { OrderList } from "./order-list";
+import { RoleList } from "./auth/role-list";
+import { AdminList } from "./auth/admin-list";
+
+import type { UserInfo } from "types/auth";
 
 export const AuthenticatedApp = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -83,6 +87,7 @@ export const AuthenticatedApp = () => {
                 element={<HomeBannerList />}
               />
               <Route path="activity/list" element={<ActivityList />} />
+              <Route path="activity/coupon_list" element={<CouponList />} />
               <Route path="rural/banner_list" element={<RuralBannerList />} />
               <Route path="rural/region_list" element={<RuralRegionList />} />
               <Route path="rural/goods_list" element={<RuralGoodsList />} />
@@ -169,6 +174,11 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
           label: <Link to={"activity/list"}>商品活动</Link>,
           key: "activity_list",
           icon: <FlagOutlined />,
+        },
+        {
+          label: <Link to={"activity/coupon_list"}>优惠券</Link>,
+          key: "activity_coupon_list",
+          icon: <CouponIcon />,
         },
       ],
     },

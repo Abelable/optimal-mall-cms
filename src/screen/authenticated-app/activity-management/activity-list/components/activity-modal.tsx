@@ -1,7 +1,6 @@
-import { DatePicker, Form, Image, Input, Modal, Select } from "antd";
-import { ErrorBox, ModalLoading } from "components/lib";
+import { DatePicker, Form, Input, Modal, Select } from "antd";
+import { ErrorBox, GoodsCover, ModalLoading } from "components/lib";
 
-import styled from "@emotion/styled";
 import { useForm } from "antd/lib/form/Form";
 import moment from "moment";
 import { useGoodsOptions } from "service/goods";
@@ -168,10 +167,3 @@ export const ActivityModal = ({ typeOptions }: { typeOptions: Option[] }) => {
     </Modal>
   );
 };
-
-const GoodsCover = styled(Image)`
-  margin-right: 0.6rem;
-  width: 1.8rem;
-  height: 1.8rem;
-  border-radius: 0.4rem;
-`;
