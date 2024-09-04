@@ -263,7 +263,6 @@ export const GoodsModal = ({
   useEffect(() => {
     if (editingGoods) {
       const {
-        categoryIds,
         video,
         cover,
         imageList,
@@ -287,7 +286,6 @@ export const GoodsModal = ({
       setSpecContent(specList || []);
 
       form.setFieldsValue({
-        categoryIds: categoryIds?.split(",").map((id) => +id),
         video: video
           ? [
               {
@@ -312,7 +310,6 @@ export const GoodsModal = ({
   const submit = () => {
     form.validateFields().then(async () => {
       const {
-        categoryIds,
         video,
         cover,
         imageList,
@@ -359,7 +356,6 @@ export const GoodsModal = ({
       await mutateAsync({
         ...editingGoods,
         ...rest,
-        categoryIds: categoryIds.join(),
         video: video && video.length ? video[0].url : "",
         cover: cover[0].url,
         imageList: imageList.map((item: { url: string }) => item.url),

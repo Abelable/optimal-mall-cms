@@ -65,7 +65,7 @@ export const List = ({
             title: "图片",
             dataIndex: "cover",
             render: (value) => <Image width={68} src={value} />,
-            width: "14rem",
+            width: "10rem",
           },
           {
             title: "名称",
@@ -86,6 +86,7 @@ export const List = ({
               { text: "已下架", value: 2 },
             ],
             onFilter: (value, goods) => goods.status === value,
+            width: "8rem",
           },
           {
             title: "商家",
@@ -93,14 +94,14 @@ export const List = ({
             render: (value) => (
               <>{merchantOptions.find((item) => item.id === value)?.name}</>
             ),
-            width: "12rem",
+            width: "32rem",
           },
           {
             title: "商品分类",
             dataIndex: "categoryIds",
             render: (value) => (
               <>
-                {value.split(",").map((id: string) => (
+                {value.map((id: string) => (
                   <Tag key={id} color="orange">
                     {categoryOptions.find((item) => item.id === +id)?.name}
                   </Tag>
