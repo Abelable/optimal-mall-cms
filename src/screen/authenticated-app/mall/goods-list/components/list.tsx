@@ -89,15 +89,7 @@ export const List = ({
             width: "8rem",
           },
           {
-            title: "商家",
-            dataIndex: "merchantId",
-            render: (value) => (
-              <>{merchantOptions.find((item) => item.id === value)?.name}</>
-            ),
-            width: "32rem",
-          },
-          {
-            title: "商品分类",
+            title: "分类",
             dataIndex: "categoryIds",
             render: (value) => (
               <>
@@ -129,6 +121,14 @@ export const List = ({
             dataIndex: "commissionRate",
             render: (value) => <>{`${value}%`}</>,
             width: "12rem",
+          },
+          {
+            title: "商家",
+            dataIndex: "merchantId",
+            render: (value) => (
+              <>{merchantOptions.find((item) => item.id === value)?.name}</>
+            ),
+            width: "32rem",
           },
           {
             title: "创建时间",
