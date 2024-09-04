@@ -3,7 +3,7 @@ import { GoodsModal } from "./components/goods-modal";
 import { List } from "./components/list";
 import { SearchPanel } from "./components/search-panel";
 
-import { useGoodsCategoryOptions } from "service/goodsCategory";
+import { useCategoryOptions } from "service/category";
 import { useGoodsList } from "service/goods";
 import { useFreightTemplateOptions } from "service/freightTemplate";
 import { useMerchantOptions } from "service/merchant";
@@ -14,7 +14,7 @@ export const GoodsList = () => {
   const [params, setParams] = useGoodsListSearchParams();
   const { isLoading, error, data } = useGoodsList(params);
   const { data: categoryOptions = [], error: categoryOptionsError } =
-    useGoodsCategoryOptions();
+    useCategoryOptions();
 
   const {
     data: originalFreightTemplateOptions = [],

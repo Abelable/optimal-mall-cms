@@ -1,39 +1,34 @@
 import { Form, Input, Modal } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { ErrorBox, ModalLoading } from "components/lib";
-import {
-  useAddGoodsCategory,
-  useEditGoodsCategory,
-} from "service/goodsCategory";
-import { useGoodsCategoryModal, useGoodsCategoriesQueryKey } from "../util";
+import { useAddCategory, useEditCategory } from "service/category";
+import { useCategoryModal, useCategoriesQueryKey } from "../util";
 import { useEffect } from "react";
 
 export const CategoryModal = () => {
   const [form] = useForm();
   const {
-    goodsCategoryModalOpen,
-    editingGoodsCategory,
-    editingGoodsCategoryId,
+    categoryModalOpen,
+    editingCategory,
+    editingCategoryId,
     isLoading,
     close,
-  } = useGoodsCategoryModal();
+  } = useCategoryModal();
 
-  const useMutateRole = editingGoodsCategoryId
-    ? useEditGoodsCategory
-    : useAddGoodsCategory;
+  const useMutateRole = editingCategoryId ? useEditCategory : useAddCategory;
   const {
     mutateAsync,
     isLoading: mutateLoading,
     error,
-  } = useMutateRole(useGoodsCategoriesQueryKey());
+  } = useMutateRole(useCategoriesQueryKey());
 
   useEffect(() => {
-    form.setFieldsValue(editingGoodsCategory);
-  }, [editingGoodsCategory, form]);
+    form.setFieldsValue(editingCategory);
+  }, [editingCategory, form]);
 
   const confirm = () => {
     form.validateFields().then(async () => {
-      await mutateAsync({ ...editingGoodsCategory, ...form.getFieldsValue() });
+      await mutateAsync({ ...editingCategory, ...form.getFieldsValue() });
       closeModal();
     });
   };
@@ -46,8 +41,8 @@ export const CategoryModal = () => {
   return (
     <Modal
       forceRender={true}
-      title={editingGoodsCategoryId ? "编辑商品分类" : "新增商品分类"}
-      open={goodsCategoryModalOpen}
+      title={editingCategoryId ? "编辑商品分类" : "新增商品分类"}
+      open={categoryModalOpen}
       confirmLoading={mutateLoading}
       onOk={confirm}
       onCancel={closeModal}

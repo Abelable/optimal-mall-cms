@@ -50,7 +50,7 @@ import { IntegrityBannerList } from "./integrity/banner-list";
 import { IntegrityGoodsList } from "./integrity/goods-list";
 import { MerchantList } from "./mall/merchant-list";
 import { FreightTemplateList } from "./mall/freight-template-list";
-import { GoodsCategoryList } from "./mall/category-list";
+import { CategoryList } from "./mall/category-list";
 import { GoodsList } from "./mall/goods-list";
 import { OrderList } from "./order-list";
 import { RoleList } from "./auth/role-list";
@@ -104,10 +104,7 @@ export const AuthenticatedApp = () => {
                 path="goods/freight_template_list"
                 element={<FreightTemplateList />}
               />
-              <Route
-                path="goods/category_list"
-                element={<GoodsCategoryList />}
-              />
+              <Route path="goods/category_list" element={<CategoryList />} />
               <Route path="goods/list" element={<GoodsList />} />
               <Route path="order_list" element={<OrderList />} />
               <Route path="auth/role_list" element={<RoleList />} />

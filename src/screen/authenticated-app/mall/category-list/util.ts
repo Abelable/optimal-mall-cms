@@ -1,8 +1,8 @@
 import { useSetUrlSearchParams, useUrlQueryParams } from "utils/url";
 import { useCallback, useMemo } from "react";
-import { useGoodsCategory } from "service/goodsCategory";
+import { useCategory } from "service/category";
 
-export const useGoodsCategoriesSearchParams = () => {
+export const useCategoriesSearchParams = () => {
   const [params, setParams] = useUrlQueryParams(["page", "limit"]);
   return [
     useMemo(
@@ -17,40 +17,40 @@ export const useGoodsCategoriesSearchParams = () => {
   ] as const;
 };
 
-export const useGoodsCategoriesQueryKey = () => {
-  const [params] = useGoodsCategoriesSearchParams();
+export const useCategoriesQueryKey = () => {
+  const [params] = useCategoriesSearchParams();
   return ["goods_categories", params];
 };
 
-export const useGoodsCategoryModal = () => {
-  const [{ goodsCategoryCreate }, setGoodsCategoryModalOpen] =
-    useUrlQueryParams(["goodsCategoryCreate"]);
-  const [{ editingGoodsCategoryId }, setEditingGoodsCategoryId] =
-    useUrlQueryParams(["editingGoodsCategoryId"]);
+export const useCategoryModal = () => {
+  const [{ categoryCreate }, setCategoryModalOpen] = useUrlQueryParams([
+    "categoryCreate",
+  ]);
+  const [{ editingCategoryId }, setEditingCategoryId] = useUrlQueryParams([
+    "editingCategoryId",
+  ]);
   const setUrlParams = useSetUrlSearchParams();
-  const { data: editingGoodsCategory, isLoading } = useGoodsCategory(
-    Number(editingGoodsCategoryId)
+  const { data: editingCategory, isLoading } = useCategory(
+    Number(editingCategoryId)
   );
 
   const open = useCallback(
-    () => setGoodsCategoryModalOpen({ goodsCategoryCreate: true }),
-    [setGoodsCategoryModalOpen]
+    () => setCategoryModalOpen({ categoryCreate: true }),
+    [setCategoryModalOpen]
   );
   const startEdit = useCallback(
-    (id: number) =>
-      setEditingGoodsCategoryId({ editingGoodsCategoryId: `${id}` }),
-    [setEditingGoodsCategoryId]
+    (id: number) => setEditingCategoryId({ editingCategoryId: `${id}` }),
+    [setEditingCategoryId]
   );
   const close = useCallback(
-    () => setUrlParams({ goodsCategoryCreate: "", editingGoodsCategoryId: "" }),
+    () => setUrlParams({ categoryCreate: "", editingCategoryId: "" }),
     [setUrlParams]
   );
 
   return {
-    goodsCategoryModalOpen:
-      goodsCategoryCreate === "true" || !!editingGoodsCategoryId,
-    editingGoodsCategoryId,
-    editingGoodsCategory,
+    categoryModalOpen: categoryCreate === "true" || !!editingCategoryId,
+    editingCategoryId,
+    editingCategory,
     isLoading,
     open,
     startEdit,

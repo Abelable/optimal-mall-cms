@@ -13,26 +13,23 @@ import {
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
 import {
-  useDeleteGoodsCategory,
+  useDeleteCategory,
   useEditSort,
   useEditStatus,
-} from "service/goodsCategory";
-import { useGoodsCategoryModal, useGoodsCategoriesQueryKey } from "../util";
+} from "service/category";
+import { useCategoryModal, useCategoriesQueryKey } from "../util";
 import { PlusOutlined } from "@ant-design/icons";
 
-import type {
-  GoodsCategoriesSearchParams,
-  GoodsCategory,
-} from "types/goodsCategory";
+import type { CategoriesSearchParams, Category } from "types/category";
 
-interface ListProps extends TableProps<GoodsCategory> {
+interface ListProps extends TableProps<Category> {
   error: Error | unknown;
-  params: Partial<GoodsCategoriesSearchParams>;
-  setParams: (params: Partial<GoodsCategoriesSearchParams>) => void;
+  params: Partial<CategoriesSearchParams>;
+  setParams: (params: Partial<CategoriesSearchParams>) => void;
 }
 
 export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
-  const { open } = useGoodsCategoryModal();
+  const { open } = useCategoryModal();
 
   const setPagination = (pagination: TablePaginationConfig) =>
     setParams({
@@ -41,8 +38,8 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
       limit: pagination.pageSize,
     });
 
-  const { mutate: editSort } = useEditSort(useGoodsCategoriesQueryKey());
-  const { mutate: editStatus } = useEditStatus(useGoodsCategoriesQueryKey());
+  const { mutate: editSort } = useEditSort(useCategoriesQueryKey());
+  const { mutate: editStatus } = useEditStatus(useCategoriesQueryKey());
 
   return (
     <Container>
@@ -104,10 +101,8 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
 };
 
 const More = ({ id }: { id: number }) => {
-  const { startEdit } = useGoodsCategoryModal();
-  const { mutate: deleteRole } = useDeleteGoodsCategory(
-    useGoodsCategoriesQueryKey()
-  );
+  const { startEdit } = useCategoryModal();
+  const { mutate: deleteRole } = useDeleteCategory(useCategoriesQueryKey());
 
   const confirmDelete = (id: number) => {
     Modal.confirm({

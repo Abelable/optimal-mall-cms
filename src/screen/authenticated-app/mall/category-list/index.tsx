@@ -1,14 +1,14 @@
 import styled from "@emotion/styled";
 import { toNumber } from "utils";
-import { useGoodsCategoriesSearchParams } from "./util";
-import { useGoodsCategories } from "service/goodsCategory";
+import { useCategoriesSearchParams } from "./util";
+import { useCategories } from "service/category";
 
 import { List } from "./components/list";
 import { CategoryModal } from "./components/category-modal";
 
-export const GoodsCategoryList = () => {
-  const [params, setParams] = useGoodsCategoriesSearchParams();
-  const { isLoading, error, data } = useGoodsCategories(params);
+export const CategoryList = () => {
+  const [params, setParams] = useCategoriesSearchParams();
+  const { isLoading, error, data } = useCategories(params);
 
   return (
     <Container>

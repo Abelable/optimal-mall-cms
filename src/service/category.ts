@@ -7,39 +7,36 @@ import {
   useEditConfig,
 } from "./use-optimistic-options";
 import { cleanObject } from "utils/index";
-import type { CategoryOption } from "types/category";
 import type {
-  GoodsCategoriesResult,
-  GoodsCategoriesSearchParams,
-  GoodsCategory,
-  GoodsCategoryOption,
-} from "types/goodsCategory";
+  CategoriesResult,
+  CategoriesSearchParams,
+  Category,
+  CategoryOption,
+} from "types/category";
 
-export const useGoodsCategories = (
-  params: Partial<GoodsCategoriesSearchParams>
-) => {
+export const useCategories = (params: Partial<CategoriesSearchParams>) => {
   const client = useHttp();
-  return useQuery<GoodsCategoriesResult>(["goods_categories", params], () =>
-    client("goods/category/list", { data: params, method: "POST" })
+  return useQuery<CategoriesResult>(["categories", params], () =>
+    client("category/list", { data: params, method: "POST" })
   );
 };
 
-export const useGoodsCategory = (id: number) => {
+export const useCategory = (id: number) => {
   const client = useHttp();
-  return useQuery<Partial<GoodsCategory>>(
-    ["goods_category", { id }],
-    () => client(`goods/category/detail`, { data: { id } }),
+  return useQuery<Partial<Category>>(
+    ["category", { id }],
+    () => client(`category/detail`, { data: { id } }),
     {
       enabled: !!id,
     }
   );
 };
 
-export const useAddGoodsCategory = (queryKey: QueryKey) => {
+export const useAddCategory = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
-    (params: Partial<GoodsCategory>) =>
-      client("goods/category/add", {
+    (params: Partial<Category>) =>
+      client("category/add", {
         data: cleanObject(params),
         method: "POST",
       }),
@@ -47,11 +44,11 @@ export const useAddGoodsCategory = (queryKey: QueryKey) => {
   );
 };
 
-export const useEditGoodsCategory = (queryKey: QueryKey) => {
+export const useEditCategory = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
-    (params: Partial<GoodsCategory>) =>
-      client("goods/category/edit", {
+    (params: Partial<Category>) =>
+      client("category/edit", {
         data: cleanObject(params),
         method: "POST",
       }),
@@ -63,7 +60,7 @@ export const useEditSort = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     ({ id, sort }: { id: number; sort: number }) =>
-      client("goods/category/edit_sort", {
+      client("category/edit_sort", {
         data: cleanObject({ id, sort }),
         method: "POST",
       }),
@@ -75,7 +72,7 @@ export const useEditStatus = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     ({ id, status }: { id: number; status: number }) =>
-      client("goods/category/edit_status", {
+      client("category/edit_status", {
         data: cleanObject({ id, status }),
         method: "POST",
       }),
@@ -83,11 +80,11 @@ export const useEditStatus = (queryKey: QueryKey) => {
   );
 };
 
-export const useDeleteGoodsCategory = (queryKey: QueryKey) => {
+export const useDeleteCategory = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (id: number) =>
-      client("goods/category/delete", {
+      client("category/delete", {
         data: { id },
         method: "POST",
       }),
@@ -95,16 +92,16 @@ export const useDeleteGoodsCategory = (queryKey: QueryKey) => {
   );
 };
 
-export const useGoodsCategoryOptions = () => {
+export const useCategoryOptions = () => {
   const client = useHttp();
-  return useQuery<GoodsCategoryOption[]>(["goods_category_options"], () =>
-    client("goods/category/options")
+  return useQuery<CategoryOption[]>(["category_options"], () =>
+    client("category/options")
   );
 };
 
-export const useFilterGoodsCategoryOptions = () => {
+export const useFilterCategoryOptions = () => {
   const client = useHttp();
-  return useQuery<CategoryOption[]>(["filter_goods_category_options"], () =>
-    client("goods/category/filteroptions")
+  return useQuery<CategoryOption[]>(["filter_category_options"], () =>
+    client("category/filteroptions")
   );
 };

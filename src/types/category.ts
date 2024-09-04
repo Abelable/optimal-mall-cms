@@ -1,3 +1,8 @@
+export interface CategoryOption {
+  id: number;
+  name: string;
+}
+
 export interface CategoriesSearchParams {
   page: number;
   limit: number;
@@ -5,9 +10,9 @@ export interface CategoriesSearchParams {
 
 export interface Category {
   id: number;
+  status: number;
   name: string;
-  createdAt: string;
-  updatedAt: string;
+  sort: number;
 }
 
 export interface CategoriesResult {
@@ -15,9 +20,4 @@ export interface CategoriesResult {
   page: string;
   limit: string;
   total: string;
-}
-
-export interface CategoryOption {
-  id: number;
-  name: string;
 }
