@@ -31,6 +31,7 @@ import {
   EnvironmentOutlined,
   SafetyCertificateOutlined,
   FlagOutlined,
+  VerifiedOutlined,
 } from "@ant-design/icons";
 import logo from "assets/images/logo.png";
 import { CouponIcon } from "assets/icon";
@@ -38,6 +39,7 @@ import { CouponIcon } from "assets/icon";
 import { Dashboard } from "./dashboard";
 import { UserList } from "./user-list";
 import { PromoterList } from "./team/promoter-list";
+import { AuthInfoList } from "./team/auth-info-list";
 import { LivestockList } from "./team/livestock-list";
 import { GiftGoodsList } from "./team/gift-goods-list";
 import { HomeBannerList } from "./activity-management/home-banner-list";
@@ -80,6 +82,7 @@ export const AuthenticatedApp = () => {
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="user_list" element={<UserList />} />
               <Route path="team/promoter_list" element={<PromoterList />} />
+              <Route path="team/auth_info_list" element={<AuthInfoList />} />
               <Route path="team/livestock_list" element={<LivestockList />} />
               <Route path="team/gift_goods_list" element={<GiftGoodsList />} />
               <Route
@@ -144,6 +147,11 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
           label: <Link to={"team/promoter_list"}>推广员列表</Link>,
           key: "team_promoter_list",
           icon: <UserOutlined />,
+        },
+        {
+          label: <Link to={"team/auth_info_list"}>实名认证</Link>,
+          key: "team_auth_info_list",
+          icon: <VerifiedOutlined />,
         },
         {
           label: <Link to={"team/livestock_list"}>认养专区</Link>,
