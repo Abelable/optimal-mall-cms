@@ -75,7 +75,9 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
             render: (value) => (
               <>
                 {value.length
-                  ? value.map((img: string) => <Image width={68} src={value} />)
+                  ? value.map((img: string, index: number) => (
+                      <Image key={index} width={68} src={value} />
+                    ))
                   : "暂无经营资质"}
               </>
             ),
