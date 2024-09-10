@@ -76,7 +76,7 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
               <>
                 {value.length
                   ? value.map((img: string, index: number) => (
-                      <Image key={index} width={68} src={value} />
+                      <Image key={index} width={68} src={img} />
                     ))
                   : "暂无经营资质"}
               </>
