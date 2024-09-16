@@ -28,14 +28,10 @@ import { ErrorBox, ModalLoading } from "components/lib";
 
 import type { CategoryOption } from "types/category";
 import type { OperatorOption } from "types/common";
-import type { Spec } from "types/goods";
+import type { Sku, Spec } from "types/goods";
 
-interface TableSku {
+interface TableSku extends Sku {
   [x: string]: string | number | object;
-  image: string;
-  name: string;
-  price: number;
-  stock: number;
 }
 
 const normFile = (e: any) => {
@@ -104,6 +100,7 @@ export const GoodsModal = ({
     ...specContent.map((t) => {
       return {
         title: t.name,
+        width: "18rem",
         render: (item: any) => {
           return item[t.name];
         },
@@ -116,8 +113,43 @@ export const GoodsModal = ({
           <InputNumber
             min={0}
             defaultValue={tableSkuList[index].price}
+            style={{ width: "100%" }}
             onChange={(e) => {
               tableSkuList[index].price = e || 0;
+              setTableSkuList(tableSkuList);
+            }}
+          />
+        );
+      },
+    },
+    {
+      title: "原价",
+      render: (item: TableSku, _: TableSku, index: number) => {
+        return (
+          <InputNumber
+            min={0}
+            defaultValue={tableSkuList[index].originalPrice}
+            style={{ width: "100%" }}
+            onChange={(e) => {
+              tableSkuList[index].originalPrice = e || 0;
+              setTableSkuList(tableSkuList);
+            }}
+          />
+        );
+      },
+    },
+    {
+      title: "佣金比例",
+      render: (item: TableSku, _: TableSku, index: number) => {
+        return (
+          <InputNumber
+            min={0}
+            max={100}
+            formatter={(value) => `${value}%`}
+            style={{ width: "100%" }}
+            defaultValue={tableSkuList[index].commissionRate}
+            onChange={(e) => {
+              tableSkuList[index].commissionRate = e || 0;
               setTableSkuList(tableSkuList);
             }}
           />
@@ -131,6 +163,7 @@ export const GoodsModal = ({
           <InputNumber
             min={0}
             defaultValue={tableSkuList[index].stock}
+            style={{ width: "100%" }}
             onChange={(e) => {
               tableSkuList[index].stock = e || 0;
               setTableSkuList(tableSkuList);
@@ -210,8 +243,10 @@ export const GoodsModal = ({
             } else {
               return {
                 [item.name]: str,
-                stock: 0,
                 price: 0,
+                originalPrice: 0,
+                commissionRate: 0,
+                stock: 0,
                 name: str,
               };
             }
@@ -239,8 +274,10 @@ export const GoodsModal = ({
                 return {
                   ...obj,
                   [item.name]: t,
-                  stock: 0,
                   price: 0,
+                  originalPrice: 0,
+                  commissionRate: 0,
+                  stock: 0,
                 };
               }
             })
@@ -274,14 +311,24 @@ export const GoodsModal = ({
       } = editingGoods;
 
       setTableSkuList(
-        skuList.map(({ name, image, price, stock }) => {
-          const restData = Object.fromEntries(
-            name
-              .split(",")
-              .map((value, index) => [`${specList[index].name}`, value])
-          );
-          return { name, image, price, stock, ...restData };
-        })
+        skuList.map(
+          ({ name, image, price, originalPrice, commissionRate, stock }) => {
+            const restData = Object.fromEntries(
+              name
+                .split(",")
+                .map((value, index) => [`${specList[index].name}`, value])
+            );
+            return {
+              name,
+              image,
+              price,
+              originalPrice,
+              commissionRate,
+              stock,
+              ...restData,
+            };
+          }
+        )
       );
       setSpecContent(specList || []);
 
@@ -365,12 +412,16 @@ export const GoodsModal = ({
         defaultSpecImage: defaultSpecImage[0].url,
         stock,
         specList: specContent,
-        skuList: tableSkuList.map(({ name, image, price, stock }) => ({
-          name,
-          image,
-          price,
-          stock,
-        })),
+        skuList: tableSkuList.map(
+          ({ name, image, price, originalPrice, commissionRate, stock }) => ({
+            name,
+            image,
+            price,
+            originalPrice,
+            commissionRate,
+            stock,
+          })
+        ),
       });
       closeModal();
     });
@@ -386,7 +437,7 @@ export const GoodsModal = ({
   return (
     <Drawer
       title={editingGoodsId ? "编辑商品" : "新增商品"}
-      size={"large"}
+      width={"100rem"}
       forceRender={true}
       onClose={closeModal}
       open={goodsModalOpen}
@@ -401,7 +452,6 @@ export const GoodsModal = ({
       }
     >
       <ErrorBox error={error} />
-
       {isLoading ? (
         <ModalLoading />
       ) : (
@@ -409,6 +459,30 @@ export const GoodsModal = ({
           <Divider orientation="left" plain>
             基本信息
           </Divider>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                name="cover"
+                label="商品封面"
+                valuePropName="fileList"
+                getValueFromEvent={normFile}
+                rules={[{ required: true, message: "请上传商品封面" }]}
+              >
+                <OssUpload maxCount={1} />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name="activityCover"
+                label="活动封面"
+                tooltip="图片尺寸：355 * 194"
+                valuePropName="fileList"
+                getValueFromEvent={normFile}
+              >
+                <OssUpload maxCount={1} />
+              </Form.Item>
+            </Col>
+          </Row>
           <Row gutter={16}>
             <Col span={24}>
               <Form.Item
@@ -418,19 +492,6 @@ export const GoodsModal = ({
                 getValueFromEvent={normFile}
               >
                 <OssUpload accept=".mp4" maxCount={1} />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col span={24}>
-              <Form.Item
-                name="cover"
-                label="商品封面"
-                valuePropName="fileList"
-                getValueFromEvent={normFile}
-                rules={[{ required: true, message: "请上传商品封面" }]}
-              >
-                <OssUpload maxCount={1} />
               </Form.Item>
             </Col>
           </Row>
@@ -529,33 +590,29 @@ export const GoodsModal = ({
             <Col span={12}>
               <Form.Item
                 name="price"
-                label="店铺价格"
-                rules={[{ required: true, message: "请填写店铺价格" }]}
+                label="起始价格"
+                rules={[{ required: true, message: "请填写起始价格" }]}
               >
                 <InputNumber
                   prefix="￥"
                   style={{ width: "100%" }}
-                  placeholder="请填写店铺价格"
+                  placeholder="请填写起始价格"
                 />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item name="marketPrice" label="市场价格">
+              <Form.Item name="marketPrice" label="市场原价">
                 <InputNumber
                   prefix="￥"
                   style={{ width: "100%" }}
-                  placeholder="请填写市场价格"
+                  placeholder="请填写市场原价"
                 />
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item
-                name="commissionRate"
-                label="佣金比例"
-                rules={[{ required: true, message: "请填写佣金比例" }]}
-              >
+              <Form.Item name="commissionRate" label="佣金比例">
                 <InputNumber
                   min={0}
                   max={100}

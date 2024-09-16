@@ -13,9 +13,11 @@ export interface Spec {
 }
 
 export interface Sku {
-  name: string;
   image: string;
+  name: string;
   price: number;
+  originalPrice: number;
+  commissionRate: number;
   stock: number;
 }
 
@@ -28,6 +30,7 @@ export interface Goods {
   introduction: string;
   video: string;
   cover: string;
+  activityCover: string;
   imageList: string[];
   detailImageList: string[];
   defaultSpecImage: string;
