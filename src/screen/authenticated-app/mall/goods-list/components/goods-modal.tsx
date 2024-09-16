@@ -34,6 +34,11 @@ interface TableSku extends Sku {
   [x: string]: string | number | object;
 }
 
+const refundStatusOptions = [
+  { text: "不支持", value: 0 },
+  { text: "支持", value: 1 },
+];
+
 const normFile = (e: any) => {
   if (Array.isArray(e)) return e;
   return e && e.fileList;
@@ -632,6 +637,23 @@ export const GoodsModal = ({
                   style={{ width: "100%" }}
                   placeholder="请填写佣金比例"
                 />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                name="refundStatus"
+                label="7天无理由退换货"
+                rules={[{ required: true, message: "请选择是否支持7天无理由" }]}
+              >
+                <Select placeholder="请选择是否支持7天无理由">
+                  {refundStatusOptions.map((item) => (
+                    <Select.Option key={item.value} value={item.value}>
+                      {item.text}
+                    </Select.Option>
+                  ))}
+                </Select>
               </Form.Item>
             </Col>
           </Row>
