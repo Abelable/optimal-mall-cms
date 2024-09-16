@@ -302,6 +302,7 @@ export const GoodsModal = ({
       const {
         video,
         cover,
+        activityCover,
         imageList,
         detailImageList,
         defaultSpecImage,
@@ -312,7 +313,14 @@ export const GoodsModal = ({
 
       setTableSkuList(
         skuList.map(
-          ({ name, image, price, originalPrice, commissionRate, stock }) => {
+          ({
+            name,
+            image = "",
+            price = 0,
+            originalPrice = 0,
+            commissionRate = 0,
+            stock = 0,
+          }) => {
             const restData = Object.fromEntries(
               name
                 .split(",")
@@ -342,6 +350,7 @@ export const GoodsModal = ({
             ]
           : [],
         cover: [{ url: cover }],
+        activityCover: activityCover ? [{ url: activityCover }] : [],
         imageList: imageList?.length
           ? imageList?.map((item) => ({ url: item }))
           : imageList,
@@ -359,6 +368,7 @@ export const GoodsModal = ({
       const {
         video,
         cover,
+        activityCover,
         imageList,
         detailImageList,
         defaultSpecImage,
@@ -405,6 +415,8 @@ export const GoodsModal = ({
         ...rest,
         video: video && video.length ? video[0].url : "",
         cover: cover[0].url,
+        activityCover:
+          activityCover && activityCover.length ? activityCover[0].url : "",
         imageList: imageList.map((item: { url: string }) => item.url),
         detailImageList: detailImageList.map(
           (item: { url: string }) => item.url
