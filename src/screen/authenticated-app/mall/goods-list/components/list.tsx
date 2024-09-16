@@ -10,11 +10,17 @@ import {
   TableProps,
   Button,
   Tag,
+  InputNumber,
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
 import { PlusOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
-import { useDeleteGoods, useDownGoods, useUpGoods } from "service/goods";
+import {
+  useDeleteGoods,
+  useDownGoods,
+  useEditSales,
+  useUpGoods,
+} from "service/goods";
 import { useGoodsModal, useGoodsListQueryKey } from "../util";
 import { SearchPanelProps } from "./search-panel";
 
@@ -41,6 +47,8 @@ export const List = ({
       page: pagination.current,
       limit: pagination.pageSize,
     });
+
+  const { mutate: editSales } = useEditSales(useGoodsListQueryKey());
 
   return (
     <Container>
@@ -110,7 +118,13 @@ export const List = ({
           {
             title: "销量",
             dataIndex: "salesVolume",
-            sorter: (a, b) => Number(a) - Number(b),
+            width: "12rem",
+            render: (value, goods) => (
+              <InputNumber
+                value={value}
+                onChange={(sales) => editSales({ id: goods.id, sales })}
+              />
+            ),
           },
           {
             title: "库存",
