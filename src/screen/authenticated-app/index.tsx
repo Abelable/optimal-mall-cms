@@ -32,6 +32,7 @@ import {
   SafetyCertificateOutlined,
   FlagOutlined,
   VerifiedOutlined,
+  HeartOutlined,
 } from "@ant-design/icons";
 import logo from "assets/images/logo.png";
 import { CouponIcon } from "assets/icon";
@@ -139,9 +140,9 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
       icon: <UserOutlined />,
     },
     {
-      label: "团队管理",
+      label: "乡村振兴",
       key: "team",
-      icon: <TeamOutlined />,
+      icon: <HeartOutlined />,
       children: [
         {
           label: <Link to={"team/promoter_list"}>推广员列表</Link>,
