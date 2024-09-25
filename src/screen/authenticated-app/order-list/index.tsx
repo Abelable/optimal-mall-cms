@@ -11,6 +11,7 @@ import { List } from "./components/list";
 import { SearchPanel } from "./components/search-panel";
 import { RejectModal } from "./components/reject-modal";
 import { OrderModal } from "./components/order-modal";
+import { DeliveryModal } from "./components/delivery-modal";
 
 const statusOptions = [
   { text: "待付款", value: 101 },
@@ -165,6 +166,7 @@ export const OrderList = () => {
           </Row>
         </Row>
       </Drawer>
+      <DeliveryModal expressOptions={expressOptions} />
       <RejectModal />
       <OrderModal statusOptions={statusOptions} />
     </Container>

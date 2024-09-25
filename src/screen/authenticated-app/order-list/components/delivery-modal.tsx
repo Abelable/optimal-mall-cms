@@ -6,7 +6,7 @@ import { useDeliveryModal, useOrderListQueryKey } from "../util";
 export const DeliveryModal = ({
   expressOptions,
 }: {
-  expressOptions: { text: string; value: string }[];
+  expressOptions: { name: string; value: string }[];
 }) => {
   const [form] = useForm();
   const { deliveryModalOpen, deliveryOrderId, close } = useDeliveryModal();
@@ -17,7 +17,16 @@ export const DeliveryModal = ({
 
   const confirm = () => {
     form.validateFields().then(async () => {
-      await mutateAsync({ id: +deliveryOrderId, ...form.getFieldsValue() });
+      const { shipCode, ...rest } = form.getFieldsValue();
+      const shipChannel = expressOptions.find(
+        (item) => item.value === shipCode
+      )?.name;
+      await mutateAsync({
+        id: +deliveryOrderId,
+        shipChannel,
+        shipCode,
+        ...rest,
+      });
       closeModal();
     });
   };
@@ -45,7 +54,7 @@ export const DeliveryModal = ({
           <Select placeholder="请选择物流公司">
             {expressOptions.map((item) => (
               <Select.Option key={item.value} value={item.value}>
-                {item.text}
+                {item.name}
               </Select.Option>
             ))}
           </Select>
