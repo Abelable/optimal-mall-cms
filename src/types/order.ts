@@ -49,3 +49,9 @@ export interface OrderDetail extends Order {
   confirmTime: string;
   finishTime: string;
 }
+
+export interface ShippingInfo {
+  shipChannel: string;
+  shipSn: string;
+  traces: { AcceptStation: string; AcceptTime: string }[];
+}

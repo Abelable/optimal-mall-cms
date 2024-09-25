@@ -9,6 +9,7 @@ import type {
   OrderDetail,
   OrderListResult,
   OrderListSearchParams,
+  ShippingInfo,
 } from "types/order";
 
 export const useOrderList = (params: Partial<OrderListSearchParams>) => {
@@ -67,6 +68,17 @@ export const useCancelOrder = (queryKey: QueryKey) => {
         method: "POST",
       }),
     useCancelOrderConfig(queryKey)
+  );
+};
+
+export const useShippingInfo = (id: number) => {
+  const client = useHttp();
+  return useQuery<ShippingInfo>(
+    ["order", { id }],
+    () => client(`order/shipping_info`, { data: { id } }),
+    {
+      enabled: !!id,
+    }
   );
 };
 

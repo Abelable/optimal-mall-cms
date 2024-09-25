@@ -14,7 +14,12 @@ import { ErrorBox, ModalLoading } from "components/lib";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { useCancelOrder, useDeleteOrder } from "service/order";
-import { useOrderListQueryKey, useOrderModal } from "../util";
+import {
+  useDeliveryModal,
+  useOrderListQueryKey,
+  useOrderModal,
+  useShippingModal,
+} from "../util";
 
 import type { Option } from "types/common";
 
@@ -291,6 +296,8 @@ export const OrderModal = ({ statusOptions }: { statusOptions: Option[] }) => {
 };
 
 const Extra = ({ id, status }: { id: number; status: number }) => {
+  const { open: openDeliveryModal } = useDeliveryModal();
+  const { open: openShippingModal } = useShippingModal();
   const { mutate: cancelOrder } = useCancelOrder(useOrderListQueryKey());
   const { mutate: deleteOrder } = useDeleteOrder(useOrderListQueryKey());
 
@@ -332,7 +339,7 @@ const Extra = ({ id, status }: { id: number; status: number }) => {
 
     case 201:
       return (
-        <Button onClick={() => confirmCancel()} type={"primary"}>
+        <Button onClick={() => openDeliveryModal(id)} type={"primary"}>
           订单发货
         </Button>
       );
@@ -342,7 +349,7 @@ const Extra = ({ id, status }: { id: number; status: number }) => {
     case 402:
     case 501:
       return (
-        <Button onClick={() => confirmCancel()} type={"primary"}>
+        <Button onClick={() => openShippingModal(id)} type={"primary"}>
           查看物流
         </Button>
       );

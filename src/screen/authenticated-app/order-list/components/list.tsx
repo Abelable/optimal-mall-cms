@@ -11,7 +11,12 @@ import {
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
 import dayjs from "dayjs";
 import { useCancelOrder, useConfirmOrder, useDeleteOrder } from "service/order";
-import { useOrderModal, useOrderListQueryKey, useDeliveryModal } from "../util";
+import {
+  useOrderModal,
+  useOrderListQueryKey,
+  useDeliveryModal,
+  useShippingModal,
+} from "../util";
 import { SearchPanelProps } from "./search-panel";
 
 import type { Order } from "types/order";
@@ -125,6 +130,7 @@ export const List = ({
 const More = ({ id, status }: { id: number; status: number }) => {
   const { open: openOrderModal } = useOrderModal();
   const { open: openDeliveryModal } = useDeliveryModal();
+  const { open: openShippingModal } = useShippingModal();
   const { mutate: cancelOrder } = useCancelOrder(useOrderListQueryKey());
   const { mutate: confirmOrder } = useConfirmOrder(useOrderListQueryKey());
   const { mutate: deleteOrder } = useDeleteOrder(useOrderListQueryKey());
@@ -212,7 +218,7 @@ const More = ({ id, status }: { id: number; status: number }) => {
           key: "detail",
         },
         {
-          label: <div onClick={() => openOrderModal(id)}>物流</div>,
+          label: <div onClick={() => openShippingModal(id)}>物流</div>,
           key: "express",
         },
         {

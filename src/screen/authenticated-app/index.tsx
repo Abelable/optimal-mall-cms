@@ -167,28 +167,6 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
       ],
     },
     {
-      label: "活动管理",
-      key: "activity",
-      icon: <GiftOutlined />,
-      children: [
-        {
-          label: <Link to={"activity/home_banner_list"}>首页头图</Link>,
-          key: "activity_home_banner_list",
-          icon: <PictureOutlined />,
-        },
-        {
-          label: <Link to={"activity/list"}>商品活动</Link>,
-          key: "activity_list",
-          icon: <FlagOutlined />,
-        },
-        {
-          label: <Link to={"activity/coupon_list"}>优惠券</Link>,
-          key: "activity_coupon_list",
-          icon: <CouponIcon />,
-        },
-      ],
-    },
-    {
       label: "诚信乡村",
       key: "rural",
       icon: <CloudOutlined />,
@@ -224,6 +202,28 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
           label: <Link to={"integrity/goods_list"}>商品列表</Link>,
           key: "integrity_goods_list",
           icon: <ShoppingOutlined />,
+        },
+      ],
+    },
+    {
+      label: "活动管理",
+      key: "activity",
+      icon: <GiftOutlined />,
+      children: [
+        {
+          label: <Link to={"activity/home_banner_list"}>首页头图</Link>,
+          key: "activity_home_banner_list",
+          icon: <PictureOutlined />,
+        },
+        {
+          label: <Link to={"activity/list"}>商品活动</Link>,
+          key: "activity_list",
+          icon: <FlagOutlined />,
+        },
+        {
+          label: <Link to={"activity/coupon_list"}>优惠券</Link>,
+          key: "activity_coupon_list",
+          icon: <CouponIcon />,
         },
       ],
     },

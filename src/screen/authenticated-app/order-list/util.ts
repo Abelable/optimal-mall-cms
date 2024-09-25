@@ -1,6 +1,6 @@
 import { useSetUrlSearchParams, useUrlQueryParams } from "utils/url";
 import { useCallback, useMemo } from "react";
-import { useOrder } from "service/order";
+import { useOrder, useShippingInfo } from "service/order";
 
 export const useOrderListSearchParams = () => {
   const [params, setParams] = useUrlQueryParams([
@@ -45,7 +45,7 @@ export const useOrderModal = () => {
     [setEditingOrderId]
   );
   const close = useCallback(
-    () => setUrlParams({ orderCreate: "", editingOrderId: "" }),
+    () => setUrlParams({ editingOrderId: "" }),
     [setUrlParams]
   );
 
@@ -101,6 +101,37 @@ export const useDeliveryModal = () => {
   return {
     deliveryModalOpen: !!deliveryOrderId,
     deliveryOrderId,
+    open,
+    close,
+  };
+};
+
+export const useShippingModal = () => {
+  const [{ shippingOrderId }, setShippingOrderId] = useUrlQueryParams([
+    "shippingOrderId",
+  ]);
+  const setUrlParams = useSetUrlSearchParams();
+  const {
+    data: shippingInfo,
+    isLoading,
+    error,
+  } = useShippingInfo(Number(shippingOrderId));
+
+  const open = useCallback(
+    (id: number) => setShippingOrderId({ shippingOrderId: `${id}` }),
+    [setShippingOrderId]
+  );
+  const close = useCallback(
+    () => setUrlParams({ shippingOrderId: "" }),
+    [setUrlParams]
+  );
+
+  return {
+    orderModalOpen: !!shippingOrderId,
+    shippingOrderId,
+    shippingInfo,
+    isLoading,
+    error,
     open,
     close,
   };
