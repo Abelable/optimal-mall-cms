@@ -54,7 +54,15 @@ export const AddModal = ({
           label="用户"
           rules={[{ required: true, message: "请选择用户" }]}
         >
-          <Select placeholder="请选择用户">
+          <Select
+            placeholder="请选择用户"
+            showSearch
+            filterOption={(input, option) =>
+              (option!.children as any)[1].props.children
+                .toLowerCase()
+                .includes(input.toLowerCase())
+            }
+          >
             {userOptions.map(({ id, avatar, nickname }) => (
               <Select.Option key={id} value={id}>
                 <OptionAvatar src={avatar} icon={<UserOutlined />} />
