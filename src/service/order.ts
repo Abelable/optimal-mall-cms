@@ -22,7 +22,7 @@ export const useOrderList = (params: Partial<OrderListSearchParams>) => {
 export const useOrder = (id: number) => {
   const client = useHttp();
   return useQuery<Partial<OrderDetail>>(
-    ["order", { id }],
+    ["order_detail", { id }],
     () => client(`order/detail`, { data: { id } }),
     {
       enabled: !!id,
@@ -74,7 +74,7 @@ export const useCancelOrder = (queryKey: QueryKey) => {
 export const useShippingInfo = (id: number) => {
   const client = useHttp();
   return useQuery<ShippingInfo>(
-    ["order", { id }],
+    ["shipping_info", { id }],
     () => client(`order/shipping_info`, { data: { id } }),
     {
       enabled: !!id,

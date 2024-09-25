@@ -167,10 +167,10 @@ export const OrderList = () => {
           </Row>
         </Row>
       </Drawer>
+      <OrderModal statusOptions={statusOptions} />
       <DeliveryModal expressOptions={expressOptions} />
       <ShippingModal />
       <RejectModal />
-      <OrderModal statusOptions={statusOptions} />
     </Container>
   );
 };
