@@ -1,16 +1,11 @@
 import { QueryKey, useMutation, useQuery } from "react-query";
 import { useHttp } from "./http";
 import {
-  useAddConfig,
-  useApprovedConfig,
   useDeleteOrderConfig,
   useCancelOrderConfig,
-  useEditConfig,
   useRejectConfig,
 } from "./use-optimistic-options";
-import { cleanObject } from "utils/index";
 import type {
-  Order,
   OrderDetail,
   OrderListResult,
   OrderListSearchParams,
