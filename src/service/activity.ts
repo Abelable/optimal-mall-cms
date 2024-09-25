@@ -105,6 +105,18 @@ export const useEditSales = (queryKey: QueryKey) => {
   );
 };
 
+export const useEditSort = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    ({ id, sort }: { id: number; sort: number }) =>
+      client("mall/activity/edit_sort", {
+        data: { id, sort },
+        method: "POST",
+      }),
+    useEditConfig(queryKey)
+  );
+};
+
 export const useEndActivity = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(

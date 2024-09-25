@@ -21,6 +21,7 @@ import {
   useEditFollowers,
   useEditGoodsTag,
   useEditSales,
+  useEditSort,
   useEditTag,
   useEndActivity,
 } from "service/activity";
@@ -57,6 +58,7 @@ export const List = ({
   const { mutate: editGoodsTag } = useEditGoodsTag(useActivityListQueryKey());
   const { mutate: editFollowers } = useEditFollowers(useActivityListQueryKey());
   const { mutate: editSales } = useEditSales(useActivityListQueryKey());
+  const { mutate: editSort } = useEditSort(useActivityListQueryKey());
 
   return (
     <Container>
@@ -182,6 +184,17 @@ export const List = ({
             ),
           },
           {
+            title: "排序",
+            dataIndex: "sort",
+            render: (value, category) => (
+              <InputNumber
+                value={value}
+                onChange={(sort) => editSort({ id: category.id, sort })}
+              />
+            ),
+            sorter: (a, b) => a.sort - b.sort,
+          },
+          {
             title: "开始时间",
             dataIndex: "startTime",
             width: "20rem",
@@ -200,19 +213,6 @@ export const List = ({
                 {value ? dayjs(value).format("YYYY-MM-DD HH:mm:ss") : "无"}
               </span>
             ),
-          },
-          {
-            title: "创建时间",
-            width: "20rem",
-            render: (value, goods) => (
-              <span>
-                {goods.createdAt
-                  ? dayjs(goods.createdAt).format("YYYY-MM-DD HH:mm:ss")
-                  : "无"}
-              </span>
-            ),
-            sorter: (a, b) =>
-              dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf(),
           },
           {
             title: "操作",

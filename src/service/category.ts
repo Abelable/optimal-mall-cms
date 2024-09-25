@@ -61,7 +61,7 @@ export const useEditSort = (queryKey: QueryKey) => {
   return useMutation(
     ({ id, sort }: { id: number; sort: number }) =>
       client("category/edit_sort", {
-        data: cleanObject({ id, sort }),
+        data: { id, sort },
         method: "POST",
       }),
     useEditConfig(queryKey)
@@ -73,7 +73,7 @@ export const useEditStatus = (queryKey: QueryKey) => {
   return useMutation(
     ({ id, status }: { id: number; status: number }) =>
       client("category/edit_status", {
-        data: cleanObject({ id, status }),
+        data: { id, status },
         method: "POST",
       }),
     useEditConfig(queryKey)

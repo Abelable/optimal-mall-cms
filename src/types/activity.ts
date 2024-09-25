@@ -19,7 +19,7 @@ export interface Activity {
   goodsCover: string;
   followers: number;
   sales: number;
-  createdAt: string;
+  sort: number;
 }
 
 export interface ActivityListResult {
