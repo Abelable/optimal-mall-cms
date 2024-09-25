@@ -45,3 +45,11 @@ export const useDeleteUser = (queryKey: QueryKey) => {
     useDeleteConfig(queryKey)
   );
 };
+
+export const useUserOptions = () => {
+  const client = useHttp();
+  return useQuery<{ id: number; avatar: string; nickname: string }[]>(
+    ["user_options"],
+    () => client("user/normal_options")
+  );
+};

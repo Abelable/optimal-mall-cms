@@ -8,12 +8,12 @@ import {
   Tag,
 } from "antd";
 import { ErrorBox, Row, PageTitle } from "components/lib";
-import { UserOutlined } from "@ant-design/icons";
+import { UserOutlined, PlusOutlined } from "@ant-design/icons";
 
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import { useDeletePromoter } from "service/promoter";
-import { usePromoterListQueryKey } from "../util";
+import { useAddPromoterModal, usePromoterListQueryKey } from "../util";
 
 import type { SearchPanelProps } from "./search-panel";
 import type { Promoter } from "types/promoter";
@@ -29,6 +29,8 @@ export const List = ({
   setParams,
   ...restProps
 }: ListProps) => {
+  const { open } = useAddPromoterModal();
+
   const setPagination = (pagination: TablePaginationConfig) =>
     setParams({
       ...params,
@@ -53,6 +55,9 @@ export const List = ({
     <Container>
       <Header between={true}>
         <PageTitle>推广员列表</PageTitle>
+        <Button onClick={() => open()} type={"primary"} icon={<PlusOutlined />}>
+          新增
+        </Button>
       </Header>
       <ErrorBox error={error} />
       <Table

@@ -1,6 +1,6 @@
 import { QueryKey, useMutation, useQuery } from "react-query";
 import { useHttp } from "./http";
-import { useDeleteConfig } from "./use-optimistic-options";
+import { useAddConfig, useDeleteConfig } from "./use-optimistic-options";
 
 import type {
   PromoterOption,
@@ -12,6 +12,26 @@ export const usePromoterList = (params: Partial<PromoterListSearchParams>) => {
   const client = useHttp();
   return useQuery<PromoterListResult>(["promoter_list", params], () =>
     client("team/promoter/list", { data: params, method: "POST" })
+  );
+};
+
+export const useAddPromoter = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    ({
+      userId,
+      level,
+      scene,
+    }: {
+      userId: number;
+      level: number;
+      scene: number;
+    }) =>
+      client("team/promoter/add", {
+        data: { userId, level, scene },
+        method: "POST",
+      }),
+    useAddConfig(queryKey)
   );
 };
 

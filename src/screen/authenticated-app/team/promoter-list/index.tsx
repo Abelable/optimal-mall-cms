@@ -5,6 +5,8 @@ import styled from "@emotion/styled";
 import { usePromoterList } from "service/promoter";
 import { toNumber } from "utils";
 import { usePromoterListSearchParams } from "./util";
+import { useUserOptions } from "service/user";
+import { AddModal } from "./components/add-modal";
 
 const levelOptions = [
   { text: "乡村振兴推广员", value: 1, scene: 100 },
@@ -17,6 +19,7 @@ const levelOptions = [
 export const PromoterList = () => {
   const [params, setParams] = usePromoterListSearchParams();
   const { isLoading, error, data } = usePromoterList(params);
+  const { data: userOptions = [], error: userOptionsError } = useUserOptions();
 
   return (
     <Container>
@@ -30,7 +33,7 @@ export const PromoterList = () => {
           levelOptions={levelOptions}
           params={params}
           setParams={setParams}
-          error={error}
+          error={error || userOptionsError}
           loading={isLoading}
           dataSource={data?.list}
           pagination={{
@@ -41,6 +44,8 @@ export const PromoterList = () => {
           bordered
         />
       </Main>
+
+      <AddModal userOptions={userOptions} levelOptions={levelOptions} />
     </Container>
   );
 };
