@@ -34,18 +34,6 @@ export const useOrder = (id: number) => {
   );
 };
 
-export const useApprovedOrder = (queryKey: QueryKey) => {
-  const client = useHttp();
-  return useMutation(
-    (id: number) =>
-      client("order/up", {
-        data: { id },
-        method: "POST",
-      }),
-    useApprovedConfig(queryKey)
-  );
-};
-
 export const useRejectOrder = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
@@ -58,39 +46,20 @@ export const useRejectOrder = (queryKey: QueryKey) => {
   );
 };
 
-export const useAddOrder = (queryKey: QueryKey) => {
+export const useDeliveryOrder = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
-    (params: Partial<Order>) =>
-      client("order/add", {
-        data: cleanObject(params),
+    (data: {
+      id: number;
+      shipChannel: string;
+      shipCode: string;
+      shipSn: string;
+    }) =>
+      client("order/delivery", {
+        data,
         method: "POST",
       }),
-    useAddConfig(queryKey)
-  );
-};
-
-export const useEditOrder = (queryKey: QueryKey) => {
-  const client = useHttp();
-  return useMutation(
-    (params: Partial<Order>) =>
-      client("order/edit", {
-        data: cleanObject(params),
-        method: "POST",
-      }),
-    useEditConfig(queryKey)
-  );
-};
-
-export const useDeleteOrder = (queryKey: QueryKey) => {
-  const client = useHttp();
-  return useMutation(
-    (ids: number[]) =>
-      client("order/delete", {
-        data: { ids },
-        method: "POST",
-      }),
-    useDeleteOrderConfig(queryKey)
+    useRejectConfig(queryKey)
   );
 };
 
@@ -103,5 +72,17 @@ export const useCancelOrder = (queryKey: QueryKey) => {
         method: "POST",
       }),
     useCancelOrderConfig(queryKey)
+  );
+};
+
+export const useDeleteOrder = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    (ids: number[]) =>
+      client("order/delete", {
+        data: { ids },
+        method: "POST",
+      }),
+    useDeleteOrderConfig(queryKey)
   );
 };

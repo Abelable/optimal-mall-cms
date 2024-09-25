@@ -266,9 +266,12 @@ export const OrderModal = ({ statusOptions }: { statusOptions: Option[] }) => {
             />
 
             <Divider orientation="left">费用信息</Divider>
-            <Descriptions size={"small"} layout="vertical" bordered>
+            <Descriptions size={"small"} layout="vertical" column={4} bordered>
               <Descriptions.Item label="商品合计">
                 ¥{orderInfo?.goodsPrice}
+              </Descriptions.Item>
+              <Descriptions.Item label="优惠券抵扣">
+                -¥{orderInfo?.couponDenomination}
               </Descriptions.Item>
               <Descriptions.Item label="运费">
                 ¥{orderInfo?.freightPrice}

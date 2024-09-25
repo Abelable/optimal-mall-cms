@@ -37,6 +37,7 @@ export interface Goods {
 export interface OrderDetail extends Order {
   goodsList: Goods[];
   goodsPrice: number;
+  couponDenomination: number;
   freightPrice: number;
   consignee: string;
   mobile: string;

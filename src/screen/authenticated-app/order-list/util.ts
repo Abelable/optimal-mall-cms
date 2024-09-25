@@ -82,3 +82,26 @@ export const useRejectModal = () => {
     close,
   };
 };
+
+export const useDeliveryModal = () => {
+  const [{ deliveryOrderId }, setRejectOrderId] = useUrlQueryParams([
+    "deliveryOrderId",
+  ]);
+  const setUrlParams = useSetUrlSearchParams();
+
+  const open = useCallback(
+    (id: number) => setRejectOrderId({ deliveryOrderId: `${id}` }),
+    [setRejectOrderId]
+  );
+  const close = useCallback(
+    () => setUrlParams({ deliveryOrderId: "" }),
+    [setUrlParams]
+  );
+
+  return {
+    deliveryModalOpen: !!deliveryOrderId,
+    deliveryOrderId,
+    open,
+    close,
+  };
+};
