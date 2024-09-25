@@ -59,3 +59,24 @@ export const useUserModal = () => {
     close,
   };
 };
+
+export const useBindModal = () => {
+  const [{ bindUserId }, setBindUserId] = useUrlQueryParams(["bindUserId"]);
+  const setUrlParams = useSetUrlSearchParams();
+
+  const open = useCallback(
+    (id: number) => setBindUserId({ bindUserId: `${id}` }),
+    [setBindUserId]
+  );
+  const close = useCallback(
+    () => setUrlParams({ bindUserId: "" }),
+    [setUrlParams]
+  );
+
+  return {
+    bindModalOpen: !!bindUserId,
+    bindUserId,
+    open,
+    close,
+  };
+};

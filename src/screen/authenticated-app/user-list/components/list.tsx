@@ -21,7 +21,7 @@ import { UserOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import { useDeleteUser } from "service/user";
-import { useUserModal, useUsersQueryKey } from "../util";
+import { useBindModal, useUserModal, useUsersQueryKey } from "../util";
 
 import type { SearchPanelProps } from "./search-panel";
 import type { User } from "types/user";
@@ -117,7 +117,7 @@ export const List = ({
           {
             title: "操作",
             render(value, user) {
-              return <More id={user.id} />;
+              return <More user={user} />;
             },
             width: "8rem",
           },
@@ -129,8 +129,9 @@ export const List = ({
   );
 };
 
-const More = ({ id }: { id: number }) => {
-  const { open } = useUserModal();
+const More = ({ user }: { user: User }) => {
+  const { open: openUserModal } = useUserModal();
+  const { open: openBindModal } = useBindModal();
   const { mutate: deleteUser } = useDeleteUser(useUsersQueryKey());
 
   const confirmDelete = (id: number) => {
@@ -143,16 +144,31 @@ const More = ({ id }: { id: number }) => {
     });
   };
 
-  const items: MenuProps["items"] = [
-    {
-      label: <div onClick={() => open(id)}>详情</div>,
-      key: "detail",
-    },
-    {
-      label: <div onClick={() => confirmDelete(id)}>删除</div>,
-      key: "delete",
-    },
-  ];
+  const items: MenuProps["items"] = !user.superiorId
+    ? [
+        {
+          label: <div onClick={() => openUserModal(user.id)}>详情</div>,
+          key: "detail",
+        },
+        {
+          label: <div onClick={() => openBindModal(user.id)}>绑定上级</div>,
+          key: "bind",
+        },
+        {
+          label: <div onClick={() => confirmDelete(user.id)}>删除</div>,
+          key: "delete",
+        },
+      ]
+    : [
+        {
+          label: <div onClick={() => openUserModal(user.id)}>详情</div>,
+          key: "detail",
+        },
+        {
+          label: <div onClick={() => confirmDelete(user.id)}>删除</div>,
+          key: "delete",
+        },
+      ];
 
   return (
     <Dropdown overlay={<Menu items={items} />}>

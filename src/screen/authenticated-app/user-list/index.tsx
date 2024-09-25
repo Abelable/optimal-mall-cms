@@ -1,6 +1,7 @@
 import { UserModal } from "./components/user-modal";
 import { List } from "./components/list";
 import { SearchPanel } from "./components/search-panel";
+import { BindModal } from "./components/bind-modal";
 
 import styled from "@emotion/styled";
 import { useUsers } from "service/user";
@@ -38,6 +39,7 @@ export const UserList = () => {
         />
       </Main>
       <UserModal />
+      <BindModal superiorOptions={superiorOptions} />
     </Container>
   );
 };

@@ -1,6 +1,6 @@
 import { QueryKey, useMutation, useQuery } from "react-query";
 import { useHttp } from "./http";
-import { useDeleteConfig } from "./use-optimistic-options";
+import { useDeleteConfig, useEditConfig } from "./use-optimistic-options";
 
 import type { User, UsersResult, UsersSearchParams } from "types/user";
 
@@ -19,6 +19,18 @@ export const useUser = (id: number) => {
     {
       enabled: !!id,
     }
+  );
+};
+
+export const useBindUser = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    (data: { userId: number; superiorId: number }) =>
+      client("user/bind_superior", {
+        data,
+        method: "POST",
+      }),
+    useEditConfig(queryKey)
   );
 };
 
