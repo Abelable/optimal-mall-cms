@@ -70,6 +70,18 @@ export const useCancelOrder = (queryKey: QueryKey) => {
   );
 };
 
+export const useConfirmOrder = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    (ids: number[]) =>
+      client("order/confirm", {
+        data: { ids },
+        method: "POST",
+      }),
+    useCancelOrderConfig(queryKey)
+  );
+};
+
 export const useDeleteOrder = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(

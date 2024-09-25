@@ -10,8 +10,8 @@ import {
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
 import dayjs from "dayjs";
-import { useCancelOrder, useDeleteOrder } from "service/order";
-import { useOrderModal, useOrderListQueryKey } from "../util";
+import { useCancelOrder, useConfirmOrder, useDeleteOrder } from "service/order";
+import { useOrderModal, useOrderListQueryKey, useDeliveryModal } from "../util";
 import { SearchPanelProps } from "./search-panel";
 
 import type { Order } from "types/order";
@@ -123,8 +123,10 @@ export const List = ({
 };
 
 const More = ({ id, status }: { id: number; status: number }) => {
-  const { open } = useOrderModal();
+  const { open: openOrderModal } = useOrderModal();
+  const { open: openDeliveryModal } = useDeliveryModal();
   const { mutate: cancelOrder } = useCancelOrder(useOrderListQueryKey());
+  const { mutate: confirmOrder } = useConfirmOrder(useOrderListQueryKey());
   const { mutate: deleteOrder } = useDeleteOrder(useOrderListQueryKey());
 
   const confirmCancel = (id: number) => {
@@ -134,6 +136,16 @@ const More = ({ id, status }: { id: number; status: number }) => {
       okText: "确定",
       cancelText: "取消",
       onOk: () => cancelOrder([id]),
+    });
+  };
+
+  const confirmReceived = (id: number) => {
+    Modal.confirm({
+      title: "确认收货之前，请核实物流信息",
+      content: "点击确定确认已收货",
+      okText: "确定",
+      cancelText: "取消",
+      onOk: () => confirmOrder([id]),
     });
   };
 
@@ -152,7 +164,7 @@ const More = ({ id, status }: { id: number; status: number }) => {
     case 101:
       items = [
         {
-          label: <div onClick={() => open(id)}>详情</div>,
+          label: <div onClick={() => openOrderModal(id)}>详情</div>,
           key: "detail",
         },
         {
@@ -167,7 +179,7 @@ const More = ({ id, status }: { id: number; status: number }) => {
     case 104:
       items = [
         {
-          label: <div onClick={() => open(id)}>详情</div>,
+          label: <div onClick={() => openOrderModal(id)}>详情</div>,
           key: "detail",
         },
         {
@@ -180,11 +192,11 @@ const More = ({ id, status }: { id: number; status: number }) => {
     case 201:
       items = [
         {
-          label: <div onClick={() => open(id)}>详情</div>,
+          label: <div onClick={() => openOrderModal(id)}>详情</div>,
           key: "detail",
         },
         {
-          label: <div onClick={() => open(id)}>发货</div>,
+          label: <div onClick={() => openDeliveryModal(id)}>发货</div>,
           key: "delivery",
         },
       ];
@@ -196,12 +208,16 @@ const More = ({ id, status }: { id: number; status: number }) => {
     case 501:
       items = [
         {
-          label: <div onClick={() => open(id)}>详情</div>,
+          label: <div onClick={() => openOrderModal(id)}>详情</div>,
           key: "detail",
         },
         {
-          label: <div onClick={() => open(id)}>物流</div>,
+          label: <div onClick={() => openOrderModal(id)}>物流</div>,
           key: "express",
+        },
+        {
+          label: <div onClick={() => confirmReceived(id)}>确认收货</div>,
+          key: "confirm",
         },
       ];
       break;
