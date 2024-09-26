@@ -356,35 +356,25 @@ export const Dashboard = () => {
               />
             </div>
           </ChartCard>
-          <ChartCard
-            title="礼包佣金"
-            bodyStyle={{ border: "none" }}
-            style={{ flex: 1, borderRadius: "0.8rem" }}
-          >
-            <Column
-              height={300}
-              data={salesData}
-              xField="x"
-              yField="y"
-              paddingBottom={12}
-              axis={{
-                x: {
-                  title: false,
-                },
-                y: {
-                  title: false,
-                  gridLineDash: null,
-                  gridStroke: "#ccc",
-                },
-              }}
-              scale={{
-                x: { paddingInner: 0.4 },
-              }}
-              tooltip={{
-                name: "销售量",
-                channel: "y",
-              }}
-            />
+          <ChartCard title="推广员类别占比" bodyStyle={{ border: "none" }}>
+            <div>
+              <Typography.Text>推广员</Typography.Text>
+              <Pie
+                height={340}
+                radius={0.8}
+                innerRadius={0.5}
+                angleField="y"
+                colorField="x"
+                data={salesPieData as any}
+                legend={false}
+                label={{
+                  position: "spider",
+                  text: (item: { x: number; y: number }) => {
+                    return `${item.x}: ${numeral(item.y).format("0,0")}`;
+                  },
+                }}
+              />
+            </div>
           </ChartCard>
         </CardList>
       </Main>
