@@ -185,14 +185,13 @@ export const Dashboard = () => {
               data={orderData}
             />
             <CardBottom>
-              <div style={{ marginRight: "0.8rem" }}>日订单数</div>
-              <Statistic
-                value={1242}
-                valueStyle={{
-                  color: "rgba(0, 0, 0, 0.85)",
-                  fontSize: "1.4rem",
-                }}
-              />
+              <Row style={{ marginRight: "1.6rem" }}>
+                周同比 12% <CaretUpOutlined style={{ color: "#f5222d" }} />
+              </Row>
+              <Row>
+                日同比 11%
+                <CaretDownOutlined style={{ color: "#52c41a" }} />
+              </Row>
             </CardBottom>
           </ChartCard>
           <ChartCard>
@@ -211,14 +210,13 @@ export const Dashboard = () => {
               scale={{ x: { paddingInner: 0.4 } }}
             />
             <CardBottom>
-              <div style={{ marginRight: "0.8rem" }}>日新增数</div>
-              <Statistic
-                value={1242}
-                valueStyle={{
-                  color: "rgba(0, 0, 0, 0.85)",
-                  fontSize: "1.4rem",
-                }}
-              />
+              <Row style={{ marginRight: "1.6rem" }}>
+                周同比 12% <CaretUpOutlined style={{ color: "#f5222d" }} />
+              </Row>
+              <Row>
+                日同比 11%
+                <CaretDownOutlined style={{ color: "#52c41a" }} />
+              </Row>
             </CardBottom>
           </ChartCard>
           <ChartCard>
@@ -237,14 +235,13 @@ export const Dashboard = () => {
               scale={{ x: { paddingInner: 0.4 } }}
             />
             <CardBottom>
-              <div style={{ marginRight: "0.8rem" }}>日新增数</div>
-              <Statistic
-                value={1242}
-                valueStyle={{
-                  color: "rgba(0, 0, 0, 0.85)",
-                  fontSize: "1.4rem",
-                }}
-              />
+              <Row style={{ marginRight: "1.6rem" }}>
+                周同比 12% <CaretUpOutlined style={{ color: "#f5222d" }} />
+              </Row>
+              <Row>
+                日同比 11%
+                <CaretDownOutlined style={{ color: "#52c41a" }} />
+              </Row>
             </CardBottom>
           </ChartCard>
         </CardList>
@@ -376,13 +373,6 @@ const ChartCard = styled.div`
 const StatisticDetail = styled.div`
   position: relative;
   height: 52px;
-`;
-const Comparison = styled.div`
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  display: flex;
-  width: 100%;
 `;
 const CardBottom = styled.div`
   display: flex;
