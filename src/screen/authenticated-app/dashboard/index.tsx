@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Button, Statistic, Tabs, DatePicker, Card, Typography } from "antd";
+import { Statistic, Card, Typography } from "antd";
 
 import { Area, Column, Pie } from "@ant-design/plots";
 import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
