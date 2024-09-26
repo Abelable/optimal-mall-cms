@@ -3,6 +3,7 @@ import { Button, Statistic, Tabs, DatePicker, Card } from "antd";
 
 import { Area, Column } from "@ant-design/plots";
 import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
+import _ from "lodash";
 
 export const Dashboard = () => {
   const orderData = [
@@ -132,7 +133,129 @@ export const Dashboard = () => {
       <Main>
         <CardList>
           <ChartCard>
-            <div style={{ padding: "2rem 2.4rem 0" }}></div>
+            <div style={{ padding: "2rem 2.4rem 0" }}>
+              <Statistic
+                title="总销售额"
+                value={1265560}
+                prefix="¥"
+                valueStyle={{ fontSize: "3rem" }}
+              />
+              <StatisticDetail>
+                <Area
+                  xField="x"
+                  yField="y"
+                  shapeField="smooth"
+                  height={46}
+                  axis={false}
+                  style={{
+                    fill: "linear-gradient(-90deg, white 0%, #975FE4 100%)",
+                    fillOpacity: 0.6,
+                    width: "100%",
+                  }}
+                  padding={-20}
+                  data={orderData}
+                />
+              </StatisticDetail>
+              <CardBottom>
+                <Row style={{ marginRight: "1.6rem" }}>
+                  周同比 12% <CaretUpOutlined style={{ color: "#f5222d" }} />
+                </Row>
+                <Row>
+                  日同比 11%
+                  <CaretDownOutlined style={{ color: "#52c41a" }} />
+                </Row>
+              </CardBottom>
+            </div>
+          </ChartCard>
+          <ChartCard>
+            <div style={{ padding: "2rem 2.4rem 0" }}>
+              <Statistic
+                title="订单总数"
+                value={8846}
+                valueStyle={{ fontSize: "3rem" }}
+              />
+              <Area
+                xField="x"
+                yField="y"
+                shapeField="smooth"
+                height={46}
+                axis={false}
+                style={{
+                  fill: "linear-gradient(-90deg, white 0%, #975FE4 100%)",
+                  fillOpacity: 0.6,
+                  width: "100%",
+                }}
+                padding={-20}
+                data={orderData}
+              />
+              <CardBottom>
+                <Row style={{ marginRight: "1.6rem" }}>
+                  周同比 12% <CaretUpOutlined style={{ color: "#f5222d" }} />
+                </Row>
+                <Row>
+                  日同比 11%
+                  <CaretDownOutlined style={{ color: "#52c41a" }} />
+                </Row>
+              </CardBottom>
+            </div>
+          </ChartCard>
+          <ChartCard>
+            <div style={{ padding: "2rem 2.4rem 0" }}>
+              <Statistic
+                title="用户总数"
+                value={6560}
+                valueStyle={{ fontSize: "3rem" }}
+              />
+              <Column
+                xField="x"
+                yField="y"
+                padding={-20}
+                axis={false}
+                height={46}
+                data={orderData}
+                scale={{ x: { paddingInner: 0.4 } }}
+              />
+              <CardBottom>
+                <Row style={{ marginRight: "1.6rem" }}>
+                  周同比 12% <CaretUpOutlined style={{ color: "#f5222d" }} />
+                </Row>
+                <Row>
+                  日同比 11%
+                  <CaretDownOutlined style={{ color: "#52c41a" }} />
+                </Row>
+              </CardBottom>
+            </div>
+          </ChartCard>
+          <ChartCard>
+            <div style={{ padding: "2rem 2.4rem 0" }}>
+              <Statistic
+                title="推广员总数"
+                value={1220}
+                valueStyle={{ fontSize: "3rem" }}
+              />
+              <Column
+                xField="x"
+                yField="y"
+                padding={-20}
+                axis={false}
+                height={46}
+                data={orderData}
+                scale={{ x: { paddingInner: 0.4 } }}
+              />
+              <CardBottom>
+                <Row style={{ marginRight: "1.6rem" }}>
+                  周同比 12% <CaretUpOutlined style={{ color: "#f5222d" }} />
+                </Row>
+                <Row>
+                  日同比 11%
+                  <CaretDownOutlined style={{ color: "#52c41a" }} />
+                </Row>
+              </CardBottom>
+            </div>
+          </ChartCard>
+        </CardList>
+        <CardList>
+          <ChartCard>
             <Statistic
               title="总销售额"
               value={1265560}
@@ -167,74 +290,27 @@ export const Dashboard = () => {
           </ChartCard>
           <ChartCard>
             <Statistic
-              title="订单总数"
-              value={8846}
+              title="总销售额"
+              value={1265560}
+              prefix="¥"
               valueStyle={{ fontSize: "3rem" }}
             />
-            <Area
-              xField="x"
-              yField="y"
-              shapeField="smooth"
-              height={46}
-              axis={false}
-              style={{
-                fill: "linear-gradient(-90deg, white 0%, #975FE4 100%)",
-                fillOpacity: 0.6,
-                width: "100%",
-              }}
-              padding={-20}
-              data={orderData}
-            />
-            <CardBottom>
-              <Row style={{ marginRight: "1.6rem" }}>
-                周同比 12% <CaretUpOutlined style={{ color: "#f5222d" }} />
-              </Row>
-              <Row>
-                日同比 11%
-                <CaretDownOutlined style={{ color: "#52c41a" }} />
-              </Row>
-            </CardBottom>
-          </ChartCard>
-          <ChartCard>
-            <Statistic
-              title="用户总数"
-              value={6560}
-              valueStyle={{ fontSize: "3rem" }}
-            />
-            <Column
-              xField="x"
-              yField="y"
-              padding={-20}
-              axis={false}
-              height={46}
-              data={orderData}
-              scale={{ x: { paddingInner: 0.4 } }}
-            />
-            <CardBottom>
-              <Row style={{ marginRight: "1.6rem" }}>
-                周同比 12% <CaretUpOutlined style={{ color: "#f5222d" }} />
-              </Row>
-              <Row>
-                日同比 11%
-                <CaretDownOutlined style={{ color: "#52c41a" }} />
-              </Row>
-            </CardBottom>
-          </ChartCard>
-          <ChartCard>
-            <Statistic
-              title="推广员总数"
-              value={1220}
-              valueStyle={{ fontSize: "3rem" }}
-            />
-            <Column
-              xField="x"
-              yField="y"
-              padding={-20}
-              axis={false}
-              height={46}
-              data={orderData}
-              scale={{ x: { paddingInner: 0.4 } }}
-            />
+            <StatisticDetail>
+              <Area
+                xField="x"
+                yField="y"
+                shapeField="smooth"
+                height={46}
+                axis={false}
+                style={{
+                  fill: "linear-gradient(-90deg, white 0%, #975FE4 100%)",
+                  fillOpacity: 0.6,
+                  width: "100%",
+                }}
+                padding={-20}
+                data={orderData}
+              />
+            </StatisticDetail>
             <CardBottom>
               <Row style={{ marginRight: "1.6rem" }}>
                 周同比 12% <CaretUpOutlined style={{ color: "#f5222d" }} />
