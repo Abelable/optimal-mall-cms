@@ -1,15 +1,15 @@
 import { Descriptions, Drawer, Image } from "antd";
 import { ErrorBox, ModalLoading } from "components/lib";
-import { useAuthInfoModal } from "../util";
+import { useEnterpriseInfoModal } from "../util";
 
-export const AuthInfoModal = () => {
-  const { close, merchantModalOpen, editingAuthInfo, error, isLoading } =
-    useAuthInfoModal();
+export const EnterpriseInfoModal = () => {
+  const { close, merchantModalOpen, editingEnterpriseInfo, error, isLoading } =
+    useEnterpriseInfoModal();
 
   return (
     <Drawer
       forceRender={true}
-      title="实名认证信息"
+      title="企业认证信息"
       size={"large"}
       onClose={close}
       open={merchantModalOpen}
@@ -28,36 +28,39 @@ export const AuthInfoModal = () => {
             bordered
           >
             <Descriptions.Item label="ID">
-              {editingAuthInfo?.id}
+              {editingEnterpriseInfo?.id}
             </Descriptions.Item>
             <Descriptions.Item label="姓名">
-              {editingAuthInfo?.name}
+              {editingEnterpriseInfo?.name}
             </Descriptions.Item>
-            <Descriptions.Item label="手机号">
-              {editingAuthInfo?.mobile}
+            <Descriptions.Item label="银行名称">
+              {editingEnterpriseInfo?.bankName}
             </Descriptions.Item>
-            <Descriptions.Item label="身份证号">
-              {editingAuthInfo?.idCardNumber}
+            <Descriptions.Item label="银行卡号">
+              {editingEnterpriseInfo?.bankCardCode}
+            </Descriptions.Item>
+            <Descriptions.Item label="银行地址">
+              {editingEnterpriseInfo?.bankAddress}
+            </Descriptions.Item>
+            <Descriptions.Item label="营业执照照片">
+              <Image
+                width={132}
+                height={84}
+                src={editingEnterpriseInfo?.businessLicensePhoto}
+              />
             </Descriptions.Item>
             <Descriptions.Item label="身份证正面照片">
               <Image
                 width={132}
                 height={84}
-                src={editingAuthInfo?.idCardFrontPhoto}
+                src={editingEnterpriseInfo?.idCardFrontPhoto}
               />
             </Descriptions.Item>
             <Descriptions.Item label="身份证反面照片">
               <Image
                 width={132}
                 height={84}
-                src={editingAuthInfo?.idCardFrontPhoto}
-              />
-            </Descriptions.Item>
-            <Descriptions.Item label="手持身份证照片">
-              <Image
-                width={132}
-                height={84}
-                src={editingAuthInfo?.holdIdCardPhoto}
+                src={editingEnterpriseInfo?.idCardFrontPhoto}
               />
             </Descriptions.Item>
           </Descriptions>

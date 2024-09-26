@@ -8,6 +8,7 @@ const breadcrumbNameMap: { [key: string]: string } = {
   "/team": "乡村振兴",
   "/team/promoter_list": "推广员列表",
   "/team/auth_info_list": "实名认证",
+  "/team/enterprise_info_list": "企业认证",
   "/team/livestock_list": "认养专区",
   "/team/gift_goods_list": "礼包专区",
   "/activity": "活动管理",

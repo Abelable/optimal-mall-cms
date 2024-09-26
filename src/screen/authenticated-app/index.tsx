@@ -41,6 +41,7 @@ import { Dashboard } from "./dashboard";
 import { UserList } from "./user-list";
 import { PromoterList } from "./team/promoter-list";
 import { AuthInfoList } from "./team/auth-info-list";
+import { EnterpriseInfoList } from "./team/enterprise-info-list";
 import { LivestockList } from "./team/livestock-list";
 import { GiftGoodsList } from "./team/gift-goods-list";
 import { HomeBannerList } from "./activity-management/home-banner-list";
@@ -84,6 +85,10 @@ export const AuthenticatedApp = () => {
               <Route path="user_list" element={<UserList />} />
               <Route path="team/promoter_list" element={<PromoterList />} />
               <Route path="team/auth_info_list" element={<AuthInfoList />} />
+              <Route
+                path="team/enterprise_info_list"
+                element={<EnterpriseInfoList />}
+              />
               <Route path="team/livestock_list" element={<LivestockList />} />
               <Route path="team/gift_goods_list" element={<GiftGoodsList />} />
               <Route
@@ -152,6 +157,11 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
         {
           label: <Link to={"team/auth_info_list"}>实名认证</Link>,
           key: "team_auth_info_list",
+          icon: <VerifiedOutlined />,
+        },
+        {
+          label: <Link to={"team/enterprise_info_list"}>企业认证</Link>,
+          key: "team_enterprise_info_list",
           icon: <VerifiedOutlined />,
         },
         {
