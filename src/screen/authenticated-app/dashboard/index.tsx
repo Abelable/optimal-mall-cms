@@ -132,6 +132,7 @@ export const Dashboard = () => {
       <Main>
         <CardList>
           <ChartCard>
+            <div style={{ padding: "2rem 2.4rem 0" }}></div>
             <Statistic
               title="总销售额"
               value={1265560}
@@ -245,40 +246,25 @@ export const Dashboard = () => {
             </CardBottom>
           </ChartCard>
         </CardList>
-        {/* <Card
+        <Card
           bordered={false}
           bodyStyle={{
             padding: 0,
           }}
+          style={{
+            marginTop: "2.4rem",
+            borderRadius: "0.8rem",
+          }}
         >
           <div>
             <Tabs
-              tabBarExtraContent={
-                <div>
-                  <div>
-                    <Button>今日</Button>
-                    <Button>本周</Button>
-                    <Button>本月</Button>
-                    <Button>本年</Button>
-                  </div>
-                  <DatePicker.RangePicker
-                    style={{
-                      width: 256,
-                    }}
-                  />
-                </div>
-              }
               size="large"
-              tabBarStyle={{
-                marginBottom: 24,
-              }}
               items={[
                 {
                   key: "sales",
                   label: "销售额",
                   children: (
                     <Column
-                      width={'100%'}
                       height={300}
                       data={salesData}
                       xField="x"
@@ -335,7 +321,7 @@ export const Dashboard = () => {
               ]}
             />
           </div>
-        </Card> */}
+        </Card>
       </Main>
     </Container>
   );
@@ -343,6 +329,7 @@ export const Dashboard = () => {
 
 const Container = styled.div`
   position: relative;
+  width: 100%;
   height: 100%;
 `;
 
@@ -362,12 +349,14 @@ const CardList = styled.div`
 `;
 const ChartCard = styled.div`
   margin-right: 2.4rem;
-  padding: 2rem 2.4rem 0;
   flex: 1;
   background: #fff;
   border-radius: 0.8rem;
   &:last-child {
     margin-right: 0;
+  }
+  canvas {
+    width: 100% !important;
   }
 `;
 const StatisticDetail = styled.div`
