@@ -1,9 +1,81 @@
 import styled from "@emotion/styled";
 import { Statistic } from "antd";
 
+import { Area, Column } from "@ant-design/plots";
 import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
 
 export const Dashboard = () => {
+  const orderData = [
+    {
+      x: "2024-09-26",
+      y: 7,
+    },
+    {
+      x: "2024-09-27",
+      y: 5,
+    },
+    {
+      x: "2024-09-28",
+      y: 4,
+    },
+    {
+      x: "2024-09-29",
+      y: 2,
+    },
+    {
+      x: "2024-09-30",
+      y: 4,
+    },
+    {
+      x: "2024-10-01",
+      y: 7,
+    },
+    {
+      x: "2024-10-02",
+      y: 5,
+    },
+    {
+      x: "2024-10-03",
+      y: 6,
+    },
+    {
+      x: "2024-10-04",
+      y: 5,
+    },
+    {
+      x: "2024-10-05",
+      y: 9,
+    },
+    {
+      x: "2024-10-06",
+      y: 6,
+    },
+    {
+      x: "2024-10-07",
+      y: 3,
+    },
+    {
+      x: "2024-10-08",
+      y: 1,
+    },
+    {
+      x: "2024-10-09",
+      y: 5,
+    },
+    {
+      x: "2024-10-10",
+      y: 3,
+    },
+    {
+      x: "2024-10-11",
+      y: 6,
+    },
+    {
+      x: "2024-10-12",
+      y: 5,
+    },
+  ];
+
   return (
     <Container>
       <Main>
@@ -44,7 +116,20 @@ export const Dashboard = () => {
               value={8846}
               valueStyle={{ fontSize: "3rem" }}
             />
-            <StatisticDetail></StatisticDetail>
+            <Area
+              xField="x"
+              yField="y"
+              shapeField="smooth"
+              height={46}
+              axis={false}
+              style={{
+                fill: "linear-gradient(-90deg, white 0%, #975FE4 100%)",
+                fillOpacity: 0.6,
+                width: "100%",
+              }}
+              padding={-20}
+              data={orderData}
+            />
             <CardBottom>
               <div style={{ marginRight: "0.8rem" }}>日订单数</div>
               <Statistic
@@ -62,7 +147,15 @@ export const Dashboard = () => {
               value={6560}
               valueStyle={{ fontSize: "3rem" }}
             />
-            <StatisticDetail></StatisticDetail>
+            <Column
+              xField="x"
+              yField="y"
+              padding={-20}
+              axis={false}
+              height={46}
+              data={orderData}
+              scale={{ x: { paddingInner: 0.4 } }}
+            />
             <CardBottom>
               <div style={{ marginRight: "0.8rem" }}>当日新增</div>
               <Statistic
@@ -80,7 +173,15 @@ export const Dashboard = () => {
               value={1220}
               valueStyle={{ fontSize: "3rem" }}
             />
-            <StatisticDetail></StatisticDetail>
+            <Column
+              xField="x"
+              yField="y"
+              padding={-20}
+              axis={false}
+              height={46}
+              data={orderData}
+              scale={{ x: { paddingInner: 0.4 } }}
+            />
             <CardBottom>
               <div style={{ marginRight: "0.8rem" }}>当日新增</div>
               <Statistic
@@ -129,8 +230,7 @@ const Card = styled.div`
 `;
 const StatisticDetail = styled.div`
   position: relative;
-
-  height: 4.6rem;
+  height: 46px;
 `;
 const Comparison = styled.div`
   position: absolute;
