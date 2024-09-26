@@ -139,26 +139,29 @@ export const Dashboard = () => {
               valueStyle={{ fontSize: "3rem" }}
             />
             <StatisticDetail>
-              <Comparison>
-                <Row style={{ marginRight: "1.6rem" }}>
-                  周同比 12% <CaretUpOutlined style={{ color: "#f5222d" }} />
-                </Row>
-                <Row>
-                  日同比 11%
-                  <CaretDownOutlined style={{ color: "#52c41a" }} />
-                </Row>
-              </Comparison>
+              <Area
+                xField="x"
+                yField="y"
+                shapeField="smooth"
+                height={46}
+                axis={false}
+                style={{
+                  fill: "linear-gradient(-90deg, white 0%, #975FE4 100%)",
+                  fillOpacity: 0.6,
+                  width: "100%",
+                }}
+                padding={-20}
+                data={orderData}
+              />
             </StatisticDetail>
             <CardBottom>
-              <div style={{ marginRight: "0.8rem" }}>日销售额</div>
-              <Statistic
-                value={12423}
-                prefix="¥"
-                valueStyle={{
-                  color: "rgba(0, 0, 0, 0.85)",
-                  fontSize: "1.4rem",
-                }}
-              />
+              <Row style={{ marginRight: "1.6rem" }}>
+                周同比 12% <CaretUpOutlined style={{ color: "#f5222d" }} />
+              </Row>
+              <Row>
+                日同比 11%
+                <CaretDownOutlined style={{ color: "#52c41a" }} />
+              </Row>
             </CardBottom>
           </ChartCard>
           <ChartCard>
@@ -245,7 +248,7 @@ export const Dashboard = () => {
             </CardBottom>
           </ChartCard>
         </CardList>
-        <Card
+        {/* <Card
           bordered={false}
           bodyStyle={{
             padding: 0,
@@ -278,6 +281,7 @@ export const Dashboard = () => {
                   label: "销售额",
                   children: (
                     <Column
+                      width={'100%'}
                       height={300}
                       data={salesData}
                       xField="x"
@@ -334,7 +338,7 @@ export const Dashboard = () => {
               ]}
             />
           </div>
-        </Card>
+        </Card> */}
       </Main>
     </Container>
   );
