@@ -132,7 +132,7 @@ export const Dashboard = () => {
     <Container>
       <Main>
         <CardList>
-          <ChartCard>
+          <StatisticCard>
             <div style={{ padding: "2rem 2.4rem 0" }}>
               <Statistic
                 title="总销售额"
@@ -166,8 +166,8 @@ export const Dashboard = () => {
                 </Row>
               </CardBottom>
             </div>
-          </ChartCard>
-          <ChartCard>
+          </StatisticCard>
+          <StatisticCard>
             <div style={{ padding: "2rem 2.4rem 0" }}>
               <Statistic
                 title="订单总数"
@@ -198,8 +198,8 @@ export const Dashboard = () => {
                 </Row>
               </CardBottom>
             </div>
-          </ChartCard>
-          <ChartCard>
+          </StatisticCard>
+          <StatisticCard>
             <div style={{ padding: "2rem 2.4rem 0" }}>
               <Statistic
                 title="用户总数"
@@ -225,8 +225,8 @@ export const Dashboard = () => {
                 </Row>
               </CardBottom>
             </div>
-          </ChartCard>
-          <ChartCard>
+          </StatisticCard>
+          <StatisticCard>
             <div style={{ padding: "2rem 2.4rem 0" }}>
               <Statistic
                 title="推广员总数"
@@ -252,152 +252,70 @@ export const Dashboard = () => {
                 </Row>
               </CardBottom>
             </div>
-          </ChartCard>
+          </StatisticCard>
         </CardList>
         <CardList>
-          <ChartCard>
-            <Statistic
-              title="总销售额"
-              value={1265560}
-              prefix="¥"
-              valueStyle={{ fontSize: "3rem" }}
+          <ChartCard
+            title="商品佣金"
+            bodyStyle={{ border: "none" }}
+            style={{ marginRight: "2.4rem", flex: 1, borderRadius: "0.8rem" }}
+          >
+            <Column
+              height={300}
+              data={salesData}
+              xField="x"
+              yField="y"
+              paddingBottom={12}
+              axis={{
+                x: {
+                  title: false,
+                },
+                y: {
+                  title: false,
+                  gridLineDash: null,
+                  gridStroke: "#ccc",
+                },
+              }}
+              scale={{
+                x: { paddingInner: 0.4 },
+              }}
+              tooltip={{
+                name: "销售量",
+                channel: "y",
+              }}
             />
-            <StatisticDetail>
-              <Area
-                xField="x"
-                yField="y"
-                shapeField="smooth"
-                height={46}
-                axis={false}
-                style={{
-                  fill: "linear-gradient(-90deg, white 0%, #975FE4 100%)",
-                  fillOpacity: 0.6,
-                  width: "100%",
-                }}
-                padding={-20}
-                data={orderData}
-              />
-            </StatisticDetail>
-            <CardBottom>
-              <Row style={{ marginRight: "1.6rem" }}>
-                周同比 12% <CaretUpOutlined style={{ color: "#f5222d" }} />
-              </Row>
-              <Row>
-                日同比 11%
-                <CaretDownOutlined style={{ color: "#52c41a" }} />
-              </Row>
-            </CardBottom>
           </ChartCard>
-          <ChartCard>
-            <Statistic
-              title="总销售额"
-              value={1265560}
-              prefix="¥"
-              valueStyle={{ fontSize: "3rem" }}
+          <ChartCard
+            title="礼包佣金"
+            bodyStyle={{ border: "none" }}
+            style={{ flex: 1, borderRadius: "0.8rem" }}
+          >
+            <Column
+              height={300}
+              data={salesData}
+              xField="x"
+              yField="y"
+              paddingBottom={12}
+              axis={{
+                x: {
+                  title: false,
+                },
+                y: {
+                  title: false,
+                  gridLineDash: null,
+                  gridStroke: "#ccc",
+                },
+              }}
+              scale={{
+                x: { paddingInner: 0.4 },
+              }}
+              tooltip={{
+                name: "销售量",
+                channel: "y",
+              }}
             />
-            <StatisticDetail>
-              <Area
-                xField="x"
-                yField="y"
-                shapeField="smooth"
-                height={46}
-                axis={false}
-                style={{
-                  fill: "linear-gradient(-90deg, white 0%, #975FE4 100%)",
-                  fillOpacity: 0.6,
-                  width: "100%",
-                }}
-                padding={-20}
-                data={orderData}
-              />
-            </StatisticDetail>
-            <CardBottom>
-              <Row style={{ marginRight: "1.6rem" }}>
-                周同比 12% <CaretUpOutlined style={{ color: "#f5222d" }} />
-              </Row>
-              <Row>
-                日同比 11%
-                <CaretDownOutlined style={{ color: "#52c41a" }} />
-              </Row>
-            </CardBottom>
           </ChartCard>
         </CardList>
-        <Card
-          bordered={false}
-          bodyStyle={{
-            padding: 0,
-          }}
-          style={{
-            marginTop: "2.4rem",
-            borderRadius: "0.8rem",
-          }}
-        >
-          <div>
-            <Tabs
-              size="large"
-              items={[
-                {
-                  key: "sales",
-                  label: "销售额",
-                  children: (
-                    <Column
-                      height={300}
-                      data={salesData}
-                      xField="x"
-                      yField="y"
-                      paddingBottom={12}
-                      axis={{
-                        x: {
-                          title: false,
-                        },
-                        y: {
-                          title: false,
-                          gridLineDash: null,
-                          gridStroke: "#ccc",
-                        },
-                      }}
-                      scale={{
-                        x: { paddingInner: 0.4 },
-                      }}
-                      tooltip={{
-                        name: "销售量",
-                        channel: "y",
-                      }}
-                    />
-                  ),
-                },
-                {
-                  key: "views",
-                  label: "访问量",
-                  children: (
-                    <Column
-                      height={300}
-                      data={salesData}
-                      xField="x"
-                      yField="y"
-                      paddingBottom={12}
-                      axis={{
-                        x: {
-                          title: false,
-                        },
-                        y: {
-                          title: false,
-                        },
-                      }}
-                      scale={{
-                        x: { paddingInner: 0.4 },
-                      }}
-                      tooltip={{
-                        name: "访问量",
-                        channel: "y",
-                      }}
-                    />
-                  ),
-                },
-              ]}
-            />
-          </div>
-        </Card>
       </Main>
     </Container>
   );
@@ -422,8 +340,9 @@ const Row = styled.div`
 
 const CardList = styled.div`
   display: flex;
+  margin-bottom: 2.4rem;
 `;
-const ChartCard = styled.div`
+const StatisticCard = styled.div`
   margin-right: 2.4rem;
   flex: 1;
   background: #fff;
@@ -445,4 +364,16 @@ const CardBottom = styled.div`
   margin-top: 1.2rem;
   padding: 0.9rem 0;
   border-top: 1px solid rgba(5, 5, 5, 0.06);
+`;
+
+const ChartCard = styled(Card)`
+  margin-right: 2.4rem;
+  flex: 1;
+  border-radius: 0.8rem;
+  &:last-child {
+    margin-right: 0;
+  }
+  canvas {
+    width: 100% !important;
+  }
 `;
