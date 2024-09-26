@@ -4,6 +4,7 @@ import { Statistic, Card, Typography } from "antd";
 import { Area, Column, Pie } from "@ant-design/plots";
 import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
 import numeral from "numeral";
+import { forEach, groupBy } from "lodash";
 
 export const Dashboard = () => {
   const orderData = [
@@ -81,52 +82,144 @@ export const Dashboard = () => {
     {
       x: "1月",
       y: 703,
+      type: "pending",
     },
     {
       x: "2月",
       y: 393,
+      type: "pending",
     },
     {
       x: "3月",
       y: 244,
+      type: "pending",
     },
     {
       x: "4月",
       y: 621,
+      type: "pending",
     },
     {
       x: "5月",
       y: 812,
+      type: "pending",
     },
     {
       x: "6月",
       y: 979,
+      type: "pending",
     },
     {
       x: "7月",
       y: 941,
+      type: "pending",
     },
     {
       x: "8月",
       y: 1189,
+      type: "pending",
     },
     {
       x: "9月",
       y: 948,
+      type: "pending",
     },
     {
       x: "10月",
       y: 1146,
+      type: "pending",
     },
     {
       x: "11月",
       y: 284,
+      type: "pending",
     },
     {
       x: "12月",
       y: 1194,
+      type: "pending",
+    },
+    {
+      x: "1月",
+      y: 703,
+      type: "settled",
+    },
+    {
+      x: "2月",
+      y: 393,
+      type: "settled",
+    },
+    {
+      x: "3月",
+      y: 244,
+      type: "settled",
+    },
+    {
+      x: "4月",
+      y: 621,
+      type: "settled",
+    },
+    {
+      x: "5月",
+      y: 812,
+      type: "settled",
+    },
+    {
+      x: "6月",
+      y: 979,
+      type: "settled",
+    },
+    {
+      x: "7月",
+      y: 941,
+      type: "settled",
+    },
+    {
+      x: "8月",
+      y: 1189,
+      type: "settled",
+    },
+    {
+      x: "9月",
+      y: 948,
+      type: "settled",
+    },
+    {
+      x: "10月",
+      y: 1146,
+      type: "settled",
+    },
+    {
+      x: "11月",
+      y: 284,
+      type: "settled",
+    },
+    {
+      x: "12月",
+      y: 1194,
+      type: "settled",
     },
   ];
+
+  const annotations: any = [];
+  forEach(groupBy(salesData, "x"), (values, k) => {
+    const value = values.reduce((a, b) => a + b.y, 0);
+    annotations.push({
+      type: "text",
+      data: [k, value],
+      style: {
+        textAlign: "center",
+        fontSize: 14,
+        fill: "rgba(0,0,0,0.85)",
+        text: `${value}`,
+        textBaseline: "bottom",
+        position: "top",
+      },
+      xField: "x",
+      yField: "value",
+      tooltip: false,
+    });
+  });
 
   const salesPieData = [
     {
@@ -288,6 +381,14 @@ export const Dashboard = () => {
               data={salesData}
               xField="x"
               yField="y"
+              colorField="type"
+              label={{
+                text: "y",
+                textBaseline: "bottom",
+                position: "inside",
+              }}
+              stack
+              annotations={annotations}
               paddingBottom={12}
               axis={{
                 x: {
@@ -314,6 +415,14 @@ export const Dashboard = () => {
               data={salesData}
               xField="x"
               yField="y"
+              colorField="type"
+              label={{
+                text: "y",
+                textBaseline: "bottom",
+                position: "inside",
+              }}
+              stack
+              annotations={annotations}
               paddingBottom={12}
               axis={{
                 x: {
