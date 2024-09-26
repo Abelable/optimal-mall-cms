@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Statistic } from "antd";
+import { Button, Statistic, Tabs, DatePicker, Card } from "antd";
 
 import { Area, Column } from "@ant-design/plots";
 import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
@@ -76,11 +76,62 @@ export const Dashboard = () => {
     },
   ];
 
+  const salesData = [
+    {
+      x: "1月",
+      y: 703,
+    },
+    {
+      x: "2月",
+      y: 393,
+    },
+    {
+      x: "3月",
+      y: 244,
+    },
+    {
+      x: "4月",
+      y: 621,
+    },
+    {
+      x: "5月",
+      y: 812,
+    },
+    {
+      x: "6月",
+      y: 979,
+    },
+    {
+      x: "7月",
+      y: 941,
+    },
+    {
+      x: "8月",
+      y: 1189,
+    },
+    {
+      x: "9月",
+      y: 948,
+    },
+    {
+      x: "10月",
+      y: 1146,
+    },
+    {
+      x: "11月",
+      y: 284,
+    },
+    {
+      x: "12月",
+      y: 1194,
+    },
+  ];
+
   return (
     <Container>
       <Main>
         <CardList>
-          <Card>
+          <ChartCard>
             <Statistic
               title="总销售额"
               value={1265560}
@@ -109,8 +160,8 @@ export const Dashboard = () => {
                 }}
               />
             </CardBottom>
-          </Card>
-          <Card>
+          </ChartCard>
+          <ChartCard>
             <Statistic
               title="订单总数"
               value={8846}
@@ -140,8 +191,8 @@ export const Dashboard = () => {
                 }}
               />
             </CardBottom>
-          </Card>
-          <Card>
+          </ChartCard>
+          <ChartCard>
             <Statistic
               title="用户总数"
               value={6560}
@@ -157,7 +208,7 @@ export const Dashboard = () => {
               scale={{ x: { paddingInner: 0.4 } }}
             />
             <CardBottom>
-              <div style={{ marginRight: "0.8rem" }}>当日新增</div>
+              <div style={{ marginRight: "0.8rem" }}>日新增数</div>
               <Statistic
                 value={1242}
                 valueStyle={{
@@ -166,8 +217,8 @@ export const Dashboard = () => {
                 }}
               />
             </CardBottom>
-          </Card>
-          <Card>
+          </ChartCard>
+          <ChartCard>
             <Statistic
               title="推广员总数"
               value={1220}
@@ -183,7 +234,7 @@ export const Dashboard = () => {
               scale={{ x: { paddingInner: 0.4 } }}
             />
             <CardBottom>
-              <div style={{ marginRight: "0.8rem" }}>当日新增</div>
+              <div style={{ marginRight: "0.8rem" }}>日新增数</div>
               <Statistic
                 value={1242}
                 valueStyle={{
@@ -192,8 +243,98 @@ export const Dashboard = () => {
                 }}
               />
             </CardBottom>
-          </Card>
+          </ChartCard>
         </CardList>
+        <Card
+          bordered={false}
+          bodyStyle={{
+            padding: 0,
+          }}
+        >
+          <div>
+            <Tabs
+              tabBarExtraContent={
+                <div>
+                  <div>
+                    <Button>今日</Button>
+                    <Button>本周</Button>
+                    <Button>本月</Button>
+                    <Button>本年</Button>
+                  </div>
+                  <DatePicker.RangePicker
+                    style={{
+                      width: 256,
+                    }}
+                  />
+                </div>
+              }
+              size="large"
+              tabBarStyle={{
+                marginBottom: 24,
+              }}
+              items={[
+                {
+                  key: "sales",
+                  label: "销售额",
+                  children: (
+                    <Column
+                      height={300}
+                      data={salesData}
+                      xField="x"
+                      yField="y"
+                      paddingBottom={12}
+                      axis={{
+                        x: {
+                          title: false,
+                        },
+                        y: {
+                          title: false,
+                          gridLineDash: null,
+                          gridStroke: "#ccc",
+                        },
+                      }}
+                      scale={{
+                        x: { paddingInner: 0.4 },
+                      }}
+                      tooltip={{
+                        name: "销售量",
+                        channel: "y",
+                      }}
+                    />
+                  ),
+                },
+                {
+                  key: "views",
+                  label: "访问量",
+                  children: (
+                    <Column
+                      height={300}
+                      data={salesData}
+                      xField="x"
+                      yField="y"
+                      paddingBottom={12}
+                      axis={{
+                        x: {
+                          title: false,
+                        },
+                        y: {
+                          title: false,
+                        },
+                      }}
+                      scale={{
+                        x: { paddingInner: 0.4 },
+                      }}
+                      tooltip={{
+                        name: "访问量",
+                        channel: "y",
+                      }}
+                    />
+                  ),
+                },
+              ]}
+            />
+          </div>
+        </Card>
       </Main>
     </Container>
   );
@@ -218,7 +359,7 @@ const Row = styled.div`
 const CardList = styled.div`
   display: flex;
 `;
-const Card = styled.div`
+const ChartCard = styled.div`
   margin-right: 2.4rem;
   padding: 2rem 2.4rem 0;
   flex: 1;
@@ -230,7 +371,7 @@ const Card = styled.div`
 `;
 const StatisticDetail = styled.div`
   position: relative;
-  height: 46px;
+  height: 52px;
 `;
 const Comparison = styled.div`
   position: absolute;
@@ -243,6 +384,6 @@ const CardBottom = styled.div`
   display: flex;
   align-items: center;
   margin-top: 1.2rem;
-  padding: 1rem 0;
+  padding: 0.9rem 0;
   border-top: 1px solid rgba(5, 5, 5, 0.06);
 `;
