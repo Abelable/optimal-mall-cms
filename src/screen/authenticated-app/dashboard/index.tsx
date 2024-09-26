@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
-import { Button, Statistic, Tabs, DatePicker, Card } from "antd";
+import { Button, Statistic, Tabs, DatePicker, Card, Typography } from "antd";
 
-import { Area, Column } from "@ant-design/plots";
+import { Area, Column, Pie } from "@ant-design/plots";
 import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
-import _ from "lodash";
+import numeral from "numeral";
 
 export const Dashboard = () => {
   const orderData = [
@@ -125,6 +125,33 @@ export const Dashboard = () => {
     {
       x: "12月",
       y: 1194,
+    },
+  ];
+
+  const salesPieData = [
+    {
+      x: "家用电器",
+      y: 4544,
+    },
+    {
+      x: "食用酒水",
+      y: 3321,
+    },
+    {
+      x: "个护健康",
+      y: 3113,
+    },
+    {
+      x: "服饰箱包",
+      y: 2341,
+    },
+    {
+      x: "母婴产品",
+      y: 1231,
+    },
+    {
+      x: "其他",
+      y: 1231,
     },
   ];
 
@@ -255,11 +282,7 @@ export const Dashboard = () => {
           </StatisticCard>
         </CardList>
         <CardList>
-          <ChartCard
-            title="商品佣金"
-            bodyStyle={{ border: "none" }}
-            style={{ marginRight: "2.4rem", flex: 1, borderRadius: "0.8rem" }}
-          >
+          <ChartCard title="商品佣金" bodyStyle={{ border: "none" }}>
             <Column
               height={300}
               data={salesData}
@@ -284,6 +307,54 @@ export const Dashboard = () => {
                 channel: "y",
               }}
             />
+          </ChartCard>
+          <ChartCard title="礼包佣金" bodyStyle={{ border: "none" }}>
+            <Column
+              height={300}
+              data={salesData}
+              xField="x"
+              yField="y"
+              paddingBottom={12}
+              axis={{
+                x: {
+                  title: false,
+                },
+                y: {
+                  title: false,
+                  gridLineDash: null,
+                  gridStroke: "#ccc",
+                },
+              }}
+              scale={{
+                x: { paddingInner: 0.4 },
+              }}
+              tooltip={{
+                name: "销售量",
+                channel: "y",
+              }}
+            />
+          </ChartCard>
+        </CardList>
+        <CardList>
+          <ChartCard title="销售额类别占比" bodyStyle={{ border: "none" }}>
+            <div>
+              <Typography.Text>销售额</Typography.Text>
+              <Pie
+                height={340}
+                radius={0.8}
+                innerRadius={0.5}
+                angleField="y"
+                colorField="x"
+                data={salesPieData as any}
+                legend={false}
+                label={{
+                  position: "spider",
+                  text: (item: { x: number; y: number }) => {
+                    return `${item.x}: ${numeral(item.y).format("0,0")}`;
+                  },
+                }}
+              />
+            </div>
           </ChartCard>
           <ChartCard
             title="礼包佣金"
