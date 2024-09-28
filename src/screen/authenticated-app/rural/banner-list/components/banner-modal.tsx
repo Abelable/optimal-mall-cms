@@ -88,11 +88,7 @@ export const BannerModal = ({ sceneOptions }: { sceneOptions: Option[] }) => {
           </Row>
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item
-                name="scene"
-                label="活动跳转场景"
-                rules={[{ required: true, message: "请选择活动跳转场景" }]}
-              >
+              <Form.Item name="scene" label="活动跳转场景">
                 <Select placeholder="请选择活动跳转场景">
                   {sceneOptions.map((item) => (
                     <Select.Option key={item.value} value={item.value}>
@@ -103,11 +99,7 @@ export const BannerModal = ({ sceneOptions }: { sceneOptions: Option[] }) => {
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item
-                name="param"
-                label="活动链接/id"
-                rules={[{ required: true, message: "请输入活动链接/id" }]}
-              >
+              <Form.Item name="param" label="活动链接/id">
                 <Input placeholder="请输入活动链接/id" />
               </Form.Item>
             </Col>
