@@ -94,17 +94,19 @@ export const RefundModal = ({ statusOptions }: { statusOptions: Option[] }) => {
               }
             </Descriptions.Item>
             <Descriptions.Item label="快递单号">
-              refundInfo?.shipSn ?{" "}
-              <>
-                {refundInfo?.shipSn}{" "}
-                <Button
-                  type="link"
-                  onClick={() => openShippingModal(refundInfo?.id as number)}
-                >
-                  查看物流
-                </Button>
-              </>
-              : <></>
+              {refundInfo?.shipSn ? (
+                <>
+                  {refundInfo?.shipSn}{" "}
+                  <Button
+                    type="link"
+                    onClick={() => openShippingModal(refundInfo?.id as number)}
+                  >
+                    查看物流
+                  </Button>
+                </>
+              ) : (
+                <></>
+              )}
             </Descriptions.Item>
           </Descriptions>
         </>
