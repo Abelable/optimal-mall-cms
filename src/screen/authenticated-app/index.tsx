@@ -33,6 +33,7 @@ import {
   FlagOutlined,
   VerifiedOutlined,
   HeartOutlined,
+  TransactionOutlined,
 } from "@ant-design/icons";
 import logo from "assets/images/logo.png";
 import { CouponIcon } from "assets/icon";
@@ -56,7 +57,8 @@ import { MerchantList } from "./mall/merchant-list";
 import { FreightTemplateList } from "./mall/freight-template-list";
 import { CategoryList } from "./mall/category-list";
 import { GoodsList } from "./mall/goods-list";
-import { OrderList } from "./order-list";
+import { OrderList } from "./order-management/order-list";
+import { RefundList } from "./order-management/refund-list";
 import { RoleList } from "./auth/role-list";
 import { AdminList } from "./auth/admin-list";
 
@@ -115,7 +117,8 @@ export const AuthenticatedApp = () => {
               />
               <Route path="goods/category_list" element={<CategoryList />} />
               <Route path="goods/list" element={<GoodsList />} />
-              <Route path="order_list" element={<OrderList />} />
+              <Route path="order/list" element={<OrderList />} />
+              <Route path="order/refund" element={<RefundList />} />
               <Route path="auth/role_list" element={<RoleList />} />
               <Route path="auth/admin_list" element={<AdminList />} />
               <Route
@@ -265,9 +268,21 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
       ],
     },
     {
-      label: <Link to={"order_list"}>订单列表</Link>,
-      key: "order_list",
+      label: "订单管理",
+      key: "order",
       icon: <SnippetsOutlined />,
+      children: [
+        {
+          label: <Link to={"order/list"}>订单列表</Link>,
+          key: "order_list",
+          icon: <UnorderedListOutlined />,
+        },
+        {
+          label: <Link to={"order/refund"}>售后处理</Link>,
+          key: "order_refund",
+          icon: <TransactionOutlined />,
+        },
+      ],
     },
     {
       label: "权限管理",

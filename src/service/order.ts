@@ -1,9 +1,10 @@
 import { QueryKey, useMutation, useQuery } from "react-query";
 import { useHttp } from "./http";
 import {
-  useDeleteOrderConfig,
+  useDeleteConfig,
   useCancelOrderConfig,
-  useRejectConfig,
+  useConfirmOrderConfig,
+  useDeliveryOrderConfig,
 } from "./use-optimistic-options";
 import type {
   OrderDetail,
@@ -30,18 +31,6 @@ export const useOrder = (id: number) => {
   );
 };
 
-export const useRejectOrder = (queryKey: QueryKey) => {
-  const client = useHttp();
-  return useMutation(
-    (data: { id: number; failureReason: string }) =>
-      client("order/reject", {
-        data,
-        method: "POST",
-      }),
-    useRejectConfig(queryKey)
-  );
-};
-
 export const useDeliveryOrder = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
@@ -55,7 +44,7 @@ export const useDeliveryOrder = (queryKey: QueryKey) => {
         data,
         method: "POST",
       }),
-    useRejectConfig(queryKey)
+    useDeliveryOrderConfig(queryKey)
   );
 };
 
@@ -90,7 +79,7 @@ export const useConfirmOrder = (queryKey: QueryKey) => {
         data: { ids },
         method: "POST",
       }),
-    useCancelOrderConfig(queryKey)
+    useConfirmOrderConfig(queryKey)
   );
 };
 
@@ -102,6 +91,6 @@ export const useDeleteOrder = (queryKey: QueryKey) => {
         data: { ids },
         method: "POST",
       }),
-    useDeleteOrderConfig(queryKey)
+    useDeleteConfig(queryKey)
   );
 };

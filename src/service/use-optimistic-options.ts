@@ -100,18 +100,6 @@ export const useRejectConfig = (queryKey: QueryKey) =>
       : null
   );
 
-export const useDeleteOrderConfig = (queryKey: QueryKey) =>
-  useConfig(queryKey, (ids, old) =>
-    old
-      ? {
-          ...old,
-          list: old.list.map((item: any) =>
-            ids.includes(item.id) ? { ...item, status: 103 } : item
-          ),
-        }
-      : null
-  );
-
 export const useCancelOrderConfig = (queryKey: QueryKey) =>
   useConfig(queryKey, (ids, old) =>
     old
@@ -119,6 +107,30 @@ export const useCancelOrderConfig = (queryKey: QueryKey) =>
           ...old,
           list: old.list.map((item: any) =>
             ids.includes(item.id) ? { ...item, status: 104 } : item
+          ),
+        }
+      : null
+  );
+
+export const useDeliveryOrderConfig = (queryKey: QueryKey) =>
+  useConfig(queryKey, (ids, old) =>
+    old
+      ? {
+          ...old,
+          list: old.list.map((item: any) =>
+            ids.includes(item.id) ? { ...item, status: 301 } : item
+          ),
+        }
+      : null
+  );
+
+export const useConfirmOrderConfig = (queryKey: QueryKey) =>
+  useConfig(queryKey, (ids, old) =>
+    old
+      ? {
+          ...old,
+          list: old.list.map((item: any) =>
+            ids.includes(item.id) ? { ...item, status: 403 } : item
           ),
         }
       : null
@@ -169,6 +181,32 @@ export const useDownCouponConfig = (queryKey: QueryKey) =>
           ...old,
           list: old.list.map((item: any) =>
             item.id === id ? { ...item, status: 3 } : item
+          ),
+        }
+      : null
+  );
+
+export const useApprovedRefundConfig = (queryKey: QueryKey) =>
+  useConfig(queryKey, (target, old) =>
+    old
+      ? {
+          ...old,
+          list: old.list.map((item: any) =>
+            item.id === target.id
+              ? { ...item, status: target.refundType === 1 ? 3 : 1 }
+              : item
+          ),
+        }
+      : null
+  );
+
+export const useRejectRefundConfig = (queryKey: QueryKey) =>
+  useConfig(queryKey, (target, old) =>
+    old
+      ? {
+          ...old,
+          list: old.list.map((item: any) =>
+            item.id === target.id ? { ...item, ...target, status: 4 } : item
           ),
         }
       : null

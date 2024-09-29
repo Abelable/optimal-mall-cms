@@ -9,7 +9,6 @@ import { Drawer, Select, Button, Modal } from "antd";
 import { Row } from "components/lib";
 import { List } from "./components/list";
 import { SearchPanel } from "./components/search-panel";
-import { RejectModal } from "./components/reject-modal";
 import { OrderModal } from "./components/order-modal";
 import { DeliveryModal } from "./components/delivery-modal";
 import { ShippingModal } from "./components/shipping-modal";
@@ -170,7 +169,6 @@ export const OrderList = () => {
       <OrderModal statusOptions={statusOptions} />
       <DeliveryModal expressOptions={expressOptions} />
       <ShippingModal />
-      <RejectModal />
     </Container>
   );
 };
