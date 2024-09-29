@@ -103,7 +103,7 @@ export const RefundModal = ({ statusOptions }: { statusOptions: Option[] }) => {
                 >
                   查看物流
                 </Button>
-              </>{" "}
+              </>
               : <></>
             </Descriptions.Item>
           </Descriptions>
