@@ -10,8 +10,8 @@ import type {
   OrderDetail,
   OrderListResult,
   OrderListSearchParams,
-  ShippingInfo,
 } from "types/order";
+import type { ShippingInfo } from "types/common";
 
 export const useOrderList = (params: Partial<OrderListSearchParams>) => {
   const client = useHttp();

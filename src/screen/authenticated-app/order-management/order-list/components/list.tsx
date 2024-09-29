@@ -113,6 +113,18 @@ export const List = ({
               dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf(),
           },
           {
+            title: "处理时间",
+            render: (value, refund) => (
+              <span>
+                {refund.updatedAt
+                  ? dayjs(refund.updatedAt).format("YYYY-MM-DD HH:mm:ss")
+                  : "无"}
+              </span>
+            ),
+            sorter: (a, b) =>
+              dayjs(a.updatedAt).valueOf() - dayjs(b.updatedAt).valueOf(),
+          },
+          {
             title: "操作",
             render(value, order) {
               return <More id={order.id} status={order.status} />;

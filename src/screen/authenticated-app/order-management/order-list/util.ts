@@ -104,7 +104,7 @@ export const useShippingModal = () => {
   );
 
   return {
-    orderModalOpen: !!shippingOrderId,
+    shippingModalOpen: !!shippingOrderId,
     shippingOrderId,
     shippingInfo,
     isLoading,

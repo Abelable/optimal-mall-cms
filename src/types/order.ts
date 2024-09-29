@@ -16,6 +16,7 @@ export interface Order {
   mobile: string;
   address: string;
   createdAt: string;
+  updatedAt: string;
 }
 
 export interface OrderListResult {
@@ -48,10 +49,4 @@ export interface OrderDetail extends Order {
   shipTime: string;
   confirmTime: string;
   finishTime: string;
-}
-
-export interface ShippingInfo {
-  shipChannel: string;
-  shipSn: string;
-  traces: { AcceptStation: string; AcceptTime: string }[];
 }

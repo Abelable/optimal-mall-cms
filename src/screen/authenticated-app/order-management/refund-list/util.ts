@@ -103,7 +103,7 @@ export const useShippingModal = () => {
   );
 
   return {
-    orderModalOpen: !!shippingRefundId,
+    shippingModalOpen: !!shippingRefundId,
     shippingRefundId,
     shippingInfo,
     isLoading,

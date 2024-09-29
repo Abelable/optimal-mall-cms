@@ -7,6 +7,7 @@ export interface RefundListSearchParams {
 
 export interface Refund {
   id: number;
+  orderId: number;
   orderSn: string;
   status: number;
   refundType: number;
@@ -29,14 +30,12 @@ export interface Goods {
   selectedSkuName: string;
   price: number;
   number: number;
-  couponDenomination: number;
 }
 
 export interface RefundDetail extends Refund {
   goodsInfo: Goods;
-  shipChannel: string;
+  refundReason: string;
+  imageList: string[];
+  shipCode: string;
   shipSn: string;
-  shipTime: string;
-  confirmTime: string;
-  finishTime: string;
 }

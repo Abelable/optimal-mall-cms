@@ -1,13 +1,11 @@
 import { Form, Input, Modal, Select } from "antd";
+
 import { useForm } from "antd/lib/form/Form";
 import { useDeliveryOrder } from "service/order";
+import { expressOptions } from "utils/index";
 import { useDeliveryModal, useOrderListQueryKey } from "../util";
 
-export const DeliveryModal = ({
-  expressOptions,
-}: {
-  expressOptions: { name: string; value: string }[];
-}) => {
+export const DeliveryModal = () => {
   const [form] = useForm();
   const { deliveryModalOpen, deliveryOrderId, close } = useDeliveryModal();
 

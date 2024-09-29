@@ -10,6 +10,7 @@ import type {
   RefundListResult,
   RefundListSearchParams,
 } from "types/refund";
+import type { ShippingInfo } from "types/common";
 
 export const useRefundList = (params: Partial<RefundListSearchParams>) => {
   const client = useHttp();
@@ -38,6 +39,17 @@ export const useApprovedRefund = (queryKey: QueryKey) => {
         method: "POST",
       }),
     useApprovedRefundConfig(queryKey)
+  );
+};
+
+export const useShippingInfo = (id: number) => {
+  const client = useHttp();
+  return useQuery<ShippingInfo>(
+    ["shipping_info", { id }],
+    () => client(`refund/shipping_info`, { data: { id } }),
+    {
+      enabled: !!id,
+    }
   );
 };
 

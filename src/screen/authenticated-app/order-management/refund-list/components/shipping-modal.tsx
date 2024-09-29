@@ -2,16 +2,17 @@ import { Descriptions, Modal, Timeline } from "antd";
 import { ErrorBox, ModalLoading } from "components/lib";
 import dayjs from "dayjs";
 import { useShippingModal } from "../util";
+import { expressOptions } from "utils";
 
 export const ShippingModal = () => {
-  const { close, orderModalOpen, shippingInfo, error, isLoading } =
+  const { close, shippingModalOpen, shippingInfo, error, isLoading } =
     useShippingModal();
 
   return (
     <Modal
       forceRender={true}
       title="物流信息"
-      open={orderModalOpen}
+      open={shippingModalOpen}
       onCancel={close}
       footer={null}
     >
@@ -22,7 +23,11 @@ export const ShippingModal = () => {
         <>
           <Descriptions size={"small"} layout="vertical" bordered>
             <Descriptions.Item label="快递公司">
-              {shippingInfo?.shipChannel}
+              {
+                expressOptions.find(
+                  (item) => item.value === shippingInfo?.shipCode
+                )?.name
+              }
             </Descriptions.Item>
             <Descriptions.Item label="物流单号">
               {shippingInfo?.shipSn}

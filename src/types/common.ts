@@ -40,3 +40,9 @@ export interface DepositInfo {
   updatedAt: string;
   createdAt: string;
 }
+
+export interface ShippingInfo {
+  shipCode: string;
+  shipSn: string;
+  traces: { AcceptStation: string; AcceptTime: string }[];
+}
