@@ -1,7 +1,6 @@
 import { useSetUrlSearchParams, useUrlQueryParams } from "utils/url";
 import { useCallback, useMemo } from "react";
-import { useRefund } from "service/refund";
-import { useShippingInfo } from "service/order";
+import { useRefund, useShippingInfo } from "service/refund";
 
 export const useRefundListSearchParams = () => {
   const [params, setParams] = useUrlQueryParams([
