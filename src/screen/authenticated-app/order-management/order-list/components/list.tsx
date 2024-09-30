@@ -52,6 +52,7 @@ export const List = ({
       <ErrorBox error={error} />
       <Table
         rowKey={"id"}
+        scroll={{ x: 2000 }}
         rowSelection={{
           type: "checkbox",
           selectedRowKeys,
@@ -63,10 +64,12 @@ export const List = ({
             title: "id",
             dataIndex: "id",
             width: "8rem",
+            fixed: "left",
           },
           {
             title: "订单编号",
             dataIndex: "orderSn",
+            width: "21rem",
           },
           {
             title: "订单状态",
@@ -78,11 +81,13 @@ export const List = ({
             ),
             filters: statusOptions,
             onFilter: (value, order) => order.status === value,
+            width: "12rem",
           },
           {
             title: "订单金额",
             dataIndex: "paymentAmount",
             render: (value) => <>¥{value}</>,
+            width: "12rem",
           },
           {
             title: "商家",
@@ -98,10 +103,12 @@ export const List = ({
               {
                 title: "姓名",
                 dataIndex: "consignee",
+                width: "12rem",
               },
               {
                 title: "手机号",
                 dataIndex: "mobile",
+                width: "14rem",
               },
               {
                 title: "收件地址",
@@ -120,6 +127,7 @@ export const List = ({
             ),
             sorter: (a, b) =>
               dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf(),
+            width: "20rem",
           },
           {
             title: "处理时间",
@@ -132,12 +140,14 @@ export const List = ({
             ),
             sorter: (a, b) =>
               dayjs(a.updatedAt).valueOf() - dayjs(b.updatedAt).valueOf(),
+            width: "20rem",
           },
           {
             title: "操作",
             render(value, order) {
               return <More id={order.id} status={order.status} />;
             },
+            fixed: "right",
             width: "8rem",
           },
         ]}
