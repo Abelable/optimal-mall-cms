@@ -10,9 +10,9 @@ import { AddModal } from "./components/add-modal";
 
 const levelOptions = [
   { text: "乡村振兴推广员", value: 1, scene: 100 },
-  { text: "乡村振兴组织者C1", value: 2, scene: 201 },
-  { text: "乡村振兴组织者C2", value: 3, scene: 202 },
-  { text: "乡村振兴组织者C3", value: 4, scene: 203 },
+  { text: "乡村振兴服务商C1", value: 2, scene: 201 },
+  { text: "乡村振兴服务商C2", value: 3, scene: 202 },
+  { text: "乡村振兴服务商C3", value: 4, scene: 203 },
   { text: "乡村振兴委员会", value: 5, scene: 300 },
 ];
 
