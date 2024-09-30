@@ -29,6 +29,7 @@ interface ListProps extends TableProps<Order>, SearchPanelProps {
 
 export const List = ({
   statusOptions,
+  merchantOptions,
   selectedRowKeys,
   setSelectedRowKeys,
   error,
@@ -82,6 +83,14 @@ export const List = ({
             title: "订单金额",
             dataIndex: "paymentAmount",
             render: (value) => <>¥{value}</>,
+          },
+          {
+            title: "商家",
+            dataIndex: "merchantId",
+            render: (value) => (
+              <>{merchantOptions.find((item) => item.id === value)?.name}</>
+            ),
+            width: "32rem",
           },
           {
             title: "收件人信息",

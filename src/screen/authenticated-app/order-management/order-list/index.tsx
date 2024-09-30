@@ -12,6 +12,7 @@ import { SearchPanel } from "./components/search-panel";
 import { OrderModal } from "./components/order-modal";
 import { DeliveryModal } from "./components/delivery-modal";
 import { ShippingModal } from "./components/shipping-modal";
+import { useMerchantOptions } from "service/merchant";
 
 const statusOptions = [
   { text: "待付款", value: 101 },
@@ -37,6 +38,10 @@ export const OrderList = () => {
   const { isLoading, error, data } = useOrderList(params);
   const { mutate: cancelOrder } = useCancelOrder(useOrderListQueryKey());
   const { mutate: deleteOrder } = useDeleteOrder(useOrderListQueryKey());
+
+  const { data: originalMerchantOptions = [], error: merchantOptionsError } =
+    useMerchantOptions();
+  const merchantOptions = [{ id: 0, name: "自营" }, ...originalMerchantOptions];
 
   const selectBatchOprationType = () => (type: number) => {
     setBatchOprationType(type);
@@ -92,16 +97,18 @@ export const OrderList = () => {
       <Main>
         <SearchPanel
           statusOptions={statusOptions}
+          merchantOptions={merchantOptions}
           params={params}
           setParams={setParams}
         />
         <List
           statusOptions={statusOptions}
+          merchantOptions={merchantOptions}
           selectedRowKeys={selectedRowKeys}
           setSelectedRowKeys={setSelectedRowKeys}
           params={params}
           setParams={setParams}
-          error={error}
+          error={error || merchantOptionsError}
           loading={isLoading}
           dataSource={data?.list}
           pagination={{

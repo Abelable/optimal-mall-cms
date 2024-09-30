@@ -1,6 +1,7 @@
 export interface OrderListSearchParams {
   orderSn: string;
   status: number | undefined;
+  merchantId: number | undefined;
   consignee: string;
   mobile: string;
   page: number;

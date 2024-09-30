@@ -6,6 +6,7 @@ export const useOrderListSearchParams = () => {
   const [params, setParams] = useUrlQueryParams([
     "orderSn",
     "status",
+    "merchantId",
     "consignee",
     "mobile",
     "page",

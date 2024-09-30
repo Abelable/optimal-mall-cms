@@ -3,11 +3,12 @@ import styled from "@emotion/styled";
 import { Row } from "components/lib";
 import { Button, Input, Select } from "antd";
 
-import type { Option } from "types/common";
+import type { OperatorOption, Option } from "types/common";
 import type { OrderListSearchParams } from "types/order";
 
 export interface SearchPanelProps {
   statusOptions: Option[];
+  merchantOptions: OperatorOption[];
   params: Partial<OrderListSearchParams>;
   setParams: (params: Partial<OrderListSearchParams>) => void;
 }
@@ -15,12 +16,14 @@ export interface SearchPanelProps {
 const defaultParmas: Partial<OrderListSearchParams> = {
   orderSn: "",
   status: undefined,
+  merchantId: undefined,
   consignee: "",
   mobile: "",
 };
 
 export const SearchPanel = ({
   statusOptions,
+  merchantOptions,
   params,
   setParams,
 }: SearchPanelProps) => {
@@ -44,6 +47,11 @@ export const SearchPanel = ({
   const setStatus = (status: number) =>
     setTempParams({ ...tempParams, status });
   const clearStatus = () => setTempParams({ ...tempParams, status: undefined });
+
+  const setMerchant = (merchantId: number) =>
+    setTempParams({ ...tempParams, merchantId });
+  const clearMerchant = () =>
+    setTempParams({ ...tempParams, merchantId: undefined });
 
   const setConsignee = (evt: any) => {
     if (!evt.target.value && evt.type !== "change") {
@@ -105,6 +113,23 @@ export const SearchPanel = ({
           {statusOptions?.map(({ text, value }) => (
             <Select.Option key={value} value={value}>
               {text}
+            </Select.Option>
+          ))}
+        </Select>
+      </Item>
+      <Item>
+        <div>商家：</div>
+        <Select
+          style={{ width: "20rem" }}
+          value={tempParams.merchantId}
+          placeholder="请选择商家"
+          allowClear
+          onSelect={setMerchant}
+          onClear={clearMerchant}
+        >
+          {merchantOptions?.map(({ id, name }) => (
+            <Select.Option key={id} value={id}>
+              {name}
             </Select.Option>
           ))}
         </Select>
