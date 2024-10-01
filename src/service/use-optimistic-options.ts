@@ -113,12 +113,12 @@ export const useCancelOrderConfig = (queryKey: QueryKey) =>
   );
 
 export const useDeliveryOrderConfig = (queryKey: QueryKey) =>
-  useConfig(queryKey, (ids, old) =>
+  useConfig(queryKey, (target, old) =>
     old
       ? {
           ...old,
           list: old.list.map((item: any) =>
-            ids.includes(item.id) ? { ...item, status: 301 } : item
+            item.id === target.id ? { ...item, ...target, status: 301 } : item
           ),
         }
       : null
