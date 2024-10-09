@@ -1,7 +1,12 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 
-import { useCancelOrder, useDeleteOrder, useOrderList } from "service/order";
+import {
+  useCancelOrder,
+  useDeleteOrder,
+  useExportOrder,
+  useOrderList,
+} from "service/order";
 import { toNumber } from "utils";
 import { useOrderListQueryKey, useOrderListSearchParams } from "./util";
 
@@ -32,6 +37,7 @@ const batchOprationOptions = [
 ];
 
 export const OrderList = () => {
+  const exportOrder = useExportOrder();
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [batchOprationType, setBatchOprationType] = useState(-1);
   const [params, setParams] = useOrderListSearchParams();
@@ -145,12 +151,16 @@ export const OrderList = () => {
                 </Select.Option>
               ))}
             </Select>
+            <Button onClick={() => batchOprate()} type={"primary"}>
+              确定
+            </Button>
+            <SplitLine />
             <Button
-              onClick={() => batchOprate()}
+              onClick={() => exportOrder(selectedRowKeys)}
               style={{ marginRight: 0 }}
               type={"primary"}
             >
-              确定
+              导出订单
             </Button>
           </Row>
         </Row>
@@ -176,4 +186,10 @@ const Main = styled.div`
 const SelectedCount = styled.span`
   color: #1890ff;
   font-weight: 600;
+`;
+
+const SplitLine = styled.div`
+  width: 0.1rem;
+  height: 1.8rem;
+  background: #d9d9d9;
 `;

@@ -126,6 +126,12 @@ export const SearchPanel = ({
           allowClear
           onSelect={setMerchant}
           onClear={clearMerchant}
+          showSearch
+          filterOption={(input, option) =>
+            (option!.children as unknown as string)
+              .toLowerCase()
+              .includes(input.toLowerCase())
+          }
         >
           {merchantOptions?.map(({ id, name }) => (
             <Select.Option key={id} value={id}>

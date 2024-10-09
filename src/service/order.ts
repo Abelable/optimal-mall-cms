@@ -94,3 +94,15 @@ export const useDeleteOrder = (queryKey: QueryKey) => {
     useDeleteConfig(queryKey)
   );
 };
+
+export const useExportOrder = () => {
+  const client = useHttp();
+  return (ids: number[]) =>
+    client("order/export", {
+      data: { ids },
+      method: "POST",
+      headers: {
+        responseType: "arraybuffer",
+      },
+    });
+};
