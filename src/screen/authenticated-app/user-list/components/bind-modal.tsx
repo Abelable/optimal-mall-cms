@@ -2,7 +2,7 @@ import { Form, Modal, Select } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
 import { useForm } from "antd/lib/form/Form";
-import { useBindUser } from "service/user";
+import { useBindSuperior } from "service/user";
 import { useBindModal, useUsersQueryKey } from "../util";
 
 import type { PromoterOption } from "types/promoter";
@@ -18,7 +18,7 @@ export const BindModal = ({
   const { bindModalOpen, bindUserInfo, error, isLoading, close } =
     useBindModal();
 
-  const { mutateAsync, isLoading: mutateLoading } = useBindUser(
+  const { mutateAsync, isLoading: mutateLoading } = useBindSuperior(
     useUsersQueryKey()
   );
 

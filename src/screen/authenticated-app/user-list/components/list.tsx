@@ -2,6 +2,7 @@ import {
   Avatar,
   Dropdown,
   Menu,
+  MenuProps,
   Modal,
   Popover,
   Table,
@@ -19,7 +20,7 @@ import { UserOutlined } from "@ant-design/icons";
 
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
-import { useDeleteUser } from "service/user";
+import { useDeleteSuperior, useDeleteUser } from "service/user";
 import { useBindModal, useUserModal, useUsersQueryKey } from "../util";
 
 import type { SearchPanelProps } from "./search-panel";
@@ -132,42 +133,69 @@ const More = ({ user }: { user: User }) => {
   const { open: openUserModal } = useUserModal();
   const { open: openBindModal } = useBindModal();
   const { mutate: deleteUser } = useDeleteUser(useUsersQueryKey());
+  const { mutate: deleteSuperior } = useDeleteSuperior(useUsersQueryKey());
 
-  const confirmDelete = (id: number) => {
+  const confirmDelete = () => {
     Modal.confirm({
       title: "确定删除该用户吗？",
       content: "点击确定删除",
       okText: "确定",
       cancelText: "取消",
-      onOk: () => deleteUser(id),
+      onOk: () => deleteUser(user.id),
     });
   };
 
+  const confirmDeleteSuperior = () => {
+    Modal.confirm({
+      title: "确定删除用户上级吗？",
+      content: "点击确定删除",
+      okText: "确定",
+      cancelText: "取消",
+      onOk: () =>
+        deleteSuperior({ userId: user.id, superiorId: user.superiorId }),
+    });
+  };
+
+  const items: MenuProps["items"] = user.superiorId
+    ? [
+        {
+          label: <div onClick={() => openUserModal(user.id)}>详情</div>,
+          key: "detail",
+        },
+        {
+          label: <div onClick={() => openBindModal(user.id)}>更改上级</div>,
+          key: "bind",
+        },
+        {
+          label: <div onClick={() => openBindModal(user.id)}>更改上级</div>,
+          key: "bind",
+        },
+        {
+          label: <div onClick={() => confirmDeleteSuperior()}>删除上级</div>,
+          key: "delete_superior",
+        },
+        {
+          label: <div onClick={() => confirmDelete()}>删除用户</div>,
+          key: "delete",
+        },
+      ]
+    : [
+        {
+          label: <div onClick={() => openUserModal(user.id)}>详情</div>,
+          key: "detail",
+        },
+        {
+          label: <div onClick={() => openBindModal(user.id)}>绑定上级</div>,
+          key: "bind",
+        },
+        {
+          label: <div onClick={() => confirmDelete()}>删除</div>,
+          key: "delete",
+        },
+      ];
+
   return (
-    <Dropdown
-      overlay={
-        <Menu
-          items={[
-            {
-              label: <div onClick={() => openUserModal(user.id)}>详情</div>,
-              key: "detail",
-            },
-            {
-              label: (
-                <div onClick={() => openBindModal(user.id)}>
-                  {user.superiorId ? "更改上级" : "绑定上级"}
-                </div>
-              ),
-              key: "bind",
-            },
-            {
-              label: <div onClick={() => confirmDelete(user.id)}>删除</div>,
-              key: "delete",
-            },
-          ]}
-        />
-      }
-    >
+    <Dropdown overlay={<Menu items={items} />}>
       <ButtonNoPadding type={"link"}>...</ButtonNoPadding>
     </Dropdown>
   );

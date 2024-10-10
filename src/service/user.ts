@@ -22,18 +22,6 @@ export const useUser = (id: number) => {
   );
 };
 
-export const useBindUser = (queryKey: QueryKey) => {
-  const client = useHttp();
-  return useMutation(
-    (data: { userId: number; superiorId: number }) =>
-      client("user/bind_superior", {
-        data,
-        method: "POST",
-      }),
-    useEditConfig(queryKey)
-  );
-};
-
 export const useDeleteUser = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
@@ -51,5 +39,29 @@ export const useUserOptions = () => {
   return useQuery<{ id: number; avatar: string; nickname: string }[]>(
     ["user_options"],
     () => client("user/normal_options")
+  );
+};
+
+export const useBindSuperior = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    (data: { userId: number; superiorId: number }) =>
+      client("user/bind_superior", {
+        data,
+        method: "POST",
+      }),
+    useEditConfig(queryKey)
+  );
+};
+
+export const useDeleteSuperior = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    (data: { userId: number; superiorId: number }) =>
+      client("user/delete_superior", {
+        data,
+        method: "POST",
+      }),
+    useEditConfig(queryKey)
   );
 };
