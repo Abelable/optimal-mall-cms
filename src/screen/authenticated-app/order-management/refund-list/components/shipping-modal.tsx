@@ -2,7 +2,6 @@ import { Descriptions, Modal, Timeline } from "antd";
 import { ErrorBox, ModalLoading } from "components/lib";
 import dayjs from "dayjs";
 import { useShippingModal } from "../util";
-import { expressOptions } from "utils";
 
 export const ShippingModal = () => {
   const { close, shippingModalOpen, shippingInfo, error, isLoading } =
@@ -23,11 +22,7 @@ export const ShippingModal = () => {
         <>
           <Descriptions size={"small"} layout="vertical" bordered>
             <Descriptions.Item label="快递公司">
-              {
-                expressOptions.find(
-                  (item) => item.value === shippingInfo?.shipCode
-                )?.name
-              }
+              {shippingInfo?.shipChannel}
             </Descriptions.Item>
             <Descriptions.Item label="物流单号">
               {shippingInfo?.shipSn}

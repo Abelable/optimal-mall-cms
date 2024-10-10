@@ -42,7 +42,7 @@ export interface DepositInfo {
 }
 
 export interface ShippingInfo {
-  shipCode: string;
+  shipChannel: string;
   shipSn: string;
   traces: { AcceptStation: string; AcceptTime: string }[];
 }
