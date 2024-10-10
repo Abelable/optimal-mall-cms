@@ -2,7 +2,6 @@ import {
   Avatar,
   Dropdown,
   Menu,
-  MenuProps,
   Modal,
   Popover,
   Table,
@@ -144,34 +143,31 @@ const More = ({ user }: { user: User }) => {
     });
   };
 
-  const items: MenuProps["items"] = !user.superiorId
-    ? [
-        {
-          label: <div onClick={() => openUserModal(user.id)}>详情</div>,
-          key: "detail",
-        },
-        {
-          label: <div onClick={() => openBindModal(user.id)}>绑定上级</div>,
-          key: "bind",
-        },
-        {
-          label: <div onClick={() => confirmDelete(user.id)}>删除</div>,
-          key: "delete",
-        },
-      ]
-    : [
-        {
-          label: <div onClick={() => openUserModal(user.id)}>详情</div>,
-          key: "detail",
-        },
-        {
-          label: <div onClick={() => confirmDelete(user.id)}>删除</div>,
-          key: "delete",
-        },
-      ];
-
   return (
-    <Dropdown overlay={<Menu items={items} />}>
+    <Dropdown
+      overlay={
+        <Menu
+          items={[
+            {
+              label: <div onClick={() => openUserModal(user.id)}>详情</div>,
+              key: "detail",
+            },
+            {
+              label: (
+                <div onClick={() => openBindModal(user.id)}>
+                  {user.superiorId ? "绑定上级" : "更改上级"}
+                </div>
+              ),
+              key: "bind",
+            },
+            {
+              label: <div onClick={() => confirmDelete(user.id)}>删除</div>,
+              key: "delete",
+            },
+          ]}
+        />
+      }
+    >
       <ButtonNoPadding type={"link"}>...</ButtonNoPadding>
     </Dropdown>
   );

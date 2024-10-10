@@ -64,6 +64,8 @@ export const useBindModal = () => {
   const [{ bindUserId }, setBindUserId] = useUrlQueryParams(["bindUserId"]);
   const setUrlParams = useSetUrlSearchParams();
 
+  const { data: bindUserInfo, isLoading, error } = useUser(Number(bindUserId));
+
   const open = useCallback(
     (id: number) => setBindUserId({ bindUserId: `${id}` }),
     [setBindUserId]
@@ -75,7 +77,9 @@ export const useBindModal = () => {
 
   return {
     bindModalOpen: !!bindUserId,
-    bindUserId,
+    bindUserInfo,
+    isLoading,
+    error,
     open,
     close,
   };
