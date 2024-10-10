@@ -35,7 +35,6 @@ export const FileUpload = ({
       maxCount={1}
       showUploadList={false}
       onChange={(info: UploadChangeParam<UploadFile<any>>) => {
-        console.log("info", info);
         if (info.file.status === "uploading" && info.file.percent === 0) {
           setLoading(true);
         }
