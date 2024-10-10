@@ -159,12 +159,12 @@ const More = ({ user }: { user: User }) => {
   const items: MenuProps["items"] = user.superiorId
     ? [
         {
-          label: <div onClick={() => openUserModal(user.id)}>详情</div>,
+          label: <div onClick={() => openUserModal(user.id)}>用户详情</div>,
           key: "detail",
         },
         {
-          label: <div onClick={() => openBindModal(user.id)}>更改上级</div>,
-          key: "bind",
+          label: <div onClick={() => confirmDelete()}>删除用户</div>,
+          key: "delete",
         },
         {
           label: <div onClick={() => openBindModal(user.id)}>更改上级</div>,
@@ -174,23 +174,19 @@ const More = ({ user }: { user: User }) => {
           label: <div onClick={() => confirmDeleteSuperior()}>删除上级</div>,
           key: "delete_superior",
         },
+      ]
+    : [
+        {
+          label: <div onClick={() => openUserModal(user.id)}>用户详情</div>,
+          key: "detail",
+        },
         {
           label: <div onClick={() => confirmDelete()}>删除用户</div>,
           key: "delete",
         },
-      ]
-    : [
-        {
-          label: <div onClick={() => openUserModal(user.id)}>详情</div>,
-          key: "detail",
-        },
         {
           label: <div onClick={() => openBindModal(user.id)}>绑定上级</div>,
           key: "bind",
-        },
-        {
-          label: <div onClick={() => confirmDelete()}>删除</div>,
-          key: "delete",
         },
       ];
 
