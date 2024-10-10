@@ -20,6 +20,8 @@ import {
 import { SearchPanelProps } from "./search-panel";
 
 import type { Order } from "types/order";
+import { FileUpload } from "components/file-upload";
+import { useQueryClient } from "react-query";
 
 interface ListProps extends TableProps<Order>, SearchPanelProps {
   error: Error | unknown;
@@ -44,10 +46,15 @@ export const List = ({
       limit: pagination.pageSize,
     });
 
+  const queryClient = useQueryClient();
+  const queryKey = useOrderListQueryKey();
+  const handleSuccess = () => queryClient.invalidateQueries(queryKey);
+
   return (
     <Container>
       <Header between={true}>
         <PageTitle>订单列表</PageTitle>
+        <FileUpload name="导入订单数据" onSuccess={handleSuccess} />
       </Header>
       <ErrorBox error={error} />
       <Table
