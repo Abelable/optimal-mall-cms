@@ -392,11 +392,9 @@ export const GoodsModal = ({
         return;
       }
       if (tableSkuList.length) {
-        if (
-          tableSkuList.findIndex((item) => !item.price || !item.stock) !== -1
-        ) {
+        if (tableSkuList.findIndex((item) => !item.price) !== -1) {
           Modal.error({
-            title: "部分商品规格未填写价格或库存",
+            title: "部分商品规格未填写价格",
           });
           return;
         }

@@ -35,6 +35,7 @@ export const FileUpload = ({
       maxCount={1}
       showUploadList={false}
       onChange={(info: UploadChangeParam<UploadFile<any>>) => {
+        console.log("info", info);
         if (info.file.status === "uploading" && info.file.percent === 0) {
           setLoading(true);
         }
@@ -46,9 +47,6 @@ export const FileUpload = ({
           } else {
             message.error(info.file.response.message);
           }
-        } else {
-          setLoading(false);
-          message.error("导入失败");
         }
       }}
       {...restProps}
