@@ -31,9 +31,8 @@ const statusOptions = [
   { text: "完成评价", value: 501 },
 ];
 const batchOprationOptions = [
-  { name: "批量发货", value: 1 },
-  { name: "取消订单", value: 2 },
-  { name: "删除订单", value: 3 },
+  { name: "取消订单", value: 1 },
+  { name: "删除订单", value: 2 },
 ];
 
 export const OrderList = () => {
@@ -55,10 +54,6 @@ export const OrderList = () => {
   const batchOprate = () => {
     switch (batchOprationType) {
       case 1:
-        console.log("selectedRowKeys", selectedRowKeys);
-        break;
-
-      case 2:
         Modal.confirm({
           title: "确定批量取消该订单吗？",
           content: "点击确定取消",
@@ -77,7 +72,7 @@ export const OrderList = () => {
         });
         break;
 
-      case 3:
+      case 2:
         Modal.confirm({
           title: "确定批量删除该订单吗？",
           content: "点击确定删除",
