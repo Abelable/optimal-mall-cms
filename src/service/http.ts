@@ -79,7 +79,20 @@ export const http = async (
             });
           }
         }
-      } else return Promise.reject({ message: response.statusText });
+      } else {
+        if (response.status === 403 && auth.getToken()) {
+          auth.removeToken();
+          window.location.reload();
+          return Promise.reject({ message: "请重新登录" });
+        } else if (response.status === 401) {
+          await auth.refreshToken();
+          return fetch(endpoint, config);
+        } else {
+          return Promise.reject({
+            message: response.statusText,
+          });
+        }
+      }
     });
 };
 
