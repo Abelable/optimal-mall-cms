@@ -102,7 +102,7 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
 
 const More = ({ id }: { id: number }) => {
   const { startEdit } = useCategoryModal();
-  const { mutate: deleteRole } = useDeleteCategory(useCategoriesQueryKey());
+  const { mutate: deleteCategoty } = useDeleteCategory(useCategoriesQueryKey());
 
   const confirmDelete = (id: number) => {
     Modal.confirm({
@@ -110,7 +110,7 @@ const More = ({ id }: { id: number }) => {
       content: "点击确定删除",
       okText: "确定",
       cancelText: "取消",
-      onOk: () => deleteRole(id),
+      onOk: () => deleteCategoty(id),
     });
   };
 

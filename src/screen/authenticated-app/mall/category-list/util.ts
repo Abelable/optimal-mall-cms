@@ -19,7 +19,7 @@ export const useCategoriesSearchParams = () => {
 
 export const useCategoriesQueryKey = () => {
   const [params] = useCategoriesSearchParams();
-  return ["goods_categories", params];
+  return ["categories", params];
 };
 
 export const useCategoryModal = () => {

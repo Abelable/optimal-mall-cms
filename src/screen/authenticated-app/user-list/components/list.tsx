@@ -155,7 +155,7 @@ const More = ({ user }: { user: User }) => {
             {
               label: (
                 <div onClick={() => openBindModal(user.id)}>
-                  {user.superiorId ? "绑定上级" : "更改上级"}
+                  {user.superiorId ? "更改上级" : "绑定上级"}
                 </div>
               ),
               key: "bind",
