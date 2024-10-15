@@ -5,6 +5,8 @@ import { Area, Column, Pie } from "@ant-design/plots";
 import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
 import numeral from "numeral";
 import { forEach, groupBy } from "lodash";
+import { useSalesData } from "service/dashboard";
+import dayjs from "dayjs";
 
 export const Dashboard = () => {
   const orderData = [
@@ -77,7 +79,6 @@ export const Dashboard = () => {
       y: 5,
     },
   ];
-
   const salesData = [
     {
       x: "1月",
@@ -200,7 +201,6 @@ export const Dashboard = () => {
       type: "settled",
     },
   ];
-
   const annotations: any = [];
   forEach(groupBy(salesData, "x"), (values, k) => {
     const value = values.reduce((a, b) => a + b.y, 0);
@@ -220,7 +220,6 @@ export const Dashboard = () => {
       tooltip: false,
     });
   });
-
   const salesPieData = [
     {
       x: "家用电器",
@@ -248,6 +247,14 @@ export const Dashboard = () => {
     },
   ];
 
+  const { data: _salesData } = useSalesData();
+  console.log(
+    _salesData?.dailySalesList.map((item) => ({
+      x: dayjs(item.createdAt).format("YYYY-MM-DD"),
+      y: Math.round(item.sum),
+    }))
+  );
+
   return (
     <Container>
       <Main>
@@ -256,7 +263,7 @@ export const Dashboard = () => {
             <div style={{ padding: "2rem 2.4rem 0" }}>
               <Statistic
                 title="总销售额"
-                value={1265560}
+                value={_salesData?.totalSales}
                 prefix="¥"
                 valueStyle={{ fontSize: "3rem" }}
               />
@@ -273,16 +280,28 @@ export const Dashboard = () => {
                     width: "100%",
                   }}
                   padding={-20}
-                  data={orderData}
+                  data={_salesData?.dailySalesList.map((item) => ({
+                    x: dayjs(item.createdAt).format("YYYY-MM-DD"),
+                    y: Math.round(item.sum),
+                  }))}
                 />
               </StatisticDetail>
               <CardBottom>
                 <Row style={{ marginRight: "1.6rem" }}>
-                  周同比 12% <CaretUpOutlined style={{ color: "#f5222d" }} />
+                  周同比 {Math.abs(_salesData?.weeklyGrowthRate as number)}%{" "}
+                  {(_salesData?.weeklyGrowthRate as number) > 0 ? (
+                    <CaretUpOutlined style={{ color: "#f5222d" }} />
+                  ) : (
+                    <CaretDownOutlined style={{ color: "#52c41a" }} />
+                  )}
                 </Row>
                 <Row>
-                  日同比 11%
-                  <CaretDownOutlined style={{ color: "#52c41a" }} />
+                  日同比 {Math.abs(_salesData?.dailyGrowthRate as number)}%
+                  {(_salesData?.dailyGrowthRate as number) > 0 ? (
+                    <CaretUpOutlined style={{ color: "#f5222d" }} />
+                  ) : (
+                    <CaretDownOutlined style={{ color: "#52c41a" }} />
+                  )}
                 </Row>
               </CardBottom>
             </div>
