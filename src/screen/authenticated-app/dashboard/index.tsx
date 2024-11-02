@@ -5,80 +5,15 @@ import { Area, Column, Pie } from "@ant-design/plots";
 import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
 import numeral from "numeral";
 import { forEach, groupBy } from "lodash";
-import { useSalesData } from "service/dashboard";
+import {
+  useOrderCountData,
+  usePromoterCountData,
+  useSalesData,
+  useUserCountData,
+} from "service/dashboard";
 import dayjs from "dayjs";
 
 export const Dashboard = () => {
-  const orderData = [
-    {
-      x: "2024-09-26",
-      y: 7,
-    },
-    {
-      x: "2024-09-27",
-      y: 5,
-    },
-    {
-      x: "2024-09-28",
-      y: 4,
-    },
-    {
-      x: "2024-09-29",
-      y: 2,
-    },
-    {
-      x: "2024-09-30",
-      y: 4,
-    },
-    {
-      x: "2024-10-01",
-      y: 7,
-    },
-    {
-      x: "2024-10-02",
-      y: 5,
-    },
-    {
-      x: "2024-10-03",
-      y: 6,
-    },
-    {
-      x: "2024-10-04",
-      y: 5,
-    },
-    {
-      x: "2024-10-05",
-      y: 9,
-    },
-    {
-      x: "2024-10-06",
-      y: 6,
-    },
-    {
-      x: "2024-10-07",
-      y: 3,
-    },
-    {
-      x: "2024-10-08",
-      y: 1,
-    },
-    {
-      x: "2024-10-09",
-      y: 5,
-    },
-    {
-      x: "2024-10-10",
-      y: 3,
-    },
-    {
-      x: "2024-10-11",
-      y: 6,
-    },
-    {
-      x: "2024-10-12",
-      y: 5,
-    },
-  ];
   const salesData = [
     {
       x: "1月",
@@ -248,12 +183,9 @@ export const Dashboard = () => {
   ];
 
   const { data: _salesData } = useSalesData();
-  console.log(
-    _salesData?.dailySalesList.map((item) => ({
-      x: dayjs(item.createdAt).format("YYYY-MM-DD"),
-      y: Math.round(item.sum),
-    }))
-  );
+  const { data: orderCountData } = useOrderCountData();
+  const { data: userCountData } = useUserCountData();
+  const { data: promoterCountData } = usePromoterCountData();
 
   return (
     <Container>
@@ -280,16 +212,20 @@ export const Dashboard = () => {
                     width: "100%",
                   }}
                   padding={-20}
-                  data={_salesData?.dailySalesList.map((item) => ({
-                    x: dayjs(item.createdAt).format("YYYY-MM-DD"),
-                    y: Math.round(item.sum),
-                  }))}
+                  data={
+                    _salesData?.dailySalesList
+                      ? _salesData?.dailySalesList.map((item) => ({
+                          x: dayjs(item.createdAt).format("YYYY-MM-DD"),
+                          y: Math.round(item.sum),
+                        }))
+                      : []
+                  }
                 />
               </StatisticDetail>
               <CardBottom>
                 <Row style={{ marginRight: "1.6rem" }}>
                   周同比 {Math.abs(_salesData?.weeklyGrowthRate as number)}%{" "}
-                  {(_salesData?.weeklyGrowthRate as number) > 0 ? (
+                  {(_salesData?.weeklyGrowthRate as number) >= 0 ? (
                     <CaretUpOutlined style={{ color: "#f5222d" }} />
                   ) : (
                     <CaretDownOutlined style={{ color: "#52c41a" }} />
@@ -297,7 +233,7 @@ export const Dashboard = () => {
                 </Row>
                 <Row>
                   日同比 {Math.abs(_salesData?.dailyGrowthRate as number)}%
-                  {(_salesData?.dailyGrowthRate as number) > 0 ? (
+                  {(_salesData?.dailyGrowthRate as number) >= 0 ? (
                     <CaretUpOutlined style={{ color: "#f5222d" }} />
                   ) : (
                     <CaretDownOutlined style={{ color: "#52c41a" }} />
@@ -310,30 +246,48 @@ export const Dashboard = () => {
             <div style={{ padding: "2rem 2.4rem 0" }}>
               <Statistic
                 title="订单总数"
-                value={8846}
+                value={orderCountData?.totalCount}
                 valueStyle={{ fontSize: "3rem" }}
               />
-              <Area
-                xField="x"
-                yField="y"
-                shapeField="smooth"
-                height={46}
-                axis={false}
-                style={{
-                  fill: "linear-gradient(-90deg, white 0%, #975FE4 100%)",
-                  fillOpacity: 0.6,
-                  width: "100%",
-                }}
-                padding={-20}
-                data={orderData}
-              />
+              <StatisticDetail>
+                <Area
+                  xField="x"
+                  yField="y"
+                  shapeField="smooth"
+                  height={46}
+                  axis={false}
+                  style={{
+                    fill: "linear-gradient(-90deg, white 0%, #975FE4 100%)",
+                    fillOpacity: 0.6,
+                    width: "100%",
+                  }}
+                  padding={-20}
+                  data={
+                    orderCountData?.dailyCountList
+                      ? orderCountData?.dailyCountList.map((item) => ({
+                          x: dayjs(item.createdAt).format("YYYY-MM-DD"),
+                          y: Math.round(item.count),
+                        }))
+                      : []
+                  }
+                />
+              </StatisticDetail>
               <CardBottom>
                 <Row style={{ marginRight: "1.6rem" }}>
-                  周同比 12% <CaretUpOutlined style={{ color: "#f5222d" }} />
+                  周同比 {Math.abs(orderCountData?.weeklyGrowthRate as number)}%{" "}
+                  {(orderCountData?.weeklyGrowthRate as number) >= 0 ? (
+                    <CaretUpOutlined style={{ color: "#f5222d" }} />
+                  ) : (
+                    <CaretDownOutlined style={{ color: "#52c41a" }} />
+                  )}
                 </Row>
                 <Row>
-                  日同比 11%
-                  <CaretDownOutlined style={{ color: "#52c41a" }} />
+                  日同比 {Math.abs(orderCountData?.dailyGrowthRate as number)}%
+                  {(orderCountData?.dailyGrowthRate as number) >= 0 ? (
+                    <CaretUpOutlined style={{ color: "#f5222d" }} />
+                  ) : (
+                    <CaretDownOutlined style={{ color: "#52c41a" }} />
+                  )}
                 </Row>
               </CardBottom>
             </div>
@@ -342,7 +296,7 @@ export const Dashboard = () => {
             <div style={{ padding: "2rem 2.4rem 0" }}>
               <Statistic
                 title="用户总数"
-                value={6560}
+                value={userCountData?.totalCount}
                 valueStyle={{ fontSize: "3rem" }}
               />
               <Column
@@ -351,16 +305,32 @@ export const Dashboard = () => {
                 padding={-20}
                 axis={false}
                 height={46}
-                data={orderData}
+                data={
+                  userCountData?.dailyCountList
+                    ? userCountData?.dailyCountList.map((item) => ({
+                        x: dayjs(item.createdAt).format("YYYY-MM-DD"),
+                        y: Math.round(item.count),
+                      }))
+                    : []
+                }
                 scale={{ x: { paddingInner: 0.4 } }}
               />
               <CardBottom>
                 <Row style={{ marginRight: "1.6rem" }}>
-                  周同比 12% <CaretUpOutlined style={{ color: "#f5222d" }} />
+                  周同比 {Math.abs(userCountData?.weeklyGrowthRate as number)}%{" "}
+                  {(userCountData?.weeklyGrowthRate as number) >= 0 ? (
+                    <CaretUpOutlined style={{ color: "#f5222d" }} />
+                  ) : (
+                    <CaretDownOutlined style={{ color: "#52c41a" }} />
+                  )}
                 </Row>
                 <Row>
-                  日同比 11%
-                  <CaretDownOutlined style={{ color: "#52c41a" }} />
+                  日同比 {Math.abs(userCountData?.dailyGrowthRate as number)}%
+                  {(userCountData?.dailyGrowthRate as number) >= 0 ? (
+                    <CaretUpOutlined style={{ color: "#f5222d" }} />
+                  ) : (
+                    <CaretDownOutlined style={{ color: "#52c41a" }} />
+                  )}
                 </Row>
               </CardBottom>
             </div>
@@ -369,7 +339,7 @@ export const Dashboard = () => {
             <div style={{ padding: "2rem 2.4rem 0" }}>
               <Statistic
                 title="推广员总数"
-                value={1220}
+                value={promoterCountData?.totalCount}
                 valueStyle={{ fontSize: "3rem" }}
               />
               <Column
@@ -378,16 +348,34 @@ export const Dashboard = () => {
                 padding={-20}
                 axis={false}
                 height={46}
-                data={orderData}
+                data={
+                  promoterCountData?.dailyCountList
+                    ? promoterCountData?.dailyCountList.map((item) => ({
+                        x: dayjs(item.createdAt).format("YYYY-MM-DD"),
+                        y: Math.round(item.count),
+                      }))
+                    : []
+                }
                 scale={{ x: { paddingInner: 0.4 } }}
               />
               <CardBottom>
                 <Row style={{ marginRight: "1.6rem" }}>
-                  周同比 12% <CaretUpOutlined style={{ color: "#f5222d" }} />
+                  周同比{" "}
+                  {Math.abs(promoterCountData?.weeklyGrowthRate as number)}%{" "}
+                  {(promoterCountData?.weeklyGrowthRate as number) >= 0 ? (
+                    <CaretUpOutlined style={{ color: "#f5222d" }} />
+                  ) : (
+                    <CaretDownOutlined style={{ color: "#52c41a" }} />
+                  )}
                 </Row>
                 <Row>
-                  日同比 11%
-                  <CaretDownOutlined style={{ color: "#52c41a" }} />
+                  日同比{" "}
+                  {Math.abs(promoterCountData?.dailyGrowthRate as number)}%
+                  {(promoterCountData?.dailyGrowthRate as number) >= 0 ? (
+                    <CaretUpOutlined style={{ color: "#f5222d" }} />
+                  ) : (
+                    <CaretDownOutlined style={{ color: "#52c41a" }} />
+                  )}
                 </Row>
               </CardBottom>
             </div>
