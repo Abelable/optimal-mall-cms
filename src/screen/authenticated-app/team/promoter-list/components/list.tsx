@@ -78,6 +78,10 @@ export const List = ({
             dataIndex: "nickname",
           },
           {
+            title: "手机号",
+            dataIndex: "mobile",
+          },
+          {
             title: "推广员身份",
             dataIndex: "level",
             render: (value) => (

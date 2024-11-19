@@ -1,5 +1,5 @@
 import { Row } from "components/lib";
-import { Button, Select } from "antd";
+import { Button, Input, Select } from "antd";
 
 import { useState } from "react";
 import styled from "@emotion/styled";
@@ -23,6 +23,36 @@ export const SearchPanel = ({
 }: SearchPanelProps) => {
   const [tempParams, setTempParams] = useState(defaultParmas);
 
+  const setNickname = (evt: any) => {
+    if (!evt.target.value && evt.type !== "change") {
+      setTempParams({
+        ...tempParams,
+        nickname: "",
+      });
+      return;
+    }
+
+    setTempParams({
+      ...tempParams,
+      nickname: evt.target.value,
+    });
+  };
+
+  const setMobile = (evt: any) => {
+    if (!evt.target.value && evt.type !== "change") {
+      setTempParams({
+        ...tempParams,
+        mobile: "",
+      });
+      return;
+    }
+
+    setTempParams({
+      ...tempParams,
+      mobile: evt.target.value,
+    });
+  };
+
   const setLevel = (level: number) => setTempParams({ ...tempParams, level });
   const clearLevel = () => setTempParams({ ...tempParams, level: undefined });
 
@@ -33,6 +63,26 @@ export const SearchPanel = ({
 
   return (
     <Container>
+      <Item>
+        <div>用户昵称：</div>
+        <Input
+          style={{ width: "20rem" }}
+          value={tempParams.nickname}
+          onChange={setNickname}
+          placeholder="请输入用户昵称"
+          allowClear
+        />
+      </Item>
+      <Item>
+        <div>用户手机号：</div>
+        <Input
+          style={{ width: "20rem" }}
+          value={tempParams.mobile}
+          onChange={setMobile}
+          placeholder="请输入用户手机号"
+          allowClear
+        />
+      </Item>
       <Item>
         <div>推广员身份：</div>
         <Select

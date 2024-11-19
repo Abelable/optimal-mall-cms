@@ -1,4 +1,6 @@
 export interface PromoterListSearchParams {
+  nickname: string;
+  mobile: string;
   level: number;
   page: number;
   limit: number;
@@ -9,6 +11,7 @@ export interface Promoter {
   user_id: number;
   avatar: string;
   nickname: string;
+  mobile: string;
   level: number;
   scene: number;
   createdAt: string;

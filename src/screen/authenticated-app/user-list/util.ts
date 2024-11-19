@@ -29,37 +29,6 @@ export const useUsersQueryKey = () => {
   return ["users", params];
 };
 
-export const useUserModal = () => {
-  const [{ editingUserId }, setEditingUserId] = useUrlQueryParams([
-    "editingUserId",
-  ]);
-  const setUrlParams = useSetUrlSearchParams();
-  const {
-    data: editingUser,
-    isLoading,
-    error,
-  } = useUser(Number(editingUserId));
-
-  const open = useCallback(
-    (id: number) => setEditingUserId({ editingUserId: `${id}` }),
-    [setEditingUserId]
-  );
-  const close = useCallback(
-    () => setUrlParams({ userCreate: "", editingUserId: "" }),
-    [setUrlParams]
-  );
-
-  return {
-    userModalOpen: !!editingUserId,
-    editingUserId,
-    editingUser,
-    isLoading,
-    error,
-    open,
-    close,
-  };
-};
-
 export const useBindModal = () => {
   const [{ bindUserId }, setBindUserId] = useUrlQueryParams(["bindUserId"]);
   const setUrlParams = useSetUrlSearchParams();

@@ -2,7 +2,13 @@ import { useSetUrlSearchParams, useUrlQueryParams } from "utils/url";
 import { useCallback, useMemo } from "react";
 
 export const usePromoterListSearchParams = () => {
-  const [params, setParams] = useUrlQueryParams(["level", "page", "limit"]);
+  const [params, setParams] = useUrlQueryParams([
+    "nickname",
+    "mobile",
+    "level",
+    "page",
+    "limit",
+  ]);
   return [
     useMemo(
       () => ({

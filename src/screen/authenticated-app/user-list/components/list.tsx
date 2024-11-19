@@ -21,7 +21,7 @@ import { UserOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import { useDeleteSuperior, useDeleteUser } from "service/user";
-import { useBindModal, useUserModal, useUsersQueryKey } from "../util";
+import { useBindModal, useUsersQueryKey } from "../util";
 
 import type { SearchPanelProps } from "./search-panel";
 import type { User } from "types/user";
@@ -130,7 +130,6 @@ export const List = ({
 };
 
 const More = ({ user }: { user: User }) => {
-  const { open: openUserModal } = useUserModal();
   const { open: openBindModal } = useBindModal();
   const { mutate: deleteUser } = useDeleteUser(useUsersQueryKey());
   const { mutate: deleteSuperior } = useDeleteSuperior(useUsersQueryKey());
@@ -159,10 +158,6 @@ const More = ({ user }: { user: User }) => {
   const items: MenuProps["items"] = user.superiorId
     ? [
         {
-          label: <div onClick={() => openUserModal(user.id)}>用户详情</div>,
-          key: "detail",
-        },
-        {
           label: <div onClick={() => confirmDelete()}>删除用户</div>,
           key: "delete",
         },
@@ -176,10 +171,6 @@ const More = ({ user }: { user: User }) => {
         },
       ]
     : [
-        {
-          label: <div onClick={() => openUserModal(user.id)}>用户详情</div>,
-          key: "detail",
-        },
         {
           label: <div onClick={() => confirmDelete()}>删除用户</div>,
           key: "delete",

@@ -1,4 +1,3 @@
-import { UserModal } from "./components/user-modal";
 import { List } from "./components/list";
 import { SearchPanel } from "./components/search-panel";
 import { BindModal } from "./components/bind-modal";
@@ -38,7 +37,6 @@ export const UserList = () => {
           bordered
         />
       </Main>
-      <UserModal />
       <BindModal superiorOptions={superiorOptions} />
     </Container>
   );
