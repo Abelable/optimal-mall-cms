@@ -64,22 +64,22 @@ export const SearchPanel = ({
   return (
     <Container>
       <Item>
-        <div>用户昵称：</div>
+        <div>推广员昵称：</div>
         <Input
           style={{ width: "20rem" }}
           value={tempParams.nickname}
           onChange={setNickname}
-          placeholder="请输入用户昵称"
+          placeholder="请输入推广员昵称"
           allowClear
         />
       </Item>
       <Item>
-        <div>用户手机号：</div>
+        <div>推广员手机号：</div>
         <Input
           style={{ width: "20rem" }}
           value={tempParams.mobile}
           onChange={setMobile}
-          placeholder="请输入用户手机号"
+          placeholder="请输入推广员手机号"
           allowClear
         />
       </Item>
