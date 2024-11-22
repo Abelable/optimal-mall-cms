@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import {
+  Avatar,
   Dropdown,
   Menu,
   MenuProps,
@@ -9,7 +10,11 @@ import {
   TableProps,
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
+import { FileUpload } from "components/file-upload";
+import { UserOutlined } from "@ant-design/icons";
+
 import dayjs from "dayjs";
+import { useQueryClient } from "react-query";
 import { useCancelOrder, useConfirmOrder, useDeleteOrder } from "service/order";
 import {
   useOrderModal,
@@ -20,8 +25,6 @@ import {
 import { SearchPanelProps } from "./search-panel";
 
 import type { Order } from "types/order";
-import { FileUpload } from "components/file-upload";
-import { useQueryClient } from "react-query";
 
 interface ListProps extends TableProps<Order>, SearchPanelProps {
   error: Error | unknown;
@@ -105,6 +108,25 @@ export const List = ({
             width: "32rem",
           },
           {
+            title: "下单用户",
+            dataIndex: "userInfo",
+            render: (value) => (
+              <>
+                <Avatar
+                  size="small"
+                  src={value.avatar}
+                  icon={<UserOutlined />}
+                />
+                <span style={{ marginLeft: "0.6rem" }}>
+                  {value.nickname.length > 8
+                    ? `${value.nickname.slice(0, 8)}...`
+                    : value.nickname}
+                </span>
+              </>
+            ),
+            width: "20rem",
+          },
+          {
             title: "收件人信息",
             children: [
               {
@@ -120,6 +142,7 @@ export const List = ({
               {
                 title: "收件地址",
                 dataIndex: "address",
+                width: "32rem",
               },
             ],
           },

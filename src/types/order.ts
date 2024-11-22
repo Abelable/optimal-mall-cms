@@ -13,6 +13,7 @@ export interface Order {
   orderSn: string;
   status: number;
   paymentAmount: number;
+  userInfo: { id: number; avatar: string; nickname: string };
   consignee: string;
   mobile: string;
   address: string;
