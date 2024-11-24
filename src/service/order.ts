@@ -5,6 +5,7 @@ import {
   useCancelOrderConfig,
   useConfirmOrderConfig,
   useDeliveryOrderConfig,
+  useExportOrderConfig,
 } from "./use-optimistic-options";
 import type {
   OrderDetail,
@@ -95,14 +96,25 @@ export const useDeleteOrder = (queryKey: QueryKey) => {
   );
 };
 
-export const useExportOrder = () => {
+export const useExportOrder = (queryKey: QueryKey) => {
   const client = useHttp();
-  return (ids: number[]) =>
-    client("order/export", {
-      data: { ids },
-      method: "POST",
-      headers: {
-        responseType: "arraybuffer",
-      },
-    });
+  return useMutation(
+    (ids: number[]) =>
+      client("order/export", {
+        data: { ids },
+        method: "POST",
+        headers: {
+          responseType: "arraybuffer",
+        },
+      }),
+    useExportOrderConfig(queryKey)
+  );
+  // return (ids: number[]) =>
+  //   client("order/export", {
+  //     data: { ids },
+  //     method: "POST",
+  //     headers: {
+  //       responseType: "arraybuffer",
+  //     },
+  //   });
 };

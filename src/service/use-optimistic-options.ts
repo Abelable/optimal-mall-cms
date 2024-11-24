@@ -136,6 +136,18 @@ export const useConfirmOrderConfig = (queryKey: QueryKey) =>
       : null
   );
 
+export const useExportOrderConfig = (queryKey: QueryKey) =>
+  useConfig(queryKey, (ids, old) =>
+    old
+      ? {
+          ...old,
+          list: old.list.map((item: any) =>
+            ids.includes(item.id) ? { ...item, status: 204 } : item
+          ),
+        }
+      : null
+  );
+
 export const useAddActivityGoodsConfig = (queryKey: QueryKey) =>
   useConfig(queryKey, (target, old) =>
     old

@@ -27,6 +27,7 @@ const statusOptions = [
   { text: "待发货", value: 201 },
   { text: "待退款", value: 202 },
   { text: "已退款", value: 203 },
+  { text: "待发货（已导出）", value: 204 },
   { text: "待收货", value: 301 },
   { text: "用户签收", value: 401 },
   { text: "系统签收", value: 402 },
@@ -38,7 +39,7 @@ const batchOprationOptions = [
 ];
 
 export const OrderList = () => {
-  const exportOrder = useExportOrder();
+  const { mutate: exportOrder } = useExportOrder(useOrderListQueryKey());
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [batchOprationType, setBatchOprationType] = useState(-1);
   const [params, setParams] = useOrderListSearchParams();

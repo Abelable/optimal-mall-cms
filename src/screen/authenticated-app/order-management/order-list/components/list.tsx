@@ -85,13 +85,17 @@ export const List = ({
             title: "订单状态",
             dataIndex: "status",
             render: (value) => (
-              <div style={{ color: value === 201 ? "#faad14" : "#000" }}>
+              <div
+                style={{
+                  color: [201, 204].includes(value) ? "#faad14" : "#000",
+                }}
+              >
                 {statusOptions.find((item) => item.value === value)?.text}
               </div>
             ),
             filters: statusOptions,
             onFilter: (value, order) => order.status === value,
-            width: "12rem",
+            width: "16rem",
           },
           {
             title: "订单金额",
@@ -244,6 +248,7 @@ const More = ({ id, status }: { id: number; status: number }) => {
     case 102:
     case 103:
     case 104:
+    case 203:
       items = [
         {
           label: <div onClick={() => openOrderModal(id)}>详情</div>,
@@ -257,6 +262,7 @@ const More = ({ id, status }: { id: number; status: number }) => {
       break;
 
     case 201:
+    case 204:
       items = [
         {
           label: <div onClick={() => openOrderModal(id)}>详情</div>,
