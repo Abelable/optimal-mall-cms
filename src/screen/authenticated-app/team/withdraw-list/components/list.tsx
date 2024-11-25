@@ -16,11 +16,7 @@ import { UserOutlined } from "@ant-design/icons";
 
 import dayjs from "dayjs";
 import { useApprovedWithdraw, useDeleteWithdraw } from "service/withdraw";
-import {
-  useWithdrawModal,
-  useWithdrawListQueryKey,
-  useRejectModal,
-} from "../util";
+import { useWithdrawListQueryKey, useRejectModal } from "../util";
 import { SearchPanelProps } from "./search-panel";
 
 import type { Withdraw } from "types/withdraw";
@@ -169,7 +165,6 @@ export const List = ({
 };
 
 const More = ({ withdraw }: { withdraw: Withdraw }) => {
-  const { open: openWithdrawModal } = useWithdrawModal();
   const { open: openRejectModal } = useRejectModal();
   const { mutate: approvedWithdraw } = useApprovedWithdraw(
     useWithdrawListQueryKey()
@@ -224,10 +219,6 @@ const More = ({ withdraw }: { withdraw: Withdraw }) => {
     case 0:
       items = [
         {
-          label: <div onClick={() => openWithdrawModal(withdraw.id)}>详情</div>,
-          key: "detail",
-        },
-        {
           label: <div onClick={() => confirmApproved()}>同意提现</div>,
           key: "approved",
         },
@@ -241,20 +232,8 @@ const More = ({ withdraw }: { withdraw: Withdraw }) => {
       break;
 
     case 1:
-      items = [
-        {
-          label: <div onClick={() => openWithdrawModal(withdraw.id)}>详情</div>,
-          key: "detail",
-        },
-      ];
-      break;
-
     case 2:
       items = [
-        {
-          label: <div onClick={() => openWithdrawModal(withdraw.id)}>详情</div>,
-          key: "detail",
-        },
         {
           label: <div onClick={() => confirmDelete()}>删除</div>,
           key: "delete",

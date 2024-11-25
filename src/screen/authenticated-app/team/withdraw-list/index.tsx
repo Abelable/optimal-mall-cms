@@ -7,7 +7,6 @@ import { useWithdrawListSearchParams } from "./util";
 import { List } from "./components/list";
 import { SearchPanel } from "./components/search-panel";
 import { RejectModal } from "./components/reject-modal";
-import { WithdrawModal } from "./components/withdraw-modal";
 
 const statusOptions = [
   { text: "待审核", value: 0 },
@@ -49,7 +48,6 @@ export const WithdrawList = () => {
           bordered
         />
       </Main>
-      <WithdrawModal statusOptions={statusOptions} />
       <RejectModal />
     </Container>
   );
