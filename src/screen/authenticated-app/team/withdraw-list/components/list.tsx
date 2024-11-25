@@ -19,6 +19,7 @@ import {
   useWithdrawModal,
   useWithdrawListQueryKey,
   useRejectModal,
+  useBankCardModal,
 } from "../util";
 import { SearchPanelProps } from "./search-panel";
 
@@ -168,6 +169,7 @@ export const List = ({
 };
 
 const More = ({ withdraw }: { withdraw: Withdraw }) => {
+  const { open: openBankCardModal } = useBankCardModal();
   const { open: openWithdrawModal } = useWithdrawModal();
   const { open: openRejectModal } = useRejectModal();
   const { mutate: approvedWithdraw } = useApprovedWithdraw(
@@ -206,7 +208,17 @@ const More = ({ withdraw }: { withdraw: Withdraw }) => {
           key: "detail",
         },
         {
-          label: <div onClick={() => confirmApproved()}>同意提现</div>,
+          label: (
+            <div
+              onClick={() =>
+                withdraw.path === 1
+                  ? confirmApproved()
+                  : openBankCardModal(withdraw.userInfo.id)
+              }
+            >
+              同意提现
+            </div>
+          ),
           key: "approved",
         },
         {

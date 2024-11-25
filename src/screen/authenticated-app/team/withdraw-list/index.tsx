@@ -6,6 +6,7 @@ import { useWithdrawListSearchParams } from "./util";
 
 import { List } from "./components/list";
 import { SearchPanel } from "./components/search-panel";
+import { BankModal } from "./components/bank-modal";
 import { RejectModal } from "./components/reject-modal";
 import { WithdrawModal } from "./components/withdraw-modal";
 
@@ -49,6 +50,7 @@ export const WithdrawList = () => {
           bordered
         />
       </Main>
+      <BankModal />
       <WithdrawModal statusOptions={statusOptions} />
       <RejectModal />
     </Container>

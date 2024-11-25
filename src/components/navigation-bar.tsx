@@ -9,7 +9,7 @@ const breadcrumbNameMap: { [key: string]: string } = {
   "/team/promoter_list": "推广员列表",
   "/team/auth_info_list": "实名认证",
   "/team/enterprise_info_list": "企业认证",
-  "/team/withdraw_list": "提现申请",
+  "/team/withdraw_list": "佣金提现",
   "/team/livestock_list": "认养专区",
   "/team/gift_goods_list": "礼包专区",
   "/activity": "活动管理",

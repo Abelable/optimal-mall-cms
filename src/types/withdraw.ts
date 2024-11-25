@@ -9,7 +9,7 @@ export interface Withdraw {
   id: number;
   status: number;
   failureReason: string;
-  userId: number;
+  userInfo: { id: number; avatar: string; nickname: string };
   scene: number;
   path: number;
   withdrawAmount: number;
@@ -29,3 +29,9 @@ export interface WithdrawListResult {
 }
 
 export interface WithdrawDetail extends Withdraw {}
+
+export interface BankCard {
+  name: string;
+  code: string;
+  bankName: string;
+}

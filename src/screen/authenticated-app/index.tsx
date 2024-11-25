@@ -171,7 +171,7 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
           icon: <VerifiedOutlined />,
         },
         {
-          label: <Link to={"team/withdraw_list"}>提现申请</Link>,
+          label: <Link to={"team/withdraw_list"}>佣金提现</Link>,
           key: "team_withdraw_list",
           icon: <PayCircleOutlined />,
         },
