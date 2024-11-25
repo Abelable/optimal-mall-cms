@@ -3,7 +3,12 @@ import { useCallback, useMemo } from "react";
 import { useWithdraw, useShippingInfo } from "service/withdraw";
 
 export const useWithdrawListSearchParams = () => {
-  const [params, setParams] = useUrlQueryParams(["status", "page", "limit"]);
+  const [params, setParams] = useUrlQueryParams([
+    "status",
+    "scene",
+    "page",
+    "limit",
+  ]);
   return [
     useMemo(
       () => ({

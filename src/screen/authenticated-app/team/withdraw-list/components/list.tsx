@@ -31,6 +31,7 @@ interface ListProps extends TableProps<Withdraw>, SearchPanelProps {
 
 export const List = ({
   statusOptions,
+  sceneOptions,
   error,
   params,
   setParams,
@@ -75,7 +76,7 @@ export const List = ({
             dataIndex: "scene",
             render: (value) => (
               <Tag color={["blue", "green", "orange"][value - 1]}>
-                {["自购", "分享", "礼包"][value - 1]}
+                {sceneOptions.find((item) => item.value === value)?.text}
               </Tag>
             ),
           },

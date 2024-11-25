@@ -14,6 +14,11 @@ const statusOptions = [
   { text: "已提现", value: 1 },
   { text: "已驳回", value: 2 },
 ];
+const sceneOptions = [
+  { text: "自购", value: 1 },
+  { text: "分享", value: 2 },
+  { text: "礼包", value: 3 },
+];
 
 export const WithdrawList = () => {
   const [params, setParams] = useWithdrawListSearchParams();
@@ -24,11 +29,13 @@ export const WithdrawList = () => {
       <Main>
         <SearchPanel
           statusOptions={statusOptions}
+          sceneOptions={sceneOptions}
           params={params}
           setParams={setParams}
         />
         <List
           statusOptions={statusOptions}
+          sceneOptions={sceneOptions}
           params={params}
           setParams={setParams}
           error={error}

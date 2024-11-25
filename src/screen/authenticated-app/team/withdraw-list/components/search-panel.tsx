@@ -4,21 +4,23 @@ import { Row } from "components/lib";
 import { Button, Select } from "antd";
 
 import type { Option } from "types/common";
-import type { RefundListSearchParams } from "types/refund";
+import type { WithdrawListSearchParams } from "types/withdraw";
 
 export interface SearchPanelProps {
   statusOptions: Option[];
-  params: Partial<RefundListSearchParams>;
-  setParams: (params: Partial<RefundListSearchParams>) => void;
+  sceneOptions: Option[];
+  params: Partial<WithdrawListSearchParams>;
+  setParams: (params: Partial<WithdrawListSearchParams>) => void;
 }
 
-const defaultParmas: Partial<RefundListSearchParams> = {
-  orderSn: "",
+const defaultParmas: Partial<WithdrawListSearchParams> = {
   status: undefined,
+  scene: undefined,
 };
 
 export const SearchPanel = ({
   statusOptions,
+  sceneOptions,
   params,
   setParams,
 }: SearchPanelProps) => {
@@ -27,6 +29,9 @@ export const SearchPanel = ({
   const setStatus = (status: number) =>
     setTempParams({ ...tempParams, status });
   const clearStatus = () => setTempParams({ ...tempParams, status: undefined });
+
+  const setScene = (scene: number) => setTempParams({ ...tempParams, scene });
+  const clearScene = () => setTempParams({ ...tempParams, scene: undefined });
 
   const clear = () => {
     setParams({ ...params, ...defaultParmas });
@@ -46,6 +51,23 @@ export const SearchPanel = ({
           onClear={clearStatus}
         >
           {statusOptions?.map(({ text, value }) => (
+            <Select.Option key={value} value={value}>
+              {text}
+            </Select.Option>
+          ))}
+        </Select>
+      </Item>
+      <Item>
+        <div>场景：</div>
+        <Select
+          style={{ width: "20rem" }}
+          value={tempParams.scene}
+          placeholder="请选择场景"
+          allowClear
+          onSelect={setScene}
+          onClear={clearScene}
+        >
+          {sceneOptions?.map(({ text, value }) => (
             <Select.Option key={value} value={value}>
               {text}
             </Select.Option>

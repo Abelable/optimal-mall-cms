@@ -1,5 +1,6 @@
 export interface WithdrawListSearchParams {
   status: number | undefined;
+  scene: number | undefined;
   page: number;
   limit: number;
 }
