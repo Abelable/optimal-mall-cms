@@ -10,7 +10,6 @@ import type {
   WithdrawListResult,
   WithdrawListSearchParams,
 } from "types/withdraw";
-import type { ShippingInfo } from "types/common";
 
 export const useWithdrawList = (params: Partial<WithdrawListSearchParams>) => {
   const client = useHttp();
@@ -23,7 +22,7 @@ export const useWithdraw = (id: number) => {
   const client = useHttp();
   return useQuery<Partial<WithdrawDetail>>(
     ["withdraw_detail", { id }],
-    () => client(`withdraw/detail`, { data: { id } }),
+    () => client("withdraw/detail", { data: { id } }),
     {
       enabled: !!id,
     }
@@ -39,17 +38,6 @@ export const useApprovedWithdraw = (queryKey: QueryKey) => {
         method: "POST",
       }),
     useApprovedConfig(queryKey)
-  );
-};
-
-export const useShippingInfo = (id: number) => {
-  const client = useHttp();
-  return useQuery<ShippingInfo>(
-    ["shipping_info", { id }],
-    () => client(`withdraw/shipping_info`, { data: { id } }),
-    {
-      enabled: !!id,
-    }
   );
 };
 

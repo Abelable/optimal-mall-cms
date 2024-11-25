@@ -19,7 +19,6 @@ import {
   useWithdrawModal,
   useWithdrawListQueryKey,
   useRejectModal,
-  useShippingModal,
 } from "../util";
 import { SearchPanelProps } from "./search-panel";
 
@@ -171,7 +170,6 @@ export const List = ({
 const More = ({ withdraw }: { withdraw: Withdraw }) => {
   const { open: openWithdrawModal } = useWithdrawModal();
   const { open: openRejectModal } = useRejectModal();
-  const { open: openShippingModal } = useShippingModal();
   const { mutate: approvedWithdraw } = useApprovedWithdraw(
     useWithdrawListQueryKey()
   );
@@ -182,17 +180,7 @@ const More = ({ withdraw }: { withdraw: Withdraw }) => {
   const confirmApproved = () => {
     Modal.confirm({
       title: "请核实信息之后，再确定提现申请",
-      content: `点击确定${withdraw.path === 1 ? "同意退款" : "同意退货"}`,
-      okText: "确定",
-      cancelText: "取消",
-      onOk: () => approvedWithdraw(withdraw.id),
-    });
-  };
-
-  const confirmReceived = () => {
-    Modal.confirm({
-      title: "确认收货之前，请核实物流信息",
-      content: "点击确定确认收货并退款",
+      content: "同意提现",
       okText: "确定",
       cancelText: "取消",
       onOk: () => approvedWithdraw(withdraw.id),
@@ -218,18 +206,12 @@ const More = ({ withdraw }: { withdraw: Withdraw }) => {
           key: "detail",
         },
         {
-          label: (
-            <div onClick={() => confirmApproved()}>
-              {withdraw.path === 1 ? "同意退款" : "同意退货"}
-            </div>
-          ),
+          label: <div onClick={() => confirmApproved()}>同意提现</div>,
           key: "approved",
         },
         {
           label: (
-            <div onClick={() => openRejectModal(withdraw.id)}>
-              {withdraw.path === 1 ? "拒绝退款" : "拒绝退货"}
-            </div>
+            <div onClick={() => openRejectModal(withdraw.id)}>拒绝提现</div>
           ),
           key: "reject",
         },
@@ -252,33 +234,8 @@ const More = ({ withdraw }: { withdraw: Withdraw }) => {
           key: "detail",
         },
         {
-          label: <div onClick={() => openShippingModal(withdraw.id)}>物流</div>,
-          key: "express",
-        },
-        {
-          label: <div onClick={() => confirmReceived()}>确认收货</div>,
-          key: "received",
-        },
-      ];
-      break;
-
-    case 3:
-      items = [
-        {
-          label: <div onClick={() => openWithdrawModal(withdraw.id)}>详情</div>,
-          key: "detail",
-        },
-        {
           label: <div onClick={() => confirmDelete()}>删除</div>,
           key: "delete",
-        },
-      ];
-      break;
-    case 4:
-      items = [
-        {
-          label: <div onClick={() => openWithdrawModal(withdraw.id)}>详情</div>,
-          key: "detail",
         },
       ];
       break;

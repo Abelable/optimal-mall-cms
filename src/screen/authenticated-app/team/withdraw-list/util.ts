@@ -1,6 +1,6 @@
 import { useSetUrlSearchParams, useUrlQueryParams } from "utils/url";
 import { useCallback, useMemo } from "react";
-import { useWithdraw, useShippingInfo } from "service/withdraw";
+import { useWithdraw } from "service/withdraw";
 
 export const useWithdrawListSearchParams = () => {
   const [params, setParams] = useUrlQueryParams([
@@ -76,37 +76,6 @@ export const useRejectModal = () => {
   return {
     rejectModalOpen: !!rejectWithdrawId,
     rejectWithdrawId,
-    open,
-    close,
-  };
-};
-
-export const useShippingModal = () => {
-  const [{ shippingWithdrawId }, setShippingWithdrawId] = useUrlQueryParams([
-    "shippingWithdrawId",
-  ]);
-  const setUrlParams = useSetUrlSearchParams();
-  const {
-    data: shippingInfo,
-    isLoading,
-    error,
-  } = useShippingInfo(Number(shippingWithdrawId));
-
-  const open = useCallback(
-    (id: number) => setShippingWithdrawId({ shippingWithdrawId: `${id}` }),
-    [setShippingWithdrawId]
-  );
-  const close = useCallback(
-    () => setUrlParams({ shippingWithdrawId: "" }),
-    [setUrlParams]
-  );
-
-  return {
-    shippingModalOpen: !!shippingWithdrawId,
-    shippingWithdrawId,
-    shippingInfo,
-    isLoading,
-    error,
     open,
     close,
   };
