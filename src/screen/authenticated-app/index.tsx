@@ -34,6 +34,7 @@ import {
   VerifiedOutlined,
   HeartOutlined,
   TransactionOutlined,
+  PayCircleOutlined,
 } from "@ant-design/icons";
 import logo from "assets/images/logo.png";
 import { CouponIcon } from "assets/icon";
@@ -43,6 +44,7 @@ import { UserList } from "./user-list";
 import { PromoterList } from "./team/promoter-list";
 import { AuthInfoList } from "./team/auth-info-list";
 import { EnterpriseInfoList } from "./team/enterprise-info-list";
+import { WithdrawList } from "./team/withdraw-list";
 import { LivestockList } from "./team/livestock-list";
 import { GiftGoodsList } from "./team/gift-goods-list";
 import { HomeBannerList } from "./activity-management/home-banner-list";
@@ -91,6 +93,7 @@ export const AuthenticatedApp = () => {
                 path="team/enterprise_info_list"
                 element={<EnterpriseInfoList />}
               />
+              <Route path="team/withdraw_list" element={<WithdrawList />} />
               <Route path="team/livestock_list" element={<LivestockList />} />
               <Route path="team/gift_goods_list" element={<GiftGoodsList />} />
               <Route
@@ -166,6 +169,11 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
           label: <Link to={"team/enterprise_info_list"}>企业认证</Link>,
           key: "team_enterprise_info_list",
           icon: <VerifiedOutlined />,
+        },
+        {
+          label: <Link to={"team/withdraw_list"}>提现申请</Link>,
+          key: "team_withdraw_list",
+          icon: <PayCircleOutlined />,
         },
         {
           label: <Link to={"team/livestock_list"}>认养专区</Link>,

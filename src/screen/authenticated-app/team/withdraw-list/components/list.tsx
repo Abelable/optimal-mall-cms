@@ -54,10 +54,6 @@ export const List = ({
             width: "8rem",
           },
           {
-            title: "订单编号",
-            dataIndex: "orderSn",
-          },
-          {
             title: "状态",
             dataIndex: "status",
             render: (value) => (
