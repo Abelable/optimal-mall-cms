@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import {
   Avatar,
+  Descriptions,
   Dropdown,
   Menu,
   MenuProps,
@@ -19,7 +20,6 @@ import {
   useWithdrawModal,
   useWithdrawListQueryKey,
   useRejectModal,
-  useBankCardModal,
 } from "../util";
 import { SearchPanelProps } from "./search-panel";
 
@@ -169,7 +169,6 @@ export const List = ({
 };
 
 const More = ({ withdraw }: { withdraw: Withdraw }) => {
-  const { open: openBankCardModal } = useBankCardModal();
   const { open: openWithdrawModal } = useWithdrawModal();
   const { open: openRejectModal } = useRejectModal();
   const { mutate: approvedWithdraw } = useApprovedWithdraw(
@@ -181,8 +180,29 @@ const More = ({ withdraw }: { withdraw: Withdraw }) => {
 
   const confirmApproved = () => {
     Modal.confirm({
-      title: "请核实信息之后，再确定提现申请",
-      content: "同意提现",
+      title:
+        withdraw.path === 1
+          ? "请核实信息之后，再确定提现申请"
+          : "请完成银行打款之后，再点击确定",
+      content:
+        withdraw.path === 1 ? (
+          "点击确定同意提现"
+        ) : (
+          <Descriptions size={"small"} column={1} bordered>
+            <Descriptions.Item label="卡号">
+              {withdraw.bankCardInfo?.code}
+            </Descriptions.Item>
+            <Descriptions.Item label="姓名">
+              {withdraw.bankCardInfo?.name}
+            </Descriptions.Item>
+            <Descriptions.Item label="开户行">
+              {withdraw.bankCardInfo?.bankName}
+            </Descriptions.Item>
+            <Descriptions.Item label="打款金额">
+              <span style={{ color: "red" }}>¥{withdraw.actualAmount}</span>
+            </Descriptions.Item>
+          </Descriptions>
+        ),
       okText: "确定",
       cancelText: "取消",
       onOk: () => approvedWithdraw(withdraw.id),
@@ -208,17 +228,7 @@ const More = ({ withdraw }: { withdraw: Withdraw }) => {
           key: "detail",
         },
         {
-          label: (
-            <div
-              onClick={() =>
-                withdraw.path === 1
-                  ? confirmApproved()
-                  : openBankCardModal(withdraw.userInfo.id)
-              }
-            >
-              同意提现
-            </div>
-          ),
+          label: <div onClick={() => confirmApproved()}>同意提现</div>,
           key: "approved",
         },
         {

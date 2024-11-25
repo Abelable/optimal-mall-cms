@@ -1,6 +1,6 @@
 import { useSetUrlSearchParams, useUrlQueryParams } from "utils/url";
 import { useCallback, useMemo } from "react";
-import { useBankCard, useWithdraw } from "service/withdraw";
+import { useWithdraw } from "service/withdraw";
 
 export const useWithdrawListSearchParams = () => {
   const [params, setParams] = useUrlQueryParams([
@@ -76,37 +76,6 @@ export const useRejectModal = () => {
   return {
     rejectModalOpen: !!rejectWithdrawId,
     rejectWithdrawId,
-    open,
-    close,
-  };
-};
-
-export const useBankCardModal = () => {
-  const [{ bankCardOwnerId }, setBankCardOwnerId] = useUrlQueryParams([
-    "bankCardOwnerId",
-  ]);
-  const setUrlParams = useSetUrlSearchParams();
-  const {
-    data: bankCardInfo,
-    isLoading,
-    error,
-  } = useBankCard(Number(bankCardOwnerId));
-
-  const open = useCallback(
-    (id: number) => setBankCardOwnerId({ bankCardOwnerId: `${id}` }),
-    [setBankCardOwnerId]
-  );
-  const close = useCallback(
-    () => setUrlParams({ bankCardOwnerId: "" }),
-    [setUrlParams]
-  );
-
-  return {
-    bankCardModalOpen: !!bankCardOwnerId,
-    bankCardOwnerId,
-    bankCardInfo,
-    isLoading,
-    error,
     open,
     close,
   };

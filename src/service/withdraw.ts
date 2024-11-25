@@ -6,7 +6,6 @@ import {
   useRejectWithdrawConfig,
 } from "./use-optimistic-options";
 import type {
-  BankCard,
   WithdrawDetail,
   WithdrawListResult,
   WithdrawListSearchParams,
@@ -63,16 +62,5 @@ export const useDeleteWithdraw = (queryKey: QueryKey) => {
         method: "POST",
       }),
     useDeleteConfig(queryKey)
-  );
-};
-
-export const useBankCard = (userId: number) => {
-  const client = useHttp();
-  return useQuery<Partial<BankCard>>(
-    ["bank_card", { userId }],
-    () => client(`withdraw/bank_card_info`, { data: { userId } }),
-    {
-      enabled: !!userId,
-    }
   );
 };
