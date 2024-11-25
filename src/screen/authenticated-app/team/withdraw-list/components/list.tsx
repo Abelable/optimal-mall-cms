@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import {
+  Avatar,
   Dropdown,
   Menu,
   MenuProps,
@@ -7,8 +8,11 @@ import {
   Table,
   TablePaginationConfig,
   TableProps,
+  Tag,
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
+import { UserOutlined } from "@ant-design/icons";
+
 import dayjs from "dayjs";
 import { useApprovedWithdraw, useDeleteWithdraw } from "service/withdraw";
 import {
@@ -67,14 +71,62 @@ export const List = ({
             onFilter: (value, withdraw) => withdraw.status === value,
           },
           {
-            title: "退款方式",
-            dataIndex: "path",
-            render: (value) => <>{value === 1 ? "仅退款" : "退货退款"}</>,
+            title: "场景",
+            dataIndex: "scene",
+            render: (value) => (
+              <Tag color={["blue", "green", "orange"][value - 1]}>
+                {["自购", "分享", "礼包"][value - 1]}
+              </Tag>
+            ),
           },
           {
-            title: "退款金额",
+            title: "提现用户",
+            dataIndex: "userInfo",
+            render: (value) => (
+              <>
+                <Avatar
+                  size="small"
+                  src={value.avatar}
+                  icon={<UserOutlined />}
+                />
+                <span style={{ marginLeft: "0.6rem" }}>
+                  {value.nickname.length > 8
+                    ? `${value.nickname.slice(0, 8)}...`
+                    : value.nickname}
+                </span>
+              </>
+            ),
+            width: "20rem",
+          },
+          {
+            title: "提现金额",
             dataIndex: "withdrawAmount",
             render: (value) => <>¥{value}</>,
+          },
+          {
+            title: "税费",
+            dataIndex: "taxFee",
+            render: (value) => <>¥{value}</>,
+          },
+          {
+            title: "手续费",
+            dataIndex: "handlingFee",
+            render: (value) => <>¥{value}</>,
+          },
+          {
+            title: "到账金额",
+            dataIndex: "actualAmount",
+            render: (value) => <div style={{ color: "red" }}>¥{value}</div>,
+          },
+          {
+            title: "提现方式",
+            dataIndex: "path",
+            render: (value) => <>{value === 1 ? "微信" : "银行卡"}</>,
+          },
+          {
+            title: "备注",
+            dataIndex: "remark",
+            width: "28rem",
           },
           {
             title: "提交时间",
