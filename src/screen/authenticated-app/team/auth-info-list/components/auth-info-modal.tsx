@@ -50,7 +50,7 @@ export const AuthInfoModal = () => {
               <Image
                 width={132}
                 height={84}
-                src={editingAuthInfo?.idCardFrontPhoto}
+                src={editingAuthInfo?.idCardBackPhoto}
               />
             </Descriptions.Item>
             <Descriptions.Item label="手持身份证照片">
