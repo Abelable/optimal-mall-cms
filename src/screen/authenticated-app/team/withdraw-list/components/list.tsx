@@ -48,11 +48,13 @@ export const List = ({
       <ErrorBox error={error} />
       <Table
         rowKey={"id"}
+        scroll={{ x: 2000 }}
         columns={[
           {
             title: "id",
             dataIndex: "id",
             width: "8rem",
+            fixed: "left",
           },
           {
             title: "状态",
@@ -66,6 +68,7 @@ export const List = ({
             ),
             filters: statusOptions,
             onFilter: (value, withdraw) => withdraw.status === value,
+            width: "10rem",
           },
           {
             title: "场景",
@@ -75,6 +78,7 @@ export const List = ({
                 {sceneOptions.find((item) => item.value === value)?.text}
               </Tag>
             ),
+            width: "10rem",
           },
           {
             title: "提现用户",
@@ -99,26 +103,31 @@ export const List = ({
             title: "提现金额",
             dataIndex: "withdrawAmount",
             render: (value) => <>¥{value}</>,
+            width: "12rem",
           },
           {
             title: "税费",
             dataIndex: "taxFee",
             render: (value) => <>¥{value}</>,
+            width: "10rem",
           },
           {
             title: "手续费",
             dataIndex: "handlingFee",
             render: (value) => <>¥{value}</>,
+            width: "12rem",
           },
           {
             title: "到账金额",
             dataIndex: "actualAmount",
             render: (value) => <div style={{ color: "red" }}>¥{value}</div>,
+            width: "14rem",
           },
           {
             title: "提现方式",
             dataIndex: "path",
             render: (value) => <>{value === 1 ? "微信" : "银行卡"}</>,
+            width: "14rem",
           },
           {
             title: "备注",
@@ -136,6 +145,7 @@ export const List = ({
             ),
             sorter: (a, b) =>
               dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf(),
+            width: "14rem",
           },
           {
             title: "处理时间",
@@ -148,6 +158,7 @@ export const List = ({
             ),
             sorter: (a, b) =>
               dayjs(a.updatedAt).valueOf() - dayjs(b.updatedAt).valueOf(),
+            width: "14rem",
           },
           {
             title: "操作",
