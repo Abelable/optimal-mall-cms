@@ -166,6 +166,7 @@ export const List = ({
               return <More withdraw={withdraw} />;
             },
             width: "8rem",
+            fixed: "right",
           },
         ]}
         onChange={setPagination}
