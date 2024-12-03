@@ -98,21 +98,25 @@ export const ActivityModal = () => {
               prevValues.status !== currentValues.status
             }
           >
-            {({ getFieldValue }) =>
-              getFieldValue("status") === 0 && (
-                <Form.Item
-                  name="startTime"
-                  label="活动开始时间"
-                  rules={[{ required: true, message: "请选择活动开始时间" }]}
-                >
-                  <DatePicker
-                    style={{ width: "100%" }}
-                    showTime
-                    placeholder="请选择活动开始时间"
-                  />
-                </Form.Item>
-              )
-            }
+            {}
+            {({ getFieldValue }) => {
+              // 监听formItem值变化
+              if (getFieldValue("status") === 0) {
+                return (
+                  <Form.Item
+                    name="startTime"
+                    label="活动开始时间"
+                    rules={[{ required: true, message: "请选择活动开始时间" }]}
+                  >
+                    <DatePicker
+                      style={{ width: "100%" }}
+                      showTime
+                      placeholder="请选择活动开始时间"
+                    />
+                  </Form.Item>
+                );
+              }
+            }}
           </Form.Item>
           <Form.Item name="endTime" label="活动结束时间">
             <DatePicker
