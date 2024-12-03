@@ -98,7 +98,6 @@ export const ActivityModal = () => {
               prevValues.status !== currentValues.status
             }
           >
-            {}
             {({ getFieldValue }) => {
               // 监听formItem值变化
               if (getFieldValue("status") === 0) {
