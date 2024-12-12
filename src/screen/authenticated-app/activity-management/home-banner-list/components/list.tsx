@@ -8,13 +8,19 @@ import {
   TablePaginationConfig,
   TableProps,
   Image,
+  InputNumber,
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
 import { PlusOutlined } from "@ant-design/icons";
 
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
-import { useDeleteBanner, useDownBanner, useUpBanner } from "service/banner";
+import {
+  useDeleteBanner,
+  useDownBanner,
+  useEditSort,
+  useUpBanner,
+} from "service/banner";
 import { useBannerModal, useBannerListQueryKey } from "../util";
 
 import type { Banner } from "types/banner";
@@ -39,6 +45,8 @@ export const List = ({
       page: pagination.current,
       limit: pagination.pageSize,
     });
+
+  const { mutate: editSort } = useEditSort(useBannerListQueryKey());
 
   return (
     <Container>
@@ -89,6 +97,17 @@ export const List = ({
           {
             title: "描述",
             dataIndex: "nickname",
+          },
+          {
+            title: "排序",
+            dataIndex: "sort",
+            render: (value, category) => (
+              <InputNumber
+                value={value}
+                onChange={(sort) => editSort({ id: category.id, sort })}
+              />
+            ),
+            sorter: (a, b) => a.sort - b.sort,
           },
           {
             title: "更新时间",

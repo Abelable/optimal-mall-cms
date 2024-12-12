@@ -12,6 +12,7 @@ export interface Banner {
   desc: string;
   scene: number;
   param: string;
+  sort: number;
   createdAt: string;
   updatedAt: string;
 }

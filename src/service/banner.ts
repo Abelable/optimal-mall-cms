@@ -54,6 +54,18 @@ export const useEditBanner = (queryKey: QueryKey) => {
   );
 };
 
+export const useEditSort = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    ({ id, sort }: { id: number; sort: number }) =>
+      client("mall/banner/edit_sort", {
+        data: { id, sort },
+        method: "POST",
+      }),
+    useEditConfig(queryKey)
+  );
+};
+
 export const useUpBanner = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
