@@ -52,37 +52,29 @@ export const List = ({
       <ErrorBox error={error} />
       <Table
         rowKey={"id"}
+        scroll={{ x: 1200 }}
         columns={[
           {
             title: "id",
             dataIndex: "id",
             width: "8rem",
+            fixed: "left",
           },
           {
             title: "头像",
             dataIndex: "avatar",
             render: (value) => <Avatar src={value} icon={<UserOutlined />} />,
+            width: "6.8rem",
           },
           {
             title: "昵称",
             dataIndex: "nickname",
+            width: "32rem",
           },
           {
             title: "手机号",
             dataIndex: "mobile",
-          },
-          {
-            title: "性别",
-            dataIndex: "gender",
-            render: (value) => (
-              <>{value === 1 ? "男" : value === 2 ? "女" : "未知"}</>
-            ),
-            filters: [
-              { text: "未知", value: 0 },
-              { text: "男", value: 1 },
-              { text: "女", value: 2 },
-            ],
-            onFilter: (value, user) => user.gender === value,
+            width: "14rem",
           },
           {
             title: "用户上级",
@@ -100,6 +92,7 @@ export const List = ({
                 <>暂无上级</>
               );
             },
+            width: "32rem",
           },
           {
             title: "注册时间",
@@ -120,6 +113,7 @@ export const List = ({
               return <More user={user} />;
             },
             width: "8rem",
+            fixed: "right",
           },
         ]}
         onChange={setPagination}

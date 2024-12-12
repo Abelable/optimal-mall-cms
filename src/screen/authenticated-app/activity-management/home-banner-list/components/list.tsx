@@ -59,11 +59,13 @@ export const List = ({
       <ErrorBox error={error} />
       <Table
         rowKey={"id"}
+        scroll={{ x: 2000 }}
         columns={[
           {
             title: "id",
             dataIndex: "id",
             width: "8rem",
+            fixed: "left",
           },
           {
             title: "封面",
@@ -86,7 +88,7 @@ export const List = ({
             title: "活动跳转场景",
             dataIndex: "scene",
             render: (value) => (
-              <>{sceneOptions.find((item) => item.value === value)?.text}</>
+              <>{sceneOptions.find((item) => item.value === +value)?.text}</>
             ),
             width: "14rem",
           },
@@ -108,6 +110,7 @@ export const List = ({
               />
             ),
             sorter: (a, b) => a.sort - b.sort,
+            width: "12rem",
           },
           {
             title: "更新时间",
@@ -141,6 +144,7 @@ export const List = ({
               return <More id={banner.id} status={banner.status} />;
             },
             width: "8rem",
+            fixed: "right",
           },
         ]}
         onChange={setPagination}
