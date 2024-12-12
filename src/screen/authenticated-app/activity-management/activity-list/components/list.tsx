@@ -82,7 +82,7 @@ export const List = ({
           {
             title: "活动名称",
             dataIndex: "name",
-            width: "14rem",
+            width: "16rem",
           },
           {
             title: "活动标签",
