@@ -66,14 +66,30 @@ export const GoodsModal = ({
   } = useMutationGoods(useGoodsListQueryKey());
 
   const [tableSkuList, setTableSkuList] = useState<TableSku[]>([]);
-  const [specContent, setSpecContent] = useState<Spec[]>([]);
+  const [specContentList, setSpecContentList] = useState<Spec[]>([]);
   const [specLabelStr, setSpecLabelStr] = useState<string>("");
   const [visible, setVisible] = useState<boolean>(false);
   const inputRef = useRef<InputRef>(null);
   const [inputVisible, setInputVisible] = useState<boolean>(false);
+  const [tagInputVisible, setTagInputVisible] = useState<boolean>(false);
   const [inputTagValue, setInputTagValue] = useState<string>("");
   const [tagIndex, setTagIndex] = useState<number | null>(null);
+  const [specIndex, setSpecIndex] = useState<number | null>(null);
   const tagInputRef = useRef(null);
+
+  const setSpecContent = (name: string, index: number) => {
+    const newList = specContentList.map((spec, _index) => {
+      if (_index === index) {
+        return {
+          ...spec,
+          name,
+        };
+      } else {
+        return spec;
+      }
+    });
+    setSpecContentList([...newList]);
+  };
 
   const columns: any[] = [
     {
@@ -102,7 +118,7 @@ export const GoodsModal = ({
         );
       },
     },
-    ...specContent.map((t) => {
+    ...specContentList.map((t) => {
       return {
         title: t.name,
         width: "18rem",
@@ -197,7 +213,9 @@ export const GoodsModal = ({
   // 添加规格名称
   const onAddSpecLabel = () => {
     if (specLabelStr) {
-      setSpecContent(specContent.concat({ name: specLabelStr, options: [] }));
+      setSpecContentList(
+        specContentList.concat({ name: specLabelStr, options: [] })
+      );
       setSpecLabelStr("");
       message.success("添加规格明成功");
       tableSku();
@@ -208,9 +226,9 @@ export const GoodsModal = ({
 
   // 删除规格
   const onDeleteSpec = (index: number) => {
-    const specList = [...specContent];
+    const specList = [...specContentList];
     specList.splice(index, 1);
-    setSpecContent(specList);
+    setSpecContentList(specList);
     message.success("删除规格成功");
     tableSku();
   };
@@ -218,28 +236,57 @@ export const GoodsModal = ({
   // 添加规格值
   const onAddSpecTag = (index: number) => {
     if (inputTagValue) {
-      const specList = [...specContent];
+      const specList = [...specContentList];
       specList[index].options.push(inputTagValue);
-      setSpecContent(specList);
+      setSpecContentList(specList);
       setInputTagValue(""); // 清空输入内容
+      setTagIndex(null);
+      setSpecIndex(null);
       tableSku();
       message.success("添加规格值成功");
     }
     setInputVisible(false);
   };
-
-  const onDeleteSpecTag = (labelIndex: number, tagIndex: number) => {
-    const specList = [...specContent];
-    specList[labelIndex].options.splice(tagIndex, 1);
-    setSpecContent(specList);
-    tableSku();
+  const onEditSpecTag = (labelIndex: number, tagIndex: number) => {
+    if (inputTagValue) {
+      const specList = specContentList.map((_item, _index) => {
+        if (_index === labelIndex) {
+          const options = _item.options.map((__item, __index) =>
+            __index === tagIndex ? inputTagValue : __item
+          );
+          return {
+            ..._item,
+            options,
+          };
+        } else {
+          return _item;
+        }
+      });
+      setSpecContentList([...specList]);
+      setInputTagValue(""); // 清空输入内容
+      setTagIndex(null);
+      setSpecIndex(null);
+      tableSku();
+      message.success("规格值修改成功");
+    }
+    setTagInputVisible(false);
   };
+  const onDeleteSpecTag = (labelIndex: number, tagIndex: number) => {
+    const specList = [...specContentList];
+    specList[labelIndex].options.splice(tagIndex, 1);
+    setSpecContentList(specList);
+    tableSku();
+    setInputTagValue("");
+    setTagIndex(null);
+    setSpecIndex(null);
+  };
+
   const tableSku = () => {
     // 绘制商品规格sku
     let temp: any[] = [];
-    specContent.forEach((item, index) => {
+    specContentList.forEach((item, index) => {
       if (!temp.length) {
-        // specContent当只有一个数据时候只需要
+        // specContentList当只有一个数据时候只需要
         temp.push(
           ...item.options.map((str) => {
             const oldItem = tableSkuList.find((t) => t.name === str);
@@ -343,7 +390,7 @@ export const GoodsModal = ({
           }
         )
       );
-      setSpecContent(specList || []);
+      setSpecContentList(specList || []);
 
       form.setFieldsValue({
         video: video
@@ -382,9 +429,10 @@ export const GoodsModal = ({
       } = form.getFieldsValue();
 
       if (
-        specContent.length &&
-        specContent.findIndex((item) => !item.name || !item.options.length) !==
-          -1
+        specContentList.length &&
+        specContentList.findIndex(
+          (item) => !item.name || !item.options.length
+        ) !== -1
       ) {
         Modal.error({
           title: "请完善商品规格信息",
@@ -426,7 +474,7 @@ export const GoodsModal = ({
         ),
         defaultSpecImage: defaultSpecImage[0].url,
         stock,
-        specList: specContent,
+        specList: specContentList,
         skuList: tableSkuList.map(
           ({ name, image, price, originalPrice, commissionRate, stock }) => ({
             name,
@@ -445,7 +493,7 @@ export const GoodsModal = ({
   const closeModal = () => {
     form.resetFields();
     setTableSkuList([]);
-    setSpecContent([]);
+    setSpecContentList([]);
     close();
   };
 
@@ -705,13 +753,17 @@ export const GoodsModal = ({
             }
           >
             <div>
-              {specContent.map((item, index) => {
+              {specContentList.map((item, index) => {
                 return (
                   <div key={index} style={{ marginBottom: "18px" }}>
                     <h3>
-                      <span style={{ marginRight: "8px", fontSize: "14px" }}>
-                        {item.name}
-                      </span>
+                      <Input
+                        placeholder="请输入规格"
+                        value={item.name}
+                        size="small"
+                        style={{ marginRight: "8px", width: "fit-content" }}
+                        onChange={(e) => setSpecContent(e.target.value, index)}
+                      />
                       <DeleteOutlined
                         onClick={() => onDeleteSpec(index)}
                         style={{ color: "red", fontSize: "14px" }}
@@ -723,14 +775,37 @@ export const GoodsModal = ({
                     >
                       <div>
                         {" "}
-                        {item.options.map((str, strKey) => (
-                          <Tag color="processing" key={strKey}>
-                            <span>{str}</span>
-                            <CloseOutlined
-                              onClick={() => onDeleteSpecTag(index, strKey)}
+                        {item.options.map((str, strKey) =>
+                          tagInputVisible &&
+                          index === tagIndex &&
+                          strKey === specIndex ? (
+                            <Input
+                              placeholder="请输入规格值"
+                              value={inputTagValue}
+                              size="small"
+                              style={{ width: 120 }}
+                              onChange={(e) => setInputTagValue(e.target.value)}
+                              onBlur={() => onEditSpecTag(index, strKey)}
+                              onPressEnter={() => onEditSpecTag(index, strKey)}
                             />
-                          </Tag>
-                        ))}
+                          ) : (
+                            <Tag
+                              color="processing"
+                              key={strKey}
+                              onClick={() => {
+                                setInputTagValue(str);
+                                setTagIndex(index);
+                                setSpecIndex(strKey);
+                                setTagInputVisible(!tagInputVisible);
+                              }}
+                            >
+                              <span>{str}</span>
+                              <CloseOutlined
+                                onClick={() => onDeleteSpecTag(index, strKey)}
+                              />
+                            </Tag>
+                          )
+                        )}
                       </div>
                       {inputVisible && index === tagIndex ? (
                         <Input
