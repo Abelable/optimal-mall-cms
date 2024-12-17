@@ -194,21 +194,6 @@ export const GoodsModal = ({
       },
     },
   ];
-  const ElInputContent = () => (
-    <Input
-      ref={inputRef}
-      value={specLabelStr}
-      style={{ width: 350 }}
-      placeholder="请输入规格名称 按下Enter键确认"
-      onPressEnter={onAddSpecLabel}
-      onChange={(value) => setSpecLabelStr(value.target.value)}
-      addonAfter={
-        <span style={{ cursor: "pointer" }} onClick={onAddSpecLabel}>
-          确认添加
-        </span>
-      }
-    />
-  );
 
   // 添加规格名称
   const onAddSpecLabel = () => {
@@ -733,13 +718,59 @@ export const GoodsModal = ({
               </Form.Item>
             </Col>
           </Row>
+
+          <Popover
+            placement="bottomLeft"
+            trigger="click"
+            content={
+              <Input
+                ref={inputRef}
+                value={specLabelStr}
+                style={{ width: 350 }}
+                placeholder="请输入规格名称 按下Enter键确认"
+                onPressEnter={onAddSpecLabel}
+                onChange={(value) => setSpecLabelStr(value.target.value)}
+                addonAfter={
+                  <span style={{ cursor: "pointer" }} onClick={onAddSpecLabel}>
+                    确认添加
+                  </span>
+                }
+              />
+            }
+          >
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={() => setVisible(!visible)}
+            >
+              添加规格属性
+            </Button>
+          </Popover>
+
           <Card
             style={{ marginTop: "15px" }}
             title={
               <Popover
                 placement="bottomLeft"
                 trigger="click"
-                content={ElInputContent}
+                content={
+                  <Input
+                    ref={inputRef}
+                    value={specLabelStr}
+                    style={{ width: 350 }}
+                    placeholder="请输入规格名称 按下Enter键确认"
+                    onPressEnter={onAddSpecLabel}
+                    onChange={(value) => setSpecLabelStr(value.target.value)}
+                    addonAfter={
+                      <span
+                        style={{ cursor: "pointer" }}
+                        onClick={onAddSpecLabel}
+                      >
+                        确认添加
+                      </span>
+                    }
+                  />
+                }
               >
                 <Button
                   type="dashed"
