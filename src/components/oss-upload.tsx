@@ -75,6 +75,7 @@ export const OssUpload = ({
 
   const handleChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
     setFileList(newFileList);
+    props.onChange?.(newFileList as any);
   };
 
   return (
