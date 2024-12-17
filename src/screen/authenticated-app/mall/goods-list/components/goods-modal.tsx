@@ -24,7 +24,7 @@ import {
 } from "antd";
 import { PlusOutlined, DeleteOutlined, CloseOutlined } from "@ant-design/icons";
 import { OssUpload } from "components/oss-upload";
-import { ErrorBox, ModalLoading } from "components/lib";
+import { ErrorBox, ModalLoading, Row as CustomeRow } from "components/lib";
 
 import type { CategoryOption } from "types/category";
 import type { OperatorOption } from "types/common";
@@ -765,7 +765,7 @@ export const GoodsModal = ({
                         placeholder="请输入规格属性"
                         value={item.name}
                         size="small"
-                        style={{ marginRight: "8px", width: "fit-content" }}
+                        style={{ width: "fit-content" }}
                         onChange={(e) => setSpecContent(e.target.value, index)}
                       />
                     </Row>
@@ -782,25 +782,36 @@ export const GoodsModal = ({
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <div>
                     {item.options.map((str, strKey) => (
-                      <Input
-                        placeholder="请输入规格值"
-                        value={str}
-                        size="small"
-                        style={{ width: 120 }}
-                        onChange={(e) => setInputTagValue(e.target.value)}
-                      />
+                      <CustomeRow key={strKey} style={{ marginRight: "8px" }}>
+                        <Input
+                          placeholder="请输入规格值"
+                          value={str}
+                          size="small"
+                          style={{ width: "fit-content" }}
+                          onChange={(e) => setInputTagValue(e.target.value)}
+                        />
+                        <DeleteOutlined
+                          onClick={() => onDeleteSpec(index)}
+                          style={{
+                            color: "red",
+                            fontSize: "14px",
+                            marginLeft: "8px",
+                          }}
+                        />
+                      </CustomeRow>
                     ))}
                   </div>
-                  <Tag
+                  <Button
+                    type="primary"
+                    size="small"
                     icon={<PlusOutlined />}
-                    style={{ cursor: "pointer" }}
                     onClick={() => {
                       setTagIndex(index);
                       setInputVisible(!inputVisible);
                     }}
                   >
                     添加规格值
-                  </Tag>
+                  </Button>
                 </div>
               </Card>
             ))}
