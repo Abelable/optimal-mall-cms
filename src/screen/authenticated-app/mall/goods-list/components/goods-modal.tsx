@@ -24,7 +24,12 @@ import {
 } from "antd";
 import { PlusOutlined, DeleteOutlined, CloseOutlined } from "@ant-design/icons";
 import { OssUpload } from "components/oss-upload";
-import { ErrorBox, ModalLoading, Row as CustomeRow } from "components/lib";
+import {
+  ErrorBox,
+  ModalLoading,
+  Row as CustomeRow,
+  ButtonNoPadding,
+} from "components/lib";
 
 import type { CategoryOption } from "types/category";
 import type { OperatorOption } from "types/common";
@@ -769,38 +774,36 @@ export const GoodsModal = ({
                         onChange={(e) => setSpecContent(e.target.value, index)}
                       />
                     </Row>
-                    <Button
+                    <ButtonNoPadding
                       type="link"
                       danger
                       onClick={() => onDeleteSpec(index)}
                     >
                       删除
-                    </Button>
+                    </ButtonNoPadding>
                   </div>
                 }
               >
                 <div style={{ display: "flex", alignItems: "center" }}>
-                  <div>
-                    {item.options.map((str, strKey) => (
-                      <CustomeRow key={strKey} style={{ marginRight: "8px" }}>
-                        <Input
-                          placeholder="请输入规格值"
-                          value={str}
-                          size="small"
-                          style={{ width: "fit-content" }}
-                          onChange={(e) => setInputTagValue(e.target.value)}
-                        />
-                        <DeleteOutlined
-                          onClick={() => onDeleteSpec(index)}
-                          style={{
-                            color: "red",
-                            fontSize: "14px",
-                            marginLeft: "8px",
-                          }}
-                        />
-                      </CustomeRow>
-                    ))}
-                  </div>
+                  {item.options.map((str, strKey) => (
+                    <CustomeRow key={strKey} style={{ marginRight: "12px" }}>
+                      <Input
+                        placeholder="请输入规格值"
+                        value={str}
+                        size="small"
+                        style={{ width: "fit-content" }}
+                        onChange={(e) => setInputTagValue(e.target.value)}
+                      />
+                      <DeleteOutlined
+                        style={{
+                          marginLeft: "6px",
+                          color: "red",
+                          fontSize: "14px",
+                        }}
+                        onClick={() => onDeleteSpec(index)}
+                      />
+                    </CustomeRow>
+                  ))}
                   <Button
                     type="primary"
                     size="small"
