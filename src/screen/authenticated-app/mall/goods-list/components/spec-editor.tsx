@@ -54,8 +54,9 @@ export const SpecEditor = ({
                 : []
             }
             onChange={(e) => {
-              tableSkuList[index].image = e.fileList[0]?.url || "";
-              setTableSkuList(tableSkuList);
+              const _tableSkuList = [...tableSkuList];
+              _tableSkuList[index].image = e.fileList[0]?.url || "";
+              setTableSkuList(_tableSkuList);
             }}
             maxCount={1}
             zoom={0.5}
@@ -81,8 +82,9 @@ export const SpecEditor = ({
             defaultValue={tableSkuList[index].price}
             style={{ width: "100%" }}
             onChange={(e) => {
-              tableSkuList[index].price = e || 0;
-              setTableSkuList(tableSkuList);
+              const _tableSkuList = [...tableSkuList];
+              _tableSkuList[index].price = e || 0;
+              setTableSkuList(_tableSkuList);
             }}
           />
         );
@@ -97,8 +99,9 @@ export const SpecEditor = ({
             defaultValue={tableSkuList[index].originalPrice}
             style={{ width: "100%" }}
             onChange={(e) => {
-              tableSkuList[index].originalPrice = e || 0;
-              setTableSkuList(tableSkuList);
+              const _tableSkuList = [...tableSkuList];
+              _tableSkuList[index].originalPrice = e || 0;
+              setTableSkuList(_tableSkuList);
             }}
           />
         );
@@ -115,8 +118,9 @@ export const SpecEditor = ({
             style={{ width: "100%" }}
             defaultValue={tableSkuList[index].commissionRate}
             onChange={(e) => {
-              tableSkuList[index].commissionRate = e || 0;
-              setTableSkuList(tableSkuList);
+              const _tableSkuList = [...tableSkuList];
+              _tableSkuList[index].commissionRate = e || 0;
+              setTableSkuList(_tableSkuList);
             }}
           />
         );
@@ -131,8 +135,9 @@ export const SpecEditor = ({
             defaultValue={tableSkuList[index].stock}
             style={{ width: "100%" }}
             onChange={(e) => {
-              tableSkuList[index].stock = e || 0;
-              setTableSkuList(tableSkuList);
+              const _tableSkuList = [...tableSkuList];
+              _tableSkuList[index].stock = e || 0;
+              setTableSkuList(_tableSkuList);
             }}
           />
         );
