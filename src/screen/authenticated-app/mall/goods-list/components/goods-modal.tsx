@@ -748,6 +748,28 @@ export const GoodsModal = ({
           </Popover>
 
           <Card
+            style={{ marginTop: "2.4rem" }}
+            title={
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              ></div>
+            }
+          ></Card>
+
+          <Table
+            style={{ marginTop: "2.4rem" }}
+            bordered
+            rowKey={"name"}
+            dataSource={tableSkuList}
+            columns={columns}
+            pagination={false}
+          />
+
+          <Card
             style={{ marginTop: "15px" }}
             title={
               <Popover
