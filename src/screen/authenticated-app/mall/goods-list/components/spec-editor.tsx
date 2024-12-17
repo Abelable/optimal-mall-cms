@@ -21,9 +21,17 @@ interface TableSku extends Sku {
   [x: string]: string | number | object;
 }
 
-export const SpecEditor = () => {
-  const [tableSkuList, setTableSkuList] = useState<TableSku[]>([]);
-  const [specContentList, setSpecContentList] = useState<Spec[]>([]);
+export const SpecEditor = ({
+  tableSkuList,
+  setTableSkuList,
+  specContentList,
+  setSpecContentList,
+}: {
+  tableSkuList: TableSku[];
+  setTableSkuList: (list: TableSku[]) => void;
+  specContentList: Spec[];
+  setSpecContentList: (list: Spec[]) => void;
+}) => {
   const [specLabelStr, setSpecLabelStr] = useState<string>("");
   const [visible, setVisible] = useState<boolean>(false);
   const inputRef = useRef<InputRef>(null);
@@ -133,40 +141,27 @@ export const SpecEditor = () => {
   ];
 
   const setSpecContent = (name: string, index: number) => {
-    const newList = specContentList.map((spec, _index) => {
-      if (_index === index) {
-        return {
-          ...spec,
-          name,
-        };
-      } else {
-        return spec;
-      }
-    });
-    setSpecContentList([...newList]);
+    const specList = [...specContentList];
+    specList[index].name = name;
+    setSpecContentList(specList);
   };
-
-  // 添加规格名称
   const onAddSpecLabel = () => {
     if (specLabelStr) {
       setSpecContentList(
         specContentList.concat({ name: specLabelStr, options: [] })
       );
       setSpecLabelStr("");
-      message.success("添加规格明成功");
       tableSku();
     } else {
-      message.error("请填写规格名称");
+      message.error("请填写规格属性");
     }
   };
-
   const onDeleteSpec = (index: number) => {
     const specList = [...specContentList];
     specList.splice(index, 1);
     setSpecContentList(specList);
     tableSku();
   };
-
   const onAddSpecTag = (index: number) => {
     if (specContentList[index].options.findIndex((_item) => !_item) !== -1) {
       message.error("请输入规格值");
