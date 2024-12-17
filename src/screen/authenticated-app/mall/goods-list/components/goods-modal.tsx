@@ -208,6 +208,7 @@ export const GoodsModal = ({
     setTableSkuList([]);
     setSpecContentList([]);
     close();
+    window.location.reload();
   };
 
   return (
