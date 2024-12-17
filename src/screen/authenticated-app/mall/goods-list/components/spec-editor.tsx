@@ -43,7 +43,7 @@ export const SpecEditor = ({
         return (
           <OssUpload
             defaultFileList={
-              tableSkuList[index].image
+              tableSkuList && tableSkuList[index] && tableSkuList[index].image
                 ? [
                     {
                       uid: `${index}`,
@@ -53,9 +53,9 @@ export const SpecEditor = ({
                   ]
                 : []
             }
-            onChange={(e) => {
+            onChange={(e: any) => {
               const _tableSkuList = [...tableSkuList];
-              _tableSkuList[index].image = e.fileList[0]?.url || "";
+              _tableSkuList[index].image = e[0]?.url || "";
               setTableSkuList(_tableSkuList);
             }}
             maxCount={1}

@@ -34,10 +34,13 @@ export const OssUpload = ({
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   useEffect(() => {
+    if (!fileList.length && props.defaultFileList) {
+      setFileList(props.defaultFileList);
+    }
     if (props.fileList) {
       setFileList(props.fileList);
     }
-  }, [props.fileList]);
+  }, [fileList.length, props.defaultFileList, props.fileList]);
 
   const { data: ossConfig } = useOssConfig();
   const getExtraData = (file: any) => {
