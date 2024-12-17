@@ -19,10 +19,9 @@ import {
   message,
   Popover,
   Table,
-  Tag,
   Modal,
 } from "antd";
-import { PlusOutlined, DeleteOutlined, CloseOutlined } from "@ant-design/icons";
+import { PlusOutlined, DeleteOutlined } from "@ant-design/icons";
 import { OssUpload } from "components/oss-upload";
 import {
   ErrorBox,
@@ -75,12 +74,6 @@ export const GoodsModal = ({
   const [specLabelStr, setSpecLabelStr] = useState<string>("");
   const [visible, setVisible] = useState<boolean>(false);
   const inputRef = useRef<InputRef>(null);
-  const [inputVisible, setInputVisible] = useState<boolean>(false);
-  const [tagInputVisible, setTagInputVisible] = useState<boolean>(false);
-  const [inputTagValue, setInputTagValue] = useState<string>("");
-  const [tagIndex, setTagIndex] = useState<number | null>(null);
-  const [specIndex, setSpecIndex] = useState<number | null>(null);
-  const tagInputRef = useRef(null);
 
   const setSpecContent = (name: string, index: number) => {
     const newList = specContentList.map((spec, _index) => {
@@ -214,69 +207,40 @@ export const GoodsModal = ({
     }
   };
 
-  // 删除规格
   const onDeleteSpec = (index: number) => {
     const specList = [...specContentList];
     specList.splice(index, 1);
     setSpecContentList(specList);
-    message.success("删除规格成功");
     tableSku();
   };
 
-  // 添加规格值
   const onAddSpecTag = (index: number) => {
-    if (inputTagValue) {
-      const specList = [...specContentList];
-      specList[index].options.push(inputTagValue);
-      setSpecContentList(specList);
-      setInputTagValue(""); // 清空输入内容
-      setTagIndex(null);
-      setSpecIndex(null);
-      tableSku();
-      message.success("添加规格值成功");
+    if (specContentList[index].options.findIndex((_item) => !_item) !== -1) {
+      message.error("请输入规格值");
+      return;
     }
-    setInputVisible(false);
+    const specList = [...specContentList];
+    specList[index].options.push("");
+    setSpecContentList(specList);
+    tableSku();
   };
-  const onEditSpecTag = (labelIndex: number, tagIndex: number) => {
-    if (inputTagValue) {
-      const specList = specContentList.map((_item, _index) => {
-        if (_index === labelIndex) {
-          const options = _item.options.map((__item, __index) =>
-            __index === tagIndex ? inputTagValue : __item
-          );
-          return {
-            ..._item,
-            options,
-          };
-        } else {
-          return _item;
-        }
-      });
-      setSpecContentList([...specList]);
-      setInputTagValue(""); // 清空输入内容
-      setTagIndex(null);
-      setSpecIndex(null);
-      tableSku();
-      message.success("规格值修改成功");
-    }
-    setTagInputVisible(false);
+  const onEditSpecTag = (index: number, tagIndex: number, text: string) => {
+    const specList = [...specContentList];
+    specList[index].options[tagIndex] = text;
+    setSpecContentList(specList);
+    tableSku();
   };
   const onDeleteSpecTag = (labelIndex: number, tagIndex: number) => {
     const specList = [...specContentList];
     specList[labelIndex].options.splice(tagIndex, 1);
     setSpecContentList(specList);
     tableSku();
-    setInputTagValue("");
-    setTagIndex(null);
-    setSpecIndex(null);
   };
 
   const tableSku = () => {
-    // 绘制商品规格sku
     let temp: any[] = [];
     specContentList.forEach((item, index) => {
       if (!temp.length) {
-        // specContentList当只有一个数据时候只需要
         temp.push(
           ...item.options.map((str) => {
             const oldItem = tableSkuList.find((t) => t.name === str);
@@ -334,10 +298,6 @@ export const GoodsModal = ({
   useEffect(() => {
     inputRef.current?.focus();
   }, [visible]);
-  useEffect(() => {
-    (tagInputRef.current as any)?.childNodes[1].focus();
-    (tagInputRef.current as any)?.childNodes[0].focus();
-  }, [inputVisible, tagIndex]);
 
   useEffect(() => {
     if (editingGoods) {
@@ -792,7 +752,9 @@ export const GoodsModal = ({
                         value={str}
                         size="small"
                         style={{ width: "fit-content" }}
-                        onChange={(e) => setInputTagValue(e.target.value)}
+                        onChange={(e) =>
+                          onEditSpecTag(index, strKey, e.target.value)
+                        }
                       />
                       <DeleteOutlined
                         style={{
@@ -800,7 +762,7 @@ export const GoodsModal = ({
                           color: "red",
                           fontSize: "14px",
                         }}
-                        onClick={() => onDeleteSpec(index)}
+                        onClick={() => onDeleteSpecTag(index, strKey)}
                       />
                     </CustomeRow>
                   ))}
@@ -808,10 +770,7 @@ export const GoodsModal = ({
                     type="primary"
                     size="small"
                     icon={<PlusOutlined />}
-                    onClick={() => {
-                      setTagIndex(index);
-                      setInputVisible(!inputVisible);
-                    }}
+                    onClick={() => onAddSpecTag(index)}
                   >
                     添加规格值
                   </Button>
@@ -828,133 +787,6 @@ export const GoodsModal = ({
             columns={columns}
             pagination={false}
           />
-
-          <Card
-            style={{ marginTop: "15px" }}
-            title={
-              <Popover
-                placement="bottomLeft"
-                trigger="click"
-                content={
-                  <Input
-                    ref={inputRef}
-                    value={specLabelStr}
-                    style={{ width: 350 }}
-                    placeholder="请输入规格名称 按下Enter键确认"
-                    onPressEnter={onAddSpecLabel}
-                    onChange={(value) => setSpecLabelStr(value.target.value)}
-                    addonAfter={
-                      <span
-                        style={{ cursor: "pointer" }}
-                        onClick={onAddSpecLabel}
-                      >
-                        确认添加
-                      </span>
-                    }
-                  />
-                }
-              >
-                <Button
-                  type="dashed"
-                  size="middle"
-                  icon={<PlusOutlined />}
-                  onClick={() => setVisible(!visible)}
-                >
-                  添加规格
-                </Button>
-              </Popover>
-            }
-          >
-            <div>
-              {specContentList.map((item, index) => {
-                return (
-                  <div key={index} style={{ marginBottom: "18px" }}>
-                    <h3>
-                      <Input
-                        placeholder="请输入规格"
-                        value={item.name}
-                        size="small"
-                        style={{ marginRight: "8px", width: "fit-content" }}
-                        onChange={(e) => setSpecContent(e.target.value, index)}
-                      />
-                      <DeleteOutlined
-                        onClick={() => onDeleteSpec(index)}
-                        style={{ color: "red", fontSize: "14px" }}
-                      />
-                    </h3>
-                    <div
-                      style={{ display: "flex", alignItems: "center" }}
-                      ref={tagInputRef}
-                    >
-                      <div>
-                        {" "}
-                        {item.options.map((str, strKey) =>
-                          tagInputVisible &&
-                          index === tagIndex &&
-                          strKey === specIndex ? (
-                            <Input
-                              placeholder="请输入规格值"
-                              value={inputTagValue}
-                              size="small"
-                              style={{ width: 120 }}
-                              onChange={(e) => setInputTagValue(e.target.value)}
-                              onBlur={() => onEditSpecTag(index, strKey)}
-                              onPressEnter={() => onEditSpecTag(index, strKey)}
-                            />
-                          ) : (
-                            <Tag
-                              color="processing"
-                              key={strKey}
-                              onClick={() => {
-                                setInputTagValue(str);
-                                setTagIndex(index);
-                                setSpecIndex(strKey);
-                                setTagInputVisible(!tagInputVisible);
-                              }}
-                            >
-                              <span>{str}</span>
-                              <CloseOutlined
-                                onClick={() => onDeleteSpecTag(index, strKey)}
-                              />
-                            </Tag>
-                          )
-                        )}
-                      </div>
-                      {inputVisible && index === tagIndex ? (
-                        <Input
-                          placeholder="请输入规格值"
-                          value={inputTagValue}
-                          size="small"
-                          style={{ width: 120 }}
-                          onChange={(e) => setInputTagValue(e.target.value)}
-                          onBlur={() => onAddSpecTag(index)}
-                          onPressEnter={() => onAddSpecTag(index)}
-                        />
-                      ) : (
-                        <Tag
-                          icon={<PlusOutlined />}
-                          style={{ cursor: "pointer" }}
-                          onClick={() => {
-                            setTagIndex(index);
-                            setInputVisible(!inputVisible);
-                          }}
-                        >
-                          添加规格值
-                        </Tag>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            <Table
-              bordered
-              rowKey={"name"}
-              dataSource={tableSkuList}
-              columns={columns}
-              pagination={false}
-            />
-          </Card>
         </Form>
       )}
     </Drawer>
