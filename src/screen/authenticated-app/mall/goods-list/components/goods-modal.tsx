@@ -720,7 +720,7 @@ export const GoodsModal = ({
           </Row>
 
           <Popover
-            placement="bottomLeft"
+            placement="topLeft"
             trigger="click"
             content={
               <Input
@@ -749,6 +749,7 @@ export const GoodsModal = ({
           <>
             {specContentList.map((item, index) => (
               <Card
+                key={index}
                 style={{ marginTop: "2.4rem" }}
                 title={
                   <div
@@ -758,22 +759,50 @@ export const GoodsModal = ({
                       justifyContent: "space-between",
                     }}
                   >
-                    <Input
-                      placeholder="请输入规格属性"
-                      value={item.name}
-                      size="small"
-                      style={{ marginRight: "8px", width: "fit-content" }}
-                      onChange={(e) => setSpecContent(e.target.value, index)}
-                    />
-                    <div
+                    <Row>
+                      <div>规格属性：</div>
+                      <Input
+                        placeholder="请输入规格属性"
+                        value={item.name}
+                        size="small"
+                        style={{ marginRight: "8px", width: "fit-content" }}
+                        onChange={(e) => setSpecContent(e.target.value, index)}
+                      />
+                    </Row>
+                    <Button
+                      type="link"
+                      danger
                       onClick={() => onDeleteSpec(index)}
-                      style={{ color: "red", fontSize: "14px" }}
                     >
                       删除
-                    </div>
+                    </Button>
                   </div>
                 }
-              ></Card>
+              >
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <div>
+                    {item.options.map((str, strKey) => (
+                      <Input
+                        placeholder="请输入规格值"
+                        value={str}
+                        size="small"
+                        style={{ width: 120 }}
+                        onChange={(e) => setInputTagValue(e.target.value)}
+                      />
+                    ))}
+                  </div>
+                  <Tag
+                    icon={<PlusOutlined />}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      setTagIndex(index);
+                      setInputVisible(!inputVisible);
+                    }}
+                  >
+                    添加规格值
+                  </Tag>
+                </div>
+              </Card>
             ))}
           </>
 
