@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "antd/lib/form/Form";
 import { useAddGoods, useEditGoods } from "service/goods";
 import { useGoodsModal, useGoodsListQueryKey } from "../util";
@@ -14,25 +14,15 @@ import {
   Space,
   InputNumber,
   Divider,
-  Card,
-  InputRef,
-  message,
-  Popover,
-  Table,
   Modal,
 } from "antd";
-import { PlusOutlined, DeleteOutlined } from "@ant-design/icons";
 import { OssUpload } from "components/oss-upload";
-import {
-  ErrorBox,
-  ModalLoading,
-  Row as CustomeRow,
-  ButtonNoPadding,
-} from "components/lib";
+import { ErrorBox, ModalLoading } from "components/lib";
 
 import type { CategoryOption } from "types/category";
 import type { OperatorOption } from "types/common";
 import type { Sku, Spec } from "types/goods";
+import { SpecEditor } from "./spec-editor";
 
 interface TableSku extends Sku {
   [x: string]: string | number | object;
@@ -71,234 +61,6 @@ export const GoodsModal = ({
 
   const [tableSkuList, setTableSkuList] = useState<TableSku[]>([]);
   const [specContentList, setSpecContentList] = useState<Spec[]>([]);
-
-  const [specLabelStr, setSpecLabelStr] = useState<string>("");
-  const [visible, setVisible] = useState<boolean>(false);
-  const inputRef = useRef<InputRef>(null);
-
-  const setSpecContent = (name: string, index: number) => {
-    const newList = specContentList.map((spec, _index) => {
-      if (_index === index) {
-        return {
-          ...spec,
-          name,
-        };
-      } else {
-        return spec;
-      }
-    });
-    setSpecContentList([...newList]);
-  };
-
-  const columns: any[] = [
-    {
-      title: "图片",
-      render: (item: TableSku, _: TableSku, index: number) => {
-        return (
-          <OssUpload
-            defaultFileList={
-              tableSkuList[index].image
-                ? [
-                    {
-                      uid: `${index}`,
-                      name: "",
-                      url: tableSkuList[index].image,
-                    },
-                  ]
-                : []
-            }
-            onChange={(e) => {
-              tableSkuList[index].image = e.fileList[0]?.url || "";
-              setTableSkuList(tableSkuList);
-            }}
-            maxCount={1}
-            zoom={0.5}
-          />
-        );
-      },
-    },
-    ...specContentList.map((t) => {
-      return {
-        title: t.name,
-        width: "18rem",
-        render: (item: any) => {
-          return item[t.name];
-        },
-      };
-    }),
-    {
-      title: "价格",
-      render: (item: TableSku, _: TableSku, index: number) => {
-        return (
-          <InputNumber
-            min={0}
-            defaultValue={tableSkuList[index].price}
-            style={{ width: "100%" }}
-            onChange={(e) => {
-              tableSkuList[index].price = e || 0;
-              setTableSkuList(tableSkuList);
-            }}
-          />
-        );
-      },
-    },
-    {
-      title: "原价",
-      render: (item: TableSku, _: TableSku, index: number) => {
-        return (
-          <InputNumber
-            min={0}
-            defaultValue={tableSkuList[index].originalPrice}
-            style={{ width: "100%" }}
-            onChange={(e) => {
-              tableSkuList[index].originalPrice = e || 0;
-              setTableSkuList(tableSkuList);
-            }}
-          />
-        );
-      },
-    },
-    {
-      title: "佣金比例",
-      render: (item: TableSku, _: TableSku, index: number) => {
-        return (
-          <InputNumber
-            min={0}
-            max={100}
-            formatter={(value) => `${value}%`}
-            style={{ width: "100%" }}
-            defaultValue={tableSkuList[index].commissionRate}
-            onChange={(e) => {
-              tableSkuList[index].commissionRate = e || 0;
-              setTableSkuList(tableSkuList);
-            }}
-          />
-        );
-      },
-    },
-    {
-      title: "库存",
-      render: (item: TableSku, _: TableSku, index: number) => {
-        return (
-          <InputNumber
-            min={0}
-            defaultValue={tableSkuList[index].stock}
-            style={{ width: "100%" }}
-            onChange={(e) => {
-              tableSkuList[index].stock = e || 0;
-              setTableSkuList(tableSkuList);
-            }}
-          />
-        );
-      },
-    },
-  ];
-
-  // 添加规格名称
-  const onAddSpecLabel = () => {
-    if (specLabelStr) {
-      setSpecContentList(
-        specContentList.concat({ name: specLabelStr, options: [] })
-      );
-      setSpecLabelStr("");
-      message.success("添加规格明成功");
-      tableSku();
-    } else {
-      message.error("请填写规格名称");
-    }
-  };
-
-  const onDeleteSpec = (index: number) => {
-    const specList = [...specContentList];
-    specList.splice(index, 1);
-    setSpecContentList(specList);
-    tableSku();
-  };
-
-  const onAddSpecTag = (index: number) => {
-    if (specContentList[index].options.findIndex((_item) => !_item) !== -1) {
-      message.error("请输入规格值");
-      return;
-    }
-    const specList = [...specContentList];
-    specList[index].options.push("");
-    setSpecContentList(specList);
-    tableSku();
-  };
-  const onEditSpecTag = (index: number, tagIndex: number, text: string) => {
-    const specList = [...specContentList];
-    specList[index].options[tagIndex] = text;
-    setSpecContentList(specList);
-    tableSku();
-  };
-  const onDeleteSpecTag = (labelIndex: number, tagIndex: number) => {
-    const specList = [...specContentList];
-    specList[labelIndex].options.splice(tagIndex, 1);
-    setSpecContentList(specList);
-    tableSku();
-  };
-
-  const tableSku = () => {
-    let temp: any[] = [];
-    specContentList.forEach((item, index) => {
-      if (!temp.length) {
-        temp.push(
-          ...item.options.map((str) => {
-            const oldItem = tableSkuList.find((t) => t.name === str);
-            if (oldItem) {
-              return { ...oldItem };
-            } else {
-              return {
-                [item.name]: str,
-                price: 0,
-                originalPrice: 0,
-                commissionRate: 0,
-                stock: 0,
-                name: str,
-              };
-            }
-          })
-        );
-      } else {
-        const array: TableSku[] = [];
-        temp.forEach((obj) => {
-          if (item.options.length === 0) array.push(obj);
-          array.push(
-            ...item.options.map((t) => {
-              if (obj.name) {
-                const nameList = obj.name.split(",");
-                if (index > nameList.length - 1) {
-                  obj.name = [...nameList, t].join();
-                } else {
-                  nameList[index] = t;
-                  obj.name = nameList.join();
-                }
-              }
-              const oldItem = tableSkuList.find((_t) => _t.name === obj.name);
-              if (oldItem) {
-                return { ...oldItem };
-              } else {
-                return {
-                  ...obj,
-                  [item.name]: t,
-                  price: 0,
-                  originalPrice: 0,
-                  commissionRate: 0,
-                  stock: 0,
-                };
-              }
-            })
-          );
-        });
-        temp = array;
-      }
-    });
-    setTableSkuList(temp);
-  };
-
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, [visible]);
 
   useEffect(() => {
     if (editingGoods) {
@@ -685,7 +447,13 @@ export const GoodsModal = ({
             </Col>
           </Row>
 
-          <Popover
+          <SpecEditor
+            tableSkuList={tableSkuList}
+            setTableSkuList={setTableSkuList}
+            specContentList={specContentList}
+            setSpecContentList={setSpecContentList}
+          />
+          {/* <Popover
             placement="topLeft"
             trigger="click"
             content={
@@ -787,7 +555,7 @@ export const GoodsModal = ({
             dataSource={tableSkuList}
             columns={columns}
             pagination={false}
-          />
+          /> */}
         </Form>
       )}
     </Drawer>
