@@ -746,19 +746,36 @@ export const GoodsModal = ({
               添加规格属性
             </Button>
           </Popover>
-
-          <Card
-            style={{ marginTop: "2.4rem" }}
-            title={
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              ></div>
-            }
-          ></Card>
+          <>
+            {specContentList.map((item, index) => (
+              <Card
+                style={{ marginTop: "2.4rem" }}
+                title={
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Input
+                      placeholder="请输入规格属性"
+                      value={item.name}
+                      size="small"
+                      style={{ marginRight: "8px", width: "fit-content" }}
+                      onChange={(e) => setSpecContent(e.target.value, index)}
+                    />
+                    <div
+                      onClick={() => onDeleteSpec(index)}
+                      style={{ color: "red", fontSize: "14px" }}
+                    >
+                      删除
+                    </div>
+                  </div>
+                }
+              ></Card>
+            ))}
+          </>
 
           <Table
             style={{ marginTop: "2.4rem" }}
