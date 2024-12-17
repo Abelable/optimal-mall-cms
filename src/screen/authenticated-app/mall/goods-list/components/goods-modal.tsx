@@ -18,11 +18,11 @@ import {
 } from "antd";
 import { OssUpload } from "components/oss-upload";
 import { ErrorBox, ModalLoading } from "components/lib";
+import { SpecEditor } from "./spec-editor";
 
 import type { CategoryOption } from "types/category";
 import type { OperatorOption } from "types/common";
 import type { Sku, Spec } from "types/goods";
-import { SpecEditor } from "./spec-editor";
 
 interface TableSku extends Sku {
   [x: string]: string | number | object;
