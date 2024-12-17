@@ -71,6 +71,7 @@ export const GoodsModal = ({
 
   const [tableSkuList, setTableSkuList] = useState<TableSku[]>([]);
   const [specContentList, setSpecContentList] = useState<Spec[]>([]);
+
   const [specLabelStr, setSpecLabelStr] = useState<string>("");
   const [visible, setVisible] = useState<boolean>(false);
   const inputRef = useRef<InputRef>(null);
