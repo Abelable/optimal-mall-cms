@@ -23,7 +23,8 @@ import {
   useEditSales,
   useEditSort,
   useEditTag,
-  useEndActivity,
+  useDownActivity,
+  useUpActivity,
 } from "service/activity";
 import { useActivityModal, useActivityListQueryKey } from "../util";
 
@@ -235,15 +236,26 @@ const More = ({ id, status }: { id: number; status: number }) => {
   const { mutate: deleteActivity } = useDeleteActivity(
     useActivityListQueryKey()
   );
-  const { mutate: endActivity } = useEndActivity(useActivityListQueryKey());
+  const { mutate: downActivity } = useDownActivity(useActivityListQueryKey());
+  const { mutate: upActivity } = useUpActivity(useActivityListQueryKey());
 
-  const confirmEnd = (id: number) => {
+  const confirmDown = (id: number) => {
     Modal.confirm({
       title: "确定结束该活动吗？",
       content: "点击确定结束",
       okText: "确定",
       cancelText: "取消",
-      onOk: () => endActivity(id),
+      onOk: () => downActivity(id),
+    });
+  };
+
+  const confirmUp = (id: number) => {
+    Modal.confirm({
+      title: "确定重启该活动吗？",
+      content: "点击确定重启",
+      okText: "确定",
+      cancelText: "取消",
+      onOk: () => upActivity(id),
     });
   };
 
@@ -257,20 +269,36 @@ const More = ({ id, status }: { id: number; status: number }) => {
     });
   };
 
-  const items: MenuProps["items"] = [
-    {
-      label: <div onClick={() => startEdit(id)}>编辑</div>,
-      key: "edit",
-    },
-    {
-      label: <div onClick={() => confirmEnd(id)}>结束</div>,
-      key: "end",
-    },
-    {
-      label: <div onClick={() => confirmDelete(id)}>删除</div>,
-      key: "delete",
-    },
-  ];
+  const items: MenuProps["items"] =
+    status === 1
+      ? [
+          {
+            label: <div onClick={() => startEdit(id)}>编辑</div>,
+            key: "edit",
+          },
+          {
+            label: <div onClick={() => confirmDown(id)}>结束</div>,
+            key: "down",
+          },
+          {
+            label: <div onClick={() => confirmDelete(id)}>删除</div>,
+            key: "delete",
+          },
+        ]
+      : [
+          {
+            label: <div onClick={() => startEdit(id)}>编辑</div>,
+            key: "edit",
+          },
+          {
+            label: <div onClick={() => confirmUp(id)}>重启</div>,
+            key: "up",
+          },
+          {
+            label: <div onClick={() => confirmDelete(id)}>删除</div>,
+            key: "delete",
+          },
+        ];
 
   return (
     <Dropdown overlay={<Menu items={items} />}>

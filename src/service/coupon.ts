@@ -6,6 +6,7 @@ import {
   useDeleteConfig,
   useEditConfig,
   useDownCouponConfig,
+  useUpConfig,
 } from "./use-optimistic-options";
 
 import type {
@@ -78,6 +79,18 @@ export const useDownCoupon = (queryKey: QueryKey) => {
         method: "POST",
       }),
     useDownCouponConfig(queryKey)
+  );
+};
+
+export const useUpCoupon = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    (id: number) =>
+      client("mall/coupon/up", {
+        data: { id },
+        method: "POST",
+      }),
+    useUpConfig(queryKey)
   );
 };
 

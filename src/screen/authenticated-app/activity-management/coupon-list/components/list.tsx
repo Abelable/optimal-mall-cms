@@ -20,6 +20,7 @@ import {
   useDeleteCoupon,
   useEditReceivedNum,
   useDownCoupon,
+  useUpCoupon,
 } from "service/coupon";
 import { useCouponModal, useCouponListQueryKey } from "../util";
 
@@ -199,6 +200,7 @@ const More = ({ id, status }: { id: number; status: number }) => {
   const { startEdit } = useCouponModal();
   const { mutate: deleteCoupon } = useDeleteCoupon(useCouponListQueryKey());
   const { mutate: downCoupon } = useDownCoupon(useCouponListQueryKey());
+  const { mutate: upCoupon } = useUpCoupon(useCouponListQueryKey());
 
   const confirmDown = (id: number) => {
     Modal.confirm({
@@ -207,6 +209,16 @@ const More = ({ id, status }: { id: number; status: number }) => {
       okText: "确定",
       cancelText: "取消",
       onOk: () => downCoupon(id),
+    });
+  };
+
+  const confirmUp = (id: number) => {
+    Modal.confirm({
+      title: "确定上架该优惠券吗？",
+      content: "点击确定上架",
+      okText: "确定",
+      cancelText: "取消",
+      onOk: () => upCoupon(id),
     });
   };
 
@@ -220,20 +232,36 @@ const More = ({ id, status }: { id: number; status: number }) => {
     });
   };
 
-  const items: MenuProps["items"] = [
-    {
-      label: <div onClick={() => startEdit(id)}>编辑</div>,
-      key: "edit",
-    },
-    {
-      label: <div onClick={() => confirmDown(id)}>下架</div>,
-      key: "down",
-    },
-    {
-      label: <div onClick={() => confirmDelete(id)}>删除</div>,
-      key: "delete",
-    },
-  ];
+  const items: MenuProps["items"] =
+    status === 1
+      ? [
+          {
+            label: <div onClick={() => startEdit(id)}>编辑</div>,
+            key: "edit",
+          },
+          {
+            label: <div onClick={() => confirmDown(id)}>下架</div>,
+            key: "down",
+          },
+          {
+            label: <div onClick={() => confirmDelete(id)}>删除</div>,
+            key: "delete",
+          },
+        ]
+      : [
+          {
+            label: <div onClick={() => startEdit(id)}>编辑</div>,
+            key: "edit",
+          },
+          {
+            label: <div onClick={() => confirmUp(id)}>上架</div>,
+            key: "down",
+          },
+          {
+            label: <div onClick={() => confirmDelete(id)}>删除</div>,
+            key: "delete",
+          },
+        ];
 
   return (
     <Dropdown overlay={<Menu items={items} />}>

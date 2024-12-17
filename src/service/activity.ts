@@ -5,7 +5,8 @@ import {
   useAddActivityGoodsConfig,
   useDeleteConfig,
   useEditConfig,
-  useEndActivityConfig,
+  useDownActivityConfig,
+  useUpConfig,
 } from "./use-optimistic-options";
 
 import type {
@@ -117,15 +118,27 @@ export const useEditSort = (queryKey: QueryKey) => {
   );
 };
 
-export const useEndActivity = (queryKey: QueryKey) => {
+export const useDownActivity = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (id: number) =>
-      client("mall/activity/end", {
+      client("mall/activity/down", {
         data: { id },
         method: "POST",
       }),
-    useEndActivityConfig(queryKey)
+    useDownActivityConfig(queryKey)
+  );
+};
+
+export const useUpActivity = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    (id: number) =>
+      client("mall/activity/up", {
+        data: { id },
+        method: "POST",
+      }),
+    useUpConfig(queryKey)
   );
 };
 

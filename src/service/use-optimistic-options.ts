@@ -174,7 +174,7 @@ export const useAddActivityGoodsConfig = (queryKey: QueryKey) =>
       : null
   );
 
-export const useEndActivityConfig = (queryKey: QueryKey) =>
+export const useDownActivityConfig = (queryKey: QueryKey) =>
   useConfig(queryKey, (id, old) =>
     old
       ? {
