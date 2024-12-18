@@ -191,13 +191,22 @@ export const GoodsModal = ({
         stock,
         specList: specContentList,
         skuList: tableSkuList.map(
-          ({ name, image, price, originalPrice, commissionRate, stock }) => ({
+          ({
             name,
             image,
             price,
             originalPrice,
             commissionRate,
             stock,
+            limit,
+          }) => ({
+            name,
+            image,
+            price,
+            originalPrice,
+            commissionRate,
+            stock,
+            limit,
           })
         ),
       });
@@ -419,7 +428,7 @@ export const GoodsModal = ({
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item name="limit" label="限购数量">
+              <Form.Item name="numberLimit" label="限购数量">
                 <InputNumber
                   style={{ width: "100%" }}
                   placeholder="请填写限购数量"
