@@ -85,6 +85,7 @@ export const GoodsModal = ({
             originalPrice = 0,
             commissionRate = 0,
             stock = 0,
+            limit = 0,
           }) => {
             const restData = Object.fromEntries(
               name
@@ -98,6 +99,7 @@ export const GoodsModal = ({
               originalPrice,
               commissionRate,
               stock,
+              limit,
               ...restData,
             };
           }
@@ -414,6 +416,14 @@ export const GoodsModal = ({
                     </Select.Option>
                   ))}
                 </Select>
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item name="limit" label="限购数量">
+                <InputNumber
+                  style={{ width: "100%" }}
+                  placeholder="请填写限购数量"
+                />
               </Form.Item>
             </Col>
           </Row>

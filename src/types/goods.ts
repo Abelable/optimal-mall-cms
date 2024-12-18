@@ -19,6 +19,7 @@ export interface Sku {
   originalPrice: number;
   commissionRate: number;
   stock: number;
+  limit: number;
 }
 
 export interface Goods {
@@ -38,6 +39,7 @@ export interface Goods {
   stock: number;
   commissionRate: number;
   refundStatus: number;
+  limit: number;
   specList: Spec[];
   skuList: Sku[];
   salesVolume: number;

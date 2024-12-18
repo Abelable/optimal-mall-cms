@@ -143,6 +143,23 @@ export const SpecEditor = ({
         );
       },
     },
+    {
+      title: "限购数量",
+      render: (item: TableSku, _: TableSku, index: number) => {
+        return (
+          <InputNumber
+            min={0}
+            defaultValue={tableSkuList[index].limit}
+            style={{ width: "100%" }}
+            onChange={(e) => {
+              const _tableSkuList = [...tableSkuList];
+              _tableSkuList[index].limit = e || 0;
+              setTableSkuList(_tableSkuList);
+            }}
+          />
+        );
+      },
+    },
   ];
 
   const setSpecContent = (name: string, index: number) => {
