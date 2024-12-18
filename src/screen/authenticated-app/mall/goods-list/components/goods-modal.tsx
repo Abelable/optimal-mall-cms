@@ -239,7 +239,7 @@ export const GoodsModal = ({
             基本信息
           </Divider>
           <Row gutter={16}>
-            <Col span={12}>
+            <Col span={8}>
               <Form.Item
                 name="cover"
                 label="商品封面"
@@ -250,7 +250,7 @@ export const GoodsModal = ({
                 <OssUpload maxCount={1} />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col span={8}>
               <Form.Item
                 name="activityCover"
                 label="活动封面"
@@ -261,9 +261,7 @@ export const GoodsModal = ({
                 <OssUpload maxCount={1} />
               </Form.Item>
             </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col span={24}>
+            <Col span={8}>
               <Form.Item
                 name="video"
                 label="商品视频"
