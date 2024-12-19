@@ -219,9 +219,6 @@ export const GoodsModal = ({
     setTableSkuList([]);
     setSpecContentList([]);
     close();
-    if (editingGoodsId) {
-      window.location.reload();
-    }
   };
 
   return (
