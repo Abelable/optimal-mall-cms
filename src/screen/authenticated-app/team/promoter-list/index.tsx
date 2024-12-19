@@ -6,7 +6,7 @@ import { usePromoterList } from "service/promoter";
 import { toNumber } from "utils";
 import { usePromoterListSearchParams } from "./util";
 import { useUserOptions } from "service/user";
-import { AddModal } from "./components/add-modal";
+import { PromoterModal } from "./components/promoter-modal";
 
 const levelOptions = [
   { text: "乡村振兴推广员", value: 1, scene: 100 },
@@ -45,7 +45,7 @@ export const PromoterList = () => {
         />
       </Main>
 
-      <AddModal userOptions={userOptions} levelOptions={levelOptions} />
+      <PromoterModal userOptions={userOptions} levelOptions={levelOptions} />
     </Container>
   );
 };

@@ -6,12 +6,24 @@ import type {
   PromoterOption,
   PromoterListResult,
   PromoterListSearchParams,
+  Promoter,
 } from "types/promoter";
 
 export const usePromoterList = (params: Partial<PromoterListSearchParams>) => {
   const client = useHttp();
   return useQuery<PromoterListResult>(["promoter_list", params], () =>
     client("team/promoter/list", { data: params, method: "POST" })
+  );
+};
+
+export const usePromoter = (id: number) => {
+  const client = useHttp();
+  return useQuery<Partial<Promoter>>(
+    ["promoter", { id }],
+    () => client(`team/promoter/detail`, { data: { id } }),
+    {
+      enabled: !!id,
+    }
   );
 };
 
@@ -29,6 +41,18 @@ export const useAddPromoter = (queryKey: QueryKey) => {
     }) =>
       client("team/promoter/add", {
         data: { userId, level, scene },
+        method: "POST",
+      }),
+    useAddConfig(queryKey)
+  );
+};
+
+export const useChangeLevel = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    ({ id, level, scene }: { id: number; level: number; scene: number }) =>
+      client("team/promoter/change_level", {
+        data: { id, level, scene },
         method: "POST",
       }),
     useAddConfig(queryKey)

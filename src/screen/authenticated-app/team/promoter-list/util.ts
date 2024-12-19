@@ -1,5 +1,6 @@
 import { useSetUrlSearchParams, useUrlQueryParams } from "utils/url";
 import { useCallback, useMemo } from "react";
+import { usePromoter } from "service/promoter";
 
 export const usePromoterListSearchParams = () => {
   const [params, setParams] = useUrlQueryParams([
@@ -27,24 +28,63 @@ export const usePromoterListQueryKey = () => {
   return ["promoter_list", params];
 };
 
-export const useAddPromoterModal = () => {
-  const [{ promoterCreate }, setAddPromoterModalOpen] = useUrlQueryParams([
+// export const usePromoterModal = () => {
+//   const [{ promoterCreate }, setAddPromoterModalOpen] = useUrlQueryParams([
+//     "promoterCreate",
+//   ]);
+//   const setUrlParams = useSetUrlSearchParams();
+
+//   const open = useCallback(
+//     () => setAddPromoterModalOpen({ promoterCreate: true }),
+//     [setAddPromoterModalOpen]
+//   );
+//   const close = useCallback(
+//     () => setUrlParams({ promoterCreate: "" }),
+//     [setUrlParams]
+//   );
+
+//   return {
+//     promoterModalOpen: promoterCreate === "true",
+//     open,
+//     close,
+//   };
+// };
+
+export const usePromoterModal = () => {
+  const [{ promoterCreate }, setPromoterModalOpen] = useUrlQueryParams([
     "promoterCreate",
   ]);
+  const [{ editingPromoterId }, setEditingPromoterId] = useUrlQueryParams([
+    "editingPromoterId",
+  ]);
   const setUrlParams = useSetUrlSearchParams();
+  const {
+    data: editingPromoter,
+    isLoading,
+    error,
+  } = usePromoter(Number(editingPromoterId));
 
   const open = useCallback(
-    () => setAddPromoterModalOpen({ promoterCreate: true }),
-    [setAddPromoterModalOpen]
+    () => setPromoterModalOpen({ promoterCreate: true }),
+    [setPromoterModalOpen]
+  );
+  const startEdit = useCallback(
+    (id: number) => setEditingPromoterId({ editingPromoterId: `${id}` }),
+    [setEditingPromoterId]
   );
   const close = useCallback(
-    () => setUrlParams({ promoterCreate: "" }),
+    () => setUrlParams({ promoterCreate: "", editingPromoterId: "" }),
     [setUrlParams]
   );
 
   return {
-    promoterModalOpen: promoterCreate === "true",
+    promoterModalOpen: promoterCreate === "true" || !!editingPromoterId,
+    editingPromoterId,
+    editingPromoter,
+    isLoading,
+    error,
     open,
+    startEdit,
     close,
   };
 };

@@ -1,19 +1,22 @@
 import {
   Avatar,
   Button,
+  Dropdown,
+  Menu,
+  MenuProps,
   Modal,
   Table,
   TablePaginationConfig,
   TableProps,
   Tag,
 } from "antd";
-import { ErrorBox, Row, PageTitle } from "components/lib";
+import { ErrorBox, Row, PageTitle, ButtonNoPadding } from "components/lib";
 import { UserOutlined, PlusOutlined } from "@ant-design/icons";
 
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import { useDeletePromoter } from "service/promoter";
-import { useAddPromoterModal, usePromoterListQueryKey } from "../util";
+import { usePromoterModal, usePromoterListQueryKey } from "../util";
 
 import type { SearchPanelProps } from "./search-panel";
 import type { Promoter } from "types/promoter";
@@ -29,7 +32,7 @@ export const List = ({
   setParams,
   ...restProps
 }: ListProps) => {
-  const { open } = useAddPromoterModal();
+  const { open } = usePromoterModal();
 
   const setPagination = (pagination: TablePaginationConfig) =>
     setParams({
@@ -37,19 +40,6 @@ export const List = ({
       page: pagination.current,
       limit: pagination.pageSize,
     });
-
-  const { mutate: deletePromoter } = useDeletePromoter(
-    usePromoterListQueryKey()
-  );
-  const confirmDelete = (id: number) => {
-    Modal.confirm({
-      title: "确定删除该用户吗？",
-      content: "点击确定删除",
-      okText: "确定",
-      cancelText: "取消",
-      onOk: () => deletePromoter(id),
-    });
-  };
 
   return (
     <Container>
@@ -134,15 +124,7 @@ export const List = ({
           {
             title: "操作",
             render(value, promoter) {
-              return (
-                <Button
-                  onClick={() => confirmDelete(promoter.id)}
-                  type="link"
-                  danger
-                >
-                  删除
-                </Button>
-              );
+              return <More promoter={promoter} />;
             },
             width: "8rem",
           },
@@ -151,6 +133,41 @@ export const List = ({
         {...restProps}
       />
     </Container>
+  );
+};
+
+const More = ({ promoter }: { promoter: Promoter }) => {
+  const { startEdit } = usePromoterModal();
+
+  const { mutate: deletePromoter } = useDeletePromoter(
+    usePromoterListQueryKey()
+  );
+
+  const confirmDelete = (id: number) => {
+    Modal.confirm({
+      title: "确定删除该用户吗？",
+      content: "点击确定删除",
+      okText: "确定",
+      cancelText: "取消",
+      onOk: () => deletePromoter(id),
+    });
+  };
+
+  const items: MenuProps["items"] = [
+    {
+      label: <div onClick={() => startEdit(promoter.id)}>更改等级</div>,
+      key: "change",
+    },
+    {
+      label: <div onClick={() => confirmDelete(promoter.id)}>删除</div>,
+      key: "delete",
+    },
+  ];
+
+  return (
+    <Dropdown overlay={<Menu items={items} />}>
+      <ButtonNoPadding type={"link"}>...</ButtonNoPadding>
+    </Dropdown>
   );
 };
 
