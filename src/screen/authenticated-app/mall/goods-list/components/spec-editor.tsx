@@ -195,16 +195,36 @@ export const SpecEditor = ({
     tableSku();
   };
   const onEditSpecTag = (index: number, tagIndex: number, text: string) => {
+    const specName = specContentList[index].name;
+    const originalText = specContentList[index].options[tagIndex];
     const specList = [...specContentList];
     specList[index].options[tagIndex] = text;
     setSpecContentList(specList);
-    tableSku();
+    tableSkuSpec(specName, originalText, text);
   };
   const onDeleteSpecTag = (labelIndex: number, tagIndex: number) => {
     const specList = [...specContentList];
     specList[labelIndex].options.splice(tagIndex, 1);
     setSpecContentList(specList);
-    tableSku();
+  };
+
+  const tableSkuSpec = (
+    specName: string,
+    originalText: string,
+    text: string
+  ) => {
+    const newTableSkuList = tableSkuList.map((item) => {
+      if (item.name === originalText) {
+        return {
+          ...item,
+          [specName]: text,
+          name: text,
+        };
+      } else {
+        return item;
+      }
+    });
+    setTableSkuList([...newTableSkuList]);
   };
 
   const tableSku = () => {
