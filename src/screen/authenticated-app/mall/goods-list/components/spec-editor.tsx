@@ -219,11 +219,15 @@ export const SpecEditor = ({
     text: string
   ) => {
     const newTableSkuList = tableSkuList.map((item) => {
-      if (item.name === originalText) {
+      if (
+        item.name
+          .split(",")
+          .findIndex((_name: string) => _name === originalText) !== -1
+      ) {
         return {
           ...item,
           [specName]: text,
-          name: text,
+          name: item.name.replace(originalText, text),
         };
       } else {
         return item;
@@ -248,6 +252,7 @@ export const SpecEditor = ({
                 originalPrice: 0,
                 commissionRate: 0,
                 stock: 0,
+                limit: 0,
                 name: str,
               };
             }
@@ -279,6 +284,7 @@ export const SpecEditor = ({
                   originalPrice: 0,
                   commissionRate: 0,
                   stock: 0,
+                  limit: 0,
                 };
               }
             })
