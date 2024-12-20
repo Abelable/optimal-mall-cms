@@ -34,7 +34,12 @@ export const SpecEditor = ({
 }) => {
   const [specLabelStr, setSpecLabelStr] = useState<string>("");
   const [visible, setVisible] = useState<boolean>(false);
+  const [inputVisible, setInputVisible] = useState<boolean>(false);
+  const [inputTagValue, setInputTagValue] = useState<string>("");
+  const [tagIndex, setTagIndex] = useState<number | null>(null);
+
   const inputRef = useRef<InputRef>(null);
+  const tagInputRef = useRef(null);
 
   const columns: any[] = [
     {
@@ -185,14 +190,14 @@ export const SpecEditor = ({
     tableSku();
   };
   const onAddSpecTag = (index: number) => {
-    if (specContentList[index].options.findIndex((_item) => !_item) !== -1) {
-      message.error("请输入规格值");
-      return;
+    if (inputTagValue) {
+      const specList = [...specContentList];
+      specList[index].options.push(inputTagValue);
+      setSpecContentList(specList);
+      setInputTagValue("");
+      tableSku();
     }
-    const specList = [...specContentList];
-    specList[index].options.push("");
-    setSpecContentList(specList);
-    tableSku();
+    setInputVisible(false);
   };
   const onEditSpecTag = (index: number, tagIndex: number, text: string) => {
     const specName = specContentList[index].name;
@@ -288,6 +293,10 @@ export const SpecEditor = ({
   useEffect(() => {
     inputRef.current?.focus();
   }, [visible]);
+  useEffect(() => {
+    (tagInputRef.current as any)?.childNodes[1].focus();
+    (tagInputRef.current as any)?.childNodes[0].focus();
+  }, [inputVisible, tagIndex]);
 
   return (
     <>
@@ -373,14 +382,29 @@ export const SpecEditor = ({
                   />
                 </CustomeRow>
               ))}
-              <Button
-                type="primary"
-                size="small"
-                icon={<PlusOutlined />}
-                onClick={() => onAddSpecTag(index)}
-              >
-                添加规格值
-              </Button>
+              {inputVisible && index === tagIndex ? (
+                <Input
+                  placeholder="请输入规格值"
+                  value={inputTagValue}
+                  size="small"
+                  style={{ width: "fit-content" }}
+                  onChange={(e) => setInputTagValue(e.target.value)}
+                  onBlur={() => onAddSpecTag(index)}
+                  onPressEnter={() => onAddSpecTag(index)}
+                />
+              ) : (
+                <Button
+                  type="primary"
+                  size="small"
+                  icon={<PlusOutlined />}
+                  onClick={() => {
+                    setTagIndex(index);
+                    setInputVisible(!inputVisible);
+                  }}
+                >
+                  添加规格值
+                </Button>
+              )}
             </div>
           </Card>
         ))}
