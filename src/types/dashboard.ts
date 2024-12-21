@@ -10,8 +10,11 @@ export interface OrderCountData {
   dailyCountList: { createdAt: string; count: number }[];
   dailyGrowthRate: number;
   weeklyGrowthRate: number;
+  repurchaseRate: number;
 }
 
-export interface UserCountData extends OrderCountData {}
+export interface UserCountData extends Omit<OrderCountData, "repurchaseRate"> {
+  orderRate: number;
+}
 
 export interface PromoterCountData extends OrderCountData {}

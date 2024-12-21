@@ -245,7 +245,23 @@ export const Dashboard = () => {
           <StatisticCard>
             <div style={{ padding: "2rem 2.4rem 0" }}>
               <Statistic
-                title="订单总数"
+                title={
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div>订单总数</div>
+                    <div>
+                      复购率{" "}
+                      <span style={{ color: "#1890ff" }}>
+                        {orderCountData?.repurchaseRate}%
+                      </span>
+                    </div>
+                  </div>
+                }
                 value={orderCountData?.totalCount}
                 valueStyle={{ fontSize: "3rem" }}
               />
@@ -295,7 +311,23 @@ export const Dashboard = () => {
           <StatisticCard>
             <div style={{ padding: "2rem 2.4rem 0" }}>
               <Statistic
-                title="用户总数"
+                title={
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div>用户总数</div>
+                    <div>
+                      下单率{" "}
+                      <span style={{ color: "#1890ff" }}>
+                        {userCountData?.orderRate}%
+                      </span>
+                    </div>
+                  </div>
+                }
                 value={userCountData?.totalCount}
                 valueStyle={{ fontSize: "3rem" }}
               />
