@@ -15,7 +15,12 @@ import { UserOutlined } from "@ant-design/icons";
 
 import dayjs from "dayjs";
 import { useQueryClient } from "react-query";
-import { useCancelOrder, useConfirmOrder, useDeleteOrder } from "service/order";
+import {
+  useCancelOrder,
+  useConfirmOrder,
+  useDeleteOrder,
+  useRefundOrder,
+} from "service/order";
 import {
   useOrderModal,
   useOrderListQueryKey,
@@ -197,6 +202,7 @@ const More = ({ id, status }: { id: number; status: number }) => {
   const { open: openDeliveryModal } = useDeliveryModal();
   const { open: openShippingModal } = useShippingModal();
   const { mutate: cancelOrder } = useCancelOrder(useOrderListQueryKey());
+  const { mutate: refundOrder } = useRefundOrder(useOrderListQueryKey());
   const { mutate: confirmOrder } = useConfirmOrder(useOrderListQueryKey());
   const { mutate: deleteOrder } = useDeleteOrder(useOrderListQueryKey());
 
@@ -207,6 +213,16 @@ const More = ({ id, status }: { id: number; status: number }) => {
       okText: "确定",
       cancelText: "取消",
       onOk: () => cancelOrder([id]),
+    });
+  };
+
+  const confirmRefund = (id: number) => {
+    Modal.confirm({
+      title: "确定退款该订单吗？",
+      content: "点击确定退款",
+      okText: "确定",
+      cancelText: "取消",
+      onOk: () => refundOrder([id]),
     });
   };
 
@@ -262,6 +278,21 @@ const More = ({ id, status }: { id: number; status: number }) => {
       break;
 
     case 201:
+      items = [
+        {
+          label: <div onClick={() => openOrderModal(id)}>详情</div>,
+          key: "detail",
+        },
+        {
+          label: <div onClick={() => confirmRefund(id)}>退款</div>,
+          key: "refund",
+        },
+        {
+          label: <div onClick={() => openDeliveryModal(id)}>发货</div>,
+          key: "delivery",
+        },
+      ];
+      break;
     case 204:
       items = [
         {

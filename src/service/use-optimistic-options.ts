@@ -112,6 +112,18 @@ export const useCancelOrderConfig = (queryKey: QueryKey) =>
       : null
   );
 
+export const useRefundOrderConfig = (queryKey: QueryKey) =>
+  useConfig(queryKey, (ids, old) =>
+    old
+      ? {
+          ...old,
+          list: old.list.map((item: any) =>
+            ids.includes(item.id) ? { ...item, status: 203 } : item
+          ),
+        }
+      : null
+  );
+
 export const useDeliveryOrderConfig = (queryKey: QueryKey) =>
   useConfig(queryKey, (target, old) =>
     old

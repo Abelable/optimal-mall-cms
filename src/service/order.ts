@@ -6,6 +6,7 @@ import {
   useConfirmOrderConfig,
   useDeliveryOrderConfig,
   useExportOrderConfig,
+  useRefundOrderConfig,
 } from "./use-optimistic-options";
 import type {
   OrderDetail,
@@ -58,6 +59,18 @@ export const useCancelOrder = (queryKey: QueryKey) => {
         method: "POST",
       }),
     useCancelOrderConfig(queryKey)
+  );
+};
+
+export const useRefundOrder = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    (ids: number[]) =>
+      client("order/refund", {
+        data: { ids },
+        method: "POST",
+      }),
+    useRefundOrderConfig(queryKey)
   );
 };
 
