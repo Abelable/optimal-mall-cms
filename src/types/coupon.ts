@@ -16,6 +16,7 @@ export interface Coupon {
   type: number;
   numLimit: number;
   priceLimit: number;
+  receiveNumLimit: number;
   expirationTime: string;
   goodsId: number;
   goodsName: string;

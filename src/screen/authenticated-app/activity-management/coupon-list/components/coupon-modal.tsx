@@ -142,6 +142,12 @@ export const CouponModal = ({
               )
             }
           </Form.Item>
+          <Form.Item name="receiveNumLimit" label="限领数量">
+            <InputNumber
+              style={{ width: "100%" }}
+              placeholder="请输入限领数量"
+            />
+          </Form.Item>
           <Form.Item name="expirationTime" label="优惠券失效时间">
             <DatePicker
               style={{ width: "100%" }}
