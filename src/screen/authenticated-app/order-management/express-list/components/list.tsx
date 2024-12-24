@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import {
   Button,
   Dropdown,
@@ -10,10 +9,13 @@ import {
   TableProps,
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
-import { useDeleteExpress } from "service/express";
-import { Express, ExpressesSearchParams } from "types/express";
-import { useExpressModal, useExpressesQueryKey } from "../util";
 import { PlusOutlined } from "@ant-design/icons";
+
+import styled from "@emotion/styled";
+import { useDeleteExpress } from "service/express";
+import { useExpressModal, useExpressesQueryKey } from "../util";
+
+import type { Express, ExpressesSearchParams } from "types/express";
 
 interface ListProps extends TableProps<Express> {
   params: Partial<ExpressesSearchParams>;
@@ -77,7 +79,7 @@ const More = ({ id }: { id: number }) => {
 
   const confirmDelete = (id: number) => {
     Modal.confirm({
-      title: "确定删除该管理员角色吗？",
+      title: "确定删除该快递吗？",
       content: "点击确定删除",
       okText: "确定",
       cancelText: "取消",
