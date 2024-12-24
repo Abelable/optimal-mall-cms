@@ -37,7 +37,7 @@ import {
   PayCircleOutlined,
 } from "@ant-design/icons";
 import logo from "assets/images/logo.png";
-import { CouponIcon } from "assets/icon";
+import { CouponIcon, ExpressIcon } from "assets/icon";
 
 import { Dashboard } from "./dashboard";
 import { UserList } from "./user-list";
@@ -59,6 +59,7 @@ import { MerchantList } from "./mall/merchant-list";
 import { FreightTemplateList } from "./mall/freight-template-list";
 import { CategoryList } from "./mall/category-list";
 import { GoodsList } from "./mall/goods-list";
+import { ExpressList } from "./order-management/express-list";
 import { OrderList } from "./order-management/order-list";
 import { RefundList } from "./order-management/refund-list";
 import { RoleList } from "./auth/role-list";
@@ -120,6 +121,7 @@ export const AuthenticatedApp = () => {
               />
               <Route path="goods/category_list" element={<CategoryList />} />
               <Route path="goods/list" element={<GoodsList />} />
+              <Route path="order/express_list" element={<ExpressList />} />
               <Route path="order/list" element={<OrderList />} />
               <Route path="order/refund" element={<RefundList />} />
               <Route path="auth/role_list" element={<RoleList />} />
@@ -280,6 +282,11 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
       key: "order",
       icon: <SnippetsOutlined />,
       children: [
+        {
+          label: <Link to={"order/express_list"}>快递列表</Link>,
+          key: "order_express_list",
+          icon: <ExpressIcon />,
+        },
         {
           label: <Link to={"order/list"}>订单列表</Link>,
           key: "order_list",
