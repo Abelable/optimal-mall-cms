@@ -17,6 +17,6 @@ export interface ExpressesResult {
 }
 
 export interface ExpressOption {
-  id: number;
   name: string;
+  code: string;
 }

@@ -18,6 +18,7 @@ import { OrderModal } from "./components/order-modal";
 import { DeliveryModal } from "./components/delivery-modal";
 import { ShippingModal } from "./components/shipping-modal";
 import { useMerchantOptions } from "service/merchant";
+import { useExpressOptions } from "service/express";
 
 const statusOptions = [
   { text: "待付款", value: 101 },
@@ -39,11 +40,12 @@ const batchOprationOptions = [
 ];
 
 export const OrderList = () => {
-  const { mutate: exportOrder } = useExportOrder(useOrderListQueryKey());
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [batchOprationType, setBatchOprationType] = useState(-1);
   const [params, setParams] = useOrderListSearchParams();
+  const { data: expressOptions = [] } = useExpressOptions();
   const { isLoading, error, data } = useOrderList(params);
+  const { mutate: exportOrder } = useExportOrder(useOrderListQueryKey());
   const { mutate: cancelOrder } = useCancelOrder(useOrderListQueryKey());
   const { mutate: deleteOrder } = useDeleteOrder(useOrderListQueryKey());
 
@@ -164,7 +166,7 @@ export const OrderList = () => {
         </Row>
       </Drawer>
       <OrderModal statusOptions={statusOptions} />
-      <DeliveryModal />
+      <DeliveryModal expressOptions={expressOptions} />
       <ShippingModal />
     </Container>
   );

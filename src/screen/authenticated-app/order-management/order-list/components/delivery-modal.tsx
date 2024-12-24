@@ -2,10 +2,15 @@ import { Form, Input, Modal, Select } from "antd";
 
 import { useForm } from "antd/lib/form/Form";
 import { useDeliveryOrder } from "service/order";
-import { expressOptions } from "utils/index";
 import { useDeliveryModal, useOrderListQueryKey } from "../util";
 
-export const DeliveryModal = () => {
+import type { ExpressOption } from "types/express";
+
+export const DeliveryModal = ({
+  expressOptions,
+}: {
+  expressOptions: ExpressOption[];
+}) => {
   const [form] = useForm();
   const { deliveryModalOpen, deliveryOrderId, close } = useDeliveryModal();
 
@@ -17,7 +22,7 @@ export const DeliveryModal = () => {
     form.validateFields().then(async () => {
       const { shipCode, ...rest } = form.getFieldsValue();
       const shipChannel = expressOptions.find(
-        (item) => item.value === shipCode
+        (item) => item.code === shipCode
       )?.name;
       await mutateAsync({
         id: +deliveryOrderId,
@@ -51,7 +56,7 @@ export const DeliveryModal = () => {
         >
           <Select placeholder="请选择物流公司">
             {expressOptions.map((item) => (
-              <Select.Option key={item.value} value={item.value}>
+              <Select.Option key={item.code} value={item.code}>
                 {item.name}
               </Select.Option>
             ))}

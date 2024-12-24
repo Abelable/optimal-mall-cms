@@ -1,14 +1,14 @@
-import styled from "@emotion/styled";
-
-import { useRefundList } from "service/refund";
-import { toNumber } from "utils";
-import { useRefundListSearchParams } from "./util";
-
 import { List } from "./components/list";
 import { SearchPanel } from "./components/search-panel";
 import { RejectModal } from "./components/reject-modal";
 import { RefundModal } from "./components/refund-modal";
 import { ShippingModal } from "./components/shipping-modal";
+
+import styled from "@emotion/styled";
+import { useRefundList } from "service/refund";
+import { useExpressOptions } from "service/express";
+import { toNumber } from "utils";
+import { useRefundListSearchParams } from "./util";
 
 const statusOptions = [
   { text: "待审核", value: 0 },
@@ -19,6 +19,7 @@ const statusOptions = [
 ];
 
 export const RefundList = () => {
+  const { data: expressOptions = [] } = useExpressOptions();
   const [params, setParams] = useRefundListSearchParams();
   const { isLoading, error, data } = useRefundList(params);
 
@@ -45,7 +46,10 @@ export const RefundList = () => {
           bordered
         />
       </Main>
-      <RefundModal statusOptions={statusOptions} />
+      <RefundModal
+        statusOptions={statusOptions}
+        expressOptions={expressOptions}
+      />
       <ShippingModal />
       <RejectModal />
     </Container>

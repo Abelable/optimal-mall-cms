@@ -1,12 +1,18 @@
 import { Descriptions, Divider, Drawer, Image, Table, Button } from "antd";
 import { ErrorBox, ModalLoading } from "components/lib";
-import { expressOptions } from "utils/index";
 import { useRefundModal, useShippingModal } from "../util";
 
 import type { Option } from "types/common";
+import type { ExpressOption } from "types/express";
 import type { Goods } from "types/refund";
 
-export const RefundModal = ({ statusOptions }: { statusOptions: Option[] }) => {
+export const RefundModal = ({
+  statusOptions,
+  expressOptions,
+}: {
+  statusOptions: Option[];
+  expressOptions: ExpressOption[];
+}) => {
   const { close, refundModalOpen, refundInfo, error, isLoading } =
     useRefundModal();
   const { open: openShippingModal } = useShippingModal();
@@ -89,7 +95,7 @@ export const RefundModal = ({ statusOptions }: { statusOptions: Option[] }) => {
             <Descriptions.Item label="物流公司">
               {
                 expressOptions.find(
-                  (item) => item.value === refundInfo?.shipCode
+                  (item) => item.code === refundInfo?.shipCode
                 )?.name
               }
             </Descriptions.Item>
