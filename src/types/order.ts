@@ -12,7 +12,7 @@ export interface Order {
   id: number;
   orderSn: string;
   status: number;
-  paymentAmount: number;
+  refundAmount: number;
   userInfo: { id: number; avatar: string; nickname: string };
   consignee: string;
   mobile: string;

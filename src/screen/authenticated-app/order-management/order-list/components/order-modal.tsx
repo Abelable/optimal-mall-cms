@@ -284,7 +284,7 @@ export const OrderModal = ({ statusOptions }: { statusOptions: Option[] }) => {
               <Descriptions.Item label="订单总金额">
                 <span style={{ color: "#f56c6c" }}>
                   {" "}
-                  ¥{orderInfo?.paymentAmount}
+                  ¥{orderInfo?.refundAmount}
                 </span>
               </Descriptions.Item>
             </Descriptions>

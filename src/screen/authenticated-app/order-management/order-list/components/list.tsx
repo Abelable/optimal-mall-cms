@@ -104,7 +104,7 @@ export const List = ({
           },
           {
             title: "订单金额",
-            dataIndex: "paymentAmount",
+            dataIndex: "refundAmount",
             render: (value) => <>¥{value}</>,
             width: "12rem",
           },
