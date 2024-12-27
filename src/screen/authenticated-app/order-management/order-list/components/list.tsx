@@ -278,6 +278,7 @@ const More = ({ id, status }: { id: number; status: number }) => {
       break;
 
     case 201:
+    case 204:
       items = [
         {
           label: <div onClick={() => openOrderModal(id)}>详情</div>,
@@ -286,18 +287,6 @@ const More = ({ id, status }: { id: number; status: number }) => {
         {
           label: <div onClick={() => confirmRefund(id)}>退款</div>,
           key: "refund",
-        },
-        {
-          label: <div onClick={() => openDeliveryModal(id)}>发货</div>,
-          key: "delivery",
-        },
-      ];
-      break;
-    case 204:
-      items = [
-        {
-          label: <div onClick={() => openOrderModal(id)}>详情</div>,
-          key: "detail",
         },
         {
           label: <div onClick={() => openDeliveryModal(id)}>发货</div>,
