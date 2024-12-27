@@ -4,6 +4,7 @@ import { toNumber } from "utils";
 import { List } from "./components/list";
 import { ExpressModal } from "./components/express-modal";
 import { useExpressesSearchParams } from "./util";
+import { SearchPanel } from "./components/search-panel";
 
 export const ExpressList = () => {
   const [params, setParams] = useExpressesSearchParams();
@@ -12,6 +13,7 @@ export const ExpressList = () => {
   return (
     <Container>
       <Main>
+        <SearchPanel params={params} setParams={setParams} />
         <List
           params={params}
           setParams={setParams}
