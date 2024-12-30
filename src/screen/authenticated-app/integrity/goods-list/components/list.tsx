@@ -5,13 +5,14 @@ import {
   TablePaginationConfig,
   TableProps,
   Image,
+  InputNumber,
 } from "antd";
 import { ErrorBox, Row, PageTitle } from "components/lib";
 import { PlusOutlined } from "@ant-design/icons";
 
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
-import { useDeleteIntegrityGoods } from "service/integrityGoods";
+import { useDeleteIntegrityGoods, useEditSort } from "service/integrityGoods";
 import { useIntegrityGoodsModal, useIntegrityGoodsListQueryKey } from "../util";
 
 import type { Goods, GoodsListSearchParams } from "types/activityGoods";
@@ -32,6 +33,7 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
       limit: pagination.pageSize,
     });
 
+  const { mutate: editSort } = useEditSort(useIntegrityGoodsListQueryKey());
   const { mutate: deleteIntegrityGoods } = useDeleteIntegrityGoods(
     useIntegrityGoodsListQueryKey()
   );
@@ -75,6 +77,17 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
           {
             title: "商品名称",
             dataIndex: "goodsName",
+          },
+          {
+            title: "排序",
+            dataIndex: "sort",
+            render: (value, category) => (
+              <InputNumber
+                value={value}
+                onChange={(sort) => editSort({ id: category.id, sort })}
+              />
+            ),
+            sorter: (a, b) => a.sort - b.sort,
           },
           {
             title: "创建时间",

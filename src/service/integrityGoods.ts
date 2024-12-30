@@ -3,6 +3,7 @@ import { useHttp } from "./http";
 import {
   useAddActivityGoodsConfig,
   useDeleteConfig,
+  useEditConfig,
 } from "./use-optimistic-options";
 import { cleanObject } from "utils/index";
 import type {
@@ -28,6 +29,18 @@ export const useAddIntegrityGoods = (queryKey: QueryKey) => {
         method: "POST",
       }),
     useAddActivityGoodsConfig(queryKey)
+  );
+};
+
+export const useEditSort = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    ({ id, sort }: { id: number; sort: number }) =>
+      client("integrity/goods/edit_sort", {
+        data: { id, sort },
+        method: "POST",
+      }),
+    useEditConfig(queryKey)
   );
 };
 
