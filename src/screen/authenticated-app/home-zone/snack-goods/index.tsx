@@ -1,31 +1,19 @@
-import { BannerModal } from "./components/banner-modal";
+import { GoodsModal } from "./components/goods-modal";
 import { List } from "./components/list";
-import { SearchPanel } from "./components/search-panel";
 
 import styled from "@emotion/styled";
-import { useBannerList } from "service/integrityBanner";
+import { useGoodsList } from "service/villageSnackGoods";
 import { toNumber } from "utils";
-import { useBannerListSearchParams } from "./util";
+import { useGoodsListSearchParams } from "./util";
 
-const sceneOptions = [
-  { text: "H5活动", value: 1 },
-  { text: "商品详情", value: 2 },
-];
-
-export const IntegrityBannerList = () => {
-  const [params, setParams] = useBannerListSearchParams();
-  const { isLoading, error, data } = useBannerList(params);
+export const VillageSnackGoodsList = () => {
+  const [params, setParams] = useGoodsListSearchParams();
+  const { isLoading, error, data } = useGoodsList(params);
 
   return (
     <Container>
       <Main>
-        <SearchPanel
-          sceneOptions={sceneOptions}
-          params={params}
-          setParams={setParams}
-        />
         <List
-          sceneOptions={sceneOptions}
           params={params}
           setParams={setParams}
           error={error}
@@ -35,11 +23,12 @@ export const IntegrityBannerList = () => {
             current: toNumber(data?.page) || 1,
             pageSize: toNumber(data?.limit),
             total: toNumber(data?.total),
+            showSizeChanger: true,
           }}
           bordered
         />
       </Main>
-      <BannerModal sceneOptions={sceneOptions} />
+      <GoodsModal />
     </Container>
   );
 };

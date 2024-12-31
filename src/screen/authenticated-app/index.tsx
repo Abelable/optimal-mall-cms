@@ -29,7 +29,6 @@ import {
   CloudOutlined,
   PictureOutlined,
   EnvironmentOutlined,
-  SafetyCertificateOutlined,
   FlagOutlined,
   VerifiedOutlined,
   HeartOutlined,
@@ -53,8 +52,11 @@ import { CouponList } from "./activity-management/coupon-list";
 import { RuralBannerList } from "./rural/banner-list";
 import { RuralRegionList } from "./rural/region-list";
 import { RuralGoodsList } from "./rural/goods-list";
-import { IntegrityBannerList } from "./integrity/banner-list";
-import { IntegrityGoodsList } from "./integrity/goods-list";
+import { VillageGrainGoodsList } from "./home-zone/grain-goods";
+import { VillageFreshGoodsList } from "./home-zone/fresh-goods";
+import { VillageSnackGoodsList } from "./home-zone/snack-goods";
+import { VillageGiftGoodsList } from "./home-zone/gift-goods";
+import { IntegrityGoodsList } from "./home-zone/integrity-goods";
 import { MerchantList } from "./mall/merchant-list";
 import { FreightTemplateList } from "./mall/freight-template-list";
 import { CategoryList } from "./mall/category-list";
@@ -107,11 +109,23 @@ export const AuthenticatedApp = () => {
               <Route path="rural/region_list" element={<RuralRegionList />} />
               <Route path="rural/goods_list" element={<RuralGoodsList />} />
               <Route
-                path="integrity/banner_list"
-                element={<IntegrityBannerList />}
+                path="home_zone/grain_goods"
+                element={<VillageGrainGoodsList />}
               />
               <Route
-                path="integrity/goods_list"
+                path="home_zone/fresh_goods"
+                element={<VillageFreshGoodsList />}
+              />
+              <Route
+                path="home_zone/snack_goods"
+                element={<VillageSnackGoodsList />}
+              />
+              <Route
+                path="home_zone/gift_goods"
+                element={<VillageGiftGoodsList />}
+              />
+              <Route
+                path="home_zone/integrity_goods"
                 element={<IntegrityGoodsList />}
               />
               <Route path="goods/merchant_list" element={<MerchantList />} />
@@ -151,6 +165,38 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
       label: <Link to={"user_list"}>用户列表</Link>,
       key: "user_list",
       icon: <UserOutlined />,
+    },
+    {
+      label: "首页专区",
+      key: "home_zone",
+      icon: <AppstoreOutlined />,
+      children: [
+        {
+          label: <Link to={"home_zone/grain_goods"}>乡镇百谷</Link>,
+          key: "home_zone_grain_goods",
+          icon: <ShoppingOutlined />,
+        },
+        {
+          label: <Link to={"home_zone/fresh_goods"}>乡集生鲜</Link>,
+          key: "home_zone_fresh_goods",
+          icon: <ShoppingOutlined />,
+        },
+        {
+          label: <Link to={"home_zone/snack_goods"}>乡村零嘴</Link>,
+          key: "home_zone_snack_goods",
+          icon: <ShoppingOutlined />,
+        },
+        {
+          label: <Link to={"home_zone/gift_goods"}>乡思礼伴</Link>,
+          key: "home_zone_gift_goods",
+          icon: <ShoppingOutlined />,
+        },
+        {
+          label: <Link to={"home_zone/integrity_goods"}>诚信臻品</Link>,
+          key: "home_zone_integrity_goods",
+          icon: <ShoppingOutlined />,
+        },
+      ],
     },
     {
       label: "乡村振兴",
@@ -207,23 +253,6 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
         {
           label: <Link to={"rural/goods_list"}>商品列表</Link>,
           key: "rural_goods_list",
-          icon: <ShoppingOutlined />,
-        },
-      ],
-    },
-    {
-      label: "诚信臻品",
-      key: "integrity",
-      icon: <SafetyCertificateOutlined />,
-      children: [
-        {
-          label: <Link to={"integrity/banner_list"}>头图列表</Link>,
-          key: "integrity_banner_list",
-          icon: <PictureOutlined />,
-        },
-        {
-          label: <Link to={"integrity/goods_list"}>商品列表</Link>,
-          key: "integrity_goods_list",
           icon: <ShoppingOutlined />,
         },
       ],
