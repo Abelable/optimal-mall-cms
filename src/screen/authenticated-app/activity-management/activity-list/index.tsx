@@ -15,6 +15,9 @@ const statusOptions = [
 const tagOptions = [
   { text: "今日主推", value: 1 },
   { text: "活动预告", value: 2 },
+  { text: "诚试一下", value: 3 },
+  { text: "诚食一口", value: 4 },
+  { text: "诚意一看", value: 5 },
 ];
 const goodsTagOptions = [
   { text: "农产品", value: 1 },

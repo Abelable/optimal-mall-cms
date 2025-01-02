@@ -51,6 +51,9 @@ export const SearchPanel = ({
     setTempParams({ ...tempParams, status });
   const clearStatus = () => setTempParams({ ...tempParams, status: undefined });
 
+  const setType = (type: number) => setTempParams({ ...tempParams, type });
+  const clearType = () => setTempParams({ ...tempParams, type: undefined });
+
   const setGoodsId = (goodsId: number) =>
     setTempParams({ ...tempParams, goodsId });
   const clearGoodsId = () =>
@@ -94,11 +97,11 @@ export const SearchPanel = ({
         <div>优惠券类型：</div>
         <Select
           style={{ width: "20rem" }}
-          value={tempParams.status}
+          value={tempParams.type}
           placeholder="请选择优惠券类型"
           allowClear
-          onSelect={setStatus}
-          onClear={clearStatus}
+          onSelect={setType}
+          onClear={clearType}
         >
           {typeOptions?.map(({ text, value }) => (
             <Select.Option key={value} value={value}>
