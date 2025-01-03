@@ -12,8 +12,11 @@ import { PlusOutlined } from "@ant-design/icons";
 
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
-import { useDeleteIntegrityGoods, useEditSort } from "service/integrityGoods";
-import { useIntegrityGoodsModal, useIntegrityGoodsListQueryKey } from "../util";
+import {
+  useDeleteCultureGoods,
+  useEditCultureGoodsSort,
+} from "service/newYearGoods";
+import { useCultureGoodsModal, useCultureGoodsListQueryKey } from "../util";
 
 import type { Goods, GoodsListSearchParams } from "types/activityGoods";
 
@@ -24,7 +27,7 @@ interface ListProps extends TableProps<Goods> {
 }
 
 export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
-  const { open } = useIntegrityGoodsModal();
+  const { open } = useCultureGoodsModal();
 
   const setPagination = (pagination: TablePaginationConfig) =>
     setParams({
@@ -33,9 +36,11 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
       limit: pagination.pageSize,
     });
 
-  const { mutate: editSort } = useEditSort(useIntegrityGoodsListQueryKey());
-  const { mutate: deleteIntegrityGoods } = useDeleteIntegrityGoods(
-    useIntegrityGoodsListQueryKey()
+  const { mutate: editSort } = useEditCultureGoodsSort(
+    useCultureGoodsListQueryKey()
+  );
+  const { mutate: deleteCultureGoods } = useDeleteCultureGoods(
+    useCultureGoodsListQueryKey()
   );
 
   const confirmDelete = (id: number) => {
@@ -44,7 +49,7 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
       content: "点击确定删除",
       okText: "确定",
       cancelText: "取消",
-      onOk: () => deleteIntegrityGoods(id),
+      onOk: () => deleteCultureGoods(id),
     });
   };
 

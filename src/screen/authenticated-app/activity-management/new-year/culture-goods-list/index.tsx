@@ -1,14 +1,14 @@
-import { IntegrityGoodsModal } from "./components/goods-modal";
+import { GoodsModal } from "./components/goods-modal";
 import { List } from "./components/list";
 
 import styled from "@emotion/styled";
-import { useIntegrityGoodsList } from "service/integrityGoods";
+import { useCultureGoodsList } from "service/newYearGoods";
 import { toNumber } from "utils";
-import { useIntegrityGoodsListSearchParams } from "./util";
+import { useCultureGoodsListSearchParams } from "./util";
 
 export const IntegrityGoodsList = () => {
-  const [params, setParams] = useIntegrityGoodsListSearchParams();
-  const { isLoading, error, data } = useIntegrityGoodsList(params);
+  const [params, setParams] = useCultureGoodsListSearchParams();
+  const { isLoading, error, data } = useCultureGoodsList(params);
 
   return (
     <Container>
@@ -28,7 +28,7 @@ export const IntegrityGoodsList = () => {
           bordered
         />
       </Main>
-      <IntegrityGoodsModal />
+      <GoodsModal />
     </Container>
   );
 };
