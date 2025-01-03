@@ -29,9 +29,7 @@ export const useRegionModal = () => {
     "editingRegionId",
   ]);
   const setUrlParams = useSetUrlSearchParams();
-  const { data: editingRuralRegion, isLoading } = useRegion(
-    Number(editingRegionId)
-  );
+  const { data: editingRegion, isLoading } = useRegion(Number(editingRegionId));
 
   const open = useCallback(
     () => setRuralRegionModalOpen({ regionCreate: true }),
@@ -49,7 +47,7 @@ export const useRegionModal = () => {
   return {
     ruralRegionModalOpen: regionCreate === "true" || !!editingRegionId,
     editingRegionId,
-    editingRuralRegion,
+    editingRegion,
     isLoading,
     open,
     startEdit,

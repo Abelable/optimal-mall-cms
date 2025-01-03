@@ -4,16 +4,16 @@ import { Button, Select } from "antd";
 import { useState } from "react";
 import styled from "@emotion/styled";
 
-import type { RuralGoodsListSearchParams } from "types/ruralGoods";
-import type { RuralRegionOption } from "types/ruralRegion";
+import type { LocalGoodsListSearchParams } from "types/newYearGoods";
+import type { RegionOption } from "types/region";
 
 export interface SearchPanelProps {
-  regionOptions: RuralRegionOption[];
-  params: Partial<RuralGoodsListSearchParams>;
-  setParams: (params: Partial<RuralGoodsListSearchParams>) => void;
+  regionOptions: RegionOption[];
+  params: Partial<LocalGoodsListSearchParams>;
+  setParams: (params: Partial<LocalGoodsListSearchParams>) => void;
 }
 
-const defaultParmas: Partial<RuralGoodsListSearchParams> = {
+const defaultParmas: Partial<LocalGoodsListSearchParams> = {
   regionId: undefined,
 };
 

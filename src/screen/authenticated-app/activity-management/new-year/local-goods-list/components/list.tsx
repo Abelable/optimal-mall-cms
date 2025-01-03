@@ -12,7 +12,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import { useDeleteRuralGoods } from "service/ruralGoods";
-import { useRuralGoodsModal, useRuralGoodsListQueryKey } from "../util";
+import { useGoodsModal, useGoodsListQueryKey } from "../util";
 
 import type { RuralGoods } from "types/ruralGoods";
 import type { SearchPanelProps } from "./search-panel";
@@ -28,7 +28,7 @@ export const List = ({
   setParams,
   ...restProps
 }: ListProps) => {
-  const { open } = useRuralGoodsModal();
+  const { open } = useGoodsModal();
 
   const setPagination = (pagination: TablePaginationConfig) =>
     setParams({
@@ -38,7 +38,7 @@ export const List = ({
     });
 
   const { mutate: deleteRuralGoods } = useDeleteRuralGoods(
-    useRuralGoodsListQueryKey()
+    useGoodsListQueryKey()
   );
 
   const confirmDelete = (id: number) => {

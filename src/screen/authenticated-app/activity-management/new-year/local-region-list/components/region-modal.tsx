@@ -3,35 +3,33 @@ import { ErrorBox, ModalLoading } from "components/lib";
 
 import { useEffect } from "react";
 import { useForm } from "antd/lib/form/Form";
-import { useAddRuralRegion, useEditRuralRegion } from "service/ruralRegion";
-import { useRuralRegionModal, useRuralRegionListQueryKey } from "../util";
+import { useAddRegion, useEditRegion } from "service/newYearLocalRegion";
+import { useRegionModal, useRegionListQueryKey } from "../util";
 
-export const RuralRegionModal = () => {
+export const RegionModal = () => {
   const [form] = useForm();
   const {
     ruralRegionModalOpen,
-    editingRuralRegionId,
-    editingRuralRegion,
+    editingRegionId,
+    editingRegion,
     isLoading,
     close,
-  } = useRuralRegionModal();
+  } = useRegionModal();
 
-  const useMutateRuralRegion = editingRuralRegionId
-    ? useEditRuralRegion
-    : useAddRuralRegion;
+  const useMutateRegion = editingRegionId ? useEditRegion : useAddRegion;
   const {
     mutateAsync,
     isLoading: mutateLoading,
     error,
-  } = useMutateRuralRegion(useRuralRegionListQueryKey());
+  } = useMutateRegion(useRegionListQueryKey());
 
   useEffect(() => {
-    form.setFieldsValue(editingRuralRegion);
-  }, [editingRuralRegion, form]);
+    form.setFieldsValue(editingRegion);
+  }, [editingRegion, form]);
 
   const confirm = () => {
     form.validateFields().then(async () => {
-      await mutateAsync({ ...editingRuralRegion, ...form.getFieldsValue() });
+      await mutateAsync({ ...editingRegion, ...form.getFieldsValue() });
       closeModal();
     });
   };
@@ -44,7 +42,7 @@ export const RuralRegionModal = () => {
   return (
     <Modal
       forceRender={true}
-      title={editingRuralRegionId ? "编辑地区" : "新增地区"}
+      title={editingRegionId ? "编辑地区" : "新增地区"}
       open={ruralRegionModalOpen}
       confirmLoading={mutateLoading}
       onOk={confirm}

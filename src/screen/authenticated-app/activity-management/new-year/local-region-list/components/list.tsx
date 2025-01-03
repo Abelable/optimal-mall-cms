@@ -13,22 +13,22 @@ import {
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
 import {
-  useDeleteRuralRegion,
+  useDeleteRegion,
   useEditSort,
   useEditStatus,
-} from "service/ruralRegion";
-import { RuralRegion, RuralRegionListSearchParams } from "types/ruralRegion";
-import { useRuralRegionModal, useRuralRegionListQueryKey } from "../util";
+} from "service/newYearLocalRegion";
+import { Region, RegionListSearchParams } from "types/region";
+import { useRegionModal, useRegionListQueryKey } from "../util";
 import { PlusOutlined } from "@ant-design/icons";
 
-interface ListProps extends TableProps<RuralRegion> {
-  params: Partial<RuralRegionListSearchParams>;
-  setParams: (params: Partial<RuralRegionListSearchParams>) => void;
+interface ListProps extends TableProps<Region> {
+  params: Partial<RegionListSearchParams>;
+  setParams: (params: Partial<RegionListSearchParams>) => void;
   error: Error | unknown;
 }
 
 export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
-  const { open } = useRuralRegionModal();
+  const { open } = useRegionModal();
 
   const setPagination = (pagination: TablePaginationConfig) =>
     setParams({
@@ -37,8 +37,8 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
       limit: pagination.pageSize,
     });
 
-  const { mutate: editSort } = useEditSort(useRuralRegionListQueryKey());
-  const { mutate: editStatus } = useEditStatus(useRuralRegionListQueryKey());
+  const { mutate: editSort } = useEditSort(useRegionListQueryKey());
+  const { mutate: editStatus } = useEditStatus(useRegionListQueryKey());
 
   return (
     <Container>
@@ -100,10 +100,8 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
 };
 
 const More = ({ id }: { id: number }) => {
-  const { startEdit } = useRuralRegionModal();
-  const { mutate: deleteRuralRegion } = useDeleteRuralRegion(
-    useRuralRegionListQueryKey()
-  );
+  const { startEdit } = useRegionModal();
+  const { mutate: deleteRegion } = useDeleteRegion(useRegionListQueryKey());
 
   const confirmDelete = (id: number) => {
     Modal.confirm({
@@ -111,7 +109,7 @@ const More = ({ id }: { id: number }) => {
       content: "点击确定删除",
       okText: "确定",
       cancelText: "取消",
-      onOk: () => deleteRuralRegion(id),
+      onOk: () => deleteRegion(id),
     });
   };
 

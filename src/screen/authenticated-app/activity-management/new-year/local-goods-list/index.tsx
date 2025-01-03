@@ -5,14 +5,14 @@ import { SearchPanel } from "./components/search-panel";
 import styled from "@emotion/styled";
 import { useRuralGoodsList } from "service/ruralGoods";
 import { toNumber } from "utils";
-import { useRuralGoodsListSearchParams } from "./util";
-import { useRuralRegionOptions } from "service/ruralRegion";
+import { useGoodsListSearchParams } from "./util";
+import { useRegionOptions } from "service/newYearLocalRegion";
 
 export const NewYearLocalGoodsList = () => {
-  const [params, setParams] = useRuralGoodsListSearchParams();
+  const [params, setParams] = useGoodsListSearchParams();
   const { isLoading, error, data } = useRuralGoodsList(params);
   const { data: regionOptions = [], error: regionOptionsError } =
-    useRuralRegionOptions();
+    useRegionOptions();
 
   return (
     <Container>

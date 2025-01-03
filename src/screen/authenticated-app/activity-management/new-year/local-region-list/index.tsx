@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { useRegionList } from "service/newYearLocalRegion";
 import { toNumber } from "utils";
 import { List } from "./components/list";
-import { RuralRegionModal } from "./components/region-modal";
+import { RegionModal } from "./components/region-modal";
 import { useRegionListSearchParams } from "./util";
 
 export const NewYearLocalRegionList = () => {
@@ -26,7 +26,7 @@ export const NewYearLocalRegionList = () => {
           bordered
         />
       </Main>
-      <RuralRegionModal />
+      <RegionModal />
     </Container>
   );
 };
