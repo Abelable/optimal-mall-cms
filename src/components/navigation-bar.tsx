@@ -21,7 +21,7 @@ const breadcrumbNameMap: { [key: string]: string } = {
   "/activity/new_year/cultrue_goods_list": "文创礼包",
   "/activity/new_year/region_list": "地区列表",
   "/activity/new_year/local_goods_list": "地方特产",
-  "/activity/limited_time_recruit": "显示招募",
+  "/activity/limited_time_recruit": "限时招募",
   "/activity/limited_time_recruit/category_list": "商品分类",
   "/activity/limited_time_recruit/goods_list": "商品列表",
   "/rural": "诚信乡村",

@@ -14,10 +14,10 @@ import dayjs from "dayjs";
 import { useDeleteGoods } from "service/limitedTimeRecruitGoods";
 import { useGoodsModal, useGoodsListQueryKey } from "../util";
 
-import type { RuralGoods } from "types/ruralGoods";
+import type { Goods } from "types/limitedTimeRecruitGoods";
 import type { SearchPanelProps } from "./search-panel";
 
-interface ListProps extends TableProps<RuralGoods>, SearchPanelProps {
+interface ListProps extends TableProps<Goods>, SearchPanelProps {
   error: Error | unknown;
 }
 

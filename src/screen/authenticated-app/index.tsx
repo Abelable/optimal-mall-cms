@@ -358,7 +358,7 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
             },
             {
               label: (
-                <Link to={"activity/limited_time_recruit/local_goods_list"}>
+                <Link to={"activity/limited_time_recruit/goods_list"}>
                   商品列表
                 </Link>
               ),

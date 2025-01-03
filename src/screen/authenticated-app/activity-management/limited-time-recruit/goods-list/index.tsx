@@ -3,14 +3,14 @@ import { List } from "./components/list";
 import { SearchPanel } from "./components/search-panel";
 
 import styled from "@emotion/styled";
-import { useRuralGoodsList } from "service/ruralGoods";
+import { useGoodsList } from "service/limitedTimeRecruitGoods";
 import { toNumber } from "utils";
 import { useGoodsListSearchParams } from "./util";
 import { useCategoryOptions } from "service/limitedTimeRecruitCategory";
 
 export const LimitedTimeRecruitGoodsList = () => {
   const [params, setParams] = useGoodsListSearchParams();
-  const { isLoading, error, data } = useRuralGoodsList(params);
+  const { isLoading, error, data } = useGoodsList(params);
   const { data: categoryOptions = [], error: categoryOptionsError } =
     useCategoryOptions();
 

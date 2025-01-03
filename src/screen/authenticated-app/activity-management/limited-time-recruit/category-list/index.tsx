@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useRuralRegionList } from "service/ruralRegion";
+import { useCategoryList } from "service/limitedTimeRecruitCategory";
 import { toNumber } from "utils";
 import { List } from "./components/list";
 import { CategoryModal } from "./components/category-modal";
@@ -7,7 +7,7 @@ import { useCategoryListSearchParams } from "./util";
 
 export const LimitedTimeRecruitCategoryList = () => {
   const [params, setParams] = useCategoryListSearchParams();
-  const { isLoading, error, data } = useRuralRegionList(params);
+  const { isLoading, error, data } = useCategoryList(params);
 
   return (
     <Container>
