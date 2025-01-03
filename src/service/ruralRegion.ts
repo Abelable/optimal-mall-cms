@@ -92,7 +92,7 @@ export const useDeleteRuralRegion = (queryKey: QueryKey) => {
   );
 };
 
-export const useRegionOptions = () => {
+export const useRuralRegionOptions = () => {
   const client = useHttp();
   return useQuery<RegionOption[]>(["rural_region_options"], () =>
     client("rural/region/options")

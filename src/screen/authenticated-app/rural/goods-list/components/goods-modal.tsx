@@ -6,12 +6,12 @@ import { useGoodsOptions } from "service/goods";
 import { useAddRuralGoods } from "service/ruralGoods";
 import { useRuralGoodsModal, useRuralGoodsListQueryKey } from "../util";
 
-import type { RuralRegionOption } from "types/ruralRegion";
+import type { RegionOption } from "types/region";
 
 export const RuralGoodsModal = ({
   regionOptions,
 }: {
-  regionOptions: RuralRegionOption[];
+  regionOptions: RegionOption[];
 }) => {
   const [form] = useForm();
   const { ruralGoodsModalOpen, close } = useRuralGoodsModal();

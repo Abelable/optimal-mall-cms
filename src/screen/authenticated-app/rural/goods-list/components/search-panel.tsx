@@ -5,10 +5,10 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 
 import type { RuralGoodsListSearchParams } from "types/ruralGoods";
-import type { RuralRegionOption } from "types/ruralRegion";
+import type { RegionOption } from "types/region";
 
 export interface SearchPanelProps {
-  regionOptions: RuralRegionOption[];
+  regionOptions: RegionOption[];
   params: Partial<RuralGoodsListSearchParams>;
   setParams: (params: Partial<RuralGoodsListSearchParams>) => void;
 }
