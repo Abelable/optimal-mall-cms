@@ -14,29 +14,29 @@ import type {
   RegionOption,
 } from "types/region";
 
-export const useRuralRegionList = (params: Partial<RegionListSearchParams>) => {
+export const useRegionList = (params: Partial<RegionListSearchParams>) => {
   const client = useHttp();
-  return useQuery<RegionListResult>(["rural_region_list", params], () =>
-    client("rural/region/list", { data: params, method: "POST" })
+  return useQuery<RegionListResult>(["new_year_localregion_list", params], () =>
+    client("new_year/region/list", { data: params, method: "POST" })
   );
 };
 
-export const useRuralRegion = (id: number) => {
+export const useRegion = (id: number) => {
   const client = useHttp();
   return useQuery<Partial<Region>>(
-    ["rural_region", { id }],
-    () => client("rural/region/detail", { data: { id } }),
+    ["new_year_localregion", { id }],
+    () => client("new_year/region/detail", { data: { id } }),
     {
       enabled: !!id,
     }
   );
 };
 
-export const useAddRuralRegion = (queryKey: QueryKey) => {
+export const useAddRegion = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (params: Partial<Region>) =>
-      client("rural/region/add", {
+      client("new_year/region/add", {
         data: cleanObject(params),
         method: "POST",
       }),
@@ -44,11 +44,11 @@ export const useAddRuralRegion = (queryKey: QueryKey) => {
   );
 };
 
-export const useEditRuralRegion = (queryKey: QueryKey) => {
+export const useEditRegion = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (params: Partial<Region>) =>
-      client("rural/region/edit", {
+      client("new_year/region/edit", {
         data: cleanObject(params),
         method: "POST",
       }),
@@ -60,7 +60,7 @@ export const useEditSort = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     ({ id, sort }: { id: number; sort: number }) =>
-      client("rural/region/edit_sort", {
+      client("new_year/region/edit_sort", {
         data: cleanObject({ id, sort }),
         method: "POST",
       }),
@@ -72,7 +72,7 @@ export const useEditStatus = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     ({ id, status }: { id: number; status: number }) =>
-      client("rural/region/edit_status", {
+      client("new_year/region/edit_status", {
         data: cleanObject({ id, status }),
         method: "POST",
       }),
@@ -80,11 +80,11 @@ export const useEditStatus = (queryKey: QueryKey) => {
   );
 };
 
-export const useDeleteRuralRegion = (queryKey: QueryKey) => {
+export const useDeleteRegion = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (id: number) =>
-      client("rural/region/delete", {
+      client("new_year/region/delete", {
         data: { id },
         method: "POST",
       }),
@@ -94,7 +94,7 @@ export const useDeleteRuralRegion = (queryKey: QueryKey) => {
 
 export const useRegionOptions = () => {
   const client = useHttp();
-  return useQuery<RegionOption[]>(["rural_region_options"], () =>
-    client("rural/region/options")
+  return useQuery<RegionOption[]>(["new_year_localregion_options"], () =>
+    client("new_year/region/options")
   );
 };

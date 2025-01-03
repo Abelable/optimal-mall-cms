@@ -17,13 +17,13 @@ import {
   useEditSort,
   useEditStatus,
 } from "service/ruralRegion";
-import { Region, RegionListSearchParams } from "types/region";
+import { RuralRegion, RuralRegionListSearchParams } from "types/ruralRegion";
 import { useRuralRegionModal, useRuralRegionListQueryKey } from "../util";
 import { PlusOutlined } from "@ant-design/icons";
 
-interface ListProps extends TableProps<Region> {
-  params: Partial<RegionListSearchParams>;
-  setParams: (params: Partial<RegionListSearchParams>) => void;
+interface ListProps extends TableProps<RuralRegion> {
+  params: Partial<RuralRegionListSearchParams>;
+  setParams: (params: Partial<RuralRegionListSearchParams>) => void;
   error: Error | unknown;
 }
 

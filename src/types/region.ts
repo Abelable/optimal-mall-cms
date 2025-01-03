@@ -1,23 +1,23 @@
-export interface RuralRegionListSearchParams {
+export interface RegionListSearchParams {
   page: number;
   limit: number;
 }
 
-export interface RuralRegion {
+export interface Region {
   id: number;
   status: number;
   name: string;
   sort: number;
 }
 
-export interface RuralRegionListResult {
-  list: RuralRegion[];
+export interface RegionListResult {
+  list: Region[];
   page: string;
   limit: string;
   total: string;
 }
 
-export interface RuralRegionOption {
+export interface RegionOption {
   id: number;
   name: string;
 }
