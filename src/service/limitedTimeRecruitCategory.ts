@@ -8,36 +8,40 @@ import {
 import { cleanObject } from "utils/index";
 
 import type {
-  Region,
-  RegionListResult,
-  RegionListSearchParams,
-  RegionOption,
-} from "types/region";
+  Category,
+  CategoryListResult,
+  CategoryListSearchParams,
+  CategoryOption,
+} from "types/limitedTimeRecruitCategory";
 
-export const useRegionList = (params: Partial<RegionListSearchParams>) => {
+export const useCategoryList = (params: Partial<CategoryListSearchParams>) => {
   const client = useHttp();
-  return useQuery<RegionListResult>(
-    ["new_year_local_region_list", params],
-    () => client("new_year/region/list", { data: params, method: "POST" })
+  return useQuery<CategoryListResult>(
+    ["limited_time_recruit_category_list", params],
+    () =>
+      client("limited_time_recruit/category/list", {
+        data: params,
+        method: "POST",
+      })
   );
 };
 
-export const useRegion = (id: number) => {
+export const useCategory = (id: number) => {
   const client = useHttp();
-  return useQuery<Partial<Region>>(
-    ["new_year_local_region", { id }],
-    () => client("new_year/region/detail", { data: { id } }),
+  return useQuery<Partial<Category>>(
+    ["limited_time_recruit_category", { id }],
+    () => client("limited_time_recruit/category/detail", { data: { id } }),
     {
       enabled: !!id,
     }
   );
 };
 
-export const useAddRegion = (queryKey: QueryKey) => {
+export const useAddCategory = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
-    (params: Partial<Region>) =>
-      client("new_year/region/add", {
+    (params: Partial<Category>) =>
+      client("limited_time_recruit/category/add", {
         data: cleanObject(params),
         method: "POST",
       }),
@@ -45,11 +49,11 @@ export const useAddRegion = (queryKey: QueryKey) => {
   );
 };
 
-export const useEditRegion = (queryKey: QueryKey) => {
+export const useEditCategory = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
-    (params: Partial<Region>) =>
-      client("new_year/region/edit", {
+    (params: Partial<Category>) =>
+      client("limited_time_recruit/category/edit", {
         data: cleanObject(params),
         method: "POST",
       }),
@@ -61,7 +65,7 @@ export const useEditSort = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     ({ id, sort }: { id: number; sort: number }) =>
-      client("new_year/region/edit_sort", {
+      client("limited_time_recruit/category/edit_sort", {
         data: cleanObject({ id, sort }),
         method: "POST",
       }),
@@ -73,7 +77,7 @@ export const useEditStatus = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     ({ id, status }: { id: number; status: number }) =>
-      client("new_year/region/edit_status", {
+      client("limited_time_recruit/category/edit_status", {
         data: cleanObject({ id, status }),
         method: "POST",
       }),
@@ -81,11 +85,11 @@ export const useEditStatus = (queryKey: QueryKey) => {
   );
 };
 
-export const useDeleteRegion = (queryKey: QueryKey) => {
+export const useDeleteCategory = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (id: number) =>
-      client("new_year/region/delete", {
+      client("limited_time_recruit/category/delete", {
         data: { id },
         method: "POST",
       }),
@@ -93,9 +97,10 @@ export const useDeleteRegion = (queryKey: QueryKey) => {
   );
 };
 
-export const useRegionOptions = () => {
+export const useCategoryOptions = () => {
   const client = useHttp();
-  return useQuery<RegionOption[]>(["new_year_local_region_options"], () =>
-    client("new_year/region/options")
+  return useQuery<CategoryOption[]>(
+    ["limited_time_recruit_category_options"],
+    () => client("limited_time_recruit/category/options")
   );
 };

@@ -2,11 +2,11 @@ import styled from "@emotion/styled";
 import { useRuralRegionList } from "service/ruralRegion";
 import { toNumber } from "utils";
 import { List } from "./components/list";
-import { RuralRegionModal } from "./components/region-modal";
-import { useRuralRegionListSearchParams } from "./util";
+import { CategoryModal } from "./components/category-modal";
+import { useCategoryListSearchParams } from "./util";
 
 export const LimitedTimeRecruitCategoryList = () => {
-  const [params, setParams] = useRuralRegionListSearchParams();
+  const [params, setParams] = useCategoryListSearchParams();
   const { isLoading, error, data } = useRuralRegionList(params);
 
   return (
@@ -26,7 +26,7 @@ export const LimitedTimeRecruitCategoryList = () => {
           bordered
         />
       </Main>
-      <RuralRegionModal />
+      <CategoryModal />
     </Container>
   );
 };

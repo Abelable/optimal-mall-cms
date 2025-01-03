@@ -1,8 +1,8 @@
 import { useSetUrlSearchParams, useUrlQueryParams } from "utils/url";
 import { useCallback, useMemo } from "react";
-import { useRuralRegion } from "service/ruralRegion";
+import { useCategory } from "service/category";
 
-export const useRuralRegionListSearchParams = () => {
+export const useCategoryListSearchParams = () => {
   const [params, setParams] = useUrlQueryParams(["page", "limit"]);
   return [
     useMemo(
@@ -16,41 +16,40 @@ export const useRuralRegionListSearchParams = () => {
   ] as const;
 };
 
-export const useRuralRegionListQueryKey = () => {
-  const [params] = useRuralRegionListSearchParams();
-  return ["rural_region_list", params];
+export const useCategoryListQueryKey = () => {
+  const [params] = useCategoryListSearchParams();
+  return ["limited_time_recruit_category_list", params];
 };
 
-export const useRuralRegionModal = () => {
-  const [{ ruralRegionCreate }, setRuralRegionModalOpen] = useUrlQueryParams([
-    "ruralRegionCreate",
+export const useCategoryModal = () => {
+  const [{ categoryCreate }, setCategoryModalOpen] = useUrlQueryParams([
+    "categoryCreate",
   ]);
-  const [{ editingRuralRegionId }, setEditingRuralRegionId] = useUrlQueryParams(
-    ["editingRuralRegionId"]
-  );
+  const [{ editingCategoryId }, setEditingCategoryId] = useUrlQueryParams([
+    "editingCategoryId",
+  ]);
   const setUrlParams = useSetUrlSearchParams();
-  const { data: editingRuralRegion, isLoading } = useRuralRegion(
-    Number(editingRuralRegionId)
+  const { data: editingCategory, isLoading } = useCategory(
+    Number(editingCategoryId)
   );
 
   const open = useCallback(
-    () => setRuralRegionModalOpen({ ruralRegionCreate: true }),
-    [setRuralRegionModalOpen]
+    () => setCategoryModalOpen({ categoryCreate: true }),
+    [setCategoryModalOpen]
   );
   const startEdit = useCallback(
-    (id: number) => setEditingRuralRegionId({ editingRuralRegionId: `${id}` }),
-    [setEditingRuralRegionId]
+    (id: number) => setEditingCategoryId({ editingCategoryId: `${id}` }),
+    [setEditingCategoryId]
   );
   const close = useCallback(
-    () => setUrlParams({ ruralRegionCreate: "", editingRuralRegionId: "" }),
+    () => setUrlParams({ categoryCreate: "", editingCategoryId: "" }),
     [setUrlParams]
   );
 
   return {
-    ruralRegionModalOpen:
-      ruralRegionCreate === "true" || !!editingRuralRegionId,
-    editingRuralRegionId,
-    editingRuralRegion,
+    categoryModalOpen: categoryCreate === "true" || !!editingCategoryId,
+    editingCategoryId,
+    editingCategory,
     isLoading,
     open,
     startEdit,

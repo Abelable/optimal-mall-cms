@@ -3,35 +3,38 @@ import { ErrorBox, ModalLoading } from "components/lib";
 
 import { useEffect } from "react";
 import { useForm } from "antd/lib/form/Form";
-import { useAddRuralRegion, useEditRuralRegion } from "service/ruralRegion";
-import { useRuralRegionModal, useRuralRegionListQueryKey } from "../util";
+import {
+  useAddCategory,
+  useEditCategory,
+} from "service/limitedTimeRecruitCategory";
+import { useCategoryModal, useCategoryListQueryKey } from "../util";
 
-export const RuralRegionModal = () => {
+export const CategoryModal = () => {
   const [form] = useForm();
   const {
-    ruralRegionModalOpen,
-    editingRuralRegionId,
-    editingRuralRegion,
+    categoryModalOpen,
+    editingCategoryId,
+    editingCategory,
     isLoading,
     close,
-  } = useRuralRegionModal();
+  } = useCategoryModal();
 
-  const useMutateRuralRegion = editingRuralRegionId
-    ? useEditRuralRegion
-    : useAddRuralRegion;
+  const useMutateCategory = editingCategoryId
+    ? useEditCategory
+    : useAddCategory;
   const {
     mutateAsync,
     isLoading: mutateLoading,
     error,
-  } = useMutateRuralRegion(useRuralRegionListQueryKey());
+  } = useMutateCategory(useCategoryListQueryKey());
 
   useEffect(() => {
-    form.setFieldsValue(editingRuralRegion);
-  }, [editingRuralRegion, form]);
+    form.setFieldsValue(editingCategory);
+  }, [editingCategory, form]);
 
   const confirm = () => {
     form.validateFields().then(async () => {
-      await mutateAsync({ ...editingRuralRegion, ...form.getFieldsValue() });
+      await mutateAsync({ ...editingCategory, ...form.getFieldsValue() });
       closeModal();
     });
   };
@@ -44,8 +47,8 @@ export const RuralRegionModal = () => {
   return (
     <Modal
       forceRender={true}
-      title={editingRuralRegionId ? "编辑地区" : "新增地区"}
-      open={ruralRegionModalOpen}
+      title={editingCategoryId ? "编辑分类" : "新增分类"}
+      open={categoryModalOpen}
       confirmLoading={mutateLoading}
       onOk={confirm}
       onCancel={closeModal}
@@ -56,11 +59,11 @@ export const RuralRegionModal = () => {
       ) : (
         <Form form={form} layout="vertical">
           <Form.Item
-            label={"地区名称"}
+            label={"分类名称"}
             name={"name"}
-            rules={[{ required: true, message: "请输入地区名称" }]}
+            rules={[{ required: true, message: "请输入分类名称" }]}
           >
-            <Input placeholder={"请输入地区名称"} />
+            <Input placeholder={"请输入分类名称"} />
           </Form.Item>
         </Form>
       )}

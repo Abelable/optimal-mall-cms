@@ -13,22 +13,25 @@ import {
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
 import {
-  useDeleteRuralRegion,
+  useDeleteCategory,
   useEditSort,
   useEditStatus,
-} from "service/ruralRegion";
-import { RuralRegion, RuralRegionListSearchParams } from "types/ruralRegion";
-import { useRuralRegionModal, useRuralRegionListQueryKey } from "../util";
+} from "service/limitedTimeRecruitCategory";
+import {
+  Category,
+  CategoryListSearchParams,
+} from "types/limitedTimeRecruitCategory";
+import { useCategoryModal, useCategoryListQueryKey } from "../util";
 import { PlusOutlined } from "@ant-design/icons";
 
-interface ListProps extends TableProps<RuralRegion> {
-  params: Partial<RuralRegionListSearchParams>;
-  setParams: (params: Partial<RuralRegionListSearchParams>) => void;
+interface ListProps extends TableProps<Category> {
+  params: Partial<CategoryListSearchParams>;
+  setParams: (params: Partial<CategoryListSearchParams>) => void;
   error: Error | unknown;
 }
 
 export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
-  const { open } = useRuralRegionModal();
+  const { open } = useCategoryModal();
 
   const setPagination = (pagination: TablePaginationConfig) =>
     setParams({
@@ -37,13 +40,13 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
       limit: pagination.pageSize,
     });
 
-  const { mutate: editSort } = useEditSort(useRuralRegionListQueryKey());
-  const { mutate: editStatus } = useEditStatus(useRuralRegionListQueryKey());
+  const { mutate: editSort } = useEditSort(useCategoryListQueryKey());
+  const { mutate: editStatus } = useEditStatus(useCategoryListQueryKey());
 
   return (
     <Container>
       <Header between={true}>
-        <PageTitle>地区列表</PageTitle>
+        <PageTitle>分类列表</PageTitle>
         <Button onClick={() => open()} type={"primary"} icon={<PlusOutlined />}>
           新增
         </Button>
@@ -58,7 +61,7 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
             width: "8rem",
           },
           {
-            title: "地区名称",
+            title: "分类名称",
             dataIndex: "name",
           },
           {
@@ -100,18 +103,18 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
 };
 
 const More = ({ id }: { id: number }) => {
-  const { startEdit } = useRuralRegionModal();
-  const { mutate: deleteRuralRegion } = useDeleteRuralRegion(
-    useRuralRegionListQueryKey()
+  const { startEdit } = useCategoryModal();
+  const { mutate: deleteCategory } = useDeleteCategory(
+    useCategoryListQueryKey()
   );
 
   const confirmDelete = (id: number) => {
     Modal.confirm({
-      title: "确定删除该管理员地区吗？",
+      title: "确定删除该分类吗？",
       content: "点击确定删除",
       okText: "确定",
       cancelText: "取消",
-      onOk: () => deleteRuralRegion(id),
+      onOk: () => deleteCategory(id),
     });
   };
 
