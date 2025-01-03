@@ -3,12 +3,12 @@ import { ErrorBox, GoodsCover } from "components/lib";
 
 import { useForm } from "antd/lib/form/Form";
 import { useGoodsOptions } from "service/goods";
-import { useAddIntegrityGoods } from "service/integrityGoods";
-import { useIntegrityGoodsModal, useIntegrityGoodsListQueryKey } from "../util";
+import { useAddGoods } from "service/newYearGoods";
+import { useGoodsModal, useGoodsListQueryKey } from "../util";
 
 export const IntegrityGoodsModal = () => {
   const [form] = useForm();
-  const { integrityGoodsModalOpen, close } = useIntegrityGoodsModal();
+  const { newYearGoodsModalOpen, close } = useGoodsModal();
 
   const { data: goodsOptions = [], error: goodsOptionsError } =
     useGoodsOptions();
@@ -17,7 +17,7 @@ export const IntegrityGoodsModal = () => {
     mutateAsync,
     isLoading: mutateLoading,
     error,
-  } = useAddIntegrityGoods(useIntegrityGoodsListQueryKey());
+  } = useAddGoods(useGoodsListQueryKey());
 
   const confirm = () => {
     form.validateFields().then(async () => {
@@ -35,7 +35,7 @@ export const IntegrityGoodsModal = () => {
     <Modal
       forceRender={true}
       title="新增商品"
-      open={integrityGoodsModalOpen}
+      open={newYearGoodsModalOpen}
       confirmLoading={mutateLoading}
       onOk={confirm}
       onCancel={closeModal}

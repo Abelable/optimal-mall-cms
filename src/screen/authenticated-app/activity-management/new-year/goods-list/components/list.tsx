@@ -13,7 +13,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import { useDeleteIntegrityGoods, useEditSort } from "service/integrityGoods";
-import { useIntegrityGoodsModal, useIntegrityGoodsListQueryKey } from "../util";
+import { useGoodsModal, useGoodsListQueryKey } from "../util";
 
 import type { Goods, GoodsListSearchParams } from "types/activityGoods";
 
@@ -24,7 +24,7 @@ interface ListProps extends TableProps<Goods> {
 }
 
 export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
-  const { open } = useIntegrityGoodsModal();
+  const { open } = useGoodsModal();
 
   const setPagination = (pagination: TablePaginationConfig) =>
     setParams({
@@ -33,9 +33,9 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
       limit: pagination.pageSize,
     });
 
-  const { mutate: editSort } = useEditSort(useIntegrityGoodsListQueryKey());
+  const { mutate: editSort } = useEditSort(useGoodsListQueryKey());
   const { mutate: deleteIntegrityGoods } = useDeleteIntegrityGoods(
-    useIntegrityGoodsListQueryKey()
+    useGoodsListQueryKey()
   );
 
   const confirmDelete = (id: number) => {

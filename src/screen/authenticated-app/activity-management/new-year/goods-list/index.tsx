@@ -2,13 +2,13 @@ import { IntegrityGoodsModal } from "./components/goods-modal";
 import { List } from "./components/list";
 
 import styled from "@emotion/styled";
-import { useIntegrityGoodsList } from "service/integrityGoods";
+import { useGoodsList } from "service/newYearGoods";
 import { toNumber } from "utils";
-import { useIntegrityGoodsListSearchParams } from "./util";
+import { useGoodsListSearchParams } from "./util";
 
 export const NewYearGoodsList = () => {
-  const [params, setParams] = useIntegrityGoodsListSearchParams();
-  const { isLoading, error, data } = useIntegrityGoodsList(params);
+  const [params, setParams] = useGoodsListSearchParams();
+  const { isLoading, error, data } = useGoodsList(params);
 
   return (
     <Container>

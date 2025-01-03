@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from "react";
 import { useSetUrlSearchParams, useUrlQueryParams } from "utils/url";
 
-export const useIntegrityGoodsListSearchParams = () => {
+export const useGoodsListSearchParams = () => {
   const [params, setParams] = useUrlQueryParams(["page", "limit"]);
   return [
     useMemo(
@@ -16,27 +16,28 @@ export const useIntegrityGoodsListSearchParams = () => {
   ] as const;
 };
 
-export const useIntegrityGoodsListQueryKey = () => {
-  const [params] = useIntegrityGoodsListSearchParams();
-  return ["integrity_goods_list", params];
+export const useGoodsListQueryKey = () => {
+  const [params] = useGoodsListSearchParams();
+  return ["new_year_goods_list", params];
 };
 
-export const useIntegrityGoodsModal = () => {
-  const [{ integrityGoodsCreate }, setIntegrityGoodsModalOpen] =
-    useUrlQueryParams(["integrityGoodsCreate"]);
+export const useGoodsModal = () => {
+  const [{ newYearGoodsCreate }, setGoodsModalOpen] = useUrlQueryParams([
+    "newYearGoodsCreate",
+  ]);
   const setUrlParams = useSetUrlSearchParams();
 
   const open = useCallback(
-    () => setIntegrityGoodsModalOpen({ integrityGoodsCreate: true }),
-    [setIntegrityGoodsModalOpen]
+    () => setGoodsModalOpen({ newYearGoodsCreate: true }),
+    [setGoodsModalOpen]
   );
   const close = useCallback(
-    () => setUrlParams({ integrityGoodsCreate: "" }),
+    () => setUrlParams({ newYearGoodsCreate: "" }),
     [setUrlParams]
   );
 
   return {
-    integrityGoodsModalOpen: integrityGoodsCreate === "true",
+    newYearGoodsModalOpen: newYearGoodsCreate === "true",
     open,
     close,
   };
