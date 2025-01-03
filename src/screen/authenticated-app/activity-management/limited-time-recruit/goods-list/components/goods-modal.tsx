@@ -3,7 +3,7 @@ import { ErrorBox, GoodsCover } from "components/lib";
 
 import { useForm } from "antd/lib/form/Form";
 import { useGoodsOptions } from "service/goods";
-import { useAddRuralGoods } from "service/ruralGoods";
+import { useAddGoods } from "service/limitedTimeRecruitGoods";
 import { useGoodsModal, useGoodsListQueryKey } from "../util";
 
 import type { CategoryOption } from "types/limitedTimeRecruitCategory";
@@ -23,7 +23,7 @@ export const GoodsModal = ({
     mutateAsync,
     isLoading: mutateLoading,
     error,
-  } = useAddRuralGoods(useGoodsListQueryKey());
+  } = useAddGoods(useGoodsListQueryKey());
 
   const confirm = () => {
     form.validateFields().then(async () => {
@@ -49,7 +49,7 @@ export const GoodsModal = ({
       <ErrorBox error={error || goodsOptionsError} />
       <Form form={form} layout="vertical">
         <Form.Item
-          name="regionId"
+          name="categoryId"
           label="分类"
           rules={[{ required: true, message: "请选择分类" }]}
         >

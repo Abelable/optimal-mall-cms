@@ -25,9 +25,9 @@ export const useGoodsList = (params: Partial<GoodsListSearchParams>) => {
 export const useAddGoods = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
-    ({ regionId, goodsIds }: { regionId: number; goodsIds: number[] }) =>
+    ({ categoryId, goodsIds }: { categoryId: number; goodsIds: number[] }) =>
       client("limited_time_recruit/goods/add", {
-        data: cleanObject({ regionId, goodsIds }),
+        data: cleanObject({ categoryId, goodsIds }),
         method: "POST",
       }),
     useAddActivityGoodsConfig(queryKey)
