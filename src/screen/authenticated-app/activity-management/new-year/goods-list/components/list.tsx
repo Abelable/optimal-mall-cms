@@ -51,7 +51,7 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
   return (
     <Container>
       <Header between={true}>
-        <PageTitle>诚信臻品</PageTitle>
+        <PageTitle>年货礼包</PageTitle>
         <Button onClick={() => open()} type={"primary"} icon={<PlusOutlined />}>
           新增
         </Button>

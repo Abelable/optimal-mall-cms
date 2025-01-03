@@ -34,6 +34,8 @@ import {
   HeartOutlined,
   TransactionOutlined,
   PayCircleOutlined,
+  FireOutlined,
+  NotificationOutlined,
 } from "@ant-design/icons";
 import logo from "assets/images/logo.png";
 import { CouponIcon, ExpressIcon } from "assets/icon";
@@ -49,6 +51,12 @@ import { GiftGoodsList } from "./team/gift-goods-list";
 import { HomeBannerList } from "./activity-management/home-banner-list";
 import { ActivityList } from "./activity-management/activity-list";
 import { CouponList } from "./activity-management/coupon-list";
+import { NewYearGoodsList } from "./activity-management/new-year/goods-list";
+import { NewYearCultureGoodsList } from "./activity-management/new-year/culture-goods-list";
+import { NewYearLocalRegionList } from "./activity-management/new-year/local-region-list";
+import { NewYearLocalGoodsList } from "./activity-management/new-year/local-goods-list";
+import { LimitedTimeRecruitCategoryList } from "./activity-management/limited-time-recruit/category-list";
+import { LimitedTimeRecruitGoodsList } from "./activity-management/limited-time-recruit/goods-list";
 import { RuralBannerList } from "./rural/banner-list";
 import { RuralRegionList } from "./rural/region-list";
 import { RuralGoodsList } from "./rural/goods-list";
@@ -105,6 +113,30 @@ export const AuthenticatedApp = () => {
               />
               <Route path="activity/list" element={<ActivityList />} />
               <Route path="activity/coupon_list" element={<CouponList />} />
+              <Route
+                path="activity/new_year/goods_list"
+                element={<NewYearGoodsList />}
+              />
+              <Route
+                path="activity/new_year/culture_goods_list"
+                element={<NewYearCultureGoodsList />}
+              />
+              <Route
+                path="activity/new_year/region_list"
+                element={<NewYearLocalRegionList />}
+              />
+              <Route
+                path="activity/new_year/local_goods_list"
+                element={<NewYearLocalGoodsList />}
+              />
+              <Route
+                path="activity/limited_time_recruit/category_list"
+                element={<LimitedTimeRecruitCategoryList />}
+              />
+              <Route
+                path="activity/limited_time_recruit/goods_list"
+                element={<LimitedTimeRecruitGoodsList />}
+              />
               <Route path="rural/banner_list" element={<RuralBannerList />} />
               <Route path="rural/region_list" element={<RuralRegionList />} />
               <Route path="rural/goods_list" element={<RuralGoodsList />} />
@@ -276,6 +308,64 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
           label: <Link to={"activity/coupon_list"}>优惠券</Link>,
           key: "activity_coupon_list",
           icon: <CouponIcon />,
+        },
+        {
+          label: "年货节",
+          key: "activity_new_year",
+          icon: <FireOutlined />,
+          children: [
+            {
+              label: <Link to={"activity/new_year/goods_list"}>年货礼包</Link>,
+              key: "activity_new_year_goods_list",
+              icon: <ShoppingOutlined />,
+            },
+            {
+              label: (
+                <Link to={"activity/new_year/culture_goods_list"}>
+                  文创礼包
+                </Link>
+              ),
+              key: "activity_new_year_culture_goods_list",
+              icon: <ShoppingOutlined />,
+            },
+            {
+              label: <Link to={"activity/new_year/region_list"}>地区列表</Link>,
+              key: "activity_new_year_region_list",
+              icon: <EnvironmentOutlined />,
+            },
+            {
+              label: (
+                <Link to={"activity/new_year/local_goods_list"}>地方特产</Link>
+              ),
+              key: "activity_new_year_local_goods_list",
+              icon: <ShoppingOutlined />,
+            },
+          ],
+        },
+        {
+          label: "限时招募",
+          key: "activity_limited_time_recruit",
+          icon: <NotificationOutlined />,
+          children: [
+            {
+              label: (
+                <Link to={"activity/limited_time_recruit/category_list"}>
+                  商品分类
+                </Link>
+              ),
+              key: "activity_limited_time_recruit_category_list",
+              icon: <AppstoreOutlined />,
+            },
+            {
+              label: (
+                <Link to={"activity/limited_time_recruit/local_goods_list"}>
+                  商品列表
+                </Link>
+              ),
+              key: "activity_limited_time_recruit_goods_list",
+              icon: <ShoppingOutlined />,
+            },
+          ],
         },
       ],
     },

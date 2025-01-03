@@ -3,14 +3,14 @@ import { List } from "./components/list";
 import { SearchPanel } from "./components/search-panel";
 
 import styled from "@emotion/styled";
-import { useRuralGoodsList } from "service/ruralGoods";
+import { useLocalGoodsList } from "service/newYearGoods";
 import { toNumber } from "utils";
 import { useGoodsListSearchParams } from "./util";
 import { useRegionOptions } from "service/newYearLocalRegion";
 
 export const NewYearLocalGoodsList = () => {
   const [params, setParams] = useGoodsListSearchParams();
-  const { isLoading, error, data } = useRuralGoodsList(params);
+  const { isLoading, error, data } = useLocalGoodsList(params);
   const { data: regionOptions = [], error: regionOptionsError } =
     useRegionOptions();
 

@@ -107,7 +107,7 @@ export const useLocalGoodsList = (
   const client = useHttp();
   return useQuery<LocalGoodsListResult>(
     ["new_year_local_goods_list", params],
-    () => client("new_uear/local_goods/list", { data: params, method: "POST" })
+    () => client("new_year/local_goods/list", { data: params, method: "POST" })
   );
 };
 
@@ -115,7 +115,7 @@ export const useAddLocalGoods = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     ({ regionId, goodsIds }: { regionId: number; goodsIds: number[] }) =>
-      client("new_uear/local_goods/add", {
+      client("new_year/local_goods/add", {
         data: cleanObject({ regionId, goodsIds }),
         method: "POST",
       }),
@@ -127,7 +127,7 @@ export const useDeleteLocalGoods = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (id: number) =>
-      client("new_uear/local_goods/delete", {
+      client("new_year/local_goods/delete", {
         data: { id },
         method: "POST",
       }),

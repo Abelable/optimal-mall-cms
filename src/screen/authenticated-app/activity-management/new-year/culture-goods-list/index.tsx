@@ -6,7 +6,7 @@ import { useCultureGoodsList } from "service/newYearGoods";
 import { toNumber } from "utils";
 import { useCultureGoodsListSearchParams } from "./util";
 
-export const IntegrityGoodsList = () => {
+export const NewYearCultureGoodsList = () => {
   const [params, setParams] = useCultureGoodsListSearchParams();
   const { isLoading, error, data } = useCultureGoodsList(params);
 
