@@ -4,17 +4,17 @@ import { ErrorBox, GoodsCover } from "components/lib";
 import { useForm } from "antd/lib/form/Form";
 import { useGoodsOptions } from "service/goods";
 import { useAddRuralGoods } from "service/ruralGoods";
-import { useRuralGoodsModal, useRuralGoodsListQueryKey } from "../util";
+import { useGoodsModal, useGoodsListQueryKey } from "../util";
 
-import type { RuralRegionOption } from "types/ruralRegion";
+import type { CategoryOption } from "types/limitedTimeRecruitCategory";
 
-export const RuralGoodsModal = ({
-  regionOptions,
+export const GoodsModal = ({
+  categoryOptions,
 }: {
-  regionOptions: RuralRegionOption[];
+  categoryOptions: CategoryOption[];
 }) => {
   const [form] = useForm();
-  const { ruralGoodsModalOpen, close } = useRuralGoodsModal();
+  const { goodsModalOpen, close } = useGoodsModal();
 
   const { data: goodsOptions = [], error: goodsOptionsError } =
     useGoodsOptions();
@@ -23,7 +23,7 @@ export const RuralGoodsModal = ({
     mutateAsync,
     isLoading: mutateLoading,
     error,
-  } = useAddRuralGoods(useRuralGoodsListQueryKey());
+  } = useAddRuralGoods(useGoodsListQueryKey());
 
   const confirm = () => {
     form.validateFields().then(async () => {
@@ -41,7 +41,7 @@ export const RuralGoodsModal = ({
     <Modal
       forceRender={true}
       title="新增商品"
-      open={ruralGoodsModalOpen}
+      open={goodsModalOpen}
       confirmLoading={mutateLoading}
       onOk={confirm}
       onCancel={closeModal}
@@ -50,11 +50,11 @@ export const RuralGoodsModal = ({
       <Form form={form} layout="vertical">
         <Form.Item
           name="regionId"
-          label="地区"
-          rules={[{ required: true, message: "请选择地区" }]}
+          label="分类"
+          rules={[{ required: true, message: "请选择分类" }]}
         >
-          <Select placeholder="请选择地区">
-            {regionOptions.map(({ id, name }) => (
+          <Select placeholder="请选择分类">
+            {categoryOptions.map(({ id, name }) => (
               <Select.Option key={id} value={id}>
                 {name}
               </Select.Option>

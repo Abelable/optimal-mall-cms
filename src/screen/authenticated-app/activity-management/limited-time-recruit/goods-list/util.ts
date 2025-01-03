@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from "react";
 import { useSetUrlSearchParams, useUrlQueryParams } from "utils/url";
 
-export const useRuralGoodsListSearchParams = () => {
+export const useGoodsListSearchParams = () => {
   const [params, setParams] = useUrlQueryParams(["regionId", "page", "limit"]);
   return [
     useMemo(
@@ -16,28 +16,28 @@ export const useRuralGoodsListSearchParams = () => {
   ] as const;
 };
 
-export const useRuralGoodsListQueryKey = () => {
-  const [params] = useRuralGoodsListSearchParams();
-  return ["rural_goods_list", params];
+export const useGoodsListQueryKey = () => {
+  const [params] = useGoodsListSearchParams();
+  return ["limited_time_recruit_goods_list", params];
 };
 
-export const useRuralGoodsModal = () => {
-  const [{ ruralGoodsCreate }, setRuralGoodsModalOpen] = useUrlQueryParams([
-    "ruralGoodsCreate",
+export const useGoodsModal = () => {
+  const [{ goodsCreate }, setGoodsModalOpen] = useUrlQueryParams([
+    "goodsCreate",
   ]);
   const setUrlParams = useSetUrlSearchParams();
 
   const open = useCallback(
-    () => setRuralGoodsModalOpen({ ruralGoodsCreate: true }),
-    [setRuralGoodsModalOpen]
+    () => setGoodsModalOpen({ goodsCreate: true }),
+    [setGoodsModalOpen]
   );
   const close = useCallback(
-    () => setUrlParams({ ruralGoodsCreate: "" }),
+    () => setUrlParams({ goodsCreate: "" }),
     [setUrlParams]
   );
 
   return {
-    ruralGoodsModalOpen: ruralGoodsCreate === "true",
+    goodsModalOpen: goodsCreate === "true",
     open,
     close,
   };

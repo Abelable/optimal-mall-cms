@@ -11,8 +11,8 @@ import { PlusOutlined } from "@ant-design/icons";
 
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
-import { useDeleteRuralGoods } from "service/ruralGoods";
-import { useRuralGoodsModal, useRuralGoodsListQueryKey } from "../util";
+import { useDeleteGoods } from "service/limitedTimeRecruitGoods";
+import { useGoodsModal, useGoodsListQueryKey } from "../util";
 
 import type { RuralGoods } from "types/ruralGoods";
 import type { SearchPanelProps } from "./search-panel";
@@ -22,13 +22,13 @@ interface ListProps extends TableProps<RuralGoods>, SearchPanelProps {
 }
 
 export const List = ({
-  regionOptions,
+  categoryOptions,
   error,
   params,
   setParams,
   ...restProps
 }: ListProps) => {
-  const { open } = useRuralGoodsModal();
+  const { open } = useGoodsModal();
 
   const setPagination = (pagination: TablePaginationConfig) =>
     setParams({
@@ -37,9 +37,7 @@ export const List = ({
       limit: pagination.pageSize,
     });
 
-  const { mutate: deleteRuralGoods } = useDeleteRuralGoods(
-    useRuralGoodsListQueryKey()
-  );
+  const { mutate: deleteRuralGoods } = useDeleteGoods(useGoodsListQueryKey());
 
   const confirmDelete = (id: number) => {
     Modal.confirm({
@@ -69,10 +67,10 @@ export const List = ({
             width: "8rem",
           },
           {
-            title: "地区",
-            dataIndex: "regionId",
+            title: "分类",
+            dataIndex: "categoryId",
             render: (value) => (
-              <>{regionOptions.find((item) => item.id === value)?.name}</>
+              <>{categoryOptions.find((item) => item.id === value)?.name}</>
             ),
           },
           {

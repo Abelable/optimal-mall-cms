@@ -1,32 +1,32 @@
-import { RuralGoodsModal } from "./components/goods-modal";
+import { GoodsModal } from "./components/goods-modal";
 import { List } from "./components/list";
 import { SearchPanel } from "./components/search-panel";
 
 import styled from "@emotion/styled";
 import { useRuralGoodsList } from "service/ruralGoods";
 import { toNumber } from "utils";
-import { useRuralGoodsListSearchParams } from "./util";
-import { useRuralRegionOptions } from "service/ruralRegion";
+import { useGoodsListSearchParams } from "./util";
+import { useCategoryOptions } from "service/limitedTimeRecruitCategory";
 
 export const LimitedTimeRecruitGoodsList = () => {
-  const [params, setParams] = useRuralGoodsListSearchParams();
+  const [params, setParams] = useGoodsListSearchParams();
   const { isLoading, error, data } = useRuralGoodsList(params);
-  const { data: regionOptions = [], error: regionOptionsError } =
-    useRuralRegionOptions();
+  const { data: categoryOptions = [], error: categoryOptionsError } =
+    useCategoryOptions();
 
   return (
     <Container>
       <Main>
         <SearchPanel
-          regionOptions={regionOptions}
+          categoryOptions={categoryOptions}
           params={params}
           setParams={setParams}
         />
         <List
-          regionOptions={regionOptions}
+          categoryOptions={categoryOptions}
           params={params}
           setParams={setParams}
-          error={error || regionOptionsError}
+          error={error || categoryOptionsError}
           loading={isLoading}
           dataSource={data?.list}
           pagination={{
@@ -38,7 +38,7 @@ export const LimitedTimeRecruitGoodsList = () => {
           bordered
         />
       </Main>
-      <RuralGoodsModal regionOptions={regionOptions} />
+      <GoodsModal categoryOptions={categoryOptions} />
     </Container>
   );
 };

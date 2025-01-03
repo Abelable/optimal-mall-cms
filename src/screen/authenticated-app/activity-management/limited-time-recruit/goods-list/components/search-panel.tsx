@@ -4,30 +4,30 @@ import { Button, Select } from "antd";
 import { useState } from "react";
 import styled from "@emotion/styled";
 
-import type { RuralGoodsListSearchParams } from "types/ruralGoods";
-import type { RuralRegionOption } from "types/ruralRegion";
+import type { GoodsListSearchParams } from "types/limitedTimeRecruitGoods";
+import type { CategoryOption } from "types/limitedTimeRecruitCategory";
 
 export interface SearchPanelProps {
-  regionOptions: RuralRegionOption[];
-  params: Partial<RuralGoodsListSearchParams>;
-  setParams: (params: Partial<RuralGoodsListSearchParams>) => void;
+  categoryOptions: CategoryOption[];
+  params: Partial<GoodsListSearchParams>;
+  setParams: (params: Partial<GoodsListSearchParams>) => void;
 }
 
-const defaultParmas: Partial<RuralGoodsListSearchParams> = {
-  regionId: undefined,
+const defaultParmas: Partial<GoodsListSearchParams> = {
+  categoryId: undefined,
 };
 
 export const SearchPanel = ({
-  regionOptions,
+  categoryOptions,
   params,
   setParams,
 }: SearchPanelProps) => {
   const [tempParams, setTempParams] = useState(defaultParmas);
 
-  const setRegion = (regionId: number) =>
-    setTempParams({ ...tempParams, regionId });
+  const setRegion = (categoryId: number) =>
+    setTempParams({ ...tempParams, categoryId });
   const clearRegion = () =>
-    setTempParams({ ...tempParams, regionId: undefined });
+    setTempParams({ ...tempParams, categoryId: undefined });
 
   const clear = () => {
     setParams({ ...params, ...defaultParmas });
@@ -37,16 +37,16 @@ export const SearchPanel = ({
   return (
     <Container>
       <Item>
-        <div>地区：</div>
+        <div>分类：</div>
         <Select
           style={{ width: "20rem" }}
-          value={tempParams.regionId}
-          placeholder="请选择地区"
+          value={tempParams.categoryId}
+          placeholder="请选择分类"
           allowClear
           onSelect={setRegion}
           onClear={clearRegion}
         >
-          {regionOptions?.map(({ id, name }) => (
+          {categoryOptions?.map(({ id, name }) => (
             <Select.Option key={id} value={id}>
               {name}
             </Select.Option>
