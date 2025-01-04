@@ -133,8 +133,6 @@ export const AuthenticatedApp = () => {
                 path="activity/limited_time_recruit/goods_list"
                 element={<LimitedTimeRecruitGoodsList />}
               />
-              <Route path="rural/region_list" element={<RuralRegionList />} />
-              <Route path="rural/goods_list" element={<RuralGoodsList />} />
               <Route
                 path="home_zone/grain_goods"
                 element={<VillageGrainGoodsList />}
@@ -154,6 +152,14 @@ export const AuthenticatedApp = () => {
               <Route
                 path="home_zone/integrity_goods"
                 element={<IntegrityGoodsList />}
+              />
+              <Route
+                path="home_zone/rural/region_list"
+                element={<RuralRegionList />}
+              />
+              <Route
+                path="home_zone/rural/goods_list"
+                element={<RuralGoodsList />}
               />
               <Route path="goods/merchant_list" element={<MerchantList />} />
               <Route
@@ -194,38 +200,6 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
       icon: <UserOutlined />,
     },
     {
-      label: "首页专区",
-      key: "home_zone",
-      icon: <AppstoreOutlined />,
-      children: [
-        {
-          label: <Link to={"home_zone/grain_goods"}>乡镇百谷</Link>,
-          key: "home_zone_grain_goods",
-          icon: <ShoppingOutlined />,
-        },
-        {
-          label: <Link to={"home_zone/fresh_goods"}>乡集生鲜</Link>,
-          key: "home_zone_fresh_goods",
-          icon: <ShoppingOutlined />,
-        },
-        {
-          label: <Link to={"home_zone/snack_goods"}>乡村零嘴</Link>,
-          key: "home_zone_snack_goods",
-          icon: <ShoppingOutlined />,
-        },
-        {
-          label: <Link to={"home_zone/gift_goods"}>乡思礼伴</Link>,
-          key: "home_zone_gift_goods",
-          icon: <ShoppingOutlined />,
-        },
-        {
-          label: <Link to={"home_zone/integrity_goods"}>诚信臻品</Link>,
-          key: "home_zone_integrity_goods",
-          icon: <ShoppingOutlined />,
-        },
-      ],
-    },
-    {
       label: "乡村振兴",
       key: "team",
       icon: <HeartOutlined />,
@@ -263,19 +237,51 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
       ],
     },
     {
-      label: "诚信乡村",
-      key: "rural",
-      icon: <CloudOutlined />,
+      label: "首页专区",
+      key: "home_zone",
+      icon: <AppstoreOutlined />,
       children: [
         {
-          label: <Link to={"rural/region_list"}>地区列表</Link>,
-          key: "rural_region_list",
-          icon: <EnvironmentOutlined />,
+          label: <Link to={"home_zone/grain_goods"}>乡镇百谷</Link>,
+          key: "home_zone_grain_goods",
+          icon: <ShoppingOutlined />,
         },
         {
-          label: <Link to={"rural/goods_list"}>商品列表</Link>,
-          key: "rural_goods_list",
+          label: <Link to={"home_zone/fresh_goods"}>乡集生鲜</Link>,
+          key: "home_zone_fresh_goods",
           icon: <ShoppingOutlined />,
+        },
+        {
+          label: <Link to={"home_zone/snack_goods"}>乡村零嘴</Link>,
+          key: "home_zone_snack_goods",
+          icon: <ShoppingOutlined />,
+        },
+        {
+          label: <Link to={"home_zone/gift_goods"}>乡思礼伴</Link>,
+          key: "home_zone_gift_goods",
+          icon: <ShoppingOutlined />,
+        },
+        {
+          label: <Link to={"home_zone/integrity_goods"}>诚信臻品</Link>,
+          key: "home_zone_integrity_goods",
+          icon: <ShoppingOutlined />,
+        },
+        {
+          label: "诚信乡村",
+          key: "home_zone_rural",
+          icon: <CloudOutlined />,
+          children: [
+            {
+              label: <Link to={"home_zone/rural/region_list"}>地区列表</Link>,
+              key: "home_zone_rural_region_list",
+              icon: <EnvironmentOutlined />,
+            },
+            {
+              label: <Link to={"home_zone/rural/goods_list"}>商品列表</Link>,
+              key: "home_zone_rural_goods_list",
+              icon: <ShoppingOutlined />,
+            },
+          ],
         },
       ],
     },
