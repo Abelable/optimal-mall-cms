@@ -57,9 +57,8 @@ import { NewYearLocalRegionList } from "./activity-management/new-year/local-reg
 import { NewYearLocalGoodsList } from "./activity-management/new-year/local-goods-list";
 import { LimitedTimeRecruitCategoryList } from "./activity-management/limited-time-recruit/category-list";
 import { LimitedTimeRecruitGoodsList } from "./activity-management/limited-time-recruit/goods-list";
-import { RuralBannerList } from "./rural/banner-list";
-import { RuralRegionList } from "./rural/region-list";
-import { RuralGoodsList } from "./rural/goods-list";
+import { RuralRegionList } from "./activity-management/rural/region-list";
+import { RuralGoodsList } from "./activity-management/rural/goods-list";
 import { VillageGrainGoodsList } from "./home-zone/grain-goods";
 import { VillageFreshGoodsList } from "./home-zone/fresh-goods";
 import { VillageSnackGoodsList } from "./home-zone/snack-goods";
@@ -134,7 +133,6 @@ export const AuthenticatedApp = () => {
                 path="activity/limited_time_recruit/goods_list"
                 element={<LimitedTimeRecruitGoodsList />}
               />
-              <Route path="rural/banner_list" element={<RuralBannerList />} />
               <Route path="rural/region_list" element={<RuralRegionList />} />
               <Route path="rural/goods_list" element={<RuralGoodsList />} />
               <Route
@@ -269,11 +267,6 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
       key: "rural",
       icon: <CloudOutlined />,
       children: [
-        {
-          label: <Link to={"rural/banner_list"}>头图列表</Link>,
-          key: "rural_banner_list",
-          icon: <PictureOutlined />,
-        },
         {
           label: <Link to={"rural/region_list"}>地区列表</Link>,
           key: "rural_region_list",
