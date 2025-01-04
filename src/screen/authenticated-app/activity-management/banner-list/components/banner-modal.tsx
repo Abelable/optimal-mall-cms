@@ -121,14 +121,24 @@ export const BannerModal = ({
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
-                name="cover"
-                label="活动封面"
-                tooltip="图片尺寸：75 * 53"
-                valuePropName="fileList"
-                getValueFromEvent={normFile}
-                rules={[{ required: true, message: "请上传活动封面" }]}
+                noStyle
+                shouldUpdate={(prevValues, currentValues) => {
+                  // 监听formItem值变化
+                  return prevValues.position !== currentValues.position;
+                }}
               >
-                <OssUpload maxCount={1} />
+                {({ getFieldValue }) => (
+                  <Form.Item
+                    name="cover"
+                    label="活动封面"
+                    tooltip={positionOptions[getFieldValue("position")].tips}
+                    valuePropName="fileList"
+                    getValueFromEvent={normFile}
+                    rules={[{ required: true, message: "请上传活动封面" }]}
+                  >
+                    <OssUpload maxCount={1} />
+                  </Form.Item>
+                )}
               </Form.Item>
             </Col>
           </Row>
