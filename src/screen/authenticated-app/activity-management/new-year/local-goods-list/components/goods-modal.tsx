@@ -3,7 +3,7 @@ import { ErrorBox, GoodsCover } from "components/lib";
 
 import { useForm } from "antd/lib/form/Form";
 import { useGoodsOptions } from "service/goods";
-import { useAddRuralGoods } from "service/ruralGoods";
+import { useAddLocalGoods } from "service/newYearGoods";
 import { useGoodsModal, useGoodsListQueryKey } from "../util";
 
 import type { RegionOption } from "types/region";
@@ -23,7 +23,7 @@ export const RuralGoodsModal = ({
     mutateAsync,
     isLoading: mutateLoading,
     error,
-  } = useAddRuralGoods(useGoodsListQueryKey());
+  } = useAddLocalGoods(useGoodsListQueryKey());
 
   const confirm = () => {
     form.validateFields().then(async () => {
