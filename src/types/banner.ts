@@ -1,4 +1,5 @@
 export interface BannerListSearchParams {
+  position: number | undefined;
   status: number | undefined;
   scene: number | undefined;
   page: number;

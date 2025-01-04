@@ -7,6 +7,12 @@ import { useBannerList } from "service/banner";
 import { toNumber } from "utils";
 import { useBannerListSearchParams } from "./util";
 
+const positionOptions = [
+  { text: "首页顶部头图", value: 1, tips: "图片尺寸：15 * 11" },
+  { text: "首页限时活动头图", value: 2, tips: "图片尺寸：35 * 8" },
+  { text: "首页弹窗", value: 3, tips: "" },
+  { text: "诚信乡村头图", value: 4, tips: "图片尺寸：7 * 2" },
+];
 const sceneOptions = [
   { text: "H5活动", value: 1 },
   { text: "商品详情", value: 2 },
@@ -20,11 +26,13 @@ export const BannerList = () => {
     <Container>
       <Main>
         <SearchPanel
+          positionOptions={positionOptions}
           sceneOptions={sceneOptions}
           params={params}
           setParams={setParams}
         />
         <List
+          positionOptions={positionOptions}
           sceneOptions={sceneOptions}
           params={params}
           setParams={setParams}
@@ -39,7 +47,10 @@ export const BannerList = () => {
           bordered
         />
       </Main>
-      <BannerModal sceneOptions={sceneOptions} />
+      <BannerModal
+        positionOptions={positionOptions}
+        sceneOptions={sceneOptions}
+      />
     </Container>
   );
 };

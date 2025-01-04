@@ -25,6 +25,7 @@ export interface WarningSetting {
 export interface Option {
   text: string;
   value: number;
+  tips?: string;
 }
 
 export interface OperatorOption {

@@ -31,6 +31,7 @@ interface ListProps extends TableProps<Banner>, SearchPanelProps {
 }
 
 export const List = ({
+  positionOptions,
   sceneOptions,
   error,
   params,
@@ -82,6 +83,14 @@ export const List = ({
               ) : (
                 <span style={{ color: "#999" }}>已结束</span>
               ),
+            width: "14rem",
+          },
+          {
+            title: "使用场景",
+            dataIndex: "position",
+            render: (value) => (
+              <>{positionOptions.find((item) => item.value === +value)?.text}</>
+            ),
             width: "14rem",
           },
           {

@@ -14,7 +14,13 @@ const normFile = (e: any) => {
   return e && e.fileList;
 };
 
-export const BannerModal = ({ sceneOptions }: { sceneOptions: Option[] }) => {
+export const BannerModal = ({
+  positionOptions,
+  sceneOptions,
+}: {
+  positionOptions: Option[];
+  sceneOptions: Option[];
+}) => {
   const [form] = useForm();
   const { bannerModalOpen, editingBannerId, editingBanner, isLoading, close } =
     useBannerModal();
@@ -73,6 +79,17 @@ export const BannerModal = ({ sceneOptions }: { sceneOptions: Option[] }) => {
       ) : (
         <Form form={form} layout="vertical">
           <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item name="position" label="使用场景">
+                <Select placeholder="请选择使用场景">
+                  {positionOptions.map((item) => (
+                    <Select.Option key={item.value} value={item.value}>
+                      {item.text}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
             <Col span={12}>
               <Form.Item
                 name="cover"
