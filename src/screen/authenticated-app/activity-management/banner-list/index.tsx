@@ -11,7 +11,7 @@ const positionOptions = [
   { text: "首页顶部头图", value: 1, tips: "图片尺寸：15 * 11" },
   { text: "首页限时活动头图", value: 2, tips: "图片尺寸：35 * 8" },
   { text: "首页弹窗", value: 3, tips: "" },
-  { text: "诚信乡村头图", value: 4, tips: "图片尺寸：7 * 2" },
+  { text: "诚信乡村页面头图", value: 4, tips: "图片尺寸：7 * 2" },
 ];
 const sceneOptions = [
   { text: "H5活动", value: 1 },

@@ -91,7 +91,7 @@ export const List = ({
             render: (value) => (
               <>{positionOptions.find((item) => item.value === +value)?.text}</>
             ),
-            width: "14rem",
+            width: "16rem",
           },
           {
             title: "活动跳转场景",
@@ -107,7 +107,7 @@ export const List = ({
           },
           {
             title: "描述",
-            dataIndex: "nickname",
+            dataIndex: "desc",
           },
           {
             title: "排序",

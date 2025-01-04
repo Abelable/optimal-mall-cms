@@ -131,7 +131,10 @@ export const BannerModal = ({
                   <Form.Item
                     name="cover"
                     label="活动封面"
-                    tooltip={positionOptions[getFieldValue("position")].tips}
+                    tooltip={
+                      getFieldValue("position") &&
+                      positionOptions[getFieldValue("position") - 1].tips
+                    }
                     valuePropName="fileList"
                     getValueFromEvent={normFile}
                     rules={[{ required: true, message: "请上传活动封面" }]}
