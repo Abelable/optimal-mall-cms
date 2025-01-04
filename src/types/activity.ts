@@ -2,7 +2,7 @@ export interface ActivityListSearchParams {
   name: string;
   status: number;
   tag: number;
-  goodsType: number;
+  goodsTag: number;
   page: number;
   limit: number;
 }

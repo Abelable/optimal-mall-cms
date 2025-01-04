@@ -6,7 +6,8 @@ export const useActivityListSearchParams = () => {
   const [params, setParams] = useUrlQueryParams([
     "name",
     "status",
-    "activityType",
+    "tag",
+    "goodsTag",
     "page",
     "limit",
   ]);

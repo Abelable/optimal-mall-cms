@@ -19,7 +19,7 @@ const defaultParmas: Partial<ActivityListSearchParams> = {
   name: "",
   status: undefined,
   tag: undefined,
-  goodsType: undefined,
+  goodsTag: undefined,
 };
 
 export const SearchPanel = ({
@@ -53,10 +53,10 @@ export const SearchPanel = ({
   const setTag = (tag: number) => setTempParams({ ...tempParams, tag });
   const clearTag = () => setTempParams({ ...tempParams, tag: undefined });
 
-  const setGoodsType = (goodsType: number) =>
-    setTempParams({ ...tempParams, goodsType });
-  const clearGoodsType = () =>
-    setTempParams({ ...tempParams, goodsType: undefined });
+  const setGoodsTag = (goodsTag: number) =>
+    setTempParams({ ...tempParams, goodsTag });
+  const clearGoodsTag = () =>
+    setTempParams({ ...tempParams, goodsTag: undefined });
 
   const clear = () => {
     setParams({ ...params, ...defaultParmas });
@@ -113,11 +113,11 @@ export const SearchPanel = ({
         <div>商品标签：</div>
         <Select
           style={{ width: "20rem" }}
-          value={tempParams.goodsType}
+          value={tempParams.goodsTag}
           placeholder="请选择商品标签"
           allowClear
-          onSelect={setGoodsType}
-          onClear={clearGoodsType}
+          onSelect={setGoodsTag}
+          onClear={clearGoodsTag}
         >
           {goodsTagOptions?.map(({ text, value }) => (
             <Select.Option key={value} value={value}>
