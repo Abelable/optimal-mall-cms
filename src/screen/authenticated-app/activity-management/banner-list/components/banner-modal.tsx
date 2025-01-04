@@ -80,7 +80,11 @@ export const BannerModal = ({
         <Form form={form} layout="vertical">
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item name="position" label="使用场景">
+              <Form.Item
+                name="position"
+                label="使用场景"
+                rules={[{ required: true, message: "请选择使用场景" }]}
+              >
                 <Select placeholder="请选择使用场景">
                   {positionOptions.map((item) => (
                     <Select.Option key={item.value} value={item.value}>
@@ -91,15 +95,8 @@ export const BannerModal = ({
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item
-                name="cover"
-                label="活动封面"
-                tooltip="图片尺寸：75 * 53"
-                valuePropName="fileList"
-                getValueFromEvent={normFile}
-                rules={[{ required: true, message: "请上传活动封面" }]}
-              >
-                <OssUpload maxCount={1} />
+              <Form.Item name="desc" label="活动描述">
+                <Input placeholder="请输入活动描述" />
               </Form.Item>
             </Col>
           </Row>
@@ -123,8 +120,15 @@ export const BannerModal = ({
           </Row>
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item name="desc" label="活动描述">
-                <Input placeholder="请输入活动描述" />
+              <Form.Item
+                name="cover"
+                label="活动封面"
+                tooltip="图片尺寸：75 * 53"
+                valuePropName="fileList"
+                getValueFromEvent={normFile}
+                rules={[{ required: true, message: "请上传活动封面" }]}
+              >
+                <OssUpload maxCount={1} />
               </Form.Item>
             </Col>
           </Row>
