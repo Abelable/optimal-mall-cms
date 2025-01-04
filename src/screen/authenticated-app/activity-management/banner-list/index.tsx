@@ -12,7 +12,7 @@ const sceneOptions = [
   { text: "商品详情", value: 2 },
 ];
 
-export const HomeBannerList = () => {
+export const BannerList = () => {
   const [params, setParams] = useBannerListSearchParams();
   const { isLoading, error, data } = useBannerList(params);
 

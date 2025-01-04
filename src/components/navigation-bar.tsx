@@ -13,7 +13,7 @@ const breadcrumbNameMap: { [key: string]: string } = {
   "/team/livestock_list": "认养专区",
   "/team/gift_goods_list": "礼包专区",
   "/activity": "活动管理",
-  "/activity/home_banner_list": "首页头图",
+  "/activity/banner_list": "头图列表",
   "/activity/list": "商品活动",
   "/activity/coupon_list": "优惠券",
   "/activity/new_year": "年货节",

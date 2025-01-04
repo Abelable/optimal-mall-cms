@@ -48,7 +48,7 @@ import { EnterpriseInfoList } from "./team/enterprise-info-list";
 import { WithdrawList } from "./team/withdraw-list";
 import { LivestockList } from "./team/livestock-list";
 import { GiftGoodsList } from "./team/gift-goods-list";
-import { HomeBannerList } from "./activity-management/home-banner-list";
+import { BannerList } from "./activity-management/banner-list";
 import { ActivityList } from "./activity-management/activity-list";
 import { CouponList } from "./activity-management/coupon-list";
 import { NewYearGoodsList } from "./activity-management/new-year/goods-list";
@@ -107,10 +107,7 @@ export const AuthenticatedApp = () => {
               <Route path="team/withdraw_list" element={<WithdrawList />} />
               <Route path="team/livestock_list" element={<LivestockList />} />
               <Route path="team/gift_goods_list" element={<GiftGoodsList />} />
-              <Route
-                path="activity/home_banner_list"
-                element={<HomeBannerList />}
-              />
+              <Route path="activity/banner_list" element={<BannerList />} />
               <Route path="activity/list" element={<ActivityList />} />
               <Route path="activity/coupon_list" element={<CouponList />} />
               <Route
@@ -295,8 +292,8 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
       icon: <GiftOutlined />,
       children: [
         {
-          label: <Link to={"activity/home_banner_list"}>首页头图</Link>,
-          key: "activity_home_banner_list",
+          label: <Link to={"activity/banner_list"}>头图列表</Link>,
+          key: "activity_banner_list",
           icon: <PictureOutlined />,
         },
         {
