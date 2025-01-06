@@ -12,7 +12,7 @@ import { PlusOutlined } from "@ant-design/icons";
 
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
-import { useDeleteIntegrityGoods, useEditSort } from "service/integrityGoods";
+import { useDeleteGoods, useEditGoodsSort } from "service/newYearGoods";
 import { useGoodsModal, useGoodsListQueryKey } from "../util";
 
 import type { Goods, GoodsListSearchParams } from "types/activityGoods";
@@ -33,10 +33,8 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
       limit: pagination.pageSize,
     });
 
-  const { mutate: editSort } = useEditSort(useGoodsListQueryKey());
-  const { mutate: deleteIntegrityGoods } = useDeleteIntegrityGoods(
-    useGoodsListQueryKey()
-  );
+  const { mutate: editSort } = useEditGoodsSort(useGoodsListQueryKey());
+  const { mutate: deleteGoods } = useDeleteGoods(useGoodsListQueryKey());
 
   const confirmDelete = (id: number) => {
     Modal.confirm({
@@ -44,7 +42,7 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
       content: "点击确定删除",
       okText: "确定",
       cancelText: "取消",
-      onOk: () => deleteIntegrityGoods(id),
+      onOk: () => deleteGoods(id),
     });
   };
 

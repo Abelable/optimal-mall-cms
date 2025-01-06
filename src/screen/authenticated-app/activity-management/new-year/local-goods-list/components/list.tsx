@@ -11,7 +11,7 @@ import { PlusOutlined } from "@ant-design/icons";
 
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
-import { useDeleteRuralGoods } from "service/ruralGoods";
+import { useDeleteLocalGoods } from "service/newYearGoods";
 import { useGoodsModal, useGoodsListQueryKey } from "../util";
 
 import type { RuralGoods } from "types/ruralGoods";
@@ -37,7 +37,7 @@ export const List = ({
       limit: pagination.pageSize,
     });
 
-  const { mutate: deleteRuralGoods } = useDeleteRuralGoods(
+  const { mutate: deleteRuralGoods } = useDeleteLocalGoods(
     useGoodsListQueryKey()
   );
 
