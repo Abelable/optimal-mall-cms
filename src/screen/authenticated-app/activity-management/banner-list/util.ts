@@ -4,6 +4,7 @@ import { useBanner } from "service/banner";
 
 export const useBannerListSearchParams = () => {
   const [params, setParams] = useUrlQueryParams([
+    "position",
     "status",
     "scene",
     "page",
