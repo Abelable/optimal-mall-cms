@@ -2,6 +2,7 @@ export interface PromoterListSearchParams {
   nickname: string;
   mobile: string;
   level: number;
+  path: number;
   page: number;
   limit: number;
 }
@@ -14,6 +15,7 @@ export interface Promoter {
   mobile: string;
   level: number;
   scene: number;
+  path: number;
   createdAt: string;
   updatedAt: string;
 }

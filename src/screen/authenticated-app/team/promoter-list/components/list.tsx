@@ -27,6 +27,7 @@ interface ListProps extends TableProps<Promoter>, SearchPanelProps {
 
 export const List = ({
   levelOptions,
+  pathOptions,
   error,
   params,
   setParams,
@@ -74,25 +75,30 @@ export const List = ({
           {
             title: "推广员身份",
             dataIndex: "level",
-            render: (value) => (
-              <Tag color="geekblue">
-                {levelOptions.find((item) => item.value === value)?.text}
-              </Tag>
-            ),
+            render: (value, promoter) => {
+              const levelItem = levelOptions.find(
+                (item) => item.value === value
+              );
+              return (
+                <Tag
+                  color={
+                    levelItem?.scene === promoter.scene ? "geekblue" : "error"
+                  }
+                >
+                  {`${levelItem?.text}${
+                    levelItem?.scene !== promoter.scene ? "（身份异常）" : ""
+                  }`}
+                </Tag>
+              );
+            },
           },
           {
-            title: "场景值",
-            dataIndex: "scene",
-            render: (value, promoter) => (
-              <>
-                {value ===
-                levelOptions.find((item) => item.value === promoter.level)
-                  ?.scene ? (
-                  <Tag color="success">{value}</Tag>
-                ) : (
-                  <Tag color="error">{value}（场景值错误）</Tag>
-                )}
-              </>
+            title: "生成场景",
+            dataIndex: "path",
+            render: (value) => (
+              <Tag color="success">
+                {pathOptions.find((item) => item.value === value)?.text}
+              </Tag>
             ),
           },
           {

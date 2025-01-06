@@ -10,16 +10,21 @@ export interface SearchPanelProps {
   params: Partial<PromoterListSearchParams>;
   setParams: (params: Partial<PromoterListSearchParams>) => void;
   levelOptions: { text: string; value: number; scene: number }[];
+  pathOptions: { text: string; value: number }[];
 }
 
 const defaultParmas: Partial<PromoterListSearchParams> = {
+  nickname: "",
+  mobile: "",
   level: undefined,
+  path: undefined,
 };
 
 export const SearchPanel = ({
   params,
   setParams,
   levelOptions,
+  pathOptions,
 }: SearchPanelProps) => {
   const [tempParams, setTempParams] = useState(defaultParmas);
 
@@ -94,6 +99,23 @@ export const SearchPanel = ({
           onClear={clearLevel}
         >
           {levelOptions?.map(({ text, value }) => (
+            <Select.Option key={value} value={value}>
+              {text}
+            </Select.Option>
+          ))}
+        </Select>
+      </Item>
+      <Item>
+        <div>生成场景：</div>
+        <Select
+          style={{ width: "20rem" }}
+          value={tempParams.path}
+          placeholder="请选择场景"
+          allowClear
+          onSelect={setLevel}
+          onClear={clearLevel}
+        >
+          {pathOptions?.map(({ text, value }) => (
             <Select.Option key={value} value={value}>
               {text}
             </Select.Option>

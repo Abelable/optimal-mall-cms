@@ -15,6 +15,11 @@ const levelOptions = [
   { text: "乡村振兴服务商C3", value: 4, scene: 203 },
   { text: "乡村振兴委员会", value: 5, scene: 300 },
 ];
+const pathOptions = [
+  { text: "管理后台添加", value: 1 },
+  { text: "礼包购买", value: 2 },
+  { text: "限时活动", value: 3 },
+];
 
 export const PromoterList = () => {
   const [params, setParams] = usePromoterListSearchParams();
@@ -26,11 +31,13 @@ export const PromoterList = () => {
       <Main>
         <SearchPanel
           levelOptions={levelOptions}
+          pathOptions={pathOptions}
           params={params}
           setParams={setParams}
         />
         <List
           levelOptions={levelOptions}
+          pathOptions={pathOptions}
           params={params}
           setParams={setParams}
           error={error || userOptionsError}
