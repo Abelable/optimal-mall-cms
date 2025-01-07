@@ -8,6 +8,7 @@ import {
   Table,
   TablePaginationConfig,
   TableProps,
+  Tag,
 } from "antd";
 import {
   ButtonNoPadding,
@@ -85,6 +86,13 @@ export const List = ({
                 <Popover content={`id: ${option.id}`}>
                   <div style={{ cursor: "pointer", width: "fit-content" }}>
                     <OptionAvatar src={option.avatar} icon={<UserOutlined />} />
+                    <Tag
+                      color={
+                        ["green", "blue", "gold", "magenta"][option.level - 1]
+                      }
+                    >
+                      {["推广员", "C1", "C2", "C3"][option.level - 1]}
+                    </Tag>
                     <span>{option.nickname}</span>
                   </div>
                 </Popover>

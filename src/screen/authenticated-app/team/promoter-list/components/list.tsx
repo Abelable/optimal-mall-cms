@@ -82,7 +82,9 @@ export const List = ({
               return (
                 <Tag
                   color={
-                    levelItem?.scene === promoter.scene ? "geekblue" : "error"
+                    levelItem?.scene === promoter.scene
+                      ? ["green", "blue", "gold", "magenta"][value - 1]
+                      : "error"
                   }
                 >
                   {`${levelItem?.text}${
@@ -96,9 +98,7 @@ export const List = ({
             title: "生成场景",
             dataIndex: "path",
             render: (value) => (
-              <Tag color="success">
-                {pathOptions.find((item) => item.value === value)?.text}
-              </Tag>
+              <>{pathOptions.find((item) => item.value === value)?.text}</>
             ),
           },
           {

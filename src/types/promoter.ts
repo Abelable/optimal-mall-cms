@@ -31,4 +31,5 @@ export interface PromoterOption {
   id: number;
   avatar: string;
   nickname: string;
+  level: number;
 }

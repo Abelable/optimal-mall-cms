@@ -1,5 +1,5 @@
 import { OptionAvatar, Row } from "components/lib";
-import { Button, Input, Select } from "antd";
+import { Button, Input, Select, Tag } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
 import { useState } from "react";
@@ -105,9 +105,12 @@ export const SearchPanel = ({
               .includes(input.toLowerCase())
           }
         >
-          {superiorOptions?.map(({ id, avatar, nickname }) => (
+          {superiorOptions?.map(({ id, avatar, nickname, level }) => (
             <Select.Option key={id} value={id}>
               <OptionAvatar src={avatar} icon={<UserOutlined />} />
+              <Tag color={["green", "blue", "gold", "magenta"][level - 1]}>
+                {["推广员", "C1", "C2", "C3"][level - 1]}
+              </Tag>
               <span>{nickname}</span>
             </Select.Option>
           ))}
