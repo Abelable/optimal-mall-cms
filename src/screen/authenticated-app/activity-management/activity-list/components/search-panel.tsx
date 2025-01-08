@@ -96,7 +96,7 @@ export const SearchPanel = ({
         <div>活动标签：</div>
         <Select
           style={{ width: "20rem" }}
-          value={tempParams.status}
+          value={tempParams.tag}
           placeholder="请选择活动标签"
           allowClear
           onSelect={setTag}

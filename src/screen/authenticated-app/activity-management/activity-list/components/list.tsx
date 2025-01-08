@@ -270,22 +270,8 @@ const More = ({ id, status }: { id: number; status: number }) => {
   };
 
   const items: MenuProps["items"] =
-    status === 1
+    status === 2
       ? [
-          {
-            label: <div onClick={() => startEdit(id)}>编辑</div>,
-            key: "edit",
-          },
-          {
-            label: <div onClick={() => confirmDown(id)}>结束</div>,
-            key: "down",
-          },
-          {
-            label: <div onClick={() => confirmDelete(id)}>删除</div>,
-            key: "delete",
-          },
-        ]
-      : [
           {
             label: <div onClick={() => startEdit(id)}>编辑</div>,
             key: "edit",
@@ -298,8 +284,21 @@ const More = ({ id, status }: { id: number; status: number }) => {
             label: <div onClick={() => confirmDelete(id)}>删除</div>,
             key: "delete",
           },
+        ]
+      : [
+          {
+            label: <div onClick={() => startEdit(id)}>编辑</div>,
+            key: "edit",
+          },
+          {
+            label: <div onClick={() => confirmDown(id)}>结束</div>,
+            key: "down",
+          },
+          {
+            label: <div onClick={() => confirmDelete(id)}>删除</div>,
+            key: "delete",
+          },
         ];
-
   return (
     <Dropdown overlay={<Menu items={items} />}>
       <ButtonNoPadding type={"link"}>...</ButtonNoPadding>
