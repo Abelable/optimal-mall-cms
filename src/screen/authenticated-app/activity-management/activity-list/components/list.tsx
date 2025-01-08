@@ -31,7 +31,9 @@ import { useActivityModal, useActivityListQueryKey } from "../util";
 import type { SearchPanelProps } from "./search-panel";
 import type { Activity, ActivityListSearchParams } from "types/activity";
 
-interface ListProps extends TableProps<Activity>, SearchPanelProps {
+interface ListProps
+  extends TableProps<Activity>,
+    Omit<SearchPanelProps, "goodsOptions"> {
   params: Partial<ActivityListSearchParams>;
   setParams: (params: Partial<ActivityListSearchParams>) => void;
   error: Error | unknown;

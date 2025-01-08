@@ -6,6 +6,7 @@ import { useActivityList } from "service/activity";
 import { toNumber } from "utils";
 import { useActivityListSearchParams } from "./util";
 import { SearchPanel } from "./components/search-panel";
+import { useGoodsOptions } from "service/goods";
 
 const statusOptions = [
   { text: "预告", value: 0 },
@@ -25,6 +26,8 @@ const goodsTagOptions = [
 ];
 
 export const ActivityList = () => {
+  const { data: goodsOptions = [], error: goodsOptionsError } =
+    useGoodsOptions();
   const [params, setParams] = useActivityListSearchParams();
   const { isLoading, error, data } = useActivityList(params);
 
@@ -35,6 +38,7 @@ export const ActivityList = () => {
           statusOptions={statusOptions}
           tagOptions={tagOptions}
           goodsTagOptions={goodsTagOptions}
+          goodsOptions={goodsOptions}
           params={params}
           setParams={setParams}
         />
@@ -44,7 +48,7 @@ export const ActivityList = () => {
           goodsTagOptions={goodsTagOptions}
           params={params}
           setParams={setParams}
-          error={error}
+          error={error || goodsOptionsError}
           loading={isLoading}
           dataSource={data?.list}
           pagination={{

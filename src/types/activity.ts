@@ -3,6 +3,7 @@ export interface ActivityListSearchParams {
   status: number;
   tag: number;
   goodsTag: number;
+  goodsId: number;
   page: number;
   limit: number;
 }

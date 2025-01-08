@@ -1,4 +1,4 @@
-import { Row } from "components/lib";
+import { GoodsCover, Row } from "components/lib";
 import { Button, Input, Select } from "antd";
 
 import { useState } from "react";
@@ -6,11 +6,13 @@ import styled from "@emotion/styled";
 
 import type { Option } from "types/common";
 import type { ActivityListSearchParams } from "types/activity";
+import type { GoodsOption } from "types/goods";
 
 export interface SearchPanelProps {
   statusOptions: Option[];
   tagOptions: Option[];
   goodsTagOptions: Option[];
+  goodsOptions: GoodsOption[];
   params: Partial<ActivityListSearchParams>;
   setParams: (params: Partial<ActivityListSearchParams>) => void;
 }
@@ -20,12 +22,14 @@ const defaultParmas: Partial<ActivityListSearchParams> = {
   status: undefined,
   tag: undefined,
   goodsTag: undefined,
+  goodsId: undefined,
 };
 
 export const SearchPanel = ({
   statusOptions,
   tagOptions,
   goodsTagOptions,
+  goodsOptions,
   params,
   setParams,
 }: SearchPanelProps) => {
@@ -57,6 +61,11 @@ export const SearchPanel = ({
     setTempParams({ ...tempParams, goodsTag });
   const clearGoodsTag = () =>
     setTempParams({ ...tempParams, goodsTag: undefined });
+
+  const setGoodsId = (goodsId: number) =>
+    setTempParams({ ...tempParams, goodsId });
+  const clearGoodsId = () =>
+    setTempParams({ ...tempParams, goodsId: undefined });
 
   const clear = () => {
     setParams({ ...params, ...defaultParmas });
@@ -122,6 +131,30 @@ export const SearchPanel = ({
           {goodsTagOptions?.map(({ text, value }) => (
             <Select.Option key={value} value={value}>
               {text}
+            </Select.Option>
+          ))}
+        </Select>
+      </Item>
+      <Item>
+        <div>对应商品：</div>
+        <Select
+          style={{ width: "20rem" }}
+          value={tempParams.goodsId}
+          placeholder="请选择对应商品"
+          allowClear
+          onSelect={setGoodsId}
+          onClear={clearGoodsId}
+          showSearch
+          filterOption={(input, option) =>
+            (option!.children as any)[1].props.children
+              .toLowerCase()
+              .includes(input.toLowerCase())
+          }
+        >
+          {goodsOptions.map(({ id, cover, name }) => (
+            <Select.Option key={id} value={id}>
+              <GoodsCover src={cover} />
+              <span>{name}</span>
             </Select.Option>
           ))}
         </Select>
