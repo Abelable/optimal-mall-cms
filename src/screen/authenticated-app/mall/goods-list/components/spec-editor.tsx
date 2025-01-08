@@ -36,7 +36,9 @@ export const SpecEditor = ({
   const [visible, setVisible] = useState<boolean>(false);
   const [inputVisible, setInputVisible] = useState<boolean>(false);
   const [inputTagValue, setInputTagValue] = useState<string>("");
-  const [tagIndex, setTagIndex] = useState<number | null>(null);
+  const [inputSpecValue, setInputSpecValue] = useState<string>("");
+  const [tagIndex, setTagIndex] = useState<number>(-1);
+  const [specIndex, setSpecIndex] = useState<number>(-1);
 
   const inputRef = useRef<InputRef>(null);
   const tagInputRef = useRef(null);
@@ -197,15 +199,21 @@ export const SpecEditor = ({
       setInputTagValue("");
       tableSku();
     }
+    setTagIndex(-1);
     setInputVisible(false);
   };
-  const onEditSpecTag = (index: number, tagIndex: number, text: string) => {
-    const specName = specContentList[index].name;
-    const originalText = specContentList[index].options[tagIndex];
-    const specList = [...specContentList];
-    specList[index].options[tagIndex] = text;
-    setSpecContentList(specList);
-    tableSkuSpec(specName, originalText, text);
+  const onEditSpecTag = (index: number, tagIndex: number) => {
+    if (inputSpecValue) {
+      const specName = specContentList[index].name;
+      const originalText = specContentList[index].options[tagIndex];
+      const specList = [...specContentList];
+      specList[index].options[tagIndex] = inputSpecValue;
+      setSpecContentList(specList);
+      tableSkuSpec(specName, originalText, inputSpecValue);
+    }
+    setTagIndex(-1);
+    setSpecIndex(-1);
+    setInputSpecValue("");
   };
   const onDeleteSpecTag = (labelIndex: number, tagIndex: number) => {
     const specList = [...specContentList];
@@ -371,12 +379,26 @@ export const SpecEditor = ({
                 <CustomeRow key={strKey} style={{ marginRight: "12px" }}>
                   <Input
                     placeholder="请输入规格值"
-                    value={str}
+                    value={
+                      tagIndex === index && specIndex === strKey
+                        ? inputSpecValue
+                        : str
+                    }
                     size="small"
                     style={{ width: "fit-content" }}
-                    onChange={(e) =>
-                      onEditSpecTag(index, strKey, e.target.value)
-                    }
+                    onChange={(e) => {
+                      if (tagIndex === -1) {
+                        setTagIndex(index);
+                      }
+                      if (specIndex === -1) {
+                        setSpecIndex(index);
+                      }
+                      if (e.target.value) {
+                        console.log("e.target.value", e.target.value);
+                        setInputSpecValue(e.target.value);
+                      }
+                    }}
+                    onBlur={() => onEditSpecTag(index, strKey)}
                   />
                   <DeleteOutlined
                     style={{
@@ -405,7 +427,7 @@ export const SpecEditor = ({
                   icon={<PlusOutlined />}
                   onClick={() => {
                     setTagIndex(index);
-                    setInputVisible(!inputVisible);
+                    setInputVisible(true);
                   }}
                 >
                   添加规格值
