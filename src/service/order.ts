@@ -14,6 +14,7 @@ import type {
   OrderListSearchParams,
 } from "types/order";
 import type { ShippingInfo } from "types/common";
+import { GoodsOption } from "types/goods";
 
 export const useOrderList = (params: Partial<OrderListSearchParams>) => {
   const client = useHttp();
@@ -137,5 +138,12 @@ export const useOrderedUserOptions = () => {
   return useQuery<{ id: number; avatar: string; nickname: string }[]>(
     ["ordered_user_options"],
     () => client("order/user_options")
+  );
+};
+
+export const useOrderedGoodsOptions = () => {
+  const client = useHttp();
+  return useQuery<GoodsOption[]>(["ordered_goods_options"], () =>
+    client("order/goods_options")
   );
 };

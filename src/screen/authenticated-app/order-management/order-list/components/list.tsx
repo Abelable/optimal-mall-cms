@@ -41,7 +41,7 @@ const { Countdown } = Statistic;
 
 interface ListProps
   extends TableProps<Order>,
-    Omit<SearchPanelProps, "userOptions"> {
+    Omit<SearchPanelProps, "userOptions" | "goodsOptions"> {
   error: Error | unknown;
   selectedRowKeys: React.Key[];
   setSelectedRowKeys: (selectedRowKeys: []) => void;

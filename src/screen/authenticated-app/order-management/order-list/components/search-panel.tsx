@@ -1,4 +1,4 @@
-import { OptionAvatar, Row } from "components/lib";
+import { GoodsCover, OptionAvatar, Row } from "components/lib";
 import { Button, Input, Select } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
@@ -12,6 +12,7 @@ export interface SearchPanelProps {
   statusOptions: Option[];
   merchantOptions: OperatorOption[];
   userOptions: { id: number; avatar: string; nickname: string }[];
+  goodsOptions: { id: number; cover: string; name: string }[];
   params: Partial<OrderListSearchParams>;
   setParams: (params: Partial<OrderListSearchParams>) => void;
 }
@@ -19,6 +20,7 @@ export interface SearchPanelProps {
 const defaultParmas: Partial<OrderListSearchParams> = {
   orderSn: "",
   status: undefined,
+  goodsId: undefined,
   merchantId: undefined,
   userId: undefined,
   consignee: "",
@@ -29,6 +31,7 @@ export const SearchPanel = ({
   statusOptions,
   merchantOptions,
   userOptions,
+  goodsOptions,
   params,
   setParams,
 }: SearchPanelProps) => {
@@ -60,6 +63,11 @@ export const SearchPanel = ({
 
   const setUser = (userId: number) => setTempParams({ ...tempParams, userId });
   const clearUser = () => setTempParams({ ...tempParams, userId: undefined });
+
+  const setGoodsId = (goodsId: number) =>
+    setTempParams({ ...tempParams, goodsId });
+  const clearGoodsId = () =>
+    setTempParams({ ...tempParams, goodsId: undefined });
 
   const setConsignee = (evt: any) => {
     if (!evt.target.value && evt.type !== "change") {
@@ -121,6 +129,30 @@ export const SearchPanel = ({
           {statusOptions?.map(({ text, value }) => (
             <Select.Option key={value} value={value}>
               {text}
+            </Select.Option>
+          ))}
+        </Select>
+      </Item>
+      <Item>
+        <div>订单商品：</div>
+        <Select
+          style={{ width: "20rem" }}
+          value={tempParams.goodsId}
+          placeholder="请选择订单商品"
+          allowClear
+          onSelect={setGoodsId}
+          onClear={clearGoodsId}
+          showSearch
+          filterOption={(input, option) =>
+            (option!.children as any)[1].props.children
+              .toLowerCase()
+              .includes(input.toLowerCase())
+          }
+        >
+          {goodsOptions.map(({ id, cover, name }) => (
+            <Select.Option key={id} value={id}>
+              <GoodsCover src={cover} />
+              <span>{name}</span>
             </Select.Option>
           ))}
         </Select>

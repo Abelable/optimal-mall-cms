@@ -5,6 +5,7 @@ import {
   useCancelOrder,
   useDeleteOrder,
   useExportOrder,
+  useOrderedGoodsOptions,
   useOrderedUserOptions,
   useOrderList,
 } from "service/order";
@@ -47,6 +48,7 @@ export const OrderList = () => {
   const [params, setParams] = useOrderListSearchParams();
   const { data: expressOptions = [] } = useExpressOptions();
   const { data: userOptions = [] } = useOrderedUserOptions();
+  const { data: goodsOptions = [] } = useOrderedGoodsOptions();
 
   const { isLoading, error, data } = useOrderList(params);
   const { mutate: exportOrder } = useExportOrder(useOrderListQueryKey());
@@ -109,6 +111,7 @@ export const OrderList = () => {
           statusOptions={statusOptions}
           merchantOptions={merchantOptions}
           userOptions={userOptions}
+          goodsOptions={goodsOptions}
           params={params}
           setParams={setParams}
         />
