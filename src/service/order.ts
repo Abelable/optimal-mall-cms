@@ -131,3 +131,11 @@ export const useExportOrder = (queryKey: QueryKey) => {
   //     },
   //   });
 };
+
+export const useOrderedUserOptions = () => {
+  const client = useHttp();
+  return useQuery<{ id: number; avatar: string; nickname: string }[]>(
+    ["ordered_user_options"],
+    () => client("order/user_options")
+  );
+};

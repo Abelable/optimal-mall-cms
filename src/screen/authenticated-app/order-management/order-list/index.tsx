@@ -5,6 +5,7 @@ import {
   useCancelOrder,
   useDeleteOrder,
   useExportOrder,
+  useOrderedUserOptions,
   useOrderList,
 } from "service/order";
 import { toNumber } from "utils";
@@ -20,7 +21,6 @@ import { ShippingModal } from "./components/shipping-modal";
 
 import { useMerchantOptions } from "service/merchant";
 import { useExpressOptions } from "service/express";
-import { useUserOptions } from "service/user";
 
 const statusOptions = [
   { text: "待付款", value: 101 },
@@ -46,7 +46,7 @@ export const OrderList = () => {
   const [batchOprationType, setBatchOprationType] = useState(-1);
   const [params, setParams] = useOrderListSearchParams();
   const { data: expressOptions = [] } = useExpressOptions();
-  const { data: userOptions = [] } = useUserOptions();
+  const { data: userOptions = [] } = useOrderedUserOptions();
 
   const { isLoading, error, data } = useOrderList(params);
   const { mutate: exportOrder } = useExportOrder(useOrderListQueryKey());
