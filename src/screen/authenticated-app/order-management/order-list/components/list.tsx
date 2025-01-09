@@ -8,6 +8,7 @@ import {
   Table,
   TablePaginationConfig,
   TableProps,
+  Statistic,
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
 import { FileUpload } from "components/file-upload";
@@ -30,6 +31,8 @@ import {
 import { SearchPanelProps } from "./search-panel";
 
 import type { Order } from "types/order";
+
+const { Countdown } = Statistic;
 
 interface ListProps extends TableProps<Order>, SearchPanelProps {
   error: Error | unknown;
@@ -89,15 +92,26 @@ export const List = ({
           {
             title: "订单状态",
             dataIndex: "status",
-            render: (value) => (
-              <div
-                style={{
-                  color: [201, 204].includes(value) ? "#faad14" : "#000",
-                }}
-              >
-                {statusOptions.find((item) => item.value === value)?.text}
-              </div>
-            ),
+            render: (value, order) => {
+              const deadline =
+                dayjs(order.createdAt).valueOf() + 1000 * 60 * 60 * 24 * 2;
+              return (
+                <div
+                  style={{
+                    color: [201, 204].includes(value) ? "#faad14" : "#000",
+                  }}
+                >
+                  <span>
+                    {statusOptions.find((item) => item.value === value)?.text}
+                  </span>
+                  {[201, 204].includes(value) ? (
+                    <Countdown value={deadline} format="D 天 H 时 m 分 s 秒" />
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              );
+            },
             filters: statusOptions,
             onFilter: (value, order) => order.status === value,
             width: "16rem",
