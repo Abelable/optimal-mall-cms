@@ -16,7 +16,6 @@ import { FileUpload } from "components/file-upload";
 import {
   UserOutlined,
   ClockCircleFilled,
-  CheckCircleFilled,
   ExclamationCircleFilled,
 } from "@ant-design/icons";
 
@@ -105,35 +104,12 @@ export const List = ({
                 dayjs(order.createdAt).valueOf() + 1000 * 60 * 60 * 24 * 2;
               return (
                 <Row>
-                  <span
-                    style={{
-                      color: [201, 204].includes(value) ? "#1890ff" : "#333",
-                    }}
-                  >
-                    {[201, 204].includes(value)
-                      ? "待发货"
-                      : statusOptions.find((item) => item.value === value)
-                          ?.text}
-                  </span>
-                  {value === 204 ? (
-                    <Tooltip title="已导出" color="#52c41a">
-                      <CheckCircleFilled
-                        style={{
-                          marginLeft: "4px",
-                          color: "#52c41a",
-                          cursor: "pointer",
-                        }}
-                      />
-                    </Tooltip>
-                  ) : (
-                    <></>
-                  )}
                   {[201, 204].includes(value) ? (
                     deadline <= Date.now() ? (
                       <Tooltip title="超时未发货" color="#ff4d4f">
                         <ExclamationCircleFilled
                           style={{
-                            marginLeft: "4px",
+                            marginRight: "4px",
                             color: "#ff4d4f",
                             cursor: "pointer",
                           }}
@@ -151,7 +127,7 @@ export const List = ({
                       >
                         <ClockCircleFilled
                           style={{
-                            marginLeft: "4px",
+                            marginRight: "4px",
                             color: "#faad14",
                             cursor: "pointer",
                           }}
@@ -161,12 +137,23 @@ export const List = ({
                   ) : (
                     <></>
                   )}
+                  <span
+                    style={{
+                      color: [201, 204].includes(value)
+                        ? deadline <= Date.now()
+                          ? "#ff4d4f"
+                          : "#faad14"
+                        : "#333",
+                    }}
+                  >
+                    {statusOptions.find((item) => item.value === value)?.text}
+                  </span>
                 </Row>
               );
             },
             filters: statusOptions,
             onFilter: (value, order) => order.status === value,
-            width: "14rem",
+            width: "18rem",
           },
           {
             title: "商品信息",
