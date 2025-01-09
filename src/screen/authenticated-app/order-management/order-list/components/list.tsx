@@ -9,7 +9,6 @@ import {
   TablePaginationConfig,
   TableProps,
   Statistic,
-  Tag,
   Tooltip,
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
@@ -141,9 +140,6 @@ export const List = ({
                       />
                     </Tooltip>
                   ) : (
-                    //   <Tag icon={<ClockCircleFilled />} color="warning" style={{ display: 'flex', alignItems: 'center', width: 'fit-content' }}>
-                    //   <CustomCountdown value={deadline} format="D 天 H 时 m 分 s 秒" />
-                    // </Tag>
                     <></>
                   )}
                 </Row>
@@ -151,7 +147,7 @@ export const List = ({
             },
             filters: statusOptions,
             onFilter: (value, order) => order.status === value,
-            width: "40rem",
+            width: "14rem",
           },
           {
             title: "订单金额",

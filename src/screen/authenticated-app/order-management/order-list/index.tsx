@@ -17,7 +17,6 @@ import { SearchPanel } from "./components/search-panel";
 import { OrderModal } from "./components/order-modal";
 import { DeliveryModal } from "./components/delivery-modal";
 import { ShippingModal } from "./components/shipping-modal";
-import { FileDoneOutlined } from "@ant-design/icons";
 
 import { useMerchantOptions } from "service/merchant";
 import { useExpressOptions } from "service/express";
