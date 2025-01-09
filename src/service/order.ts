@@ -147,3 +147,8 @@ export const useOrderedGoodsOptions = () => {
     client("order/goods_options")
   );
 };
+
+export const useShipOrderCount = () => {
+  const client = useHttp();
+  return useQuery(["ship_order_count"], () => client("order/ship_order_count"));
+};

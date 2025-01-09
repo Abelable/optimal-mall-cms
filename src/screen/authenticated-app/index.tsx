@@ -75,6 +75,7 @@ import { RoleList } from "./auth/role-list";
 import { AdminList } from "./auth/admin-list";
 
 import type { UserInfo } from "types/auth";
+import { useShipOrderCount } from "service/order";
 
 export const AuthenticatedApp = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -187,6 +188,7 @@ export const AuthenticatedApp = () => {
 
 const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
   const { defaultOpenKey, selectedKey } = useRouteType();
+  const { data: shipOrderCount } = useShipOrderCount();
 
   const items: MenuProps["items"] = [
     {
@@ -403,7 +405,14 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
           icon: <ExpressIcon />,
         },
         {
-          label: <Link to={"order/list"}>订单列表</Link>,
+          label: (
+            <Link to={"order/list"}>
+              <Row between>
+                <span>订单列表</span>
+                {shipOrderCount ? <Badge>{shipOrderCount}</Badge> : <></>}
+              </Row>
+            </Link>
+          ),
           key: "order_list",
           icon: <UnorderedListOutlined />,
         },
@@ -550,4 +559,14 @@ const Fold = Unfold.withComponent(MenuFoldOutlined);
 
 const Content = styled(Layout.Content)`
   height: 100%;
+`;
+
+const Badge = styled.div`
+  padding: 0 3px;
+  height: 14px;
+  color: #fff;
+  font-size: 10px;
+  line-height: 14px;
+  background: #fc5531;
+  border-radius: 4px;
 `;
