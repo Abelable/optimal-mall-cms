@@ -9,10 +9,16 @@ import {
   TablePaginationConfig,
   TableProps,
   Statistic,
+  Tag,
+  Tooltip,
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
 import { FileUpload } from "components/file-upload";
-import { UserOutlined } from "@ant-design/icons";
+import {
+  UserOutlined,
+  ClockCircleFilled,
+  CheckCircleFilled,
+} from "@ant-design/icons";
 
 import dayjs from "dayjs";
 import { useQueryClient } from "react-query";
@@ -96,25 +102,56 @@ export const List = ({
               const deadline =
                 dayjs(order.createdAt).valueOf() + 1000 * 60 * 60 * 24 * 2;
               return (
-                <div
-                  style={{
-                    color: [201, 204].includes(value) ? "#faad14" : "#000",
-                  }}
-                >
+                <Row>
                   <span>
-                    {statusOptions.find((item) => item.value === value)?.text}
+                    {[201, 204].includes(value)
+                      ? "待发货"
+                      : statusOptions.find((item) => item.value === value)
+                          ?.text}
                   </span>
-                  {[201, 204].includes(value) ? (
-                    <Countdown value={deadline} format="D 天 H 时 m 分 s 秒" />
+                  {value === 204 ? (
+                    <Tooltip title="已导出" color="#52c41a">
+                      <CheckCircleFilled
+                        style={{
+                          marginLeft: "4px",
+                          color: "#52c41a",
+                          cursor: "pointer",
+                        }}
+                      />
+                    </Tooltip>
                   ) : (
                     <></>
                   )}
-                </div>
+                  {[201, 204].includes(value) ? (
+                    <Tooltip
+                      title={
+                        <CustomCountdown
+                          value={deadline}
+                          format="D 天 H 时 m 分 s 秒"
+                        />
+                      }
+                      color="#faad14"
+                    >
+                      <ClockCircleFilled
+                        style={{
+                          marginLeft: "4px",
+                          color: "#faad14",
+                          cursor: "pointer",
+                        }}
+                      />
+                    </Tooltip>
+                  ) : (
+                    //   <Tag icon={<ClockCircleFilled />} color="warning" style={{ display: 'flex', alignItems: 'center', width: 'fit-content' }}>
+                    //   <CustomCountdown value={deadline} format="D 天 H 时 m 分 s 秒" />
+                    // </Tag>
+                    <></>
+                  )}
+                </Row>
               );
             },
             filters: statusOptions,
             onFilter: (value, order) => order.status === value,
-            width: "16rem",
+            width: "40rem",
           },
           {
             title: "订单金额",
@@ -345,4 +382,11 @@ const Container = styled.div`
 
 const Header = styled(Row)`
   margin-bottom: 2.4rem;
+`;
+
+const CustomCountdown = styled(Countdown)`
+  > * {
+    color: #fff;
+    font-size: 14px;
+  }
 `;
