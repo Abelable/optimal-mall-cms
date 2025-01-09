@@ -153,7 +153,7 @@ export const List = ({
             },
             filters: statusOptions,
             onFilter: (value, order) => order.status === value,
-            width: "16rem",
+            width: "18rem",
           },
           {
             title: "商品信息",
