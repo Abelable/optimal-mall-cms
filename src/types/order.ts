@@ -9,11 +9,20 @@ export interface OrderListSearchParams {
   limit: number;
 }
 
+export interface OrderGoods {
+  id: number;
+  cover: string;
+  name: string;
+  skuName: string;
+  price: number;
+  number: number;
+}
+
 export interface Order {
   id: number;
   orderSn: string;
   status: number;
-  goodsList: { id: number; cover: string; name: string; number: number }[];
+  goodsList: OrderGoods[];
   refundAmount: number;
   userInfo: { id: number; avatar: string; nickname: string };
   consignee: string;
@@ -39,7 +48,7 @@ export interface Goods {
   number: number;
 }
 
-export interface OrderDetail extends Order {
+export interface OrderDetail extends Omit<Order, "goodsList"> {
   goodsList: Goods[];
   goodsPrice: number;
   couponDenomination: number;

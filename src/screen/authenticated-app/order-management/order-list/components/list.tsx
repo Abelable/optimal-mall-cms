@@ -10,17 +10,8 @@ import {
   TableProps,
   Statistic,
   Tooltip,
-  Card,
-  Tag,
-  Badge,
 } from "antd";
-import {
-  ButtonNoPadding,
-  ErrorBox,
-  Row,
-  PageTitle,
-  GoodsCover,
-} from "components/lib";
+import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
 import { FileUpload } from "components/file-upload";
 import {
   UserOutlined,
@@ -45,7 +36,7 @@ import {
 } from "../util";
 import { SearchPanelProps } from "./search-panel";
 
-import type { Order } from "types/order";
+import type { Order, OrderGoods } from "types/order";
 
 const { Countdown } = Statistic;
 
@@ -114,7 +105,11 @@ export const List = ({
                 dayjs(order.createdAt).valueOf() + 1000 * 60 * 60 * 24 * 2;
               return (
                 <Row>
-                  <span>
+                  <span
+                    style={{
+                      color: [201, 204].includes(value) ? "#1890ff" : "#333",
+                    }}
+                  >
                     {[201, 204].includes(value)
                       ? "待发货"
                       : statusOptions.find((item) => item.value === value)
@@ -179,23 +174,21 @@ export const List = ({
             render: (value) => (
               <>
                 {value.map(
-                  ({
-                    id,
-                    cover,
-                    name,
-                    number,
-                  }: {
-                    id: number;
-                    cover: string;
-                    name: string;
-                    number: number;
-                  }) => (
-                    <Badge count={number}>
-                      <GoodsCard key={id}>
-                        <img src={cover} alt="" />
-                        <span>{name}</span>
-                      </GoodsCard>
-                    </Badge>
+                  ({ id, cover, name, skuName, price, number }: OrderGoods) => (
+                    <GoodsCard key={id}>
+                      <img src={cover} alt="" />
+                      <GoodsInfo>
+                        <GoodsName>{name}</GoodsName>
+                        <GoodsSku>{skuName}</GoodsSku>
+                        <GoodsPriceWrap>
+                          <div style={{ color: "#ff4d4f" }}>
+                            <span style={{ fontSize: "6px" }}>¥</span>
+                            <span style={{ fontSize: "12px" }}>{price}</span>
+                          </div>
+                          <div style={{ fontSize: "10px" }}>x{number}</div>
+                        </GoodsPriceWrap>
+                      </GoodsInfo>
+                    </GoodsCard>
                   )
                 )}
               </>
@@ -444,7 +437,7 @@ const GoodsCard = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 12px;
-  padding: 8px;
+  padding: 6px;
   border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: 8px;
   :last-child {
@@ -452,16 +445,42 @@ const GoodsCard = styled.div`
   }
   > img {
     margin-right: 0.6rem;
-    width: 3.6rem;
-    height: 3.6rem;
+    width: 5.8rem;
+    height: 5.8rem;
     border-radius: 0.4rem;
   }
-  > span {
-    flex: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
+`;
+const GoodsInfo = styled.div`
+  flex: 1;
+`;
+const GoodsName = styled.div`
+  font-size: 10px;
+  line-height: 1.2;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+`;
+const GoodsSku = styled.div`
+  margin-top: 4px;
+  padding: 0 3px;
+  width: fit-content;
+  height: 12px;
+  color: #999;
+  font-size: 8px;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  background: #f1f1f1;
+  border-radius: 2px;
+`;
+const GoodsPriceWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 6px;
+  line-height: 1;
 `;
