@@ -13,6 +13,7 @@ export interface Order {
   id: number;
   orderSn: string;
   status: number;
+  goodsList: { id: number; cover: string; name: string; number: number }[];
   refundAmount: number;
   userInfo: { id: number; avatar: string; nickname: string };
   consignee: string;

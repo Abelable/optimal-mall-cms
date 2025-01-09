@@ -10,8 +10,17 @@ import {
   TableProps,
   Statistic,
   Tooltip,
+  Card,
+  Tag,
+  Badge,
 } from "antd";
-import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
+import {
+  ButtonNoPadding,
+  ErrorBox,
+  Row,
+  PageTitle,
+  GoodsCover,
+} from "components/lib";
 import { FileUpload } from "components/file-upload";
 import {
   UserOutlined,
@@ -163,6 +172,35 @@ export const List = ({
             filters: statusOptions,
             onFilter: (value, order) => order.status === value,
             width: "14rem",
+          },
+          {
+            title: "商品信息",
+            dataIndex: "goodsList",
+            render: (value) => (
+              <>
+                {value.map(
+                  ({
+                    id,
+                    cover,
+                    name,
+                    number,
+                  }: {
+                    id: number;
+                    cover: string;
+                    name: string;
+                    number: number;
+                  }) => (
+                    <Badge count={number}>
+                      <GoodsCard key={id}>
+                        <img src={cover} alt="" />
+                        <span>{name}</span>
+                      </GoodsCard>
+                    </Badge>
+                  )
+                )}
+              </>
+            ),
+            width: "30rem",
           },
           {
             title: "订单金额",
@@ -399,5 +437,31 @@ const CustomCountdown = styled(Countdown)`
   > * {
     color: #fff;
     font-size: 14px;
+  }
+`;
+
+const GoodsCard = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  :last-child {
+    margin-bottom: 0;
+  }
+  > img {
+    margin-right: 0.6rem;
+    width: 3.6rem;
+    height: 3.6rem;
+    border-radius: 0.4rem;
+  }
+  > span {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 `;

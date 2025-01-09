@@ -109,9 +109,11 @@ export const OptionAvatar = styled(Avatar)`
   border-radius: 0.6rem;
 `;
 
-export const GoodsCover = styled(Image)`
+export const GoodsCover = styled(Image)<{
+  size?: string;
+}>`
   margin-right: 0.6rem;
-  width: 1.8rem;
-  height: 1.8rem;
+  width: ${(props) => props.size || "1.8rem"};
+  height: ${(props) => props.size || "1.8rem"};
   border-radius: 0.4rem;
 `;
