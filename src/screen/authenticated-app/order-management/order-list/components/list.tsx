@@ -17,6 +17,7 @@ import {
   UserOutlined,
   ClockCircleFilled,
   CheckCircleFilled,
+  ExclamationCircleFilled,
 } from "@ant-design/icons";
 
 import dayjs from "dayjs";
@@ -122,23 +123,35 @@ export const List = ({
                     <></>
                   )}
                   {[201, 204].includes(value) ? (
-                    <Tooltip
-                      title={
-                        <CustomCountdown
-                          value={deadline}
-                          format="D 天 H 时 m 分 s 秒"
+                    deadline <= Date.now() ? (
+                      <Tooltip title="超时未发货" color="#ff4d4f">
+                        <ExclamationCircleFilled
+                          style={{
+                            marginLeft: "4px",
+                            color: "#ff4d4f",
+                            cursor: "pointer",
+                          }}
                         />
-                      }
-                      color="#faad14"
-                    >
-                      <ClockCircleFilled
-                        style={{
-                          marginLeft: "4px",
-                          color: "#faad14",
-                          cursor: "pointer",
-                        }}
-                      />
-                    </Tooltip>
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        title={
+                          <CustomCountdown
+                            value={deadline}
+                            format="D 天 H 时 m 分 s 秒"
+                          />
+                        }
+                        color="#faad14"
+                      >
+                        <ClockCircleFilled
+                          style={{
+                            marginLeft: "4px",
+                            color: "#faad14",
+                            cursor: "pointer",
+                          }}
+                        />
+                      </Tooltip>
+                    )
                   ) : (
                     <></>
                   )}
