@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import { usePromoterList } from "service/promoter";
 import { toNumber } from "utils";
 import { usePromoterListSearchParams } from "./util";
-import { useUserOptions } from "service/user";
+import { useUserNormalOptions } from "service/user";
 import { PromoterModal } from "./components/promoter-modal";
 
 const levelOptions = [
@@ -24,7 +24,8 @@ const pathOptions = [
 export const PromoterList = () => {
   const [params, setParams] = usePromoterListSearchParams();
   const { isLoading, error, data } = usePromoterList(params);
-  const { data: userOptions = [], error: userOptionsError } = useUserOptions();
+  const { data: userOptions = [], error: userOptionsError } =
+    useUserNormalOptions();
 
   return (
     <Container>

@@ -20,6 +20,7 @@ import { ShippingModal } from "./components/shipping-modal";
 
 import { useMerchantOptions } from "service/merchant";
 import { useExpressOptions } from "service/express";
+import { useUserOptions } from "service/user";
 
 const statusOptions = [
   { text: "待付款", value: 101 },
@@ -45,6 +46,8 @@ export const OrderList = () => {
   const [batchOprationType, setBatchOprationType] = useState(-1);
   const [params, setParams] = useOrderListSearchParams();
   const { data: expressOptions = [] } = useExpressOptions();
+  const { data: userOptions = [] } = useUserOptions();
+
   const { isLoading, error, data } = useOrderList(params);
   const { mutate: exportOrder } = useExportOrder(useOrderListQueryKey());
   const { mutate: cancelOrder } = useCancelOrder(useOrderListQueryKey());
@@ -105,6 +108,7 @@ export const OrderList = () => {
         <SearchPanel
           statusOptions={statusOptions}
           merchantOptions={merchantOptions}
+          userOptions={userOptions}
           params={params}
           setParams={setParams}
         />

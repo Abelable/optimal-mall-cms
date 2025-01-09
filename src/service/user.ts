@@ -38,6 +38,14 @@ export const useUserOptions = () => {
   const client = useHttp();
   return useQuery<{ id: number; avatar: string; nickname: string }[]>(
     ["user_options"],
+    () => client("user/options")
+  );
+};
+
+export const useUserNormalOptions = () => {
+  const client = useHttp();
+  return useQuery<{ id: number; avatar: string; nickname: string }[]>(
+    ["user_normal_options"],
     () => client("user/normal_options")
   );
 };

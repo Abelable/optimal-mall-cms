@@ -40,7 +40,9 @@ import type { Order } from "types/order";
 
 const { Countdown } = Statistic;
 
-interface ListProps extends TableProps<Order>, SearchPanelProps {
+interface ListProps
+  extends TableProps<Order>,
+    Omit<SearchPanelProps, "userOptions"> {
   error: Error | unknown;
   selectedRowKeys: React.Key[];
   setSelectedRowKeys: (selectedRowKeys: []) => void;

@@ -1,7 +1,9 @@
+import { OptionAvatar, Row } from "components/lib";
+import { Button, Input, Select } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+
 import { useState } from "react";
 import styled from "@emotion/styled";
-import { Row } from "components/lib";
-import { Button, Input, Select } from "antd";
 
 import type { OperatorOption, Option } from "types/common";
 import type { OrderListSearchParams } from "types/order";
@@ -9,6 +11,7 @@ import type { OrderListSearchParams } from "types/order";
 export interface SearchPanelProps {
   statusOptions: Option[];
   merchantOptions: OperatorOption[];
+  userOptions: { id: number; avatar: string; nickname: string }[];
   params: Partial<OrderListSearchParams>;
   setParams: (params: Partial<OrderListSearchParams>) => void;
 }
@@ -17,6 +20,7 @@ const defaultParmas: Partial<OrderListSearchParams> = {
   orderSn: "",
   status: undefined,
   merchantId: undefined,
+  userId: undefined,
   consignee: "",
   mobile: "",
 };
@@ -24,6 +28,7 @@ const defaultParmas: Partial<OrderListSearchParams> = {
 export const SearchPanel = ({
   statusOptions,
   merchantOptions,
+  userOptions,
   params,
   setParams,
 }: SearchPanelProps) => {
@@ -52,6 +57,9 @@ export const SearchPanel = ({
     setTempParams({ ...tempParams, merchantId });
   const clearMerchant = () =>
     setTempParams({ ...tempParams, merchantId: undefined });
+
+  const setUser = (userId: number) => setTempParams({ ...tempParams, userId });
+  const clearUser = () => setTempParams({ ...tempParams, userId: undefined });
 
   const setConsignee = (evt: any) => {
     if (!evt.target.value && evt.type !== "change") {
@@ -136,6 +144,30 @@ export const SearchPanel = ({
           {merchantOptions?.map(({ id, name }) => (
             <Select.Option key={id} value={id}>
               {name}
+            </Select.Option>
+          ))}
+        </Select>
+      </Item>
+      <Item>
+        <div>下单用户：</div>
+        <Select
+          style={{ width: "20rem" }}
+          value={tempParams.userId}
+          placeholder="请选择下单用户"
+          allowClear
+          onSelect={setUser}
+          onClear={clearUser}
+          showSearch
+          filterOption={(input, option) =>
+            (option!.children as any)[1].props.children
+              .toLowerCase()
+              .includes(input.toLowerCase())
+          }
+        >
+          {userOptions?.map(({ id, avatar, nickname }) => (
+            <Select.Option key={id} value={id}>
+              <OptionAvatar src={avatar} icon={<UserOutlined />} />
+              <span>{nickname}</span>
             </Select.Option>
           ))}
         </Select>
