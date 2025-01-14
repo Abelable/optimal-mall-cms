@@ -33,6 +33,7 @@ export interface Goods {
   cover: string;
   activityCover: string;
   imageList: string[];
+  realImageList: string[];
   detailImageList: string[];
   defaultSpecImage: string;
   price: number;

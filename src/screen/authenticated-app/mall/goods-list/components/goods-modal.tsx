@@ -70,6 +70,7 @@ export const GoodsModal = ({
         activityCover,
         imageList,
         detailImageList,
+        realImageList,
         defaultSpecImage,
         specList = [],
         skuList = [],
@@ -124,6 +125,9 @@ export const GoodsModal = ({
         detailImageList: detailImageList?.length
           ? detailImageList?.map((item) => ({ url: item }))
           : detailImageList,
+        realImageList: realImageList?.length
+          ? realImageList?.map((item) => ({ url: item }))
+          : realImageList,
         defaultSpecImage: [{ url: defaultSpecImage }],
         ...rest,
       });
@@ -138,6 +142,7 @@ export const GoodsModal = ({
         activityCover,
         imageList,
         detailImageList,
+        realImageList,
         defaultSpecImage,
         stock,
         ...rest
@@ -187,6 +192,7 @@ export const GoodsModal = ({
         detailImageList: detailImageList.map(
           (item: { url: string }) => item.url
         ),
+        realImageList: realImageList.map((item: { url: string }) => item.url),
         defaultSpecImage: defaultSpecImage[0].url,
         stock,
         specList: specContentList,
@@ -303,6 +309,18 @@ export const GoodsModal = ({
                 valuePropName="fileList"
                 getValueFromEvent={normFile}
                 rules={[{ required: true, message: "请上传详情图片" }]}
+              >
+                <OssUpload multiple />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={24}>
+              <Form.Item
+                name="realImageList"
+                label="实拍图片"
+                valuePropName="fileList"
+                getValueFromEvent={normFile}
               >
                 <OssUpload multiple />
               </Form.Item>
