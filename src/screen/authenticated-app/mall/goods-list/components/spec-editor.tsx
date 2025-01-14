@@ -391,10 +391,9 @@ export const SpecEditor = ({
                         setTagIndex(index);
                       }
                       if (specIndex === -1) {
-                        setSpecIndex(index);
+                        setSpecIndex(strKey);
                       }
                       if (e.target.value) {
-                        console.log("e.target.value", e.target.value);
                         setInputSpecValue(e.target.value);
                       }
                     }}
