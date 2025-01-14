@@ -219,6 +219,7 @@ export const SpecEditor = ({
     const specList = [...specContentList];
     specList[labelIndex].options.splice(tagIndex, 1);
     setSpecContentList(specList);
+    tableSku();
   };
 
   const tableSkuSpec = (
@@ -374,9 +375,15 @@ export const SpecEditor = ({
               </div>
             }
           >
-            <div style={{ display: "flex", alignItems: "center" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flexWrap: "wrap",
+              }}
+            >
               {item.options.map((str, strKey) => (
-                <CustomeRow key={strKey} style={{ marginRight: "12px" }}>
+                <CustomeRow key={strKey} style={{ margin: "6px 12px 6px 0" }}>
                   <Input
                     placeholder="请输入规格值"
                     value={
