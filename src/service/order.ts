@@ -152,3 +152,20 @@ export const useShipOrderCount = () => {
   const client = useHttp();
   return useQuery(["ship_order_count"], () => client("order/ship_order_count"));
 };
+
+export const useModifyOrderAddressInfo = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    (data: {
+      id: number;
+      consignee: string;
+      mobile: string;
+      address: string;
+    }) =>
+      client("order/modify_address_info", {
+        data,
+        method: "POST",
+      }),
+    useDeliveryOrderConfig(queryKey)
+  );
+};

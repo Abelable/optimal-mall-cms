@@ -32,6 +32,7 @@ import {
   useOrderListQueryKey,
   useDeliveryModal,
   useShippingModal,
+  useAddressModal,
 } from "../util";
 import { SearchPanelProps } from "./search-panel";
 
@@ -281,6 +282,7 @@ const More = ({ id, status }: { id: number; status: number }) => {
   const { open: openOrderModal } = useOrderModal();
   const { open: openDeliveryModal } = useDeliveryModal();
   const { open: openShippingModal } = useShippingModal();
+  const { open: openAddressModal } = useAddressModal();
   const { mutate: cancelOrder } = useCancelOrder(useOrderListQueryKey());
   const { mutate: refundOrder } = useRefundOrder(useOrderListQueryKey());
   const { mutate: confirmOrder } = useConfirmOrder(useOrderListQueryKey());
@@ -367,6 +369,10 @@ const More = ({ id, status }: { id: number; status: number }) => {
         {
           label: <div onClick={() => confirmRefund(id)}>退款</div>,
           key: "refund",
+        },
+        {
+          label: <div onClick={() => openAddressModal(id)}>修改地址</div>,
+          key: "modify_address",
         },
         {
           label: <div onClick={() => openDeliveryModal(id)}>发货</div>,

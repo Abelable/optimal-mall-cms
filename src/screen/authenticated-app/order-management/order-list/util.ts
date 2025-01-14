@@ -116,3 +116,34 @@ export const useShippingModal = () => {
     close,
   };
 };
+
+export const useAddressModal = () => {
+  const [{ modifyAddressOrderId }, setModifyAddressOrderId] = useUrlQueryParams(
+    ["modifyAddressOrderId"]
+  );
+  const setUrlParams = useSetUrlSearchParams();
+  const {
+    data: orderInfo,
+    isLoading,
+    error,
+  } = useOrder(Number(modifyAddressOrderId));
+
+  const open = useCallback(
+    (id: number) => setModifyAddressOrderId({ modifyAddressOrderId: `${id}` }),
+    [setModifyAddressOrderId]
+  );
+  const close = useCallback(
+    () => setUrlParams({ modifyAddressOrderId: "" }),
+    [setUrlParams]
+  );
+
+  return {
+    addressModalOpen: !!modifyAddressOrderId,
+    modifyAddressOrderId,
+    orderInfo,
+    isLoading,
+    error,
+    open,
+    close,
+  };
+};

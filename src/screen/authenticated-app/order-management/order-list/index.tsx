@@ -19,6 +19,7 @@ import { SearchPanel } from "./components/search-panel";
 import { OrderModal } from "./components/order-modal";
 import { DeliveryModal } from "./components/delivery-modal";
 import { ShippingModal } from "./components/shipping-modal";
+import { AddressModal } from "./components/address-modal";
 
 import { useMerchantOptions } from "service/merchant";
 import { useExpressOptions } from "service/express";
@@ -176,6 +177,7 @@ export const OrderList = () => {
       <OrderModal statusOptions={statusOptions} />
       <DeliveryModal expressOptions={expressOptions} />
       <ShippingModal />
+      <AddressModal />
     </Container>
   );
 };
