@@ -192,7 +192,10 @@ export const GoodsModal = ({
         detailImageList: detailImageList.map(
           (item: { url: string }) => item.url
         ),
-        realImageList: realImageList.map((item: { url: string }) => item.url),
+        realImageList:
+          realImageList && realImageList.length
+            ? realImageList.map((item: { url: string }) => item.url)
+            : [],
         defaultSpecImage: defaultSpecImage[0].url,
         stock,
         specList: specContentList,
