@@ -64,7 +64,7 @@ export const SearchPanel = ({
 
   const clear = () => {
     setParams({ ...params, ...defaultParmas });
-    setTempParams({ ...tempParams, ...defaultParmas });
+    setTempParams({ ...tempParams, ...defaultParmas, page: 1 });
   };
 
   return (
@@ -122,7 +122,7 @@ export const SearchPanel = ({
         <Button
           type={"primary"}
           style={{ marginRight: 0 }}
-          onClick={() => setParams({ ...params, ...tempParams })}
+          onClick={() => setParams({ ...params, ...tempParams, page: 1 })}
         >
           查询
         </Button>
