@@ -91,7 +91,7 @@ export const GoodsModal = ({
             const restData = Object.fromEntries(
               name
                 .split(",")
-                .map((value, index) => [`${specList[index].name}`, value])
+                .map((value, index) => [`${specList[index]?.name}`, value])
             );
             return {
               name,
