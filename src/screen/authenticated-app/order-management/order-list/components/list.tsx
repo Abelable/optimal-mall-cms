@@ -204,13 +204,13 @@ export const List = ({
               <>
                 <Avatar
                   size="small"
-                  src={value.avatar}
+                  src={value?.avatar}
                   icon={<UserOutlined />}
                 />
                 <span style={{ marginLeft: "0.6rem" }}>
-                  {value.nickname.length > 8
-                    ? `${value.nickname.slice(0, 8)}...`
-                    : value.nickname}
+                  {value?.nickname.length > 8
+                    ? `${value?.nickname.slice(0, 8)}...`
+                    : value?.nickname}
                 </span>
               </>
             ),
