@@ -8,8 +8,10 @@ import {
   Button,
   Modal,
   Table,
+  Avatar,
 } from "antd";
 import { ErrorBox, ModalLoading } from "components/lib";
+import { UserOutlined } from "@ant-design/icons";
 
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
@@ -21,11 +23,19 @@ import {
   useShippingModal,
 } from "../util";
 
-import type { Option } from "types/common";
+import type { OperatorOption, Option } from "types/common";
 
 const { Step } = Steps;
 
-export const OrderModal = ({ statusOptions }: { statusOptions: Option[] }) => {
+export const OrderModal = ({
+  statusOptions,
+  merchantOptions,
+  userOptions,
+}: {
+  statusOptions: Option[];
+  merchantOptions: OperatorOption[];
+  userOptions: { id: number; avatar: string; nickname: string }[];
+}) => {
   const { close, orderModalOpen, orderInfo, error, isLoading } =
     useOrderModal();
   const [current, setCurrent] = useState(1);
@@ -60,6 +70,7 @@ export const OrderModal = ({ statusOptions }: { statusOptions: Option[] }) => {
           break;
 
         case 201:
+        case 204:
           setCurrent(2);
           setStepItems([
             {
@@ -201,10 +212,15 @@ export const OrderModal = ({ statusOptions }: { statusOptions: Option[] }) => {
             ))}
           </Steps>
           <Card
-            title={`当前订单状态：${
-              statusOptions.find((item) => item.value === orderInfo?.status)
-                ?.text
-            }`}
+            title={
+              <>
+                <span>当前订单状态：</span>
+                <span style={{ color: "#1890ff" }}>{`${
+                  statusOptions.find((item) => item.value === orderInfo?.status)
+                    ?.text
+                }`}</span>
+              </>
+            }
             style={{ marginTop: "24px" }}
             extra={
               <Extra id={orderInfo?.id || 0} status={orderInfo?.status || 0} />
@@ -215,13 +231,40 @@ export const OrderModal = ({ statusOptions }: { statusOptions: Option[] }) => {
               <Descriptions.Item label="订单编号">
                 {orderInfo?.orderSn}
               </Descriptions.Item>
-              <Descriptions.Item label="快递公司">
+              <Descriptions.Item label="商家">
+                {
+                  merchantOptions.find(
+                    (item) => item.id === orderInfo?.merchantId
+                  )?.name
+                }
+              </Descriptions.Item>
+              <Descriptions.Item label="下单用户">
+                <>
+                  <Avatar
+                    size="small"
+                    src={
+                      userOptions.find((item) => item.id === orderInfo?.userId)
+                        ?.avatar
+                    }
+                    icon={<UserOutlined />}
+                  />
+                  <span style={{ marginLeft: "0.6rem" }}>
+                    {
+                      userOptions.find((item) => item.id === orderInfo?.userId)
+                        ?.nickname
+                    }
+                  </span>
+                </>
+              </Descriptions.Item>
+              {/* <Descriptions.Item label="快递公司">
                 {orderInfo?.shipChannel || "暂无"}
               </Descriptions.Item>
               <Descriptions.Item label="物流单号">
                 {orderInfo?.shipSn || "暂无"}
-              </Descriptions.Item>
+              </Descriptions.Item> */}
             </Descriptions>
+
+            <Divider orientation="left">包裹信息</Divider>
 
             <Divider orientation="left">收货人信息</Divider>
             <Descriptions size={"small"} layout="vertical" bordered>
@@ -338,6 +381,7 @@ const Extra = ({ id, status }: { id: number; status: number }) => {
       );
 
     case 201:
+    case 204:
       return (
         <Button onClick={() => openDeliveryModal(id)} type={"primary"}>
           订单发货

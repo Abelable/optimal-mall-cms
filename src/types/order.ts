@@ -25,6 +25,7 @@ export interface Order {
   status: number;
   goodsList: OrderGoods[];
   refundAmount: number;
+  merchantId: number;
   userInfo: { id: number; avatar: string; nickname: string };
   consignee: string;
   mobile: string;
@@ -54,6 +55,8 @@ export interface OrderDetail extends Omit<Order, "goodsList"> {
   goodsPrice: number;
   couponDenomination: number;
   freightPrice: number;
+  userId: number;
+  merchantId: number;
   consignee: string;
   mobile: string;
   address: string;

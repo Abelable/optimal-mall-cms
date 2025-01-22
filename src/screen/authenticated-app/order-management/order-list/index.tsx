@@ -1,3 +1,12 @@
+import { Drawer, Select, Button, Modal } from "antd";
+import { Row } from "components/lib";
+import { List } from "./components/list";
+import { SearchPanel } from "./components/search-panel";
+import { OrderModal } from "./components/order-modal";
+import { DeliveryModal } from "./components/delivery-modal";
+import { ShippingModal } from "./components/shipping-modal";
+import { AddressModal } from "./components/address-modal";
+
 import { useState } from "react";
 import styled from "@emotion/styled";
 
@@ -11,15 +20,6 @@ import {
 } from "service/order";
 import { toNumber } from "utils";
 import { useOrderListQueryKey, useOrderListSearchParams } from "./util";
-
-import { Drawer, Select, Button, Modal } from "antd";
-import { Row } from "components/lib";
-import { List } from "./components/list";
-import { SearchPanel } from "./components/search-panel";
-import { OrderModal } from "./components/order-modal";
-import { DeliveryModal } from "./components/delivery-modal";
-import { ShippingModal } from "./components/shipping-modal";
-import { AddressModal } from "./components/address-modal";
 
 import { useMerchantOptions } from "service/merchant";
 import { useExpressOptions } from "service/express";
@@ -174,7 +174,11 @@ export const OrderList = () => {
           </Row>
         </Row>
       </Drawer>
-      <OrderModal statusOptions={statusOptions} />
+      <OrderModal
+        statusOptions={statusOptions}
+        merchantOptions={merchantOptions}
+        userOptions={userOptions}
+      />
       <DeliveryModal expressOptions={expressOptions} />
       <ShippingModal />
       <AddressModal />
