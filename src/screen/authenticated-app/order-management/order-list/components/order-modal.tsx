@@ -45,6 +45,8 @@ export const OrderModal = ({
     { title: string; description: String }[]
   >([]);
 
+  const { open: openShippingModal } = useShippingModal();
+
   useEffect(() => {
     if (orderInfo) {
       const {
@@ -258,12 +260,6 @@ export const OrderModal = ({
                   </span>
                 </>
               </Descriptions.Item>
-              {/* <Descriptions.Item label="快递公司">
-                {orderInfo?.shipChannel || "暂无"}
-              </Descriptions.Item>
-              <Descriptions.Item label="物流单号">
-                {orderInfo?.shipSn || "暂无"}
-              </Descriptions.Item> */}
             </Descriptions>
 
             {[204, 301, 401, 402, 501].includes(orderInfo?.status as number) ? (
@@ -288,11 +284,27 @@ export const OrderModal = ({
                           )}
                         </>
                       ),
+                      width: "400px",
                     },
                     { title: "快递公司", dataIndex: "shipChannel" },
                     {
                       title: "物流单号",
                       dataIndex: "shipSn",
+                    },
+                    {
+                      title: "操作",
+                      render(value, _package) {
+                        return (
+                          <Button
+                            onClick={() => openShippingModal(_package?.id)}
+                            type={"primary"}
+                          >
+                            查看物流
+                          </Button>
+                        );
+                      },
+                      fixed: "right",
+                      width: "8rem",
                     },
                   ]}
                   dataSource={
@@ -389,7 +401,6 @@ export const OrderModal = ({
 
 const Extra = ({ id, status }: { id: number; status: number }) => {
   const { open: openDeliveryModal } = useDeliveryModal();
-  const { open: openShippingModal } = useShippingModal();
   const { mutate: cancelOrder } = useCancelOrder(useOrderListQueryKey());
   const { mutate: deleteOrder } = useDeleteOrder(useOrderListQueryKey());
 
@@ -437,16 +448,6 @@ const Extra = ({ id, status }: { id: number; status: number }) => {
         </Button>
       );
 
-    // case 301:
-    // case 401:
-    // case 402:
-    // case 501:
-    //   return (
-    //     <Button onClick={() => openShippingModal(id)} type={"primary"}>
-    //       查看物流
-    //     </Button>
-    //   );
-
     default:
       return <></>;
   }
@@ -455,10 +456,13 @@ const Extra = ({ id, status }: { id: number; status: number }) => {
 const GoodsItem = styled.div`
   display: flex;
   align-items: center;
+  margin-bottom: 6px;
   padding: 6px;
-  max-width: 400px;
   border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: 8px;
+  :last-child {
+    margin-bottom: 0;
+  }
 `;
 const GoodsCover = styled.img`
   width: 30px;
