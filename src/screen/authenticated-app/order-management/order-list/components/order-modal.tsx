@@ -366,7 +366,9 @@ export const OrderModal = ({
                 },
                 {
                   title: "小计",
-                  render: (value, goods) => <>¥{goods.price * goods.number}</>,
+                  render: (value, goods) => (
+                    <>¥{(goods.price * goods.number).toFixed(2)}</>
+                  ),
                 },
               ]}
               dataSource={orderInfo?.goodsList}
