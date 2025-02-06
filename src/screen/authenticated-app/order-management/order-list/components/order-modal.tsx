@@ -312,7 +312,7 @@ export const OrderModal = ({
                       ? orderInfo?.packageList
                       : [
                           {
-                            id: 1,
+                            id: orderInfo?.id as number,
                             shipChannel: orderInfo?.shipChannel || "",
                             shipSn: orderInfo?.shipSn || "",
                             goodsList: orderInfo?.goodsList || [],

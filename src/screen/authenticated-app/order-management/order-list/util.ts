@@ -87,28 +87,28 @@ export const useDeliveryModal = () => {
 };
 
 export const useShippingModal = () => {
-  const [{ shippingOrderId }, setShippingOrderId] = useUrlQueryParams([
-    "shippingOrderId",
+  const [{ shippingPackageId }, setShippingPackageId] = useUrlQueryParams([
+    "shippingPackageId",
   ]);
   const setUrlParams = useSetUrlSearchParams();
   const {
     data: shippingInfo,
     isLoading,
     error,
-  } = useShippingInfo(Number(shippingOrderId));
+  } = useShippingInfo(Number(shippingPackageId));
 
   const open = useCallback(
-    (id: number) => setShippingOrderId({ shippingOrderId: `${id}` }),
-    [setShippingOrderId]
+    (id: number) => setShippingPackageId({ shippingPackageId: `${id}` }),
+    [setShippingPackageId]
   );
   const close = useCallback(
-    () => setUrlParams({ shippingOrderId: "" }),
+    () => setUrlParams({ shippingPackageId: "" }),
     [setUrlParams]
   );
 
   return {
-    shippingModalOpen: !!shippingOrderId,
-    shippingOrderId,
+    shippingModalOpen: !!shippingPackageId,
+    shippingPackageId,
     shippingInfo,
     isLoading,
     error,
