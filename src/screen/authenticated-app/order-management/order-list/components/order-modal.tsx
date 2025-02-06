@@ -264,7 +264,47 @@ export const OrderModal = ({
               </Descriptions.Item> */}
             </Descriptions>
 
-            <Divider orientation="left">包裹信息</Divider>
+            {[204, 301].includes(orderInfo?.status as number) ? (
+              <>
+                <Divider orientation="left">包裹信息</Divider>
+                <Table
+                  rowKey={"id"}
+                  columns={[
+                    {
+                      title: "商品图片",
+                      dataIndex: "cover",
+                      render: (value) => <Image width={68} src={value} />,
+                    },
+                    { title: "商品名称", dataIndex: "name" },
+                    {
+                      title: "商品规格",
+                      dataIndex: "selectedSkuName",
+                      render: (value) => <>规格：{value}</>,
+                    },
+                    {
+                      title: "价格",
+                      dataIndex: "price",
+                      render: (value) => <>¥{value}</>,
+                    },
+                    {
+                      title: "数量",
+                      dataIndex: "number",
+                    },
+                    {
+                      title: "小计",
+                      render: (value, goods) => (
+                        <>¥{goods.price * goods.number}</>
+                      ),
+                    },
+                  ]}
+                  dataSource={orderInfo?.goodsList}
+                  pagination={false}
+                  bordered
+                />
+              </>
+            ) : (
+              <></>
+            )}
 
             <Divider orientation="left">收货人信息</Divider>
             <Descriptions size={"small"} layout="vertical" bordered>
