@@ -24,6 +24,8 @@ import {
 } from "../util";
 
 import type { OperatorOption, Option } from "types/common";
+import { Goods } from "types/order";
+import styled from "@emotion/styled";
 
 const { Step } = Steps;
 
@@ -264,40 +266,47 @@ export const OrderModal = ({
               </Descriptions.Item> */}
             </Descriptions>
 
-            {[204, 301].includes(orderInfo?.status as number) ? (
+            {[204, 301, 401, 402, 501].includes(orderInfo?.status as number) ? (
               <>
                 <Divider orientation="left">包裹信息</Divider>
                 <Table
                   rowKey={"id"}
                   columns={[
                     {
-                      title: "商品图片",
-                      dataIndex: "cover",
-                      render: (value) => <Image width={68} src={value} />,
-                    },
-                    { title: "商品名称", dataIndex: "name" },
-                    {
-                      title: "商品规格",
-                      dataIndex: "selectedSkuName",
-                      render: (value) => <>规格：{value}</>,
-                    },
-                    {
-                      title: "价格",
-                      dataIndex: "price",
-                      render: (value) => <>¥{value}</>,
-                    },
-                    {
-                      title: "数量",
-                      dataIndex: "number",
-                    },
-                    {
-                      title: "小计",
-                      render: (value, goods) => (
-                        <>¥{goods.price * goods.number}</>
+                      title: "包裹商品",
+                      dataIndex: "goodsList",
+                      render: (value) => (
+                        <>
+                          {value.map(
+                            ({ id, cover, name, number }: Partial<Goods>) => (
+                              <GoodsItem key={id}>
+                                <GoodsCover src={cover} alt="" />
+                                <GoodsName>{name}</GoodsName>
+                                <div>x{number}</div>
+                              </GoodsItem>
+                            )
+                          )}
+                        </>
                       ),
                     },
+                    { title: "快递公司", dataIndex: "shipChannel" },
+                    {
+                      title: "物流单号",
+                      dataIndex: "shipSn",
+                    },
                   ]}
-                  dataSource={orderInfo?.goodsList}
+                  dataSource={
+                    orderInfo?.packageList?.length
+                      ? orderInfo?.packageList
+                      : [
+                          {
+                            id: 1,
+                            shipChannel: orderInfo?.shipChannel || "",
+                            shipSn: orderInfo?.shipSn || "",
+                            goodsList: orderInfo?.goodsList || [],
+                          },
+                        ]
+                  }
                   pagination={false}
                   bordered
                 />
@@ -428,17 +437,41 @@ const Extra = ({ id, status }: { id: number; status: number }) => {
         </Button>
       );
 
-    case 301:
-    case 401:
-    case 402:
-    case 501:
-      return (
-        <Button onClick={() => openShippingModal(id)} type={"primary"}>
-          查看物流
-        </Button>
-      );
+    // case 301:
+    // case 401:
+    // case 402:
+    // case 501:
+    //   return (
+    //     <Button onClick={() => openShippingModal(id)} type={"primary"}>
+    //       查看物流
+    //     </Button>
+    //   );
 
     default:
       return <></>;
   }
 };
+
+const GoodsItem = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 6px;
+  max-width: 400px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+`;
+const GoodsCover = styled.img`
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+`;
+const GoodsName = styled.div`
+  margin: 0 6px;
+  flex: 1;
+  font-weight: bold;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+`;
