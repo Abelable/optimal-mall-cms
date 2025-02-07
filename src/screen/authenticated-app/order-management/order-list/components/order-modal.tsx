@@ -310,7 +310,8 @@ export const OrderModal = ({
                   dataSource={
                     orderInfo?.packageList?.length
                       ? orderInfo?.packageList
-                      : [
+                      : orderInfo?.shipChannel
+                      ? [
                           {
                             id: orderInfo?.id as number,
                             shipChannel: orderInfo?.shipChannel || "",
@@ -318,6 +319,7 @@ export const OrderModal = ({
                             goodsList: orderInfo?.goodsList || [],
                           },
                         ]
+                      : []
                   }
                   pagination={false}
                   bordered
