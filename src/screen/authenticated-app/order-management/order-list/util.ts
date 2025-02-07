@@ -69,6 +69,8 @@ export const useDeliveryModal = () => {
   ]);
   const setUrlParams = useSetUrlSearchParams();
 
+  const { data: orderInfo } = useOrder(Number(deliveryOrderId));
+
   const open = useCallback(
     (id: number) => setDeliveryOrderId({ deliveryOrderId: `${id}` }),
     [setDeliveryOrderId]
@@ -81,6 +83,7 @@ export const useDeliveryModal = () => {
   return {
     deliveryModalOpen: !!deliveryOrderId,
     deliveryOrderId,
+    orderInfo,
     open,
     close,
   };

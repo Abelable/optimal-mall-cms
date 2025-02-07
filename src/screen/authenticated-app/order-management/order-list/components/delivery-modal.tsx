@@ -18,10 +18,11 @@ import { useDeliveryOrder } from "service/order";
 import { useDeliveryModal, useOrderListQueryKey } from "../util";
 
 import type { ExpressOption } from "types/express";
+import { GoodsCover } from "components/lib";
 
 interface FormItem {
   id: number;
-  type: number | undefined;
+  goodsId: number | undefined;
   required: boolean;
   name: string;
   options: string[] | undefined;
@@ -42,7 +43,8 @@ export const DeliveryModal = ({
   expressOptions: ExpressOption[];
 }) => {
   const [form] = useForm();
-  const { deliveryModalOpen, deliveryOrderId, close } = useDeliveryModal();
+  const { deliveryModalOpen, deliveryOrderId, orderInfo, close } =
+    useDeliveryModal();
 
   const { mutateAsync, isLoading: mutateLoading } = useDeliveryOrder(
     useOrderListQueryKey()
@@ -52,7 +54,7 @@ export const DeliveryModal = ({
 
   const addItem = () => {
     const defaultFormItem: Omit<FormItem, "id"> = {
-      type: undefined,
+      goodsId: undefined,
       required: false,
       name: "",
       options: undefined,
@@ -64,9 +66,9 @@ export const DeliveryModal = ({
     setFormList([...formList, { id, ...defaultFormItem }]);
   };
 
-  const selectType = (id: number) => (type: number) => {
+  const selectGoods = (id: number) => (goodsId: number) => {
     const list = formList.map((item: any) =>
-      item.id === id ? { ...item, type } : item
+      item.id === id ? { ...item, goodsId } : item
     );
     setFormList([...list]);
   };
@@ -140,17 +142,18 @@ export const DeliveryModal = ({
           columns={[
             {
               title: "商品",
-              dataIndex: "type",
+              dataIndex: "goodsId",
               render: (value, item) => (
                 <Select
                   style={{ width: "240px" }}
                   defaultValue={value}
-                  onChange={selectType(item.id)}
+                  onChange={selectGoods(item.id)}
                   placeholder="请选择商品"
                 >
-                  {typeOptions.map((option) => (
-                    <Select.Option key={option.id} value={option.id}>
-                      {option.name}
+                  {(orderInfo?.goodsList || []).map(({ id, cover, name }) => (
+                    <Select.Option key={id} value={id}>
+                      <GoodsCover src={cover} />
+                      <span>{name}</span>
                     </Select.Option>
                   ))}
                 </Select>
