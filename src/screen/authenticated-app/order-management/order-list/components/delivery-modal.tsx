@@ -23,19 +23,9 @@ import { GoodsCover } from "components/lib";
 interface FormItem {
   id: number;
   goodsId: number | undefined;
-  required: boolean;
-  name: string;
-  options: string[] | undefined;
+  goodsNumber: number | undefined;
+  goodsMaxNumber: number | undefined;
 }
-
-const typeOptions = [
-  { id: 1, name: "单行文本框" },
-  { id: 2, name: "多行文本框" },
-  { id: 3, name: "数字输入框" },
-  { id: 4, name: "单选按钮框" },
-  { id: 5, name: "多选按钮框" },
-  { id: 6, name: "图片上传框" },
-];
 
 export const DeliveryModal = ({
   expressOptions,
@@ -55,9 +45,8 @@ export const DeliveryModal = ({
   const addItem = () => {
     const defaultFormItem: Omit<FormItem, "id"> = {
       goodsId: undefined,
-      required: false,
-      name: "",
-      options: undefined,
+      goodsNumber: undefined,
+      goodsMaxNumber: undefined,
     };
     const list = [...formList];
     const id = list.length
@@ -67,15 +56,17 @@ export const DeliveryModal = ({
   };
 
   const selectGoods = (id: number) => (goodsId: number) => {
+    const { number } =
+      (orderInfo?.goodsList || []).find((goods) => goods.id === goodsId) || {};
     const list = formList.map((item: any) =>
-      item.id === id ? { ...item, goodsId } : item
+      item.id === id ? { ...item, goodsId, goodsMaxNumber: number } : item
     );
     setFormList([...list]);
   };
-  const setName = (id: number) =>
+  const setGoodsNumber = (id: number) =>
     _.debounce((e: any) => {
       const list = formList.map((item: any) =>
-        item.id === id ? { ...item, name: e.target.value } : item
+        item.id === id ? { ...item, goodsNumber: e } : item
       );
       setFormList([...list]);
     }, 1000);
@@ -146,14 +137,15 @@ export const DeliveryModal = ({
               render: (value, item) => (
                 <Select
                   style={{ width: "240px" }}
-                  defaultValue={value}
                   onChange={selectGoods(item.id)}
                   placeholder="请选择商品"
                 >
                   {(orderInfo?.goodsList || []).map(({ id, cover, name }) => (
                     <Select.Option key={id} value={id}>
-                      <GoodsCover src={cover} />
-                      <span>{name}</span>
+                      <>
+                        <GoodsCover src={cover} />
+                        <span>{name}</span>
+                      </>
                     </Select.Option>
                   ))}
                 </Select>
@@ -162,12 +154,13 @@ export const DeliveryModal = ({
             },
             {
               title: "商品数量",
-              dataIndex: "name",
+              dataIndex: "goodsNumber",
               render: (value, item) => (
                 <InputNumber
                   style={{ width: "120px" }}
-                  defaultValue={value}
-                  onChange={setName(item.id)}
+                  max={item.goodsMaxNumber}
+                  min={1}
+                  onChange={setGoodsNumber(item.id)}
                   placeholder="请输入数量"
                 />
               ),
