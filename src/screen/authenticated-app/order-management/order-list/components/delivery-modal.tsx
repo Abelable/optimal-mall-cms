@@ -131,14 +131,44 @@ export const DeliveryModal = ({
                         </Select>
                       </Form.Item>
                       <Form.Item
-                        {...restField}
-                        name={[name, "number"]}
-                        rules={[{ required: true, message: "请输入商品数量" }]}
+                        dependencies={[["goodsList", name, "goodsId"]]}
+                        style={{ height: "32px" }}
                       >
-                        <InputNumber
-                          style={{ width: "160px" }}
-                          placeholder="请输入商品数量"
-                        />
+                        {({ getFieldValue }) => {
+                          const goodsId = getFieldValue([
+                            "goodsList",
+                            name,
+                            "goodsId",
+                          ]);
+                          if (goodsId) {
+                            const selectedGoods = optionsGoodsList.find(
+                              (item) => item.id === goodsId
+                            );
+                            const maxQuantity = selectedGoods
+                              ? selectedGoods.number
+                              : undefined;
+
+                            return (
+                              <Form.Item
+                                {...restField}
+                                name={[name, "number"]}
+                                rules={[
+                                  { required: true, message: "请输入商品数量" },
+                                ]}
+                              >
+                                <InputNumber
+                                  style={{ width: "160px" }}
+                                  placeholder="请输入商品数量"
+                                  defaultValue={maxQuantity}
+                                  min={1}
+                                  max={maxQuantity}
+                                />
+                              </Form.Item>
+                            );
+                          } else {
+                            return <></>;
+                          }
+                        }}
                       </Form.Item>
                     </Space>
                     <MinusCircleOutlined
