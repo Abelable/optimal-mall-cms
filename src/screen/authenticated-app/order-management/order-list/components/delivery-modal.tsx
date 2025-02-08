@@ -18,7 +18,6 @@ import { useDeliveryOrder } from "service/order";
 import { useDeliveryModal, useOrderListQueryKey } from "../util";
 
 import type { ExpressOption } from "types/express";
-import { GoodsCover } from "components/lib";
 
 interface FormItem {
   id: number;
@@ -122,6 +121,22 @@ export const DeliveryModal = ({
         >
           <Input placeholder={"请输入快递单号"} />
         </Form.Item>
+        <Form.Item
+          name="isAllDelivered"
+          label="发货状态"
+          rules={[{ required: true, message: "请选择发货状态" }]}
+        >
+          <Select placeholder="请选择发货状态">
+            {[
+              { name: "部分发货", value: 0 },
+              { name: "全部发货", value: 1 },
+            ].map((item) => (
+              <Select.Option key={item.value} value={item.value}>
+                {item.name}
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
       </Form>
       <Divider orientation="left" style={{ fontSize: "14px" }}>
         包裹商品
@@ -140,14 +155,14 @@ export const DeliveryModal = ({
                   onChange={selectGoods(item.id)}
                   placeholder="请选择商品"
                 >
-                  {(orderInfo?.goodsList || []).map(({ id, cover, name }) => (
-                    <Select.Option key={id} value={id}>
-                      <>
+                  {(orderInfo?.goodsList || []).map(
+                    ({ id, cover, name, number }) => (
+                      <Select.Option key={id} value={id}>
                         <GoodsCover src={cover} />
                         <span>{name}</span>
-                      </>
-                    </Select.Option>
-                  ))}
+                      </Select.Option>
+                    )
+                  )}
                 </Select>
               ),
               width: "240px",
@@ -201,4 +216,11 @@ const Delete = styled(DeleteOutlined)`
   &:hover {
     color: red;
   }
+`;
+
+const GoodsCover = styled.img`
+  margin-right: 6px;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
 `;
