@@ -86,120 +86,179 @@ export const DeliveryModal = ({
             ))}
           </Select>
         </Form.Item>
-        <Form.Item
-          name="shipCode"
-          label="物流公司"
-          rules={[{ required: true, message: "请选择物流公司" }]}
-        >
-          <Select placeholder="请选择物流公司">
-            {expressOptions.map((item) => (
-              <Select.Option key={item.code} value={item.code}>
-                {item.name}
-              </Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
-        <Form.Item
-          label={"快递单号"}
-          name={"shipSn"}
-          rules={[{ required: true, message: "请输入快递单号" }]}
-        >
-          <Input placeholder={"请输入快递单号"} />
-        </Form.Item>
-        <Form.Item label="商品列表" required>
-          <Form.List
-            name="goodsList"
-            rules={[
-              {
-                validator: async (_, goodsList) => {
-                  if (!goodsList || goodsList.length === 0) {
-                    return Promise.reject(new Error("请至少添加一个商品"));
-                  }
-                },
-              },
-            ]}
-          >
-            {(fields, { add, remove }) => (
-              <>
-                {fields.map(({ key, name, ...restField }) => (
-                  <Space key={key} style={{ display: "flex" }} align="baseline">
-                    <Space style={{ display: "flex" }} align="center">
-                      <Form.Item
-                        {...restField}
-                        name={[name, "goodsId"]}
-                        rules={[{ required: true, message: "请选择地区" }]}
-                      >
-                        <Select
-                          style={{ width: "280px" }}
-                          placeholder="请选择商品"
-                        >
-                          {optionsGoodsList.map(({ id, cover, name }) => (
-                            <Select.Option key={id} value={id}>
-                              <GoodsCover src={cover} />
-                              <span>{name}</span>
-                            </Select.Option>
-                          ))}
-                        </Select>
-                      </Form.Item>
-                      <Form.Item
-                        dependencies={[["goodsList", name, "goodsId"]]}
-                        style={{ height: "32px" }}
-                      >
-                        {({ getFieldValue }) => {
-                          const goodsId = getFieldValue([
-                            "goodsList",
-                            name,
-                            "goodsId",
-                          ]);
-                          if (goodsId) {
-                            const selectedGoods = optionsGoodsList.find(
-                              (item) => item.id === goodsId
-                            );
-                            const maxQuantity = selectedGoods
-                              ? selectedGoods.number
-                              : undefined;
 
-                            return (
-                              <Form.Item
-                                {...restField}
-                                name={[name, "number"]}
-                                rules={[
-                                  { required: true, message: "请输入商品数量" },
-                                ]}
-                              >
-                                <InputNumber
-                                  style={{ width: "160px" }}
-                                  placeholder="请输入商品数量"
-                                  defaultValue={maxQuantity}
-                                  min={1}
-                                  max={maxQuantity}
-                                />
-                              </Form.Item>
-                            );
-                          } else {
-                            return <></>;
-                          }
-                        }}
-                      </Form.Item>
-                    </Space>
-                    <MinusCircleOutlined
-                      style={{ color: "#ff4d4f" }}
-                      onClick={() => remove(name)}
-                    />
-                  </Space>
-                ))}
-                <Button
-                  type="dashed"
-                  onClick={() => add()}
-                  block
-                  icon={<PlusOutlined />}
+        <Form.List
+          name="packageList"
+          rules={[
+            {
+              validator: async (_, packageList) => {
+                if (!packageList || packageList.length === 0) {
+                  return Promise.reject(new Error("请至少添加一个包裹"));
+                }
+              },
+            },
+          ]}
+        >
+          {(fields, { add, remove }) => (
+            <>
+              {fields.map(({ key, name, ...restField }) => (
+                <div
+                  key={key}
+                  style={{
+                    border: "1px solid #d9d9d9",
+                    padding: "16px",
+                    marginBottom: "16px",
+                  }}
                 >
-                  添加商品
-                </Button>
-              </>
-            )}
-          </Form.List>
-        </Form.Item>
+                  <Form.Item
+                    {...restField}
+                    name={[name, "shipCode"]}
+                    label="物流公司"
+                    rules={[{ required: true, message: "请选择物流公司" }]}
+                  >
+                    <Select placeholder="请选择物流公司">
+                      {expressOptions.map((item) => (
+                        <Select.Option key={item.code} value={item.code}>
+                          {item.name}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Form.Item>
+
+                  <Form.Item
+                    {...restField}
+                    name={[name, "shipSn"]}
+                    label="快递单号"
+                    rules={[{ required: true, message: "请输入快递单号" }]}
+                  >
+                    <Input placeholder="请输入快递单号" />
+                  </Form.Item>
+
+                  <Form.Item label="商品列表" required>
+                    <Form.List
+                      name={[name, "goodsList"]}
+                      rules={[
+                        {
+                          validator: async (_, goodsList) => {
+                            if (!goodsList || goodsList.length === 0) {
+                              return Promise.reject(
+                                new Error("请至少添加一个商品")
+                              );
+                            }
+                          },
+                        },
+                      ]}
+                    >
+                      {(
+                        goodsFields,
+                        { add: addGoods, remove: removeGoods }
+                      ) => (
+                        <>
+                          {goodsFields.map(
+                            ({
+                              key: goodsKey,
+                              name: goodsName,
+                              ...goodsRestField
+                            }) => (
+                              <Space
+                                key={goodsKey}
+                                style={{ display: "flex" }}
+                                align="baseline"
+                              >
+                                <Form.Item
+                                  {...goodsRestField}
+                                  name={[goodsName, "goodsId"]}
+                                  rules={[
+                                    { required: true, message: "请选择商品" },
+                                  ]}
+                                >
+                                  <Select
+                                    style={{ width: "280px" }}
+                                    placeholder="请选择商品"
+                                  >
+                                    {optionsGoodsList.map(
+                                      ({ id, cover, name }) => (
+                                        <Select.Option key={id} value={id}>
+                                          <GoodsCover src={cover} />
+                                          <span>{name}</span>
+                                        </Select.Option>
+                                      )
+                                    )}
+                                  </Select>
+                                </Form.Item>
+
+                                <Form.Item
+                                  {...goodsRestField}
+                                  name={[goodsName, "number"]}
+                                  rules={[
+                                    {
+                                      required: true,
+                                      message: "请输入商品数量",
+                                    },
+                                  ]}
+                                >
+                                  <InputNumber
+                                    style={{ width: "160px" }}
+                                    placeholder="请输入商品数量"
+                                    min={1}
+                                    max={
+                                      optionsGoodsList.find(
+                                        (item) =>
+                                          item.id ===
+                                          form.getFieldValue([
+                                            "packageList",
+                                            name,
+                                            "goodsList",
+                                            goodsName,
+                                            "goodsId",
+                                          ])
+                                      )?.number || 1
+                                    }
+                                  />
+                                </Form.Item>
+
+                                <MinusCircleOutlined
+                                  style={{ color: "#ff4d4f" }}
+                                  onClick={() => removeGoods(goodsName)}
+                                />
+                              </Space>
+                            )
+                          )}
+                          <Button
+                            type="dashed"
+                            onClick={() => addGoods()}
+                            block
+                            icon={<PlusOutlined />}
+                          >
+                            添加商品
+                          </Button>
+                        </>
+                      )}
+                    </Form.List>
+                  </Form.Item>
+
+                  <Button
+                    type="dashed"
+                    onClick={() => remove(name)}
+                    block
+                    icon={<MinusCircleOutlined />}
+                    style={{ marginTop: "16px" }}
+                  >
+                    删除包裹
+                  </Button>
+                </div>
+              ))}
+              <Button
+                type="dashed"
+                onClick={() => add()}
+                block
+                icon={<PlusOutlined />}
+              >
+                添加包裹
+              </Button>
+            </>
+          )}
+        </Form.List>
       </Form>
     </Modal>
   );
