@@ -10,7 +10,7 @@ import {
 } from "antd";
 import { PlusOutlined, DeleteOutlined } from "@ant-design/icons";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "antd/lib/form/Form";
 import styled from "@emotion/styled";
 import _ from "lodash";
@@ -18,6 +18,7 @@ import { useDeliveryOrder } from "service/order";
 import { useDeliveryModal, useOrderListQueryKey } from "../util";
 
 import type { ExpressOption } from "types/express";
+import type { Goods } from "types/order";
 
 interface FormItem {
   id: number;
@@ -40,6 +41,21 @@ export const DeliveryModal = ({
   );
 
   const [formList, setFormList] = useState<FormItem[]>([]);
+  const [optionsGoodsList, setOptionsGoodsList] = useState<Goods[]>([]);
+
+  useEffect(() => {
+    if (orderInfo) {
+      const { goodsList = [], packageGoodsList = [] } = orderInfo;
+      const list = goodsList?.map((item) => {
+        const number =
+          packageGoodsList
+            ?.filter((packageGoods) => packageGoods.goodsId === item.id)
+            .reduce((a, b) => a + b.goodsNumber, 0) || 0;
+        return { ...item, number: item.number - number };
+      });
+      setOptionsGoodsList(list || []);
+    }
+  }, [orderInfo]);
 
   const addItem = () => {
     const defaultFormItem: Omit<FormItem, "id"> = {
@@ -88,6 +104,7 @@ export const DeliveryModal = ({
 
   const closeModal = () => {
     form.resetFields();
+    setFormList([]);
     close();
   };
 
@@ -155,7 +172,7 @@ export const DeliveryModal = ({
                   onChange={selectGoods(item.id)}
                   placeholder="请选择商品"
                 >
-                  {(orderInfo?.goodsList || []).map(({ id, cover, name }) => (
+                  {optionsGoodsList.map(({ id, cover, name }) => (
                     <Select.Option key={id} value={id}>
                       <GoodsCover src={cover} />
                       <span>{name}</span>
