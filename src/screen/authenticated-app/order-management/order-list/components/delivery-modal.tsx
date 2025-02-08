@@ -4,7 +4,6 @@ import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { useForm } from "antd/lib/form/Form";
 import styled from "@emotion/styled";
-import _ from "lodash";
 import { useDeliveryOrder } from "service/order";
 import { useDeliveryModal, useOrderListQueryKey } from "../util";
 
