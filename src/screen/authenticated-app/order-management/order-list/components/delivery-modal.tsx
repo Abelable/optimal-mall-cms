@@ -113,7 +113,6 @@ export const DeliveryModal = ({
               {
                 validator: async (_, goodsList) => {
                   if (!goodsList || goodsList.length === 0) {
-                    console.log("请至少添加一个商品");
                     return Promise.reject(new Error("请至少添加一个商品"));
                   }
                 },
