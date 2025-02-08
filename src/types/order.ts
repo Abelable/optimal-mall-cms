@@ -60,6 +60,7 @@ export interface PackageGoods {
 export interface Package {
   id: number;
   shipChannel: string;
+  shipCode?: string;
   shipSn: string;
   goodsList: Partial<Goods>[];
 }

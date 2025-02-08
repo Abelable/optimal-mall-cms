@@ -10,6 +10,12 @@ import { useDeliveryModal, useOrderListQueryKey } from "../util";
 import type { ExpressOption } from "types/express";
 import type { Goods } from "types/order";
 
+interface Package {
+  shipCode: string;
+  shipSn: string;
+  goodsList: { goodsId: number; number: number }[];
+}
+
 export const DeliveryModal = ({
   expressOptions,
 }: {
@@ -41,15 +47,35 @@ export const DeliveryModal = ({
 
   const confirm = () => {
     form.validateFields().then(async () => {
-      const { shipCode, ...rest } = form.getFieldsValue();
-      const shipChannel = expressOptions.find(
-        (item) => item.code === shipCode
-      )?.name;
+      console.log(form.getFieldsValue());
+      const { isAllDelivered, packageList: formPackageList } =
+        form.getFieldsValue();
+      const packageList = formPackageList.map((item: Package) => {
+        const shipChannel = expressOptions.find(
+          (_item) => _item.code === item.shipCode
+        )?.name;
+        const goodsList = item.goodsList.map(
+          ({ goodsId, number }: { goodsId: number; number: number }) => {
+            const goodsInfo = optionsGoodsList.find(
+              (optionGoods) => optionGoods.id === goodsId
+            );
+            return {
+              ...goodsInfo,
+              number,
+            };
+          }
+        );
+        return {
+          ...item,
+          shipChannel,
+          goodsList: JSON.stringify(goodsList),
+        };
+      });
+
       await mutateAsync({
         id: +deliveryOrderId,
-        shipChannel,
-        shipCode,
-        ...rest,
+        isAllDelivered,
+        packageList,
       });
       closeModal();
     });

@@ -39,9 +39,13 @@ export const useDeliveryOrder = (queryKey: QueryKey) => {
   return useMutation(
     (data: {
       id: number;
-      shipChannel: string;
-      shipCode: string;
-      shipSn: string;
+      isAllDelivered: string;
+      packageList: {
+        shipChannel: string;
+        shipCode: string;
+        shipSn: string;
+        goodsList: string;
+      }[];
     }) =>
       client("order/delivery", {
         data,
