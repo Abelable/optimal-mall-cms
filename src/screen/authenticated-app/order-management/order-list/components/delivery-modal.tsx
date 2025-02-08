@@ -155,14 +155,12 @@ export const DeliveryModal = ({
                   onChange={selectGoods(item.id)}
                   placeholder="请选择商品"
                 >
-                  {(orderInfo?.goodsList || []).map(
-                    ({ id, cover, name, number }) => (
-                      <Select.Option key={id} value={id}>
-                        <GoodsCover src={cover} />
-                        <span>{name}</span>
-                      </Select.Option>
-                    )
-                  )}
+                  {(orderInfo?.goodsList || []).map(({ id, cover, name }) => (
+                    <Select.Option key={id} value={id}>
+                      <GoodsCover src={cover} />
+                      <span>{name}</span>
+                    </Select.Option>
+                  ))}
                 </Select>
               ),
               width: "240px",
