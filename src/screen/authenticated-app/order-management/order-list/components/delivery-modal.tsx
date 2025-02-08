@@ -6,9 +6,14 @@ import {
   InputNumber,
   Modal,
   Select,
+  Space,
   Table,
 } from "antd";
-import { PlusOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  PlusOutlined,
+  DeleteOutlined,
+  MinusCircleOutlined,
+} from "@ant-design/icons";
 
 import { useEffect, useState } from "react";
 import { useForm } from "antd/lib/form/Form";
@@ -20,12 +25,12 @@ import { useDeliveryModal, useOrderListQueryKey } from "../util";
 import type { ExpressOption } from "types/express";
 import type { Goods } from "types/order";
 
-interface FormItem {
-  id: number;
-  goodsId: number | undefined;
-  goodsNumber: number | undefined;
-  goodsMaxNumber: number | undefined;
-}
+// interface FormItem {
+//   id: number;
+//   goodsId: number | undefined;
+//   goodsNumber: number | undefined;
+//   goodsMaxNumber: number | undefined;
+// }
 
 export const DeliveryModal = ({
   expressOptions,
@@ -40,7 +45,7 @@ export const DeliveryModal = ({
     useOrderListQueryKey()
   );
 
-  const [formList, setFormList] = useState<FormItem[]>([]);
+  // const [formList, setFormList] = useState<FormItem[]>([]);
   const [optionsGoodsList, setOptionsGoodsList] = useState<Goods[]>([]);
 
   useEffect(() => {
@@ -57,34 +62,34 @@ export const DeliveryModal = ({
     }
   }, [orderInfo]);
 
-  const addItem = () => {
-    const defaultFormItem: Omit<FormItem, "id"> = {
-      goodsId: undefined,
-      goodsNumber: undefined,
-      goodsMaxNumber: undefined,
-    };
-    const list = [...formList];
-    const id = list.length
-      ? list.sort((a, b) => a.id - b.id)[formList.length - 1].id + 1
-      : 1;
-    setFormList([...formList, { id, ...defaultFormItem }]);
-  };
+  // const addItem = () => {
+  //   const defaultFormItem: Omit<FormItem, "id"> = {
+  //     goodsId: undefined,
+  //     goodsNumber: undefined,
+  //     goodsMaxNumber: undefined,
+  //   };
+  //   const list = [...formList];
+  //   const id = list.length
+  //     ? list.sort((a, b) => a.id - b.id)[formList.length - 1].id + 1
+  //     : 1;
+  //   setFormList([...formList, { id, ...defaultFormItem }]);
+  // };
 
-  const selectGoods = (id: number) => (goodsId: number) => {
-    const { number } =
-      (orderInfo?.goodsList || []).find((goods) => goods.id === goodsId) || {};
-    const list = formList.map((item: any) =>
-      item.id === id ? { ...item, goodsId, goodsMaxNumber: number } : item
-    );
-    setFormList([...list]);
-  };
-  const setGoodsNumber = (id: number) =>
-    _.debounce((e: any) => {
-      const list = formList.map((item: any) =>
-        item.id === id ? { ...item, goodsNumber: e } : item
-      );
-      setFormList([...list]);
-    }, 1000);
+  // const selectGoods = (id: number) => (goodsId: number) => {
+  //   const { number } =
+  //     (orderInfo?.goodsList || []).find((goods) => goods.id === goodsId) || {};
+  //   const list = formList.map((item: any) =>
+  //     item.id === id ? { ...item, goodsId, goodsMaxNumber: number } : item
+  //   );
+  //   setFormList([...list]);
+  // };
+  // const setGoodsNumber = (id: number) =>
+  //   _.debounce((e: any) => {
+  //     const list = formList.map((item: any) =>
+  //       item.id === id ? { ...item, goodsNumber: e } : item
+  //     );
+  //     setFormList([...list]);
+  //   }, 1000);
 
   const confirm = () => {
     form.validateFields().then(async () => {
@@ -104,7 +109,6 @@ export const DeliveryModal = ({
 
   const closeModal = () => {
     form.resetFields();
-    setFormList([]);
     close();
   };
 
@@ -154,8 +158,61 @@ export const DeliveryModal = ({
             ))}
           </Select>
         </Form.Item>
+        <Form.Item label="商品列表">
+          <Form.List name="goodsList">
+            {(fields, { add, remove }) => (
+              <>
+                {fields.map(({ key, name, ...restField }) => (
+                  <Space key={key} style={{ display: "flex" }} align="baseline">
+                    <Space style={{ display: "flex" }} align="center">
+                      <Form.Item
+                        {...restField}
+                        name={[name, "goodsId"]}
+                        rules={[{ required: true, message: "请选择地区" }]}
+                      >
+                        <Select
+                          style={{ width: "240px" }}
+                          placeholder="请选择商品"
+                        >
+                          {optionsGoodsList.map(({ id, cover, name }) => (
+                            <Select.Option key={id} value={id}>
+                              <GoodsCover src={cover} />
+                              <span>{name}</span>
+                            </Select.Option>
+                          ))}
+                        </Select>
+                      </Form.Item>
+                      <Form.Item
+                        {...restField}
+                        name={[name, "number"]}
+                        rules={[{ required: true, message: "请输入商品数量" }]}
+                      >
+                        <InputNumber
+                          style={{ width: "20rem" }}
+                          placeholder="请输入商品数量"
+                        />
+                      </Form.Item>
+                    </Space>
+                    <MinusCircleOutlined
+                      style={{ color: "#ff4d4f" }}
+                      onClick={() => remove(name)}
+                    />
+                  </Space>
+                ))}
+                <Button
+                  type="dashed"
+                  onClick={() => add()}
+                  block
+                  icon={<PlusOutlined />}
+                >
+                  添加配送地区
+                </Button>
+              </>
+            )}
+          </Form.List>
+        </Form.Item>
       </Form>
-      <Divider orientation="left" style={{ fontSize: "14px" }}>
+      {/* <Divider orientation="left" style={{ fontSize: "14px" }}>
         包裹商品
       </Divider>
       <>
@@ -224,18 +281,18 @@ export const DeliveryModal = ({
         >
           添加商品选项
         </Button>
-      </>
+      </> */}
     </Modal>
   );
 };
 
-const Delete = styled(DeleteOutlined)`
-  cursor: pointer;
-  transition: color 0.3s;
-  &:hover {
-    color: red;
-  }
-`;
+// const Delete = styled(DeleteOutlined)`
+//   cursor: pointer;
+//   transition: color 0.3s;
+//   &:hover {
+//     color: red;
+//   }
+// `;
 
 const GoodsCover = styled.img`
   margin-right: 6px;
