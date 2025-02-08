@@ -71,6 +71,22 @@ export const DeliveryModal = ({
     >
       <Form form={form} layout="vertical">
         <Form.Item
+          name="isAllDelivered"
+          label="发货状态"
+          rules={[{ required: true, message: "请选择发货状态" }]}
+        >
+          <Select placeholder="请选择发货状态">
+            {[
+              { name: "部分发货", value: 0 },
+              { name: "全部发货", value: 1 },
+            ].map((item) => (
+              <Select.Option key={item.value} value={item.value}>
+                {item.name}
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+        <Form.Item
           name="shipCode"
           label="物流公司"
           rules={[{ required: true, message: "请选择物流公司" }]}
@@ -90,24 +106,20 @@ export const DeliveryModal = ({
         >
           <Input placeholder={"请输入快递单号"} />
         </Form.Item>
-        <Form.Item
-          name="isAllDelivered"
-          label="发货状态"
-          rules={[{ required: true, message: "请选择发货状态" }]}
-        >
-          <Select placeholder="请选择发货状态">
-            {[
-              { name: "部分发货", value: 0 },
-              { name: "全部发货", value: 1 },
-            ].map((item) => (
-              <Select.Option key={item.value} value={item.value}>
-                {item.name}
-              </Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
-        <Form.Item label="商品列表">
-          <Form.List name="goodsList">
+        <Form.Item label="商品列表" required>
+          <Form.List
+            name="goodsList"
+            rules={[
+              {
+                validator: async (_, goodsList) => {
+                  if (!goodsList || goodsList.length === 0) {
+                    console.log("请至少添加一个商品");
+                    return Promise.reject(new Error("请至少添加一个商品"));
+                  }
+                },
+              },
+            ]}
+          >
             {(fields, { add, remove }) => (
               <>
                 {fields.map(({ key, name, ...restField }) => (
