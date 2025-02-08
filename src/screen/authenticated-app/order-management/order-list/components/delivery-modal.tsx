@@ -105,16 +105,19 @@ export const DeliveryModal = ({
                 {fields.map(({ key, name, ...restField }) => (
                   <div
                     style={{
-                      border: "1px solid #d9d9d9",
+                      display: "flex",
+                      alignItems: "center",
                       marginBottom: "16px",
                     }}
                   >
                     <div
                       key={key}
                       style={{
+                        marginRight: "8px",
                         padding: "16px",
                         paddingBottom: 0,
-                        borderBottom: "1px solid #d9d9d9",
+                        flex: 1,
+                        border: "1px solid #d9d9d9",
                       }}
                     >
                       <Form.Item
@@ -183,7 +186,7 @@ export const DeliveryModal = ({
                                       ]}
                                     >
                                       <Select
-                                        style={{ width: "280px" }}
+                                        style={{ width: "240px" }}
                                         placeholder="请选择商品"
                                       >
                                         {optionsGoodsList.map(
@@ -208,7 +211,7 @@ export const DeliveryModal = ({
                                       ]}
                                     >
                                       <InputNumber
-                                        style={{ width: "160px" }}
+                                        style={{ width: "150px" }}
                                         placeholder="请输入商品数量"
                                         min={1}
                                         max={
@@ -247,16 +250,10 @@ export const DeliveryModal = ({
                         </Form.List>
                       </Form.Item>
                     </div>
-                    <div style={{ margin: "16px" }}>
-                      <Button
-                        type="dashed"
-                        onClick={() => remove(name)}
-                        block
-                        icon={<MinusCircleOutlined />}
-                      >
-                        删除包裹
-                      </Button>
-                    </div>
+                    <MinusCircleOutlined
+                      style={{ color: "#ff4d4f" }}
+                      onClick={() => remove(name)}
+                    />
                   </div>
                 ))}
                 <Button
