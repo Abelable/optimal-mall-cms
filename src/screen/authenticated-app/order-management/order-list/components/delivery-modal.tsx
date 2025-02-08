@@ -168,15 +168,19 @@ export const DeliveryModal = ({
             {
               title: "商品数量",
               dataIndex: "goodsNumber",
-              render: (value, item) => (
-                <InputNumber
-                  style={{ width: "120px" }}
-                  max={item.goodsMaxNumber}
-                  min={1}
-                  onChange={setGoodsNumber(item.id)}
-                  placeholder="请输入数量"
-                />
-              ),
+              render: (value, item) =>
+                item.goodsMaxNumber ? (
+                  <InputNumber
+                    style={{ width: "120px" }}
+                    defaultValue={item.goodsMaxNumber}
+                    max={item.goodsMaxNumber}
+                    min={1}
+                    onChange={setGoodsNumber(item.id)}
+                    placeholder="请输入数量"
+                  />
+                ) : (
+                  <></>
+                ),
             },
             {
               render: (value, item) => (
