@@ -200,7 +200,7 @@ export const DeliveryModal = ({
                                       </Select>
                                     </Form.Item>
 
-                                    <Form.Item
+                                    {/* <Form.Item
                                       {...goodsRestField}
                                       name={[goodsName, "number"]}
                                       rules={[
@@ -228,6 +228,53 @@ export const DeliveryModal = ({
                                           )?.number || 1
                                         }
                                       />
+                                    </Form.Item> */}
+
+                                    <Form.Item
+                                      dependencies={[
+                                        ["goodsList", name, "goodsId"],
+                                      ]}
+                                      style={{ height: "32px" }}
+                                    >
+                                      {({ getFieldValue }) => {
+                                        const goodsId = getFieldValue([
+                                          "goodsList",
+                                          name,
+                                          "goodsId",
+                                        ]);
+                                        if (goodsId) {
+                                          const selectedGoods =
+                                            optionsGoodsList.find(
+                                              (item) => item.id === goodsId
+                                            );
+                                          const maxQuantity = selectedGoods
+                                            ? selectedGoods.number
+                                            : undefined;
+
+                                          return (
+                                            <Form.Item
+                                              {...restField}
+                                              name={[name, "number"]}
+                                              rules={[
+                                                {
+                                                  required: true,
+                                                  message: "请输入商品数量",
+                                                },
+                                              ]}
+                                            >
+                                              <InputNumber
+                                                style={{ width: "150px" }}
+                                                placeholder="请输入商品数量"
+                                                defaultValue={maxQuantity}
+                                                min={1}
+                                                max={maxQuantity}
+                                              />
+                                            </Form.Item>
+                                          );
+                                        } else {
+                                          return <></>;
+                                        }
+                                      }}
                                     </Form.Item>
 
                                     <MinusCircleOutlined
