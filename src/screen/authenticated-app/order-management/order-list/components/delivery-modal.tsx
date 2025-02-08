@@ -47,7 +47,6 @@ export const DeliveryModal = ({
 
   const confirm = () => {
     form.validateFields().then(async () => {
-      console.log(form.getFieldsValue());
       const { isAllDelivered, packageList: formPackageList } =
         form.getFieldsValue();
       const packageList = formPackageList.map((item: Package) => {
