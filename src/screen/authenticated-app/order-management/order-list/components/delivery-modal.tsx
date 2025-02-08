@@ -1,19 +1,5 @@
-import {
-  Button,
-  Divider,
-  Form,
-  Input,
-  InputNumber,
-  Modal,
-  Select,
-  Space,
-  Table,
-} from "antd";
-import {
-  PlusOutlined,
-  DeleteOutlined,
-  MinusCircleOutlined,
-} from "@ant-design/icons";
+import { Button, Form, Input, InputNumber, Modal, Select, Space } from "antd";
+import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
 
 import { useEffect, useState } from "react";
 import { useForm } from "antd/lib/form/Form";
@@ -24,13 +10,6 @@ import { useDeliveryModal, useOrderListQueryKey } from "../util";
 
 import type { ExpressOption } from "types/express";
 import type { Goods } from "types/order";
-
-// interface FormItem {
-//   id: number;
-//   goodsId: number | undefined;
-//   goodsNumber: number | undefined;
-//   goodsMaxNumber: number | undefined;
-// }
 
 export const DeliveryModal = ({
   expressOptions,
@@ -45,7 +24,6 @@ export const DeliveryModal = ({
     useOrderListQueryKey()
   );
 
-  // const [formList, setFormList] = useState<FormItem[]>([]);
   const [optionsGoodsList, setOptionsGoodsList] = useState<Goods[]>([]);
 
   useEffect(() => {
@@ -61,35 +39,6 @@ export const DeliveryModal = ({
       setOptionsGoodsList(list || []);
     }
   }, [orderInfo]);
-
-  // const addItem = () => {
-  //   const defaultFormItem: Omit<FormItem, "id"> = {
-  //     goodsId: undefined,
-  //     goodsNumber: undefined,
-  //     goodsMaxNumber: undefined,
-  //   };
-  //   const list = [...formList];
-  //   const id = list.length
-  //     ? list.sort((a, b) => a.id - b.id)[formList.length - 1].id + 1
-  //     : 1;
-  //   setFormList([...formList, { id, ...defaultFormItem }]);
-  // };
-
-  // const selectGoods = (id: number) => (goodsId: number) => {
-  //   const { number } =
-  //     (orderInfo?.goodsList || []).find((goods) => goods.id === goodsId) || {};
-  //   const list = formList.map((item: any) =>
-  //     item.id === id ? { ...item, goodsId, goodsMaxNumber: number } : item
-  //   );
-  //   setFormList([...list]);
-  // };
-  // const setGoodsNumber = (id: number) =>
-  //   _.debounce((e: any) => {
-  //     const list = formList.map((item: any) =>
-  //       item.id === id ? { ...item, goodsNumber: e } : item
-  //     );
-  //     setFormList([...list]);
-  //   }, 1000);
 
   const confirm = () => {
     form.validateFields().then(async () => {
@@ -171,7 +120,7 @@ export const DeliveryModal = ({
                         rules={[{ required: true, message: "请选择地区" }]}
                       >
                         <Select
-                          style={{ width: "240px" }}
+                          style={{ width: "280px" }}
                           placeholder="请选择商品"
                         >
                           {optionsGoodsList.map(({ id, cover, name }) => (
@@ -188,7 +137,7 @@ export const DeliveryModal = ({
                         rules={[{ required: true, message: "请输入商品数量" }]}
                       >
                         <InputNumber
-                          style={{ width: "20rem" }}
+                          style={{ width: "160px" }}
                           placeholder="请输入商品数量"
                         />
                       </Form.Item>
@@ -205,94 +154,16 @@ export const DeliveryModal = ({
                   block
                   icon={<PlusOutlined />}
                 >
-                  添加配送地区
+                  添加商品
                 </Button>
               </>
             )}
           </Form.List>
         </Form.Item>
       </Form>
-      {/* <Divider orientation="left" style={{ fontSize: "14px" }}>
-        包裹商品
-      </Divider>
-      <>
-        <Table
-          style={{ width: "100%" }}
-          rowKey="id"
-          columns={[
-            {
-              title: "商品",
-              dataIndex: "goodsId",
-              render: (value, item) => (
-                <Select
-                  style={{ width: "240px" }}
-                  onChange={selectGoods(item.id)}
-                  placeholder="请选择商品"
-                >
-                  {optionsGoodsList.map(({ id, cover, name }) => (
-                    <Select.Option key={id} value={id}>
-                      <GoodsCover src={cover} />
-                      <span>{name}</span>
-                    </Select.Option>
-                  ))}
-                </Select>
-              ),
-              width: "240px",
-            },
-            {
-              title: "商品数量",
-              dataIndex: "goodsNumber",
-              render: (value, item) =>
-                item.goodsMaxNumber ? (
-                  <InputNumber
-                    style={{ width: "120px" }}
-                    defaultValue={item.goodsMaxNumber}
-                    max={item.goodsMaxNumber}
-                    min={1}
-                    onChange={setGoodsNumber(item.id)}
-                    placeholder="请输入数量"
-                  />
-                ) : (
-                  <></>
-                ),
-            },
-            {
-              render: (value, item) => (
-                <Delete
-                  onClick={() =>
-                    setFormList([
-                      ...formList.filter(
-                        (_item: FormItem) => _item.id !== item.id
-                      ),
-                    ])
-                  }
-                />
-              ),
-            },
-          ]}
-          pagination={false}
-          dataSource={formList}
-          bordered
-        />
-        <Button
-          style={{ marginTop: "2rem", width: "100%" }}
-          icon={<PlusOutlined />}
-          onClick={addItem}
-        >
-          添加商品选项
-        </Button>
-      </> */}
     </Modal>
   );
 };
-
-// const Delete = styled(DeleteOutlined)`
-//   cursor: pointer;
-//   transition: color 0.3s;
-//   &:hover {
-//     color: red;
-//   }
-// `;
 
 const GoodsCover = styled.img`
   margin-right: 6px;
