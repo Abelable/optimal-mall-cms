@@ -27,7 +27,7 @@ export const useActivityTag = (id: number) => {
   const client = useHttp();
   return useQuery<Partial<ActivityTag>>(
     ["activityTag", { id }],
-    () => client(`activity/tag/detail`, { data: { id } }),
+    () => client("mall/activity/tag/detail", { data: { id } }),
     {
       enabled: !!id,
     }
