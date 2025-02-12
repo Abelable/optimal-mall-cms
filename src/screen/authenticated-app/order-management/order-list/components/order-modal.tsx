@@ -347,9 +347,9 @@ export const OrderModal = ({
               <></>
             )}
 
-            <Divider orientation="left">收货人信息</Divider>
+            <Divider orientation="left">收件人信息</Divider>
             <Descriptions size={"small"} layout="vertical" bordered>
-              <Descriptions.Item label="收货人">
+              <Descriptions.Item label="收件人">
                 {orderInfo?.consignee}
               </Descriptions.Item>
               <Descriptions.Item label="手机号">
