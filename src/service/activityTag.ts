@@ -19,7 +19,7 @@ export const useActivityTagList = (
 ) => {
   const client = useHttp();
   return useQuery<ActivityTagListResult>(["categories", params], () =>
-    client("activity/tag/list", { data: params, method: "POST" })
+    client("mall/activity/tag/list", { data: params, method: "POST" })
   );
 };
 
@@ -38,7 +38,7 @@ export const useAddActivityTag = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (params: Partial<ActivityTag>) =>
-      client("activity/tag/add", {
+      client("mall/activity/tag/add", {
         data: cleanObject(params),
         method: "POST",
       }),
@@ -50,7 +50,7 @@ export const useEditActivityTag = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (params: Partial<ActivityTag>) =>
-      client("activity/tag/edit", {
+      client("mall/activity/tag/edit", {
         data: cleanObject(params),
         method: "POST",
       }),
@@ -62,7 +62,7 @@ export const useEditSort = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     ({ id, sort }: { id: number; sort: number }) =>
-      client("activity/tag/edit_sort", {
+      client("mall/activity/tag/edit_sort", {
         data: { id, sort },
         method: "POST",
       }),
@@ -74,7 +74,7 @@ export const useEditStatus = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     ({ id, status }: { id: number; status: number }) =>
-      client("activity/tag/edit_status", {
+      client("mall/activity/tag/edit_status", {
         data: { id, status },
         method: "POST",
       }),
@@ -86,7 +86,7 @@ export const useDeleteActivityTag = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (id: number) =>
-      client("activity/tag/delete", {
+      client("mall/activity/tag/delete", {
         data: { id },
         method: "POST",
       }),
@@ -97,13 +97,13 @@ export const useDeleteActivityTag = (queryKey: QueryKey) => {
 export const useActivityTagOptions = () => {
   const client = useHttp();
   return useQuery<ActivityTagOption[]>(["activityTag_options"], () =>
-    client("activity/tag/options")
+    client("mall/activity/tag/options")
   );
 };
 
 export const useFilterActivityTagOptions = () => {
   const client = useHttp();
   return useQuery<ActivityTagOption[]>(["filter_activityTag_options"], () =>
-    client("activity/tag/filteroptions")
+    client("mall/activity/tag/filteroptions")
   );
 };

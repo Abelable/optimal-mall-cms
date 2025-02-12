@@ -36,6 +36,7 @@ import {
   PayCircleOutlined,
   FireOutlined,
   NotificationOutlined,
+  TagOutlined,
 } from "@ant-design/icons";
 import logo from "assets/images/logo.png";
 import { CouponIcon, ExpressIcon } from "assets/icon";
@@ -48,9 +49,15 @@ import { EnterpriseInfoList } from "./team/enterprise-info-list";
 import { WithdrawList } from "./team/withdraw-list";
 import { LivestockList } from "./team/livestock-list";
 import { GiftGoodsList } from "./team/gift-goods-list";
-import { BannerList } from "./activity-management/banner-list";
-import { ActivityList } from "./activity-management/activity-list";
+import { VillageGrainGoodsList } from "./home-zone/grain-goods";
+import { VillageFreshGoodsList } from "./home-zone/fresh-goods";
+import { VillageSnackGoodsList } from "./home-zone/snack-goods";
+import { VillageGiftGoodsList } from "./home-zone/gift-goods";
+import { IntegrityGoodsList } from "./home-zone/integrity-goods";
+import { ActivityTagList } from "./home-zone/activity-tag-list";
+import { ActivityList } from "./home-zone/activity-list";
 import { CouponList } from "./activity-management/coupon-list";
+import { BannerList } from "./activity-management/banner-list";
 import { NewYearGoodsList } from "./activity-management/new-year/goods-list";
 import { NewYearCultureGoodsList } from "./activity-management/new-year/culture-goods-list";
 import { NewYearLocalRegionList } from "./activity-management/new-year/local-region-list";
@@ -59,11 +66,6 @@ import { LimitedTimeRecruitCategoryList } from "./activity-management/limited-ti
 import { LimitedTimeRecruitGoodsList } from "./activity-management/limited-time-recruit/goods-list";
 import { RuralRegionList } from "./activity-management/rural/region-list";
 import { RuralGoodsList } from "./activity-management/rural/goods-list";
-import { VillageGrainGoodsList } from "./home-zone/grain-goods";
-import { VillageFreshGoodsList } from "./home-zone/fresh-goods";
-import { VillageSnackGoodsList } from "./home-zone/snack-goods";
-import { VillageGiftGoodsList } from "./home-zone/gift-goods";
-import { IntegrityGoodsList } from "./home-zone/integrity-goods";
 import { MerchantList } from "./mall/merchant-list";
 import { FreightTemplateList } from "./mall/freight-template-list";
 import { CategoryList } from "./mall/category-list";
@@ -107,8 +109,44 @@ export const AuthenticatedApp = () => {
               <Route path="team/withdraw_list" element={<WithdrawList />} />
               <Route path="team/livestock_list" element={<LivestockList />} />
               <Route path="team/gift_goods_list" element={<GiftGoodsList />} />
+              <Route
+                path="home_zone/grain_goods"
+                element={<VillageGrainGoodsList />}
+              />
+              <Route
+                path="home_zone/fresh_goods"
+                element={<VillageFreshGoodsList />}
+              />
+              <Route
+                path="home_zone/snack_goods"
+                element={<VillageSnackGoodsList />}
+              />
+              <Route
+                path="home_zone/gift_goods"
+                element={<VillageGiftGoodsList />}
+              />
+              <Route
+                path="home_zone/rural/region_list"
+                element={<RuralRegionList />}
+              />
+              <Route
+                path="home_zone/rural/goods_list"
+                element={<RuralGoodsList />}
+              />
+              <Route
+                path="home_zone/integrity_goods"
+                element={<IntegrityGoodsList />}
+              />
+              <Route
+                path="home_zone/activity/tag_list"
+                element={<ActivityTagList />}
+              />
+              <Route
+                path="home_zone/activity/list"
+                element={<ActivityList />}
+              />
               <Route path="activity/banner_list" element={<BannerList />} />
-              <Route path="activity/list" element={<ActivityList />} />
+              {/* <Route path="activity/list" element={<ActivityList />} /> */}
               <Route path="activity/coupon_list" element={<CouponList />} />
               <Route
                 path="activity/new_year/goods_list"
@@ -133,34 +171,6 @@ export const AuthenticatedApp = () => {
               <Route
                 path="activity/limited_time_recruit/goods_list"
                 element={<LimitedTimeRecruitGoodsList />}
-              />
-              <Route
-                path="home_zone/grain_goods"
-                element={<VillageGrainGoodsList />}
-              />
-              <Route
-                path="home_zone/fresh_goods"
-                element={<VillageFreshGoodsList />}
-              />
-              <Route
-                path="home_zone/snack_goods"
-                element={<VillageSnackGoodsList />}
-              />
-              <Route
-                path="home_zone/gift_goods"
-                element={<VillageGiftGoodsList />}
-              />
-              <Route
-                path="home_zone/integrity_goods"
-                element={<IntegrityGoodsList />}
-              />
-              <Route
-                path="home_zone/rural/region_list"
-                element={<RuralRegionList />}
-              />
-              <Route
-                path="home_zone/rural/goods_list"
-                element={<RuralGoodsList />}
               />
               <Route path="goods/merchant_list" element={<MerchantList />} />
               <Route
@@ -264,11 +274,6 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
           icon: <ShoppingOutlined />,
         },
         {
-          label: <Link to={"home_zone/integrity_goods"}>诚信臻品</Link>,
-          key: "home_zone_integrity_goods",
-          icon: <ShoppingOutlined />,
-        },
-        {
           label: "诚信乡村",
           key: "home_zone_rural",
           icon: <CloudOutlined />,
@@ -285,6 +290,28 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
             },
           ],
         },
+        {
+          label: <Link to={"home_zone/integrity_goods"}>诚信臻品</Link>,
+          key: "home_zone_integrity_goods",
+          icon: <ShoppingOutlined />,
+        },
+        {
+          label: "商品活动",
+          key: "home_zone_activity",
+          icon: <FlagOutlined />,
+          children: [
+            {
+              label: <Link to={"home_zone/activity/tag_list"}>活动标签</Link>,
+              key: "home_zone_activity_tag_list",
+              icon: <TagOutlined />,
+            },
+            {
+              label: <Link to={"home_zone/activity/list"}>活动列表</Link>,
+              key: "home_zone_activity_list",
+              icon: <UnorderedListOutlined />,
+            },
+          ],
+        },
       ],
     },
     {
@@ -297,11 +324,11 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
           key: "activity_banner_list",
           icon: <PictureOutlined />,
         },
-        {
-          label: <Link to={"activity/list"}>商品活动</Link>,
-          key: "activity_list",
-          icon: <FlagOutlined />,
-        },
+        // {
+        //   label: <Link to={"activity/list"}>商品活动</Link>,
+        //   key: "activity_list",
+        //   icon: <FlagOutlined />,
+        // },
         {
           label: <Link to={"activity/coupon_list"}>优惠券</Link>,
           key: "activity_coupon_list",

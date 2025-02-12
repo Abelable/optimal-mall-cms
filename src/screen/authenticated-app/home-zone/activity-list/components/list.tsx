@@ -83,11 +83,6 @@ export const List = ({
             fixed: "left",
           },
           {
-            title: "活动名称",
-            dataIndex: "name",
-            width: "16rem",
-          },
-          {
             title: "活动标签",
             dataIndex: "tag",
             width: "16.3rem",
@@ -107,6 +102,11 @@ export const List = ({
                 ))}
               </Select>
             ),
+          },
+          {
+            title: "活动名称",
+            dataIndex: "name",
+            width: "16rem",
           },
           {
             title: "商品标签",
