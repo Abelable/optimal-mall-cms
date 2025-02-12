@@ -92,16 +92,6 @@ export const SearchPanel = ({
         </Select>
       </Item>
       <Item>
-        <div>活动名称：</div>
-        <Input
-          style={{ width: "20rem" }}
-          value={tempParams.name}
-          onChange={setName}
-          placeholder="请输入活动名称"
-          allowClear
-        />
-      </Item>
-      <Item>
         <div>活动状态：</div>
         <Select
           style={{ width: "20rem" }}
@@ -117,6 +107,16 @@ export const SearchPanel = ({
             </Select.Option>
           ))}
         </Select>
+      </Item>
+      <Item>
+        <div>活动名称：</div>
+        <Input
+          style={{ width: "20rem" }}
+          value={tempParams.name}
+          onChange={setName}
+          placeholder="请输入活动名称"
+          allowClear
+        />
       </Item>
       <Item>
         <div>商品标签：</div>
