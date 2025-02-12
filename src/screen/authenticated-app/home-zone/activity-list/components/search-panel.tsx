@@ -10,7 +10,7 @@ import type { GoodsOption } from "types/goods";
 
 export interface SearchPanelProps {
   statusOptions: Option[];
-  tagOptions: Option[];
+  tagOptions: { id: number; name: string }[];
   goodsTagOptions: Option[];
   goodsOptions: GoodsOption[];
   params: Partial<ActivityListSearchParams>;
@@ -75,6 +75,23 @@ export const SearchPanel = ({
   return (
     <Container>
       <Item>
+        <div>活动标签：</div>
+        <Select
+          style={{ width: "20rem" }}
+          value={tempParams.tag}
+          placeholder="请选择活动标签"
+          allowClear
+          onSelect={setTag}
+          onClear={clearTag}
+        >
+          {tagOptions?.map(({ id, name }) => (
+            <Select.Option key={id} value={id}>
+              {name}
+            </Select.Option>
+          ))}
+        </Select>
+      </Item>
+      <Item>
         <div>活动名称：</div>
         <Input
           style={{ width: "20rem" }}
@@ -95,23 +112,6 @@ export const SearchPanel = ({
           onClear={clearStatus}
         >
           {statusOptions?.map(({ text, value }) => (
-            <Select.Option key={value} value={value}>
-              {text}
-            </Select.Option>
-          ))}
-        </Select>
-      </Item>
-      <Item>
-        <div>活动标签：</div>
-        <Select
-          style={{ width: "20rem" }}
-          value={tempParams.tag}
-          placeholder="请选择活动标签"
-          allowClear
-          onSelect={setTag}
-          onClear={clearTag}
-        >
-          {tagOptions?.map(({ text, value }) => (
             <Select.Option key={value} value={value}>
               {text}
             </Select.Option>

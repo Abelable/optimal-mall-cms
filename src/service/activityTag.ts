@@ -18,7 +18,7 @@ export const useActivityTagList = (
   params: Partial<ActivityTagListSearchParams>
 ) => {
   const client = useHttp();
-  return useQuery<ActivityTagListResult>(["categories", params], () =>
+  return useQuery<ActivityTagListResult>(["activity_tag_list", params], () =>
     client("mall/activity/tag/list", { data: params, method: "POST" })
   );
 };

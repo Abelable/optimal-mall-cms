@@ -95,12 +95,22 @@ export const List = ({
                 allowClear
                 placeholder="设置活动标签"
               >
-                {tagOptions?.map(({ text, value }) => (
-                  <Select.Option key={value} value={value}>
-                    {text}
+                {tagOptions?.map(({ id, name }) => (
+                  <Select.Option key={id} value={id}>
+                    {name}
                   </Select.Option>
                 ))}
               </Select>
+            ),
+          },
+          {
+            title: "活动状态",
+            dataIndex: "status",
+            width: "9rem",
+            render: (value) => (
+              <div style={{ color: ["#faad14", "#1890ff", "#ff4d4f"][value] }}>
+                {statusOptions.find((item) => item.value === value)?.text}
+              </div>
             ),
           },
           {
@@ -129,16 +139,6 @@ export const List = ({
                   </Select.Option>
                 ))}
               </Select>
-            ),
-          },
-          {
-            title: "活动状态",
-            dataIndex: "status",
-            width: "9rem",
-            render: (value) => (
-              <div style={{ color: ["#faad14", "#1890ff", "#ff4d4f"][value] }}>
-                {statusOptions.find((item) => item.value === value)?.text}
-              </div>
             ),
           },
           {

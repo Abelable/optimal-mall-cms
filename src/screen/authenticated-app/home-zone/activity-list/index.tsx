@@ -1,24 +1,18 @@
 import { ActivityModal } from "./components/activity-modal";
 import { List } from "./components/list";
+import { SearchPanel } from "./components/search-panel";
 
 import styled from "@emotion/styled";
-import { useActivityList } from "service/activity";
 import { toNumber } from "utils";
-import { useActivityListSearchParams } from "./util";
-import { SearchPanel } from "./components/search-panel";
+import { useActivityList } from "service/activity";
 import { useGoodsOptions } from "service/goods";
+import { useActivityTagOptions } from "service/activityTag";
+import { useActivityListSearchParams } from "./util";
 
 const statusOptions = [
   { text: "预告", value: 0 },
   { text: "进行中", value: 1 },
   { text: "结束", value: 2 },
-];
-const tagOptions = [
-  { text: "今日主推", value: 1 },
-  { text: "活动预告", value: 2 },
-  { text: "诚试一下", value: 3 },
-  { text: "诚食一口", value: 4 },
-  { text: "诚意一看", value: 5 },
 ];
 const goodsTagOptions = [
   { text: "农产品", value: 1 },
@@ -28,6 +22,8 @@ const goodsTagOptions = [
 export const ActivityList = () => {
   const { data: goodsOptions = [], error: goodsOptionsError } =
     useGoodsOptions();
+  const { data: tagOptions = [], error: tagOptionsError } =
+    useActivityTagOptions();
   const [params, setParams] = useActivityListSearchParams();
   const { isLoading, error, data } = useActivityList(params);
 
@@ -48,7 +44,7 @@ export const ActivityList = () => {
           goodsTagOptions={goodsTagOptions}
           params={params}
           setParams={setParams}
-          error={error || goodsOptionsError}
+          error={error || goodsOptionsError || tagOptionsError}
           loading={isLoading}
           dataSource={data?.list}
           pagination={{
