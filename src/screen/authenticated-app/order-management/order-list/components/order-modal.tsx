@@ -24,7 +24,7 @@ import {
 } from "../util";
 
 import type { OperatorOption, Option } from "types/common";
-import { Goods } from "types/order";
+import { PackageGoods } from "types/order";
 import styled from "@emotion/styled";
 
 const { Step } = Steps;
@@ -274,11 +274,16 @@ export const OrderModal = ({
                       render: (value) => (
                         <>
                           {value.map(
-                            ({ id, cover, name, number }: Partial<Goods>) => (
-                              <GoodsItem key={id}>
-                                <GoodsCover src={cover} alt="" />
-                                <GoodsName>{name}</GoodsName>
-                                <div>x{number}</div>
+                            ({
+                              goodsId,
+                              goodsCover,
+                              goodsName,
+                              goodsNumber,
+                            }: Partial<PackageGoods>) => (
+                              <GoodsItem key={goodsId}>
+                                <GoodsCover src={goodsCover} alt="" />
+                                <GoodsName>{goodsName}</GoodsName>
+                                <div>x{goodsNumber}</div>
                               </GoodsItem>
                             )
                           )}
@@ -316,7 +321,20 @@ export const OrderModal = ({
                             id: orderInfo?.id as number,
                             shipChannel: orderInfo?.shipChannel || "",
                             shipSn: orderInfo?.shipSn || "",
-                            goodsList: orderInfo?.goodsList || [],
+                            goodsList:
+                              orderInfo?.goodsList?.map(
+                                ({
+                                  goodsId,
+                                  cover: goodsCover,
+                                  name: goodsName,
+                                  number: goodsNumber,
+                                }) => ({
+                                  goodsId,
+                                  goodsCover,
+                                  goodsName,
+                                  goodsNumber,
+                                })
+                              ) || [],
                           },
                         ]
                       : []

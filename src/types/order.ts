@@ -50,6 +50,10 @@ export interface Goods {
   number: number;
 }
 
+export interface OrderGoods extends Omit<Goods, "id"> {
+  goodsId: number;
+}
+
 export interface PackageGoods {
   goodsId: number;
   goodsCover: string;
@@ -62,11 +66,11 @@ export interface Package {
   shipChannel: string;
   shipCode?: string;
   shipSn: string;
-  goodsList: Partial<Goods>[];
+  goodsList: PackageGoods[];
 }
 
 export interface OrderDetail extends Omit<Order, "goodsList"> {
-  goodsList: Goods[];
+  goodsList: OrderGoods[];
   packageList: Package[];
   packageGoodsList: PackageGoods[];
   goodsPrice: number;

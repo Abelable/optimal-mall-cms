@@ -8,7 +8,7 @@ import { useDeliveryOrder } from "service/order";
 import { useDeliveryModal, useOrderListQueryKey } from "../util";
 
 import type { ExpressOption } from "types/express";
-import type { Goods } from "types/order";
+import type { OrderGoods } from "types/order";
 
 interface Package {
   shipCode: string;
@@ -29,7 +29,7 @@ export const DeliveryModal = ({
     useOrderListQueryKey()
   );
 
-  const [optionsGoodsList, setOptionsGoodsList] = useState<Goods[]>([]);
+  const [optionsGoodsList, setOptionsGoodsList] = useState<OrderGoods[]>([]);
 
   useEffect(() => {
     if (orderInfo) {
@@ -37,7 +37,7 @@ export const DeliveryModal = ({
       const list = goodsList?.map((item) => {
         const number =
           packageGoodsList
-            ?.filter((packageGoods) => packageGoods.goodsId === item.id)
+            ?.filter((packageGoods) => packageGoods.goodsId === item.goodsId)
             .reduce((a, b) => a + b.goodsNumber, 0) || 0;
         return { ...item, number: item.number - number };
       });
@@ -56,10 +56,11 @@ export const DeliveryModal = ({
         const goodsList = item.goodsList.map(
           ({ goodsId, number }: { goodsId: number; number: number }) => {
             const goodsInfo = optionsGoodsList.find(
-              (optionGoods) => optionGoods.id === goodsId
+              (optionGoods) => optionGoods.goodsId === goodsId
             );
             return {
               ...goodsInfo,
+              id: goodsInfo?.goodsId,
               number,
             };
           }
@@ -151,7 +152,15 @@ export const DeliveryModal = ({
                         label="物流公司"
                         rules={[{ required: true, message: "请选择物流公司" }]}
                       >
-                        <Select placeholder="请选择物流公司">
+                        <Select
+                          placeholder="请选择物流公司"
+                          showSearch
+                          filterOption={(input, option) =>
+                            (option!.children as unknown as string)
+                              .toLowerCase()
+                              .includes(input.toLowerCase())
+                          }
+                        >
                           {expressOptions.map((item) => (
                             <Select.Option key={item.code} value={item.code}>
                               {item.name}
@@ -215,8 +224,11 @@ export const DeliveryModal = ({
                                         placeholder="请选择商品"
                                       >
                                         {optionsGoodsList.map(
-                                          ({ id, cover, name }) => (
-                                            <Select.Option key={id} value={id}>
+                                          ({ goodsId, cover, name }) => (
+                                            <Select.Option
+                                              key={goodsId}
+                                              value={goodsId}
+                                            >
                                               <GoodsCover src={cover} />
                                               <span>{name}</span>
                                             </Select.Option>
