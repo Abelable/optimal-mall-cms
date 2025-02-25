@@ -71,7 +71,7 @@ export const List = ({
             width: "10rem",
           },
           {
-            title: "场景",
+            title: "佣金场景",
             dataIndex: "scene",
             render: (value) => (
               <Tag color={["blue", "green", "orange"][value - 1]}>
@@ -126,7 +126,7 @@ export const List = ({
           {
             title: "提现方式",
             dataIndex: "path",
-            render: (value) => <>{value === 1 ? "微信" : "银行卡"}</>,
+            render: (value) => <>{["微信", "银行卡", "余额"][value - 1]}</>,
             width: "14rem",
           },
           {
@@ -145,7 +145,7 @@ export const List = ({
             ),
             sorter: (a, b) =>
               dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf(),
-            width: "14rem",
+            width: "16rem",
           },
           {
             title: "处理时间",
@@ -158,7 +158,7 @@ export const List = ({
             ),
             sorter: (a, b) =>
               dayjs(a.updatedAt).valueOf() - dayjs(b.updatedAt).valueOf(),
-            width: "14rem",
+            width: "16rem",
           },
           {
             title: "操作",
