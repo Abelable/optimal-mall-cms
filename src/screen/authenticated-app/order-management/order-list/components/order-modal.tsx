@@ -397,17 +397,20 @@ export const OrderModal = ({
             />
 
             <Divider orientation="left">费用信息</Divider>
-            <Descriptions size={"small"} layout="vertical" column={4} bordered>
+            <Descriptions size={"small"} layout="vertical" column={5} bordered>
               <Descriptions.Item label="商品合计">
                 ¥{orderInfo?.goodsPrice}
-              </Descriptions.Item>
-              <Descriptions.Item label="优惠券抵扣">
-                -¥{orderInfo?.couponDenomination}
               </Descriptions.Item>
               <Descriptions.Item label="运费">
                 ¥{orderInfo?.freightPrice}
               </Descriptions.Item>
-              <Descriptions.Item label="订单总金额">
+              <Descriptions.Item label="优惠券抵扣">
+                -¥{orderInfo?.couponDenomination}
+              </Descriptions.Item>
+              <Descriptions.Item label="余额抵扣">
+                -¥{orderInfo?.deductionBalance}
+              </Descriptions.Item>
+              <Descriptions.Item label="实付金额">
                 <span style={{ color: "#f56c6c" }}>
                   {" "}
                   ¥{orderInfo?.refundAmount}

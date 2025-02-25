@@ -75,6 +75,7 @@ export interface OrderDetail extends Omit<Order, "goodsList"> {
   packageGoodsList: PackageGoods[];
   goodsPrice: number;
   couponDenomination: number;
+  deductionBalance: number;
   freightPrice: number;
   userId: number;
   merchantId: number;

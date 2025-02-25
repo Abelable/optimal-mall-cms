@@ -183,7 +183,7 @@ export const List = ({
             width: "30rem",
           },
           {
-            title: "订单金额",
+            title: "实付金额",
             dataIndex: "refundAmount",
             render: (value) => <>¥{value}</>,
             width: "12rem",
