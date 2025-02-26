@@ -606,7 +606,7 @@ const Content = styled(Layout.Content)`
 `;
 
 const Badge = styled.div`
-  padding: 1px 3px 0 2.5px;
+  padding: 1.4px 3px 0 2.4px;
   height: 14px;
   color: #fff;
   font-size: 10px;
