@@ -48,3 +48,10 @@ export const useRejectAuthInfo = (queryKey: QueryKey) => {
     useRejectConfig(queryKey)
   );
 };
+
+export const useAuthInfoPendingCount = () => {
+  const client = useHttp();
+  return useQuery(["auth_info_pending_count"], () =>
+    client("auth_info/pending_count")
+  );
+};

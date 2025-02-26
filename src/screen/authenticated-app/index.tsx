@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { useRouteType } from "utils/url";
 import { useAuth } from "context/auth-context";
 import styled from "@emotion/styled";
 import { HashRouter as Router, Link } from "react-router-dom";
 import { Routes, Route, Navigate } from "react-router";
+import { useRouteType } from "utils/url";
 import { useUserInfo } from "service/auth";
+import { useAuthInfoPendingCount } from "service/authInfo";
 import { useShipOrderCount } from "service/order";
 import { useWaitingRefundCount } from "service/refund";
 
@@ -199,6 +200,7 @@ export const AuthenticatedApp = () => {
 
 const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
   const { defaultOpenKey, selectedKey } = useRouteType();
+  const { data: AuthInfoPendingCount } = useAuthInfoPendingCount();
   const { data: shipOrderCount } = useShipOrderCount();
   const { data: waitingRefundCount } = useWaitingRefundCount();
 
@@ -224,7 +226,18 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
           icon: <UserOutlined />,
         },
         {
-          label: <Link to={"team/auth_info_list"}>实名认证</Link>,
+          label: (
+            <Link to={"team/auth_info_list"}>
+              <Row between>
+                <span>实名认证</span>
+                {AuthInfoPendingCount ? (
+                  <Badge>{AuthInfoPendingCount}</Badge>
+                ) : (
+                  <></>
+                )}
+              </Row>
+            </Link>
+          ),
           key: "team_auth_info_list",
           icon: <VerifiedOutlined />,
         },
