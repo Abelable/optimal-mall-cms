@@ -64,3 +64,10 @@ export const useDeleteWithdraw = (queryKey: QueryKey) => {
     useDeleteConfig(queryKey)
   );
 };
+
+export const useWithdrawPendingCount = () => {
+  const client = useHttp();
+  return useQuery(["withdraw_pending_count"], () =>
+    client("withdraw/pending_count")
+  );
+};

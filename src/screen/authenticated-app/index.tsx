@@ -7,6 +7,7 @@ import { useRouteType } from "utils/url";
 import { useUserInfo } from "service/auth";
 import { useAuthInfoPendingCount } from "service/authInfo";
 import { useEnterpriseInfoPendingCount } from "service/enterpriseInfo";
+import { useWithdrawPendingCount } from "service/withdraw";
 import { useShipOrderCount } from "service/order";
 import { useWaitingRefundCount } from "service/refund";
 
@@ -201,8 +202,9 @@ export const AuthenticatedApp = () => {
 
 const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
   const { defaultOpenKey, selectedKey } = useRouteType();
-  const { data: AuthInfoPendingCount } = useAuthInfoPendingCount();
-  const { data: EnterpriseInfoPendingCount } = useEnterpriseInfoPendingCount();
+  const { data: authInfoPendingCount } = useAuthInfoPendingCount();
+  const { data: enterpriseInfoPendingCount } = useEnterpriseInfoPendingCount();
+  const { data: withdrawPendingCount } = useWithdrawPendingCount();
   const { data: shipOrderCount } = useShipOrderCount();
   const { data: waitingRefundCount } = useWaitingRefundCount();
 
@@ -218,7 +220,23 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
       icon: <UserOutlined />,
     },
     {
-      label: "乡村振兴",
+      label: (
+        <Row between>
+          <span>乡村振兴</span>
+          {authInfoPendingCount +
+            enterpriseInfoPendingCount +
+            withdrawPendingCount >
+          0 ? (
+            <Badge>
+              {authInfoPendingCount +
+                enterpriseInfoPendingCount +
+                withdrawPendingCount}
+            </Badge>
+          ) : (
+            <></>
+          )}
+        </Row>
+      ),
       key: "team",
       icon: <HeartOutlined />,
       children: [
@@ -232,8 +250,8 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
             <Link to={"team/auth_info_list"}>
               <Row between>
                 <span>实名认证</span>
-                {AuthInfoPendingCount ? (
-                  <Badge>{AuthInfoPendingCount}</Badge>
+                {authInfoPendingCount ? (
+                  <Badge>{authInfoPendingCount}</Badge>
                 ) : (
                   <></>
                 )}
@@ -248,8 +266,8 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
             <Link to={"team/enterprise_info_list"}>
               <Row between>
                 <span>企业认证</span>
-                {EnterpriseInfoPendingCount ? (
-                  <Badge>{EnterpriseInfoPendingCount}</Badge>
+                {enterpriseInfoPendingCount ? (
+                  <Badge>{enterpriseInfoPendingCount}</Badge>
                 ) : (
                   <></>
                 )}
@@ -260,7 +278,18 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
           icon: <VerifiedOutlined />,
         },
         {
-          label: <Link to={"team/withdraw_list"}>佣金提现</Link>,
+          label: (
+            <Link to={"team/withdraw_list"}>
+              <Row between>
+                <span>佣金提现</span>
+                {withdrawPendingCount ? (
+                  <Badge>{withdrawPendingCount}</Badge>
+                ) : (
+                  <></>
+                )}
+              </Row>
+            </Link>
+          ),
           key: "team_withdraw_list",
           icon: <PayCircleOutlined />,
         },
