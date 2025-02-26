@@ -6,6 +6,7 @@ import { Routes, Route, Navigate } from "react-router";
 import { useRouteType } from "utils/url";
 import { useUserInfo } from "service/auth";
 import { useAuthInfoPendingCount } from "service/authInfo";
+import { useEnterpriseInfoPendingCount } from "service/enterpriseInfo";
 import { useShipOrderCount } from "service/order";
 import { useWaitingRefundCount } from "service/refund";
 
@@ -201,6 +202,7 @@ export const AuthenticatedApp = () => {
 const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
   const { defaultOpenKey, selectedKey } = useRouteType();
   const { data: AuthInfoPendingCount } = useAuthInfoPendingCount();
+  const { data: EnterpriseInfoPendingCount } = useEnterpriseInfoPendingCount();
   const { data: shipOrderCount } = useShipOrderCount();
   const { data: waitingRefundCount } = useWaitingRefundCount();
 
@@ -242,7 +244,18 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
           icon: <VerifiedOutlined />,
         },
         {
-          label: <Link to={"team/enterprise_info_list"}>企业认证</Link>,
+          label: (
+            <Link to={"team/enterprise_info_list"}>
+              <Row between>
+                <span>企业认证</span>
+                {EnterpriseInfoPendingCount ? (
+                  <Badge>{EnterpriseInfoPendingCount}</Badge>
+                ) : (
+                  <></>
+                )}
+              </Row>
+            </Link>
+          ),
           key: "team_enterprise_info_list",
           icon: <VerifiedOutlined />,
         },

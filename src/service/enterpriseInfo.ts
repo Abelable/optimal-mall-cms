@@ -51,3 +51,10 @@ export const useRejectEnterpriseInfo = (queryKey: QueryKey) => {
     useRejectConfig(queryKey)
   );
 };
+
+export const useEnterpriseInfoPendingCount = () => {
+  const client = useHttp();
+  return useQuery(["enterprise_info_pending_count"], () =>
+    client("enterprise_info/pending_count")
+  );
+};
