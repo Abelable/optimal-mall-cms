@@ -326,11 +326,6 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
           key: "activity_banner_list",
           icon: <PictureOutlined />,
         },
-        // {
-        //   label: <Link to={"activity/list"}>商品活动</Link>,
-        //   key: "activity_list",
-        //   icon: <FlagOutlined />,
-        // },
         {
           label: <Link to={"activity/coupon_list"}>优惠券</Link>,
           key: "activity_coupon_list",
@@ -424,7 +419,6 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
       ],
     },
     {
-      // label: "订单管理",
       label: (
         <Row between>
           <span>订单管理</span>
@@ -455,7 +449,6 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
           key: "order_list",
           icon: <UnorderedListOutlined />,
         },
-        // <Link to={"order/refund"}>售后处理</Link>
         {
           label: (
             <Link to={"order/refund"}>
