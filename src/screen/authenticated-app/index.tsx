@@ -2,9 +2,11 @@ import { useState } from "react";
 import { useRouteType } from "utils/url";
 import { useAuth } from "context/auth-context";
 import styled from "@emotion/styled";
-import { useUserInfo } from "service/auth";
 import { HashRouter as Router, Link } from "react-router-dom";
 import { Routes, Route, Navigate } from "react-router";
+import { useUserInfo } from "service/auth";
+import { useShipOrderCount } from "service/order";
+import { useWaitingRefundCount } from "service/refund";
 
 import { Avatar, Button, Dropdown, Layout, Menu, MenuProps } from "antd";
 import { NavigationBar } from "components/navigation-bar";
@@ -77,7 +79,6 @@ import { RoleList } from "./auth/role-list";
 import { AdminList } from "./auth/admin-list";
 
 import type { UserInfo } from "types/auth";
-import { useShipOrderCount } from "service/order";
 
 export const AuthenticatedApp = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -199,6 +200,7 @@ export const AuthenticatedApp = () => {
 const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
   const { defaultOpenKey, selectedKey } = useRouteType();
   const { data: shipOrderCount } = useShipOrderCount();
+  const { data: waitingRefundCount } = useWaitingRefundCount();
 
   const items: MenuProps["items"] = [
     {
@@ -422,7 +424,17 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
       ],
     },
     {
-      label: "订单管理",
+      // label: "订单管理",
+      label: (
+        <Row between>
+          <span>订单管理</span>
+          {shipOrderCount + waitingRefundCount > 0 ? (
+            <Badge>{shipOrderCount + waitingRefundCount}</Badge>
+          ) : (
+            <></>
+          )}
+        </Row>
+      ),
       key: "order",
       icon: <SnippetsOutlined />,
       children: [
@@ -443,8 +455,20 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
           key: "order_list",
           icon: <UnorderedListOutlined />,
         },
+        // <Link to={"order/refund"}>售后处理</Link>
         {
-          label: <Link to={"order/refund"}>售后处理</Link>,
+          label: (
+            <Link to={"order/refund"}>
+              <Row between>
+                <span>售后处理</span>
+                {waitingRefundCount ? (
+                  <Badge>{waitingRefundCount}</Badge>
+                ) : (
+                  <></>
+                )}
+              </Row>
+            </Link>
+          ),
           key: "order_refund",
           icon: <TransactionOutlined />,
         },
@@ -589,11 +613,11 @@ const Content = styled(Layout.Content)`
 `;
 
 const Badge = styled.div`
-  padding: 0 3px;
+  padding: 1px 3px 0 2.5px;
   height: 14px;
   color: #fff;
   font-size: 10px;
-  line-height: 14px;
+  line-height: 1;
   background: #fc5531;
   border-radius: 4px;
 `;

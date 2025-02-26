@@ -76,3 +76,10 @@ export const useDeleteRefund = (queryKey: QueryKey) => {
     useDeleteConfig(queryKey)
   );
 };
+
+export const useWaitingRefundCount = () => {
+  const client = useHttp();
+  return useQuery(["waiting_refund_count"], () =>
+    client("refund/waiting_count")
+  );
+};
