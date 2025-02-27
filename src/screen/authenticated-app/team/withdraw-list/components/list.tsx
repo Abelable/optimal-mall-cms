@@ -10,6 +10,7 @@ import {
   TablePaginationConfig,
   TableProps,
   Tag,
+  Tooltip,
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
 import { UserOutlined } from "@ant-design/icons";
@@ -28,6 +29,7 @@ interface ListProps extends TableProps<Withdraw>, SearchPanelProps {
 export const List = ({
   statusOptions,
   sceneOptions,
+  pathOptions,
   error,
   params,
   setParams,
@@ -59,13 +61,18 @@ export const List = ({
           {
             title: "状态",
             dataIndex: "status",
-            render: (value) => (
-              <div
-                style={{ color: [0, 2].includes(value) ? "#faad14" : "#000" }}
-              >
-                {statusOptions.find((item) => item.value === value)?.text}
-              </div>
-            ),
+            render: (value, withdraw) =>
+              value === 0 ? (
+                <span style={{ color: "#faad14" }}>待审核</span>
+              ) : value === 1 ? (
+                <span style={{ color: "#52c41a" }}>已提现</span>
+              ) : (
+                <Tooltip title={withdraw.failureReason}>
+                  <span style={{ color: "#ff4d4f", cursor: "pointer" }}>
+                    已驳回
+                  </span>
+                </Tooltip>
+              ),
             filters: statusOptions,
             onFilter: (value, withdraw) => withdraw.status === value,
             width: "10rem",
@@ -126,7 +133,9 @@ export const List = ({
           {
             title: "提现方式",
             dataIndex: "path",
-            render: (value) => <>{["微信", "银行卡", "余额"][value - 1]}</>,
+            render: (value) => (
+              <>{pathOptions.find((item) => item.value === value)?.text}</>
+            ),
             width: "14rem",
           },
           {

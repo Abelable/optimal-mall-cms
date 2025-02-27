@@ -9,6 +9,7 @@ import type { WithdrawListSearchParams } from "types/withdraw";
 export interface SearchPanelProps {
   statusOptions: Option[];
   sceneOptions: Option[];
+  pathOptions: Option[];
   params: Partial<WithdrawListSearchParams>;
   setParams: (params: Partial<WithdrawListSearchParams>) => void;
 }
@@ -16,11 +17,13 @@ export interface SearchPanelProps {
 const defaultParmas: Partial<WithdrawListSearchParams> = {
   status: undefined,
   scene: undefined,
+  path: undefined,
 };
 
 export const SearchPanel = ({
   statusOptions,
   sceneOptions,
+  pathOptions,
   params,
   setParams,
 }: SearchPanelProps) => {
@@ -32,6 +35,9 @@ export const SearchPanel = ({
 
   const setScene = (scene: number) => setTempParams({ ...tempParams, scene });
   const clearScene = () => setTempParams({ ...tempParams, scene: undefined });
+
+  const setPath = (path: number) => setTempParams({ ...tempParams, path });
+  const clearPath = () => setTempParams({ ...tempParams, path: undefined });
 
   const clear = () => {
     setParams({ ...params, ...defaultParmas, page: 1 });
@@ -58,16 +64,33 @@ export const SearchPanel = ({
         </Select>
       </Item>
       <Item>
-        <div>场景：</div>
+        <div>佣金场景：</div>
         <Select
           style={{ width: "20rem" }}
           value={tempParams.scene}
-          placeholder="请选择场景"
+          placeholder="请选择佣金场景"
           allowClear
           onSelect={setScene}
           onClear={clearScene}
         >
           {sceneOptions?.map(({ text, value }) => (
+            <Select.Option key={value} value={value}>
+              {text}
+            </Select.Option>
+          ))}
+        </Select>
+      </Item>
+      <Item>
+        <div>提现方式：</div>
+        <Select
+          style={{ width: "20rem" }}
+          value={tempParams.path}
+          placeholder="请选择提现方式"
+          allowClear
+          onSelect={setPath}
+          onClear={clearPath}
+        >
+          {pathOptions?.map(({ text, value }) => (
             <Select.Option key={value} value={value}>
               {text}
             </Select.Option>

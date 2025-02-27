@@ -18,6 +18,11 @@ const sceneOptions = [
   { text: "分享", value: 2 },
   { text: "礼包", value: 3 },
 ];
+const pathOptions = [
+  { text: "微信", value: 1 },
+  { text: "银行卡", value: 2 },
+  { text: "余额", value: 3 },
+];
 
 export const WithdrawList = () => {
   const [params, setParams] = useWithdrawListSearchParams();
@@ -29,12 +34,14 @@ export const WithdrawList = () => {
         <SearchPanel
           statusOptions={statusOptions}
           sceneOptions={sceneOptions}
+          pathOptions={pathOptions}
           params={params}
           setParams={setParams}
         />
         <List
           statusOptions={statusOptions}
           sceneOptions={sceneOptions}
+          pathOptions={pathOptions}
           params={params}
           setParams={setParams}
           error={error}

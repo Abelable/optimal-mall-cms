@@ -6,6 +6,7 @@ export const useWithdrawListSearchParams = () => {
   const [params, setParams] = useUrlQueryParams([
     "status",
     "scene",
+    "path",
     "page",
     "limit",
   ]);
