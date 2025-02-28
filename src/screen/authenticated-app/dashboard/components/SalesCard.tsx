@@ -159,7 +159,7 @@ export const SalesCard = ({
                   </Col>
                   <Col xl={8} lg={12} md={12} sm={24} xs={24}>
                     <div className={styles.salesRank}>
-                      <h4 className={styles.rankingTitle}>门店销售额排名</h4>
+                      <h4 className={styles.rankingTitle}>商品销售额排名</h4>
                       <ul className={styles.rankingList}>
                         {rankingListData.map((item, i) => (
                           <li key={item.title}>
@@ -187,7 +187,7 @@ export const SalesCard = ({
             },
             {
               key: "views",
-              label: "访问量",
+              label: "订单量",
               children: (
                 <Row>
                   <Col xl={16} lg={12} md={12} sm={24} xs={24}>
@@ -210,7 +210,7 @@ export const SalesCard = ({
                           x: { paddingInner: 0.4 },
                         }}
                         tooltip={{
-                          name: "访问量",
+                          name: "订单量",
                           channel: "y",
                         }}
                       />
@@ -218,7 +218,7 @@ export const SalesCard = ({
                   </Col>
                   <Col xl={8} lg={12} md={12} sm={24} xs={24}>
                     <div className={styles.salesRank}>
-                      <h4 className={styles.rankingTitle}>门店访问量排名</h4>
+                      <h4 className={styles.rankingTitle}>商品订单量排名</h4>
                       <ul className={styles.rankingList}>
                         {rankingListData.map((item, i) => (
                           <li key={item.title}>

@@ -34,7 +34,7 @@ export const CommissionCard = ({
               children: (
                 <div style={{ padding: "32px", paddingTop: 0 }}>
                   <Column
-                    height={400}
+                    height={350}
                     data={salesData}
                     xField="x"
                     yField="y"
@@ -74,7 +74,7 @@ export const CommissionCard = ({
               children: (
                 <div style={{ padding: "32px", paddingTop: 0 }}>
                   <Column
-                    height={400}
+                    height={350}
                     data={salesData}
                     xField="x"
                     yField="y"
@@ -114,7 +114,7 @@ export const CommissionCard = ({
               children: (
                 <div style={{ padding: "32px", paddingTop: 0 }}>
                   <Column
-                    height={400}
+                    height={350}
                     data={salesData}
                     xField="x"
                     yField="y"
@@ -154,7 +154,7 @@ export const CommissionCard = ({
               children: (
                 <div style={{ padding: "32px", paddingTop: 0 }}>
                   <Column
-                    height={400}
+                    height={350}
                     data={salesData}
                     xField="x"
                     yField="y"
