@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
-import numeral from "numeral";
 import { forEach, groupBy } from "lodash";
 import {
   useOrderCountData,
@@ -12,14 +11,14 @@ import {
 import { getTimeDistance } from "./util";
 import useStyles from "./style.style";
 
-import { Pie } from "@ant-design/plots";
-import { Card, Typography } from "antd";
 import { IntroduceRow } from "./components/IntroduceRow";
 import { SalesCard } from "./components/SalesCard";
-
-import type { RangePickerProps } from "antd/es/date-picker/generatePicker/interface";
 import { CommissionCard } from "./components/CommissionCard";
 import { TodoListCard } from "./components/TodoListCard";
+import { TopPromoter } from "./components/TopPromoter";
+
+import type { RangePickerProps } from "antd/es/date-picker/generatePicker/interface";
+import { PromoterProportionCard } from "./components/PromoterProportionCard";
 
 type TimeType = "today" | "week" | "month" | "year";
 type RangePickerValue = RangePickerProps<dayjs.Dayjs>["value"];
@@ -166,32 +165,6 @@ export const Dashboard = () => {
       tooltip: false,
     });
   });
-  const salesPieData = [
-    {
-      x: "家用电器",
-      y: 4544,
-    },
-    {
-      x: "食用酒水",
-      y: 3321,
-    },
-    {
-      x: "个护健康",
-      y: 3113,
-    },
-    {
-      x: "服饰箱包",
-      y: 2341,
-    },
-    {
-      x: "母婴产品",
-      y: 1231,
-    },
-    {
-      x: "其他",
-      y: 1231,
-    },
-  ];
 
   const { data: _salesData, isLoading: salesLoading } = useSalesData();
   const { data: orderCountData, isLoading: orderCountLoading } =
@@ -277,46 +250,8 @@ export const Dashboard = () => {
         </CardList>
 
         <CardList>
-          <ChartCard title="销售额类别占比" bodyStyle={{ border: "none" }}>
-            <div>
-              <Typography.Text>销售额</Typography.Text>
-              <Pie
-                height={340}
-                radius={0.8}
-                innerRadius={0.5}
-                angleField="y"
-                colorField="x"
-                data={salesPieData as any}
-                legend={false}
-                label={{
-                  position: "spider",
-                  text: (item: { x: number; y: number }) => {
-                    return `${item.x}: ${numeral(item.y).format("0,0")}`;
-                  },
-                }}
-              />
-            </div>
-          </ChartCard>
-          <ChartCard title="推广员类别占比" bodyStyle={{ border: "none" }}>
-            <div>
-              <Typography.Text>推广员</Typography.Text>
-              <Pie
-                height={340}
-                radius={0.8}
-                innerRadius={0.5}
-                angleField="y"
-                colorField="x"
-                data={salesPieData as any}
-                legend={false}
-                label={{
-                  position: "spider",
-                  text: (item: { x: number; y: number }) => {
-                    return `${item.x}: ${numeral(item.y).format("0,0")}`;
-                  },
-                }}
-              />
-            </div>
-          </ChartCard>
+          <PromoterProportionCard loading={salesLoading} />
+          <TopPromoter loading={salesLoading} />
         </CardList>
       </Main>
     </Container>
@@ -338,16 +273,4 @@ const Main = styled.div`
 const CardList = styled.div`
   display: flex;
   margin-bottom: 2.4rem;
-`;
-
-const ChartCard = styled(Card)`
-  margin-right: 2.4rem;
-  flex: 1;
-  border-radius: 0.8rem;
-  &:last-child {
-    margin-right: 0;
-  }
-  canvas {
-    width: 100% !important;
-  }
 `;
