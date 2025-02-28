@@ -1,5 +1,6 @@
 import { Column } from "@ant-design/plots";
 import { Card, Col, DatePicker, Row, Tabs } from "antd";
+import { ButtonNoPadding } from "components/lib";
 import numeral from "numeral";
 import useStyles from "../style.style";
 
@@ -52,6 +53,7 @@ export const SalesCard = ({
           tabBarExtraContent={
             <div className={styles.salesExtraWrap}>
               <div className={styles.salesExtra}>
+                <ButtonNoPadding type="link">今日</ButtonNoPadding>
                 <a
                   className={isActive("today")}
                   onClick={() => selectDate("today")}
