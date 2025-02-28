@@ -36,15 +36,16 @@ import {
   EnvironmentOutlined,
   FlagOutlined,
   VerifiedOutlined,
-  HeartOutlined,
   TransactionOutlined,
   PayCircleOutlined,
   FireOutlined,
   NotificationOutlined,
   TagOutlined,
+  TruckOutlined,
+  SunOutlined,
 } from "@ant-design/icons";
 import logo from "assets/images/logo.png";
-import { CouponIcon, ExpressIcon } from "assets/icon";
+import { CouponIcon } from "assets/icon";
 
 import { Dashboard } from "./dashboard";
 import { UserList } from "./user-list";
@@ -150,7 +151,6 @@ export const AuthenticatedApp = () => {
                 element={<ActivityList />}
               />
               <Route path="activity/banner_list" element={<BannerList />} />
-              {/* <Route path="activity/list" element={<ActivityList />} /> */}
               <Route path="activity/coupon_list" element={<CouponList />} />
               <Route
                 path="activity/new_year/goods_list"
@@ -238,7 +238,7 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
         </Row>
       ),
       key: "team",
-      icon: <HeartOutlined />,
+      icon: <SunOutlined />,
       children: [
         {
           label: <Link to={"team/promoter_list"}>推广员列表</Link>,
@@ -490,7 +490,7 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
         {
           label: <Link to={"order/express_list"}>快递列表</Link>,
           key: "order_express_list",
-          icon: <ExpressIcon />,
+          icon: <TruckOutlined />,
         },
         {
           label: (
