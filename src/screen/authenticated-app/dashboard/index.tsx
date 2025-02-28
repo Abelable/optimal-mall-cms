@@ -1,4 +1,6 @@
+import { useState } from "react";
 import styled from "@emotion/styled";
+import dayjs from "dayjs";
 import numeral from "numeral";
 import { forEach, groupBy } from "lodash";
 import {
@@ -7,10 +9,18 @@ import {
   useSalesData,
   useUserCountData,
 } from "service/dashboard";
+import { getTimeDistance } from "./util";
 
 import { Column, Pie } from "@ant-design/plots";
 import { Card, Typography } from "antd";
 import { IntroduceRow } from "./components/IntroduceRow";
+import { SalesCard } from "./components/SalesCard";
+
+import type { RangePickerProps } from "antd/es/date-picker/generatePicker/interface";
+import useStyles from "./style.style";
+
+type TimeType = "today" | "week" | "month" | "year";
+type RangePickerValue = RangePickerProps<dayjs.Dayjs>["value"];
 
 export const Dashboard = () => {
   const salesData = [
@@ -181,10 +191,40 @@ export const Dashboard = () => {
     },
   ];
 
-  const { data: _salesData } = useSalesData();
+  const { data: _salesData, isLoading } = useSalesData();
   const { data: orderCountData } = useOrderCountData();
   const { data: userCountData } = useUserCountData();
   const { data: promoterCountData } = usePromoterCountData();
+
+  const { styles } = useStyles();
+  const [rangePickerValue, setRangePickerValue] = useState<RangePickerValue>(
+    getTimeDistance("year")
+  );
+  const handleRangePickerChange = (value: RangePickerValue) => {
+    setRangePickerValue(value);
+  };
+  const selectDate = (type: TimeType) => {
+    setRangePickerValue(getTimeDistance(type));
+  };
+  const isActive = (type: TimeType) => {
+    if (!rangePickerValue) {
+      return "";
+    }
+    const value = getTimeDistance(type);
+    if (!value) {
+      return "";
+    }
+    if (!rangePickerValue[0] || !rangePickerValue[1]) {
+      return "";
+    }
+    if (
+      rangePickerValue[0].isSame(value[0] as dayjs.Dayjs, "day") &&
+      rangePickerValue[1].isSame(value[1] as dayjs.Dayjs, "day")
+    ) {
+      return styles.currentDate;
+    }
+    return "";
+  };
 
   return (
     <Container>
@@ -194,6 +234,28 @@ export const Dashboard = () => {
           orderCountData={orderCountData}
           userCountData={userCountData}
           promoterCountData={promoterCountData}
+        />
+
+        <SalesCard
+          rangePickerValue={rangePickerValue}
+          salesData={[
+            { x: "1月", y: 851 },
+            { x: "2月", y: 1120 },
+            { x: "3月", y: 203 },
+            { x: "4月", y: 802 },
+            { x: "5月", y: 912 },
+            { x: "6月", y: 617 },
+            { x: "7月", y: 912 },
+            { x: "8月", y: 979 },
+            { x: "9月", y: 1108 },
+            { x: "10月", y: 944 },
+            { x: "11月", y: 776 },
+            { x: "12月", y: 1049 },
+          ]}
+          isActive={isActive}
+          loading={isLoading}
+          handleRangePickerChange={handleRangePickerChange}
+          selectDate={selectDate}
         />
 
         <CardList>
