@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 
 import { Area, Column } from "@ant-design/plots";
 import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
-import { Statistic } from "antd";
+import { Card, Statistic } from "antd";
 
 import type {
   OrderCountData,
@@ -17,14 +17,22 @@ export const IntroduceRow = ({
   orderCountData,
   userCountData,
   promoterCountData,
+  salesLoading,
+  orderCountLoading,
+  userCountLoading,
+  promoterCountLoading,
 }: {
   salesData: SalesData | undefined;
   orderCountData: OrderCountData | undefined;
   userCountData: UserCountData | undefined;
   promoterCountData: PromoterCountData | undefined;
+  salesLoading: boolean;
+  orderCountLoading: boolean;
+  userCountLoading: boolean;
+  promoterCountLoading: boolean;
 }) => (
   <CardList>
-    <StatisticCard>
+    <StatisticCard loading={salesLoading}>
       <Statistic
         title="总销售额"
         value={salesData?.totalSales}
@@ -73,7 +81,7 @@ export const IntroduceRow = ({
         </Row>
       </CardBottom>
     </StatisticCard>
-    <StatisticCard>
+    <StatisticCard loading={orderCountLoading}>
       <Statistic
         title={
           <div
@@ -137,7 +145,7 @@ export const IntroduceRow = ({
         </Row>
       </CardBottom>
     </StatisticCard>
-    <StatisticCard>
+    <StatisticCard loading={userCountLoading}>
       <Statistic
         title={
           <div
@@ -196,7 +204,7 @@ export const IntroduceRow = ({
         </Row>
       </CardBottom>
     </StatisticCard>
-    <StatisticCard>
+    <StatisticCard loading={promoterCountLoading}>
       <Statistic
         title="推广员总数"
         value={promoterCountData?.totalCount}
@@ -251,15 +259,12 @@ const CardList = styled.div`
   display: flex;
   margin-bottom: 2.4rem;
 `;
-const StatisticCard = styled.div`
+const StatisticCard = styled(Card)`
   display: flex;
   flex-direction: column;
   margin-right: 2.4rem;
-  padding: 2rem 2.4rem 0;
   flex: 1;
-  height: 20rem;
-  background: #fff;
-  border-radius: 0.8rem;
+  height: 21rem;
   &:last-child {
     margin-right: 0;
   }

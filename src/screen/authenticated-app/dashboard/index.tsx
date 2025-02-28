@@ -191,10 +191,13 @@ export const Dashboard = () => {
     },
   ];
 
-  const { data: _salesData, isLoading } = useSalesData();
-  const { data: orderCountData } = useOrderCountData();
-  const { data: userCountData } = useUserCountData();
-  const { data: promoterCountData } = usePromoterCountData();
+  const { data: _salesData, isLoading: salesLoading } = useSalesData();
+  const { data: orderCountData, isLoading: orderCountLoading } =
+    useOrderCountData();
+  const { data: userCountData, isLoading: userCountLoading } =
+    useUserCountData();
+  const { data: promoterCountData, isLoading: promoterCountLoading } =
+    usePromoterCountData();
 
   const { styles } = useStyles();
   const [rangePickerValue, setRangePickerValue] = useState<RangePickerValue>(
@@ -234,6 +237,10 @@ export const Dashboard = () => {
           orderCountData={orderCountData}
           userCountData={userCountData}
           promoterCountData={promoterCountData}
+          salesLoading={salesLoading}
+          orderCountLoading={orderCountLoading}
+          userCountLoading={userCountLoading}
+          promoterCountLoading={promoterCountLoading}
         />
 
         <SalesCard
@@ -253,7 +260,7 @@ export const Dashboard = () => {
             { x: "12月", y: 1049 },
           ]}
           isActive={isActive}
-          loading={isLoading}
+          loading={salesLoading}
           handleRangePickerChange={handleRangePickerChange}
           selectDate={selectDate}
         />

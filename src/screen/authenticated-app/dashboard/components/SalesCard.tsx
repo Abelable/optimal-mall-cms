@@ -45,6 +45,7 @@ export const SalesCard = ({
       bodyStyle={{
         padding: 0,
       }}
+      style={{ marginBottom: "2.4rem" }}
     >
       <div className={styles.salesCard}>
         <Tabs
