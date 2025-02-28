@@ -53,7 +53,13 @@ export const SalesCard = ({
           tabBarExtraContent={
             <div className={styles.salesExtraWrap}>
               <div className={styles.salesExtra}>
-                <ButtonNoPadding type="link">今日</ButtonNoPadding>
+                <ButtonNoPadding
+                  type="link"
+                  className={isActive("today")}
+                  onClick={() => selectDate("today")}
+                >
+                  今日
+                </ButtonNoPadding>
                 <a
                   className={isActive("today")}
                   onClick={() => selectDate("today")}
