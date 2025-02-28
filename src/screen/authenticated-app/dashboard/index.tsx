@@ -273,77 +273,9 @@ export const Dashboard = () => {
             annotations={annotations}
             loading={salesLoading}
           />
-          {/* <ChartCard title="商品佣金" bodyStyle={{ border: "none" }}>
-            <Column
-              height={300}
-              data={salesData}
-              xField="x"
-              yField="y"
-              colorField="type"
-              label={{
-                text: "y",
-                textBaseline: "bottom",
-                position: "inside",
-              }}
-              stack
-              annotations={annotations}
-              paddingBottom={12}
-              axis={{
-                x: {
-                  title: false,
-                },
-                y: {
-                  title: false,
-                  gridLineDash: null,
-                  gridStroke: "#ccc",
-                },
-              }}
-              scale={{
-                x: { paddingInner: 0.4 },
-              }}
-              tooltip={{
-                name: "销售量",
-                channel: "y",
-              }}
-            />
-          </ChartCard> */}
-
-          {/* <ChartCard title="礼包佣金" bodyStyle={{ border: "none" }}>
-            <Column
-              height={300}
-              data={salesData}
-              xField="x"
-              yField="y"
-              colorField="type"
-              label={{
-                text: "y",
-                textBaseline: "bottom",
-                position: "inside",
-              }}
-              stack
-              annotations={annotations}
-              paddingBottom={12}
-              axis={{
-                x: {
-                  title: false,
-                },
-                y: {
-                  title: false,
-                  gridLineDash: null,
-                  gridStroke: "#ccc",
-                },
-              }}
-              scale={{
-                x: { paddingInner: 0.4 },
-              }}
-              tooltip={{
-                name: "销售量",
-                channel: "y",
-              }}
-            />
-          </ChartCard> */}
           <TodoListCard loading={salesLoading} />
         </CardList>
+
         <CardList>
           <ChartCard title="销售额类别占比" bodyStyle={{ border: "none" }}>
             <div>
