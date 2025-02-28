@@ -18,6 +18,7 @@ import { SalesCard } from "./components/SalesCard";
 
 import type { RangePickerProps } from "antd/es/date-picker/generatePicker/interface";
 import useStyles from "./style.style";
+import { CommissionCard } from "./components/CommissionCard";
 
 type TimeType = "today" | "week" | "month" | "year";
 type RangePickerValue = RangePickerProps<dayjs.Dayjs>["value"];
@@ -266,7 +267,12 @@ export const Dashboard = () => {
         />
 
         <CardList>
-          <ChartCard title="商品佣金" bodyStyle={{ border: "none" }}>
+          <CommissionCard
+            salesData={salesData}
+            annotations={annotations}
+            loading={salesLoading}
+          />
+          {/* <ChartCard title="商品佣金" bodyStyle={{ border: "none" }}>
             <Column
               height={300}
               data={salesData}
@@ -299,7 +305,8 @@ export const Dashboard = () => {
                 channel: "y",
               }}
             />
-          </ChartCard>
+          </ChartCard> */}
+
           <ChartCard title="礼包佣金" bodyStyle={{ border: "none" }}>
             <Column
               height={300}
