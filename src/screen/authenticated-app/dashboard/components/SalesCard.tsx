@@ -57,12 +57,37 @@ export const SalesCard = ({
                   type="link"
                   className={isActive("today")}
                   onClick={() => selectDate("today")}
+                  style={{ marginLeft: "2.4rem" }}
                 >
                   今日
                 </ButtonNoPadding>
-                <a
-                  className={isActive("today")}
-                  onClick={() => selectDate("today")}
+                <ButtonNoPadding
+                  type="link"
+                  className={isActive("week")}
+                  onClick={() => selectDate("week")}
+                  style={{ marginLeft: "2.4rem" }}
+                >
+                  本周
+                </ButtonNoPadding>
+                <ButtonNoPadding
+                  type="link"
+                  className={isActive("month")}
+                  onClick={() => selectDate("month")}
+                  style={{ marginLeft: "2.4rem" }}
+                >
+                  本月
+                </ButtonNoPadding>
+                <ButtonNoPadding
+                  type="link"
+                  className={isActive("year")}
+                  onClick={() => selectDate("year")}
+                  style={{ marginLeft: "2.4rem" }}
+                >
+                  本年
+                </ButtonNoPadding>
+                {/* <a
+                  className={isActive("month")}
+                  onClick={() => selectDate("month")}
                 >
                   今日
                 </a>
@@ -83,7 +108,7 @@ export const SalesCard = ({
                   onClick={() => selectDate("year")}
                 >
                   本年
-                </a>
+                </a> */}
               </div>
               <RangePicker
                 value={rangePickerValue}
