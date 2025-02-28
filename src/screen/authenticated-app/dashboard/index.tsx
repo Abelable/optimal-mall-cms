@@ -1,17 +1,18 @@
 import styled from "@emotion/styled";
-import { Statistic, Card, Typography } from "antd";
-
-import { Area, Column, Pie } from "@ant-design/plots";
-import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
 import numeral from "numeral";
 import { forEach, groupBy } from "lodash";
+import dayjs from "dayjs";
 import {
   useOrderCountData,
   usePromoterCountData,
   useSalesData,
   useUserCountData,
 } from "service/dashboard";
-import dayjs from "dayjs";
+
+import { Area, Column, Pie } from "@ant-design/plots";
+import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
+import { Statistic, Card, Typography } from "antd";
+import { IntroduceRow } from "./components/IntroduceRow";
 
 export const Dashboard = () => {
   const salesData = [
@@ -190,7 +191,7 @@ export const Dashboard = () => {
   return (
     <Container>
       <Main>
-        <CardList>
+        {/* <CardList>
           <StatisticCard>
             <Statistic
               title="总销售额"
@@ -407,7 +408,14 @@ export const Dashboard = () => {
               </Row>
             </CardBottom>
           </StatisticCard>
-        </CardList>
+        </CardList> */}
+        <IntroduceRow
+          salesData={_salesData}
+          orderCountData={orderCountData}
+          userCountData={userCountData}
+          promoterCountData={promoterCountData}
+        />
+
         <CardList>
           <ChartCard title="商品佣金" bodyStyle={{ border: "none" }}>
             <Column
