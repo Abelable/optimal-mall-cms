@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Card } from "antd";
 import { Pie } from "@ant-design/plots";
+import { PageTitle, Row } from "components/lib";
 
 export const PromoterProportionCard = ({ loading }: { loading: boolean }) => {
   const config = {
@@ -30,7 +31,11 @@ export const PromoterProportionCard = ({ loading }: { loading: boolean }) => {
 
   return (
     <ChartCard
-      title="推广员类别占比"
+      title={
+        <Row>
+          <PageTitle>推广员类别占比</PageTitle>
+        </Row>
+      }
       bodyStyle={{ border: "none" }}
       loading={loading}
     >

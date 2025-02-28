@@ -1,4 +1,5 @@
 import { Card, Table } from "antd";
+import { PageTitle, Row } from "components/lib";
 
 const promoterList = [
   { nickname: "jjjsjs", amount: 122, count: 1111 },
@@ -78,7 +79,11 @@ export const TopPromoter = ({ loading }: { loading: boolean }) => {
     <Card
       loading={loading}
       bordered={false}
-      title="推广员排行榜"
+      title={
+        <Row>
+          <PageTitle>推广员排行榜</PageTitle>
+        </Row>
+      }
       style={{
         flex: 5,
         height: "100%",
