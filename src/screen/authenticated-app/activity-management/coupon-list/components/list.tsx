@@ -273,6 +273,7 @@ const More = ({ id, status }: { id: number; status: number }) => {
 const Container = styled.div`
   padding: 2.4rem;
   background: #fff;
+  border-radius: 0.6rem;
 `;
 
 const Header = styled(Row)`
