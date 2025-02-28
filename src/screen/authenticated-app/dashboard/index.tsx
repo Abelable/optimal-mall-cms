@@ -10,15 +10,16 @@ import {
   useUserCountData,
 } from "service/dashboard";
 import { getTimeDistance } from "./util";
+import useStyles from "./style.style";
 
-import { Column, Pie } from "@ant-design/plots";
+import { Pie } from "@ant-design/plots";
 import { Card, Typography } from "antd";
 import { IntroduceRow } from "./components/IntroduceRow";
 import { SalesCard } from "./components/SalesCard";
 
 import type { RangePickerProps } from "antd/es/date-picker/generatePicker/interface";
-import useStyles from "./style.style";
 import { CommissionCard } from "./components/CommissionCard";
+import { TodoListCard } from "./components/TodoListCard";
 
 type TimeType = "today" | "week" | "month" | "year";
 type RangePickerValue = RangePickerProps<dayjs.Dayjs>["value"];
@@ -307,7 +308,7 @@ export const Dashboard = () => {
             />
           </ChartCard> */}
 
-          <ChartCard title="礼包佣金" bodyStyle={{ border: "none" }}>
+          {/* <ChartCard title="礼包佣金" bodyStyle={{ border: "none" }}>
             <Column
               height={300}
               data={salesData}
@@ -340,7 +341,8 @@ export const Dashboard = () => {
                 channel: "y",
               }}
             />
-          </ChartCard>
+          </ChartCard> */}
+          <TodoListCard loading={salesLoading} />
         </CardList>
         <CardList>
           <ChartCard title="销售额类别占比" bodyStyle={{ border: "none" }}>
