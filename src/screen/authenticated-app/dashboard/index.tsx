@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import { forEach, groupBy } from "lodash";
 import {
+  useCommissionData,
   useOrderCountData,
   usePromoterCountData,
   useSalesData,
@@ -182,6 +183,8 @@ export const Dashboard = () => {
     useUserCountData();
   const { data: promoterCountData, isLoading: promoterCountLoading } =
     usePromoterCountData();
+  const { data: commissionData, isLoading: commissionLoading } =
+    useCommissionData();
 
   const { styles } = useStyles();
 
@@ -238,9 +241,8 @@ export const Dashboard = () => {
 
         <CardList>
           <CommissionCard
-            salesData={salesData}
-            annotations={annotations}
-            loading={salesLoading}
+            commissionData={commissionData}
+            loading={commissionLoading}
           />
           <TodoListCard loading={salesLoading} />
         </CardList>

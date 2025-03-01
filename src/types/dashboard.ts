@@ -30,3 +30,9 @@ export interface TopGoodsList {
     count: number;
   }[];
 }
+
+export interface CommissionData {
+  monthlyCommissionList: { month: string; sum: number }[];
+  monthlyGiftCommissionList: { month: string; sum: number }[];
+  monthlyTeamCommissionList: { month: string; sum: number }[];
+}

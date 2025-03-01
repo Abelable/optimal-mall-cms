@@ -1,196 +1,96 @@
-import { Column } from "@ant-design/charts";
-import { Card, Tabs } from "antd";
-import useStyles from "../style.style";
+import { Column, Line } from "@ant-design/charts";
+import { Card } from "antd";
+import { PageTitle, Row } from "components/lib";
+import type { CommissionData } from "types/dashboard";
 
 export const CommissionCard = ({
-  salesData,
-  annotations,
+  commissionData,
   loading,
 }: {
-  salesData: { x: string; y: number; type: string }[];
-  annotations: any[];
+  commissionData: CommissionData | undefined;
   loading: boolean;
 }) => {
-  const { styles } = useStyles();
+  // const data = ;
+
+  // const data =
+
+  // console.log('data', data)
+  const config = {
+    // data: commissionData?.monthlyCommissionList.map((item) => {
+    //   const giftCommission = commissionData.monthlyGiftCommissionList.find(_item => _item.month === item.month)?.sum || 0;
+    //   const teamCommission = commissionData.monthlyTeamCommissionList.find(_item => _item.month === item.month)?.sum || 0;
+    //   return [
+    //       {
+    //       name: "商品佣金",
+    //       month: item.month,
+    //       sum: +item.sum.toFixed(2)
+    //     },
+    //     {
+    //       name: "礼包佣金",
+    //       month:  item.month,
+    //       sum: +giftCommission.toFixed(2)
+    //     },
+    //     {
+    //       name: "团队佣金",
+    //       month:  item.month,
+    //       sum: +teamCommission.toFixed(2)
+    //     }
+    //   ]
+    // }).reduce((a, b) => [...a, ...b], []),
+    data: [
+      ...(commissionData?.monthlyCommissionList
+        ? commissionData?.monthlyCommissionList.map((item) => ({
+            name: "商品佣金",
+            month: item.month,
+            sum: +item.sum.toFixed(2),
+          }))
+        : []),
+      ...(commissionData?.monthlyGiftCommissionList
+        ? commissionData?.monthlyGiftCommissionList.map((item) => ({
+            name: "礼包佣金",
+            month: item.month,
+            sum: +item.sum.toFixed(2),
+          }))
+        : []),
+      ...(commissionData?.monthlyTeamCommissionList
+        ? commissionData?.monthlyTeamCommissionList.map((item) => ({
+            name: "团队佣金",
+            month: item.month,
+            sum: +item.sum.toFixed(2),
+          }))
+        : []),
+    ],
+    xField: "month",
+    yField: "sum",
+    colorField: "name",
+    group: true,
+    style: {
+      inset: 5,
+    },
+    // onReady: ({ chart }: { chart: any }) => {
+    //   try {
+    //     chart.on('afterrender', () => {
+    //       chart.emit('legend:filter', {
+    //         data: { channel: 'color', values: ['London'] },
+    //       });
+    //     });
+    //   } catch (e) {
+    //     console.error(e);
+    //   }
+    // },
+  };
   return (
     <Card
       loading={loading}
-      variant="borderless"
-      styles={{
-        body: { padding: 0 },
-      }}
+      title={
+        <Row>
+          <PageTitle>佣金记录</PageTitle>
+        </Row>
+      }
       style={{ flex: 2 }}
     >
-      <div className={styles.salesCard}>
-        <Tabs
-          size="large"
-          tabBarStyle={{
-            marginBottom: 24,
-          }}
-          items={[
-            {
-              key: "share_goods_commission",
-              label: "分享佣金",
-              children: (
-                <div style={{ padding: "32px", paddingTop: 0 }}>
-                  <Column
-                    height={350}
-                    data={salesData}
-                    xField="x"
-                    yField="y"
-                    colorField="type"
-                    label={{
-                      text: "y",
-                      textBaseline: "bottom",
-                      position: "inside",
-                    }}
-                    stack
-                    annotations={annotations}
-                    paddingBottom={12}
-                    axis={{
-                      x: {
-                        title: false,
-                      },
-                      y: {
-                        title: false,
-                        gridLineDash: null,
-                        gridStroke: "#ccc",
-                      },
-                    }}
-                    scale={{
-                      x: { paddingInner: 0.4 },
-                    }}
-                    tooltip={{
-                      name: "销售量",
-                      channel: "y",
-                    }}
-                  />
-                </div>
-              ),
-            },
-            {
-              key: "self_goods_commission",
-              label: "自购佣金",
-              children: (
-                <div style={{ padding: "32px", paddingTop: 0 }}>
-                  <Column
-                    height={350}
-                    data={salesData}
-                    xField="x"
-                    yField="y"
-                    colorField="type"
-                    label={{
-                      text: "y",
-                      textBaseline: "bottom",
-                      position: "inside",
-                    }}
-                    stack
-                    annotations={annotations}
-                    paddingBottom={12}
-                    axis={{
-                      x: {
-                        title: false,
-                      },
-                      y: {
-                        title: false,
-                        gridLineDash: null,
-                        gridStroke: "#ccc",
-                      },
-                    }}
-                    scale={{
-                      x: { paddingInner: 0.4 },
-                    }}
-                    tooltip={{
-                      name: "销售量",
-                      channel: "y",
-                    }}
-                  />
-                </div>
-              ),
-            },
-            {
-              key: "gift_commission",
-              label: "礼包佣金",
-              children: (
-                <div style={{ padding: "32px", paddingTop: 0 }}>
-                  <Column
-                    height={350}
-                    data={salesData}
-                    xField="x"
-                    yField="y"
-                    colorField="type"
-                    label={{
-                      text: "y",
-                      textBaseline: "bottom",
-                      position: "inside",
-                    }}
-                    stack
-                    annotations={annotations}
-                    paddingBottom={12}
-                    axis={{
-                      x: {
-                        title: false,
-                      },
-                      y: {
-                        title: false,
-                        gridLineDash: null,
-                        gridStroke: "#ccc",
-                      },
-                    }}
-                    scale={{
-                      x: { paddingInner: 0.4 },
-                    }}
-                    tooltip={{
-                      name: "销售量",
-                      channel: "y",
-                    }}
-                  />
-                </div>
-              ),
-            },
-            {
-              key: "team_commission",
-              label: "团队佣金",
-              children: (
-                <div style={{ padding: "32px", paddingTop: 0 }}>
-                  <Column
-                    height={350}
-                    data={salesData}
-                    xField="x"
-                    yField="y"
-                    colorField="type"
-                    label={{
-                      text: "y",
-                      textBaseline: "bottom",
-                      position: "inside",
-                    }}
-                    stack
-                    annotations={annotations}
-                    paddingBottom={12}
-                    axis={{
-                      x: {
-                        title: false,
-                      },
-                      y: {
-                        title: false,
-                        gridLineDash: null,
-                        gridStroke: "#ccc",
-                      },
-                    }}
-                    scale={{
-                      x: { paddingInner: 0.4 },
-                    }}
-                    tooltip={{
-                      name: "销售量",
-                      channel: "y",
-                    }}
-                  />
-                </div>
-              ),
-            },
-          ]}
-        />
-      </div>
+      {/* <Column height={350} {...config} /> */}
+      <Line height={350} {...config} />
     </Card>
   );
 };

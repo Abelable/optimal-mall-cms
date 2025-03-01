@@ -2,6 +2,7 @@ import { useQuery } from "react-query";
 import { useHttp } from "./http";
 
 import type {
+  CommissionData,
   OrderCountData,
   PromoterCountData,
   SalesData,
@@ -44,5 +45,12 @@ export const useTopGoodsList = (params: {
   const client = useHttp();
   return useQuery<TopGoodsList>(["top_goods_list", params], () =>
     client("dashboard/top_goods_list", { data: params })
+  );
+};
+
+export const useCommissionData = () => {
+  const client = useHttp();
+  return useQuery<CommissionData>(["commission_data"], () =>
+    client("dashboard/commission_data")
   );
 };
