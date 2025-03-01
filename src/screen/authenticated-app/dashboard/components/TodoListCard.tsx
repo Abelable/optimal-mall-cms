@@ -1,14 +1,27 @@
 import styled from "@emotion/styled";
 import { Badge, Card, Empty } from "antd";
 import { ButtonNoPadding, PageTitle, Row } from "components/lib";
+import { Link } from "react-router-dom";
 import type { Todo } from "types/dashboard";
 
-const typeDescOptions = [
-  "您有一笔待发货订单，请及时处理",
-  "您有一笔售后处理订单，请及时处理",
-  "用户提交了实名认证审核，请及时处理",
-  "用户提交了企业认证审核，请及时处理",
-  "用户提交了佣金提现申请，请及时处理",
+const typeOptions = [
+  { desc: "您有一笔待发货订单，请及时处理", path: "/order/list", value: 1 },
+  { desc: "您有一笔售后处理订单，请及时处理", path: "/order/refund", value: 2 },
+  {
+    desc: "用户提交了实名认证审核，请及时处理",
+    path: "/team/auth_info_list",
+    value: 3,
+  },
+  {
+    desc: "用户提交了企业认证审核，请及时处理",
+    path: "/team/enterprise_info_list",
+    value: 4,
+  },
+  {
+    desc: "用户提交了佣金提现申请，请及时处理",
+    path: "/team/withdraw_list",
+    value: 5,
+  },
 ];
 
 export const TodoListCard = ({
@@ -32,8 +45,20 @@ export const TodoListCard = ({
       <div style={{ height: "37rem", overflowY: "scroll" }}>
         {todoList.map((item) => (
           <TodoItem>
-            <Badge status="processing" text={typeDescOptions[item.type - 1]} />
-            <ButtonNoPadding type="link">立即处理</ButtonNoPadding>
+            <Badge
+              status="processing"
+              text={
+                typeOptions.find((_item) => _item.value === item.type)?.desc
+              }
+            />
+            <Link
+              to={
+                typeOptions.find((_item) => _item.value === item.type)?.path ||
+                ""
+              }
+            >
+              <ButtonNoPadding type="link">立即处理</ButtonNoPadding>
+            </Link>
           </TodoItem>
         ))}
       </div>
