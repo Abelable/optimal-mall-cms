@@ -8,6 +8,7 @@ export const useActivityListSearchParams = () => {
     "status",
     "tag",
     "goodsTag",
+    "goodsId",
     "page",
     "limit",
   ]);
