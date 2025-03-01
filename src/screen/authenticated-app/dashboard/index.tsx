@@ -220,20 +220,7 @@ export const Dashboard = () => {
 
         <SalesCard
           rangePickerValue={rangePickerValue}
-          salesData={[
-            { x: "1月", y: 851 },
-            { x: "2月", y: 1120 },
-            { x: "3月", y: 203 },
-            { x: "4月", y: 802 },
-            { x: "5月", y: 912 },
-            { x: "6月", y: 617 },
-            { x: "7月", y: 912 },
-            { x: "8月", y: 979 },
-            { x: "9月", y: 1108 },
-            { x: "10月", y: 944 },
-            { x: "11月", y: 776 },
-            { x: "12月", y: 1049 },
-          ]}
+          salesData={_salesData}
           isActive={isActive}
           loading={salesLoading}
           handleRangePickerChange={handleRangePickerChange}

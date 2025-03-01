@@ -3,6 +3,7 @@ export interface SalesData {
   dailySalesList: { createdAt: string; sum: number }[];
   dailyGrowthRate: number;
   weeklyGrowthRate: number;
+  monthlySalesList: { month: string; sum: number }[];
 }
 
 export interface OrderCountData {

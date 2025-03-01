@@ -56,7 +56,7 @@ export const IntroduceRow = ({
             salesData?.dailySalesList
               ? salesData?.dailySalesList.map((item) => ({
                   x: dayjs(item.createdAt).format("YYYY-MM-DD"),
-                  y: Math.round(item.sum),
+                  y: +item.sum.toFixed(2),
                 }))
               : []
           }
@@ -120,7 +120,7 @@ export const IntroduceRow = ({
             orderCountData?.dailyCountList
               ? orderCountData?.dailyCountList.map((item) => ({
                   x: dayjs(item.createdAt).format("YYYY-MM-DD"),
-                  y: Math.round(item.count),
+                  y: item.count,
                 }))
               : []
           }
@@ -178,7 +178,7 @@ export const IntroduceRow = ({
             userCountData?.dailyCountList
               ? userCountData?.dailyCountList.map((item) => ({
                   x: dayjs(item.createdAt).format("YYYY-MM-DD"),
-                  y: Math.round(item.count),
+                  y: item.count,
                 }))
               : []
           }
@@ -221,7 +221,7 @@ export const IntroduceRow = ({
             promoterCountData?.dailyCountList
               ? promoterCountData?.dailyCountList.map((item) => ({
                   x: dayjs(item.createdAt).format("YYYY-MM-DD"),
-                  y: Math.round(item.count),
+                  y: item.count,
                 }))
               : []
           }

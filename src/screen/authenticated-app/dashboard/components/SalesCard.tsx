@@ -4,9 +4,9 @@ import { ButtonNoPadding } from "components/lib";
 import numeral from "numeral";
 import useStyles from "../style.style";
 
-import type { DataItem } from "../data";
 import type dayjs from "dayjs";
 import type { RangePickerProps } from "antd/es/date-picker/generatePicker/interface";
+import type { SalesData } from "types/dashboard";
 
 export type TimeType = "today" | "week" | "month" | "year";
 const { RangePicker } = DatePicker;
@@ -23,6 +23,21 @@ for (let i = 0; i < 7; i += 1) {
   });
 }
 
+const data = [
+  { x: "1月", y: 851 },
+  { x: "2月", y: 1120 },
+  { x: "3月", y: 203 },
+  { x: "4月", y: 802 },
+  { x: "5月", y: 912 },
+  { x: "6月", y: 617 },
+  { x: "7月", y: 912 },
+  { x: "8月", y: 979 },
+  { x: "9月", y: 1108 },
+  { x: "10月", y: 944 },
+  { x: "11月", y: 776 },
+  { x: "12月", y: 1049 },
+];
+
 export const SalesCard = ({
   rangePickerValue,
   salesData,
@@ -31,9 +46,9 @@ export const SalesCard = ({
   handleRangePickerChange,
   selectDate,
 }: {
+  salesData: SalesData | undefined;
   rangePickerValue: RangePickerProps<dayjs.Dayjs>["value"];
   isActive: (key: TimeType) => string;
-  salesData: DataItem[];
   loading: boolean;
   handleRangePickerChange: RangePickerProps<dayjs.Dayjs>["onChange"];
   selectDate: (key: TimeType) => void;
@@ -133,7 +148,14 @@ export const SalesCard = ({
                     <div className={styles.salesBar}>
                       <Column
                         height={300}
-                        data={salesData}
+                        data={
+                          salesData?.monthlySalesList
+                            ? salesData?.monthlySalesList?.map((item) => ({
+                                x: item.month,
+                                y: +item.sum.toFixed(2),
+                              }))
+                            : []
+                        }
                         xField="x"
                         yField="y"
                         paddingBottom={12}
@@ -151,7 +173,7 @@ export const SalesCard = ({
                           x: { paddingInner: 0.4 },
                         }}
                         tooltip={{
-                          name: "销售量",
+                          name: "销售额",
                           channel: "y",
                         }}
                       />
@@ -194,7 +216,7 @@ export const SalesCard = ({
                     <div className={styles.salesBar}>
                       <Column
                         height={300}
-                        data={salesData}
+                        data={data}
                         xField="x"
                         yField="y"
                         paddingBottom={12}
