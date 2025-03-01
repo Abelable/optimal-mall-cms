@@ -5,6 +5,7 @@ import type {
   OrderCountData,
   PromoterCountData,
   SalesData,
+  TopGoodsList,
   UserCountData,
 } from "types/dashboard";
 
@@ -33,5 +34,15 @@ export const usePromoterCountData = () => {
   const client = useHttp();
   return useQuery<PromoterCountData>(["promoter_count_data"], () =>
     client("dashboard/promoter_count_data")
+  );
+};
+
+export const useTopGoodsList = (params: {
+  startDate: string;
+  endDate: string;
+}) => {
+  const client = useHttp();
+  return useQuery<TopGoodsList>(["top_goods_list", params], () =>
+    client("dashboard/top_goods_list", { data: params })
   );
 };

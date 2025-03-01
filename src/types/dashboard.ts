@@ -20,3 +20,13 @@ export interface UserCountData extends Omit<OrderCountData, "repurchaseRate"> {
 }
 
 export interface PromoterCountData extends OrderCountData {}
+
+export interface TopGoodsList {
+  topSalesGoodsList: { id: number; cover: string; name: string; sum: number }[];
+  topOrderCountGoodsList: {
+    id: number;
+    cover: string;
+    name: string;
+    count: number;
+  }[];
+}
