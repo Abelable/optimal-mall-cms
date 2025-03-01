@@ -221,6 +221,7 @@ export const Dashboard = () => {
         <SalesCard
           rangePickerValue={rangePickerValue}
           salesData={_salesData}
+          orderCountData={orderCountData}
           isActive={isActive}
           loading={salesLoading}
           handleRangePickerChange={handleRangePickerChange}

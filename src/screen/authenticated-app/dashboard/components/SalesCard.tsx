@@ -6,7 +6,7 @@ import useStyles from "../style.style";
 
 import type dayjs from "dayjs";
 import type { RangePickerProps } from "antd/es/date-picker/generatePicker/interface";
-import type { SalesData } from "types/dashboard";
+import type { OrderCountData, SalesData } from "types/dashboard";
 
 export type TimeType = "today" | "week" | "month" | "year";
 const { RangePicker } = DatePicker;
@@ -23,30 +23,17 @@ for (let i = 0; i < 7; i += 1) {
   });
 }
 
-const data = [
-  { x: "1月", y: 851 },
-  { x: "2月", y: 1120 },
-  { x: "3月", y: 203 },
-  { x: "4月", y: 802 },
-  { x: "5月", y: 912 },
-  { x: "6月", y: 617 },
-  { x: "7月", y: 912 },
-  { x: "8月", y: 979 },
-  { x: "9月", y: 1108 },
-  { x: "10月", y: 944 },
-  { x: "11月", y: 776 },
-  { x: "12月", y: 1049 },
-];
-
 export const SalesCard = ({
-  rangePickerValue,
   salesData,
+  orderCountData,
+  rangePickerValue,
   isActive,
   loading,
   handleRangePickerChange,
   selectDate,
 }: {
   salesData: SalesData | undefined;
+  orderCountData: OrderCountData | undefined;
   rangePickerValue: RangePickerProps<dayjs.Dayjs>["value"];
   isActive: (key: TimeType) => string;
   loading: boolean;
@@ -216,7 +203,14 @@ export const SalesCard = ({
                     <div className={styles.salesBar}>
                       <Column
                         height={300}
-                        data={data}
+                        data={
+                          orderCountData?.monthlyCountList
+                            ? orderCountData?.monthlyCountList?.map((item) => ({
+                                x: item.month,
+                                y: +item.count,
+                              }))
+                            : []
+                        }
                         xField="x"
                         yField="y"
                         paddingBottom={12}
