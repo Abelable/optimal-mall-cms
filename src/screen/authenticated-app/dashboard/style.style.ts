@@ -76,11 +76,11 @@ const useStyles = createStyles(({ token }: { token: any }) => {
     salesExtra: {
       display: "inline-block",
       marginRight: "24px",
-      a: {
+      button: {
         marginLeft: "24px",
         color: token.colorText,
         "&:hover": {
-          color: token.colorPrimary,
+          color: `${token.colorPrimary} !important`,
         },
       },
       [`@media screen and (max-width: ${token.screenLG}px)`]: {
@@ -88,7 +88,7 @@ const useStyles = createStyles(({ token }: { token: any }) => {
       },
     },
     currentDate: {
-      color: token.colorPrimary,
+      color: `${token.colorPrimary} !important`,
     },
     salesBar: {
       padding: "0 0 32px 32px",

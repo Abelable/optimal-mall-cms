@@ -57,60 +57,36 @@ export const SalesCard = ({
               <div className={styles.salesExtra}>
                 <ButtonNoPadding
                   type="link"
+                  style={{ color: "rgba(0, 0, 0, 0.8)" }}
                   className={isActive("today")}
                   onClick={() => selectDate("today")}
-                  style={{ marginLeft: "2.4rem" }}
                 >
                   今日
                 </ButtonNoPadding>
                 <ButtonNoPadding
                   type="link"
+                  style={{ color: "rgba(0, 0, 0, 0.8)" }}
                   className={isActive("week")}
                   onClick={() => selectDate("week")}
-                  style={{ marginLeft: "2.4rem" }}
                 >
                   本周
                 </ButtonNoPadding>
                 <ButtonNoPadding
                   type="link"
+                  style={{ color: "rgba(0, 0, 0, 0.8)" }}
                   className={isActive("month")}
                   onClick={() => selectDate("month")}
-                  style={{ marginLeft: "2.4rem" }}
                 >
                   本月
                 </ButtonNoPadding>
                 <ButtonNoPadding
                   type="link"
+                  style={{ color: "rgba(0, 0, 0, 0.8)" }}
                   className={isActive("year")}
                   onClick={() => selectDate("year")}
-                  style={{ marginLeft: "2.4rem" }}
                 >
                   本年
                 </ButtonNoPadding>
-                {/* <a
-                  className={isActive("month")}
-                  onClick={() => selectDate("month")}
-                >
-                  今日
-                </a>
-                <a
-                  className={isActive("week")}
-                  onClick={() => selectDate("week")}
-                >
-                  本周
-                </a>
-                <a
-                  className={isActive("month")}
-                  onClick={() => selectDate("month")}
-                >
-                  本月
-                </a>
-                <a
-                  className={isActive("year")}
-                  onClick={() => selectDate("year")}
-                >
-                  本年
-                </a> */}
               </div>
               <RangePicker
                 value={rangePickerValue}
