@@ -1,5 +1,5 @@
-import { Column, Line } from "@ant-design/charts";
 import { Card } from "antd";
+import { Line } from "@ant-design/charts";
 import { PageTitle, Row } from "components/lib";
 import type { CommissionData } from "types/dashboard";
 
@@ -10,56 +10,36 @@ export const CommissionCard = ({
   commissionData: CommissionData | undefined;
   loading: boolean;
 }) => {
-  // const data = ;
-
-  // const data =
-
-  // console.log('data', data)
   const config = {
-    // data: commissionData?.monthlyCommissionList.map((item) => {
-    //   const giftCommission = commissionData.monthlyGiftCommissionList.find(_item => _item.month === item.month)?.sum || 0;
-    //   const teamCommission = commissionData.monthlyTeamCommissionList.find(_item => _item.month === item.month)?.sum || 0;
-    //   return [
-    //       {
-    //       name: "商品佣金",
-    //       month: item.month,
-    //       sum: +item.sum.toFixed(2)
-    //     },
-    //     {
-    //       name: "礼包佣金",
-    //       month:  item.month,
-    //       sum: +giftCommission.toFixed(2)
-    //     },
-    //     {
-    //       name: "团队佣金",
-    //       month:  item.month,
-    //       sum: +teamCommission.toFixed(2)
-    //     }
-    //   ]
-    // }).reduce((a, b) => [...a, ...b], []),
-    data: [
-      ...(commissionData?.monthlyCommissionList
-        ? commissionData?.monthlyCommissionList.map((item) => ({
+    data: commissionData?.monthlyCommissionList
+      .map((item) => {
+        const giftCommission =
+          commissionData.monthlyGiftCommissionList.find(
+            (_item) => _item.month === item.month
+          )?.sum || 0;
+        const teamCommission =
+          commissionData.monthlyTeamCommissionList.find(
+            (_item) => _item.month === item.month
+          )?.sum || 0;
+        return [
+          {
             name: "商品佣金",
             month: item.month,
             sum: +item.sum.toFixed(2),
-          }))
-        : []),
-      ...(commissionData?.monthlyGiftCommissionList
-        ? commissionData?.monthlyGiftCommissionList.map((item) => ({
+          },
+          {
             name: "礼包佣金",
             month: item.month,
-            sum: +item.sum.toFixed(2),
-          }))
-        : []),
-      ...(commissionData?.monthlyTeamCommissionList
-        ? commissionData?.monthlyTeamCommissionList.map((item) => ({
+            sum: +giftCommission.toFixed(2),
+          },
+          {
             name: "团队佣金",
             month: item.month,
-            sum: +item.sum.toFixed(2),
-          }))
-        : []),
-    ],
+            sum: +teamCommission.toFixed(2),
+          },
+        ];
+      })
+      .reduce((a, b) => [...a, ...b], []),
     xField: "month",
     yField: "sum",
     colorField: "name",
@@ -67,17 +47,6 @@ export const CommissionCard = ({
     style: {
       inset: 5,
     },
-    // onReady: ({ chart }: { chart: any }) => {
-    //   try {
-    //     chart.on('afterrender', () => {
-    //       chart.emit('legend:filter', {
-    //         data: { channel: 'color', values: ['London'] },
-    //       });
-    //     });
-    //   } catch (e) {
-    //     console.error(e);
-    //   }
-    // },
   };
   return (
     <Card
@@ -89,7 +58,6 @@ export const CommissionCard = ({
       }
       style={{ flex: 2 }}
     >
-      {/* <Column height={350} {...config} /> */}
       <Line height={350} {...config} />
     </Card>
   );
