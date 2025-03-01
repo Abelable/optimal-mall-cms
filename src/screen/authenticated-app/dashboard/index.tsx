@@ -25,14 +25,15 @@ type TimeType = "today" | "week" | "month" | "year";
 type RangePickerValue = RangePickerProps<dayjs.Dayjs>["value"];
 
 export const Dashboard = () => {
+  const { styles } = useStyles();
   const [rangePickerValue, setRangePickerValue] = useState<RangePickerValue>(
     getTimeDistance("year")
   );
+
   const { data: topGoodsList } = useTopGoodsList({
     startDate: dayjs(rangePickerValue?.[0]).valueOf() / 1000,
     endDate: dayjs(rangePickerValue?.[1]).valueOf() / 1000,
   });
-
   const { data: _salesData, isLoading: salesLoading } = useSalesData();
   const { data: orderCountData, isLoading: orderCountLoading } =
     useOrderCountData();
@@ -42,8 +43,6 @@ export const Dashboard = () => {
     usePromoterCountData();
   const { data: commissionData, isLoading: commissionLoading } =
     useCommissionData();
-
-  const { styles } = useStyles();
 
   const handleRangePickerChange = (value: RangePickerValue) => {
     setRangePickerValue(value);

@@ -165,7 +165,7 @@ export const SalesCard = ({
                             >
                               {item.name}
                             </span>
-                            <span>{numeral(item.sum).format("0,0")}</span>
+                            <span>¥{numeral(item.sum).format("0,0")}</span>
                           </li>
                         ))}
                       </ul>
