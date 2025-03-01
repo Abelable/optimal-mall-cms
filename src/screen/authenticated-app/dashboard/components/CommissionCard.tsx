@@ -43,9 +43,9 @@ export const CommissionCard = ({
     xField: "month",
     yField: "sum",
     colorField: "name",
-    group: true,
+    shapeField: "smooth",
     style: {
-      inset: 5,
+      lineWidth: 2,
     },
   };
   return (
