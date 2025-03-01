@@ -38,8 +38,8 @@ export const usePromoterCountData = () => {
 };
 
 export const useTopGoodsList = (params: {
-  startDate: string;
-  endDate: string;
+  startDate: number;
+  endDate: number;
 }) => {
   const client = useHttp();
   return useQuery<TopGoodsList>(["top_goods_list", params], () =>

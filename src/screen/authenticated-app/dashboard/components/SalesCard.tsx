@@ -1,12 +1,12 @@
 import { Column } from "@ant-design/plots";
 import { Card, Col, DatePicker, Row, Tabs } from "antd";
-import { ButtonNoPadding } from "components/lib";
+import { ButtonNoPadding, GoodsCover } from "components/lib";
 import numeral from "numeral";
 import useStyles from "../style.style";
 
 import type dayjs from "dayjs";
 import type { RangePickerProps } from "antd/es/date-picker/generatePicker/interface";
-import type { OrderCountData, SalesData } from "types/dashboard";
+import type { OrderCountData, SalesData, TopGoodsList } from "types/dashboard";
 
 export type TimeType = "today" | "week" | "month" | "year";
 const { RangePicker } = DatePicker;
@@ -26,6 +26,7 @@ for (let i = 0; i < 7; i += 1) {
 export const SalesCard = ({
   salesData,
   orderCountData,
+  topGoodsList,
   rangePickerValue,
   isActive,
   loading,
@@ -34,6 +35,7 @@ export const SalesCard = ({
 }: {
   salesData: SalesData | undefined;
   orderCountData: OrderCountData | undefined;
+  topGoodsList: TopGoodsList | undefined;
   rangePickerValue: RangePickerProps<dayjs.Dayjs>["value"];
   isActive: (key: TimeType) => string;
   loading: boolean;
@@ -146,8 +148,8 @@ export const SalesCard = ({
                     <div className={styles.salesRank}>
                       <h4 className={styles.rankingTitle}>商品销售额排名</h4>
                       <ul className={styles.rankingList}>
-                        {rankingListData.map((item, i) => (
-                          <li key={item.title}>
+                        {topGoodsList?.topSalesGoodsList.map((item, i) => (
+                          <li key={item.id}>
                             <span
                               className={`${styles.rankingItemNumber} ${
                                 i < 3 ? styles.rankingItemNumberActive : ""
@@ -155,13 +157,15 @@ export const SalesCard = ({
                             >
                               {i + 1}
                             </span>
+                            <GoodsCover src={item.cover} />
                             <span
                               className={styles.rankingItemTitle}
-                              title={item.title}
+                              title={item.name}
+                              style={{ marginRight: "8rem" }}
                             >
-                              {item.title}
+                              {item.name}
                             </span>
-                            <span>{numeral(item.total).format("0,0")}</span>
+                            <span>{numeral(item.sum).format("0,0")}</span>
                           </li>
                         ))}
                       </ul>
@@ -212,8 +216,8 @@ export const SalesCard = ({
                     <div className={styles.salesRank}>
                       <h4 className={styles.rankingTitle}>商品订单量排名</h4>
                       <ul className={styles.rankingList}>
-                        {rankingListData.map((item, i) => (
-                          <li key={item.title}>
+                        {topGoodsList?.topOrderCountGoodsList.map((item, i) => (
+                          <li key={item.id}>
                             <span
                               className={`${
                                 i < 3
@@ -223,13 +227,15 @@ export const SalesCard = ({
                             >
                               {i + 1}
                             </span>
+                            <GoodsCover src={item.cover} />
                             <span
                               className={styles.rankingItemTitle}
-                              title={item.title}
+                              title={item.name}
+                              style={{ marginRight: "8rem" }}
                             >
-                              {item.title}
+                              {item.name}
                             </span>
-                            <span>{numeral(item.total).format("0,0")}</span>
+                            <span>{numeral(item.count).format("0,0")}</span>
                           </li>
                         ))}
                       </ul>

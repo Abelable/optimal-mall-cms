@@ -6,6 +6,7 @@ import {
   useOrderCountData,
   usePromoterCountData,
   useSalesData,
+  useTopGoodsList,
   useUserCountData,
 } from "service/dashboard";
 import { getTimeDistance } from "./util";
@@ -166,6 +167,14 @@ export const Dashboard = () => {
     });
   });
 
+  const [rangePickerValue, setRangePickerValue] = useState<RangePickerValue>(
+    getTimeDistance("year")
+  );
+  const { data: topGoodsList } = useTopGoodsList({
+    startDate: dayjs(rangePickerValue?.[0]).valueOf() / 1000,
+    endDate: dayjs(rangePickerValue?.[1]).valueOf() / 1000,
+  });
+
   const { data: _salesData, isLoading: salesLoading } = useSalesData();
   const { data: orderCountData, isLoading: orderCountLoading } =
     useOrderCountData();
@@ -175,9 +184,7 @@ export const Dashboard = () => {
     usePromoterCountData();
 
   const { styles } = useStyles();
-  const [rangePickerValue, setRangePickerValue] = useState<RangePickerValue>(
-    getTimeDistance("year")
-  );
+
   const handleRangePickerChange = (value: RangePickerValue) => {
     setRangePickerValue(value);
   };
@@ -222,6 +229,7 @@ export const Dashboard = () => {
           rangePickerValue={rangePickerValue}
           salesData={_salesData}
           orderCountData={orderCountData}
+          topGoodsList={topGoodsList}
           isActive={isActive}
           loading={salesLoading}
           handleRangePickerChange={handleRangePickerChange}
