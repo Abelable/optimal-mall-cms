@@ -203,7 +203,7 @@ export const OrderModal = ({
       width={"120rem"}
       onClose={close}
       open={orderModalOpen}
-      bodyStyle={{ paddingBottom: 80 }}
+      styles={{ body: { paddingBottom: 80 } }}
     >
       <ErrorBox error={error} />
       {isLoading ? (

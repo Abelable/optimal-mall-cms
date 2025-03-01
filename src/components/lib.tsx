@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Button, Avatar, Spin, Typography, Image } from "antd";
+import { Button, Avatar, Spin, Typography } from "antd";
 
 export const ButtonNoPadding = styled(Button)`
   padding: 0;
@@ -109,7 +109,7 @@ export const OptionAvatar = styled(Avatar)`
   border-radius: 0.6rem;
 `;
 
-export const GoodsCover = styled(Image)<{
+export const GoodsCover = styled.img<{
   size?: string;
 }>`
   margin-right: 0.6rem;

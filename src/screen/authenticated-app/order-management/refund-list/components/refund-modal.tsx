@@ -24,7 +24,7 @@ export const RefundModal = ({
       width={"120rem"}
       onClose={close}
       open={refundModalOpen}
-      bodyStyle={{ paddingBottom: 80 }}
+      styles={{ body: { paddingBottom: 80 } }}
     >
       <ErrorBox error={error} />
       {isLoading ? (

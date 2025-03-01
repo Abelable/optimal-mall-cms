@@ -13,7 +13,7 @@ export const EnterpriseInfoModal = () => {
       size={"large"}
       onClose={close}
       open={merchantModalOpen}
-      bodyStyle={{ paddingBottom: 80 }}
+      styles={{ body: { paddingBottom: 80 } }}
     >
       <ErrorBox error={error} />
       {isLoading ? (

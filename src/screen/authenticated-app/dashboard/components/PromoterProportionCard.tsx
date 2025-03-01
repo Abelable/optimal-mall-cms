@@ -36,7 +36,7 @@ export const PromoterProportionCard = ({ loading }: { loading: boolean }) => {
           <PageTitle>推广员类别占比</PageTitle>
         </Row>
       }
-      bodyStyle={{ border: "none" }}
+      styles={{ body: { border: "none" } }}
       loading={loading}
     >
       <Pie height={380} {...config} />

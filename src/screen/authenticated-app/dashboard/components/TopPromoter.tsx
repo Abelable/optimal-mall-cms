@@ -78,7 +78,7 @@ export const TopPromoter = ({ loading }: { loading: boolean }) => {
   return (
     <Card
       loading={loading}
-      bordered={false}
+      variant="borderless"
       title={
         <Row>
           <PageTitle>推广员排行榜</PageTitle>

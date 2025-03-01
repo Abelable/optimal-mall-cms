@@ -42,9 +42,9 @@ export const SalesCard = ({
   return (
     <Card
       loading={loading}
-      bordered={false}
-      bodyStyle={{
-        padding: 0,
+      variant={"borderless"}
+      styles={{
+        body: { padding: 0 },
       }}
       style={{ marginBottom: "2.4rem" }}
     >

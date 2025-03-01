@@ -15,9 +15,9 @@ export const CommissionCard = ({
   return (
     <Card
       loading={loading}
-      bordered={false}
-      bodyStyle={{
-        padding: 0,
+      variant="borderless"
+      styles={{
+        body: { padding: 0 },
       }}
       style={{ flex: 2 }}
     >
