@@ -36,3 +36,8 @@ export interface CommissionData {
   monthlyGiftCommissionList: { month: string; sum: number }[];
   monthlyTeamCommissionList: { month: string; sum: number }[];
 }
+
+export interface Todo {
+  type: number;
+  referenceId: number;
+}

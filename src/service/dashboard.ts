@@ -6,6 +6,7 @@ import type {
   OrderCountData,
   PromoterCountData,
   SalesData,
+  Todo,
   TopGoodsList,
   UserCountData,
 } from "types/dashboard";
@@ -53,4 +54,9 @@ export const useCommissionData = () => {
   return useQuery<CommissionData>(["commission_data"], () =>
     client("dashboard/commission_data")
   );
+};
+
+export const useTodoList = () => {
+  const client = useHttp();
+  return useQuery<Todo[]>(["todo_list"], () => client("dashboard/todo_list"));
 };

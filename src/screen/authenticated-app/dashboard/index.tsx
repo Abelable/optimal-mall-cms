@@ -6,6 +6,7 @@ import {
   useOrderCountData,
   usePromoterCountData,
   useSalesData,
+  useTodoList,
   useTopGoodsList,
   useUserCountData,
 } from "service/dashboard";
@@ -43,6 +44,7 @@ export const Dashboard = () => {
     usePromoterCountData();
   const { data: commissionData, isLoading: commissionLoading } =
     useCommissionData();
+  const { data: todoList, isLoading: todoLoading } = useTodoList();
 
   const handleRangePickerChange = (value: RangePickerValue) => {
     setRangePickerValue(value);
@@ -100,7 +102,7 @@ export const Dashboard = () => {
             commissionData={commissionData}
             loading={commissionLoading}
           />
-          <TodoListCard loading={salesLoading} />
+          <TodoListCard todoList={todoList || []} loading={todoLoading} />
         </CardList>
 
         <CardList>
