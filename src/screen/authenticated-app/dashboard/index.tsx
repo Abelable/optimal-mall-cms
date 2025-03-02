@@ -35,7 +35,7 @@ export const Dashboard = () => {
     startDate: dayjs(rangePickerValue?.[0]).valueOf() / 1000,
     endDate: dayjs(rangePickerValue?.[1]).valueOf() / 1000,
   });
-  const { data: _salesData, isLoading: salesLoading } = useSalesData();
+  const { data: salesData, isLoading: salesLoading } = useSalesData();
   const { data: orderCountData, isLoading: orderCountLoading } =
     useOrderCountData();
   const { data: userCountData, isLoading: userCountLoading } =
@@ -76,7 +76,7 @@ export const Dashboard = () => {
     <Container>
       <Main>
         <IntroduceRow
-          salesData={_salesData}
+          salesData={salesData}
           orderCountData={orderCountData}
           userCountData={userCountData}
           promoterCountData={promoterCountData}
@@ -88,7 +88,7 @@ export const Dashboard = () => {
 
         <SalesCard
           rangePickerValue={rangePickerValue}
-          salesData={_salesData}
+          salesData={salesData}
           orderCountData={orderCountData}
           topGoodsList={topGoodsList}
           isActive={isActive}
@@ -106,7 +106,10 @@ export const Dashboard = () => {
         </CardList>
 
         <CardList>
-          <PromoterProportionCard loading={salesLoading} />
+          <PromoterProportionCard
+            levelsCountList={promoterCountData?.levelsCountList || []}
+            loading={promoterCountLoading}
+          />
           <TopPromoter loading={salesLoading} />
         </CardList>
       </Main>

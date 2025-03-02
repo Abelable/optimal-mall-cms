@@ -3,14 +3,20 @@ import { Card } from "antd";
 import { Pie } from "@ant-design/plots";
 import { PageTitle, Row } from "components/lib";
 
-export const PromoterProportionCard = ({ loading }: { loading: boolean }) => {
+export const PromoterProportionCard = ({
+  levelsCountList,
+  loading,
+}: {
+  levelsCountList: { level: number; number: number }[];
+  loading: boolean;
+}) => {
   const config = {
-    data: [
-      { name: "推广员", number: 100 },
-      { name: "C1", number: 80 },
-      { name: "C2", number: 60 },
-      { name: "C3", number: 10 },
-    ],
+    data: levelsCountList
+      .sort((a, b) => b.level - a.level)
+      .map((item) => ({
+        name: ["推广员", "C1", "C2", "C3"][item.level - 1],
+        number: item.number,
+      })),
     angleField: "number",
     colorField: "name",
     legend: false,
