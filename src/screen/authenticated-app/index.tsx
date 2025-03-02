@@ -618,7 +618,6 @@ const Logo = styled.div<{ collapsed: boolean }>`
   > div {
     margin-left: 1rem;
     flex: 1;
-    height: 2.2rem;
     color: #fff;
     overflow: hidden;
     opacity: ${(props) => (props.collapsed ? 0 : 1)};
