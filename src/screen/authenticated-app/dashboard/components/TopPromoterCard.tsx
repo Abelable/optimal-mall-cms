@@ -3,8 +3,13 @@ import { TableProps } from "antd/lib";
 import { OptionAvatar, PageTitle, Row } from "components/lib";
 import { UserOutlined } from "@ant-design/icons";
 
+import first from "assets/images/rank/1.png";
+import second from "assets/images/rank/2.png";
+import third from "assets/images/rank/3.png";
+
 import type { PageParams } from "types/common";
 import type { TopPromoter } from "types/promoter";
+import styled from "@emotion/styled";
 
 interface ListProps extends TableProps<TopPromoter> {
   loading: boolean;
@@ -54,6 +59,15 @@ export const TopPromoterCard = ({
           {
             title: "排名",
             dataIndex: "rank",
+            render: (value) => (
+              <>
+                {[1, 2, 3].includes(value) ? (
+                  <Medal src={[first, second, third][value - 1]} alt="" />
+                ) : (
+                  value
+                )}
+              </>
+            ),
           },
           {
             title: "推广员",
@@ -117,3 +131,9 @@ export const TopPromoterCard = ({
     </Card>
   );
 };
+
+const Medal = styled.img`
+  margin-left: -0.75rem;
+  width: 2.4rem;
+  height: 2.4rem;
+`;
