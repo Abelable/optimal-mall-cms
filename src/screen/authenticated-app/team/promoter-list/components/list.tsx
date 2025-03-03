@@ -53,16 +53,19 @@ export const List = ({
       <ErrorBox error={error} />
       <Table
         rowKey={"id"}
+        scroll={{ x: 2000 }}
         columns={[
           {
             title: "id",
             dataIndex: "id",
             width: "8rem",
+            fixed: "left",
           },
           {
             title: "头像",
             dataIndex: "avatar",
             render: (value) => <Avatar src={value} icon={<UserOutlined />} />,
+            width: "8rem",
           },
           {
             title: "昵称",
@@ -102,6 +105,25 @@ export const List = ({
             ),
           },
           {
+            title: "推广人数",
+            dataIndex: "promotedUserNumber",
+          },
+          {
+            title: "商品佣金",
+            dataIndex: "commissionSum",
+            render: (value) => <>¥{value.toFixed(2)}</>,
+          },
+          {
+            title: "礼包佣金",
+            dataIndex: "giftCommissionSum",
+            render: (value) => <>¥{value.toFixed(2)}</>,
+          },
+          {
+            title: "团队佣金",
+            dataIndex: "teamCommissionSum",
+            render: (value) => <>¥{value.toFixed(2)}</>,
+          },
+          {
             title: "创建时间",
             render: (value, promoter) => (
               <span>
@@ -133,6 +155,7 @@ export const List = ({
               return <More promoter={promoter} />;
             },
             width: "8rem",
+            fixed: "right",
           },
         ]}
         onChange={setPagination}
