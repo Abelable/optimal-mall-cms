@@ -86,7 +86,7 @@ export const List = ({
                 <Tag
                   color={
                     levelItem?.scene === promoter.scene
-                      ? ["green", "blue", "gold", "magenta"][value - 1]
+                      ? ["blue", "green", "orange", "red"][value - 1]
                       : "error"
                   }
                 >
