@@ -1,6 +1,6 @@
 import { Avatar, Card, Table, TablePaginationConfig, Tag } from "antd";
 import { TableProps } from "antd/lib";
-import { PageTitle, Row } from "components/lib";
+import { OptionAvatar, PageTitle, Row } from "components/lib";
 import { UserOutlined } from "@ant-design/icons";
 
 import type { PageParams } from "types/common";
@@ -53,21 +53,30 @@ export const TopPromoter = ({
         columns={[
           {
             title: "排名",
-            render: (value, promoter, index) => index + 1,
+            dataIndex: "rank",
           },
           {
-            title: "头像",
-            dataIndex: "avatar",
-            render: (value) => <Avatar src={value} icon={<UserOutlined />} />,
+            title: "推广员",
+            render: (value, promoter) => (
+              <>
+                <OptionAvatar src={promoter.avatar} icon={<UserOutlined />} />
+                <span>{promoter.nickname}</span>
+              </>
+            ),
           },
-          {
-            title: "昵称",
-            dataIndex: "nickname",
-          },
-          {
-            title: "手机号",
-            dataIndex: "mobile",
-          },
+          // {
+          //   title: "头像",
+          //   dataIndex: "avatar",
+          //   render: (value) => <Avatar src={value} icon={<UserOutlined />} />,
+          // },
+          // {
+          //   title: "昵称",
+          //   dataIndex: "nickname",
+          // },
+          // {
+          //   title: "手机号",
+          //   dataIndex: "mobile",
+          // },
           {
             title: "推广员身份",
             dataIndex: "level",
@@ -89,6 +98,23 @@ export const TopPromoter = ({
                 </Tag>
               );
             },
+          },
+          {
+            title: "推广人数",
+            dataIndex: "promotedUserNumber",
+          },
+          {
+            title: "累计佣金",
+            render: (value, promoter) => (
+              <>
+                ¥
+                {(
+                  promoter.commissionSum +
+                  promoter.giftCommissionSum +
+                  promoter.teamCommissionSum
+                ).toFixed(2)}
+              </>
+            ),
           },
         ]}
         onChange={setPagination}
