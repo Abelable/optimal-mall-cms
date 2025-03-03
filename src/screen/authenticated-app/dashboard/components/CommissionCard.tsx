@@ -80,8 +80,27 @@ export const CommissionCard = ({
               : "0.00"
           }`}
         >
-          <Row style={{ width: "20rem", cursor: "pointer" }}>
-            <Progress percent={30} size="small" status="active" />
+          <Row style={{ width: "22rem", cursor: "pointer" }}>
+            <Progress
+              percent={
+                commissionData
+                  ? Math.round(
+                      ((commissionData?.settledCommissionSum +
+                        commissionData?.settledGiftCommissionSum +
+                        commissionData?.settledTeamCommissionSum) /
+                        (commissionData?.pendingCommissionSum +
+                          commissionData?.settledCommissionSum +
+                          commissionData?.pendingGiftCommissionSum +
+                          commissionData?.settledGiftCommissionSum +
+                          commissionData?.pendingTeamCommissionSum +
+                          commissionData?.settledTeamCommissionSum)) *
+                        100
+                    )
+                  : 0
+              }
+              size="small"
+              status="active"
+            />
           </Row>
         </Tooltip>
       }
