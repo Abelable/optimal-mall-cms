@@ -19,7 +19,7 @@ import { IntroduceRow } from "./components/IntroduceRow";
 import { SalesCard } from "./components/SalesCard";
 import { CommissionCard } from "./components/CommissionCard";
 import { TodoListCard } from "./components/TodoListCard";
-import { TopPromoter } from "./components/TopPromoter";
+import { TopPromoterCard } from "./components/TopPromoterCard";
 import { PromoterProportionCard } from "./components/PromoterProportionCard";
 
 import type { RangePickerProps } from "antd/es/date-picker/generatePicker/interface";
@@ -115,7 +115,7 @@ export const Dashboard = () => {
             levelsCountList={promoterCountData?.levelsCountList || []}
             loading={promoterCountLoading}
           />
-          <TopPromoter
+          <TopPromoterCard
             params={params}
             setParams={setParams}
             loading={topPromoterLoading}

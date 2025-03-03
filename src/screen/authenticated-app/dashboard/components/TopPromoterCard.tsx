@@ -4,9 +4,9 @@ import { OptionAvatar, PageTitle, Row } from "components/lib";
 import { UserOutlined } from "@ant-design/icons";
 
 import type { PageParams } from "types/common";
-import type { Promoter } from "types/promoter";
+import type { TopPromoter } from "types/promoter";
 
-interface ListProps extends TableProps<Promoter> {
+interface ListProps extends TableProps<TopPromoter> {
   loading: boolean;
   params: Partial<PageParams>;
   setParams: (params: Partial<PageParams>) => void;
@@ -20,7 +20,7 @@ const levelOptions = [
   { text: "乡村振兴委员会", value: 5, scene: 300 },
 ];
 
-export const TopPromoter = ({
+export const TopPromoterCard = ({
   loading,
   params,
   setParams,
@@ -92,16 +92,8 @@ export const TopPromoter = ({
           },
           {
             title: "累计佣金",
-            render: (value, promoter) => (
-              <>
-                ¥
-                {(
-                  promoter.commissionSum +
-                  promoter.giftCommissionSum +
-                  promoter.teamCommissionSum
-                ).toFixed(2)}
-              </>
-            ),
+            dataIndex: "totalCommission",
+            render: (value) => <>¥{value.toFixed(2)}</>,
           },
         ]}
         onChange={setPagination}

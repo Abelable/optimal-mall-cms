@@ -40,6 +40,7 @@ export interface PromoterOption {
 
 export interface TopPromoter extends Promoter {
   rank: number;
+  totalCommission: number;
 }
 
 export interface TopPromoterListResult {
