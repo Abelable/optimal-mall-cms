@@ -1,4 +1,4 @@
-import { Card } from "antd";
+import { Card, Progress, Tooltip } from "antd";
 import { Line } from "@ant-design/charts";
 import { PageTitle, Row } from "components/lib";
 import type { CommissionData } from "types/dashboard";
@@ -57,6 +57,24 @@ export const CommissionCard = ({
         </Row>
       }
       style={{ flex: 2 }}
+      extra={
+        <Tooltip
+          title={`累计佣金：¥${
+            commissionData
+              ? commissionData?.pendingCommissionSum +
+                commissionData?.settledCommissionSum +
+                commissionData?.pendingGiftCommissionSum +
+                commissionData?.settledGiftCommissionSum +
+                commissionData?.pendingTeamCommissionSum +
+                commissionData?.settledTeamCommissionSum
+              : "0.00"
+          }，已提现: ¥20`}
+        >
+          <Row style={{ width: "20rem", cursor: "pointer" }}>
+            <Progress percent={30} size="small" status="active" />
+          </Row>
+        </Tooltip>
+      }
     >
       <Line height={350} {...config} />
     </Card>

@@ -37,6 +37,12 @@ export interface CommissionData {
   monthlyCommissionList: { month: string; sum: number }[];
   monthlyGiftCommissionList: { month: string; sum: number }[];
   monthlyTeamCommissionList: { month: string; sum: number }[];
+  pendingCommissionSum: number;
+  settledCommissionSum: number;
+  pendingGiftCommissionSum: number;
+  settledGiftCommissionSum: number;
+  pendingTeamCommissionSum: number;
+  settledTeamCommissionSum: number;
 }
 
 export interface Todo {
