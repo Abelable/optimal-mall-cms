@@ -1,4 +1,4 @@
-import { Card, Table, TablePaginationConfig, Tag } from "antd";
+import { Card, Progress, Table, TablePaginationConfig, Tag } from "antd";
 import { TableProps } from "antd/lib";
 import { OptionAvatar, PageTitle, Row } from "components/lib";
 import { UserOutlined } from "@ant-design/icons";
@@ -94,6 +94,21 @@ export const TopPromoterCard = ({
             title: "累计佣金",
             dataIndex: "totalCommission",
             render: (value) => <>¥{value.toFixed(2)}</>,
+          },
+          {
+            title: "提现进度",
+            render: (value, promoter) => (
+              <>
+                <Progress
+                  percent={Math.round(
+                    (promoter.settledCommissionSum / promoter.totalCommission) *
+                      100
+                  )}
+                  size="small"
+                  status="active"
+                />
+              </>
+            ),
           },
         ]}
         onChange={setPagination}
