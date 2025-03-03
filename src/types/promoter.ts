@@ -20,6 +20,7 @@ export interface Promoter {
   commissionSum: number;
   giftCommissionSum: number;
   teamCommissionSum: number;
+  settledCommissionSum: number;
   createdAt: string;
   updatedAt: string;
 }

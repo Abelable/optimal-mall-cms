@@ -5,6 +5,7 @@ import {
   Menu,
   MenuProps,
   Modal,
+  Progress,
   Table,
   TablePaginationConfig,
   TableProps,
@@ -96,6 +97,7 @@ export const List = ({
                 </Tag>
               );
             },
+            width: "15rem",
           },
           {
             title: "生成场景",
@@ -109,6 +111,25 @@ export const List = ({
             dataIndex: "promotedUserNumber",
           },
           {
+            title: "提现进度",
+            render: (value, promoter) => (
+              <>
+                <Progress
+                  percent={Math.round(
+                    (promoter.settledCommissionSum /
+                      (promoter.commissionSum +
+                        promoter.giftCommissionSum +
+                        promoter.teamCommissionSum)) *
+                      100
+                  )}
+                  size="small"
+                  status="active"
+                />
+              </>
+            ),
+            width: "20rem",
+          },
+          {
             title: "商品佣金",
             dataIndex: "commissionSum",
             render: (value) => <>¥{value.toFixed(2)}</>,
@@ -118,11 +139,20 @@ export const List = ({
             dataIndex: "giftCommissionSum",
             render: (value) => <>¥{value.toFixed(2)}</>,
           },
+
           {
             title: "团队佣金",
             dataIndex: "teamCommissionSum",
             render: (value) => <>¥{value.toFixed(2)}</>,
           },
+          {
+            title: "已提现佣金",
+            dataIndex: "settledCommissionSum",
+            render: (value) => (
+              <span style={{ color: "#f56c6c" }}>-¥{value.toFixed(2)}</span>
+            ),
+          },
+
           {
             title: "创建时间",
             render: (value, promoter) => (
