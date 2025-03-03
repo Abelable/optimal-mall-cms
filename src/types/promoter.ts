@@ -37,3 +37,14 @@ export interface PromoterOption {
   nickname: string;
   level: number;
 }
+
+export interface TopPromoter extends Promoter {
+  rank: number;
+}
+
+export interface TopPromoterListResult {
+  list: TopPromoter[];
+  page: string;
+  limit: string;
+  total: string;
+}

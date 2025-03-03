@@ -52,9 +52,8 @@ export const TopPromoter = ({
         rowKey={"id"}
         columns={[
           {
-            title: "id",
-            dataIndex: "id",
-            width: "8rem",
+            title: "排名",
+            render: (value, promoter, index) => index + 1,
           },
           {
             title: "头像",

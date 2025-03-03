@@ -43,8 +43,8 @@ export const TodoListCard = ({
   >
     {todoList.length ? (
       <div style={{ height: "37rem", overflowY: "scroll" }}>
-        {todoList.map((item) => (
-          <TodoItem>
+        {todoList.map((item, index) => (
+          <TodoItem key={index}>
             <Badge
               status="processing"
               text={
