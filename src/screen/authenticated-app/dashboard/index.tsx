@@ -10,7 +10,9 @@ import {
   useTopGoodsList,
   useUserCountData,
 } from "service/dashboard";
-import { getTimeDistance } from "./util";
+import { useTopPromoterList } from "service/promoter";
+import { toNumber } from "utils";
+import { getTimeDistance, useTopPromoterListSearchParams } from "./util";
 import useStyles from "./style.style";
 
 import { IntroduceRow } from "./components/IntroduceRow";
@@ -18,9 +20,9 @@ import { SalesCard } from "./components/SalesCard";
 import { CommissionCard } from "./components/CommissionCard";
 import { TodoListCard } from "./components/TodoListCard";
 import { TopPromoter } from "./components/TopPromoter";
+import { PromoterProportionCard } from "./components/PromoterProportionCard";
 
 import type { RangePickerProps } from "antd/es/date-picker/generatePicker/interface";
-import { PromoterProportionCard } from "./components/PromoterProportionCard";
 
 type TimeType = "today" | "week" | "month" | "year";
 type RangePickerValue = RangePickerProps<dayjs.Dayjs>["value"];
@@ -45,6 +47,9 @@ export const Dashboard = () => {
   const { data: commissionData, isLoading: commissionLoading } =
     useCommissionData();
   const { data: todoList, isLoading: todoLoading } = useTodoList();
+
+  const [params, setParams] = useTopPromoterListSearchParams();
+  const { data, isLoading: topPromoterLoading } = useTopPromoterList(params);
 
   const handleRangePickerChange = (value: RangePickerValue) => {
     setRangePickerValue(value);
@@ -110,7 +115,18 @@ export const Dashboard = () => {
             levelsCountList={promoterCountData?.levelsCountList || []}
             loading={promoterCountLoading}
           />
-          <TopPromoter loading={salesLoading} />
+          <TopPromoter
+            params={params}
+            setParams={setParams}
+            loading={topPromoterLoading}
+            dataSource={data?.list}
+            pagination={{
+              style: { marginBottom: 0 },
+              current: toNumber(data?.page) || 1,
+              pageSize: toNumber(data?.limit),
+              total: toNumber(data?.total),
+            }}
+          />
         </CardList>
       </Main>
     </Container>

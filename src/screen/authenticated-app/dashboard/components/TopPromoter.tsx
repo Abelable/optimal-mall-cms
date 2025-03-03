@@ -1,80 +1,38 @@
-import { Card, Table } from "antd";
+import { Avatar, Card, Table, TablePaginationConfig, Tag } from "antd";
+import { TableProps } from "antd/lib";
 import { PageTitle, Row } from "components/lib";
+import { UserOutlined } from "@ant-design/icons";
 
-const promoterList = [
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
-  { nickname: "jjjsjs", amount: 122, count: 1111 },
+import type { PageParams } from "types/common";
+import type { Promoter } from "types/promoter";
+
+interface ListProps extends TableProps<Promoter> {
+  loading: boolean;
+  params: Partial<PageParams>;
+  setParams: (params: Partial<PageParams>) => void;
+}
+
+const levelOptions = [
+  { text: "乡村振兴推广员", value: 1, scene: 100 },
+  { text: "乡村振兴服务商C1", value: 2, scene: 201 },
+  { text: "乡村振兴服务商C2", value: 3, scene: 202 },
+  { text: "乡村振兴服务商C3", value: 4, scene: 203 },
+  { text: "乡村振兴委员会", value: 5, scene: 300 },
 ];
 
-export const TopPromoter = ({ loading }: { loading: boolean }) => {
-  const columns = [
-    {
-      title: "排名",
-      dataIndex: "index",
-      key: "index",
-    },
-    {
-      title: "推广员",
-      dataIndex: "nickname",
-      key: "nickname",
-    },
-    {
-      title: "累计佣金",
-      dataIndex: "amount",
-      key: "amount",
-      sorter: (
-        a: {
-          amount: number;
-        },
-        b: {
-          amount: number;
-        }
-      ) => a.amount - b.amount,
-    },
-    {
-      title: "推广人数",
-      dataIndex: "count",
-      key: "count",
-      sorter: (
-        a: {
-          count: number;
-        },
-        b: {
-          count: number;
-        }
-      ) => a.count - b.count,
-    },
-  ];
+export const TopPromoter = ({
+  loading,
+  params,
+  setParams,
+  ...restProps
+}: ListProps) => {
+  const setPagination = (pagination: TablePaginationConfig) =>
+    setParams({
+      ...params,
+      page: pagination.current,
+      limit: pagination.pageSize,
+    });
+
   return (
     <Card
       loading={loading}
@@ -89,17 +47,53 @@ export const TopPromoter = ({ loading }: { loading: boolean }) => {
         height: "100%",
       }}
     >
-      <Table<any>
-        rowKey={(record) => record.index}
+      <Table
         size="small"
-        columns={columns}
-        dataSource={promoterList}
-        pagination={{
-          style: {
-            marginBottom: 0,
+        rowKey={"id"}
+        columns={[
+          {
+            title: "id",
+            dataIndex: "id",
+            width: "8rem",
           },
-          pageSize: 8,
-        }}
+          {
+            title: "头像",
+            dataIndex: "avatar",
+            render: (value) => <Avatar src={value} icon={<UserOutlined />} />,
+          },
+          {
+            title: "昵称",
+            dataIndex: "nickname",
+          },
+          {
+            title: "手机号",
+            dataIndex: "mobile",
+          },
+          {
+            title: "推广员身份",
+            dataIndex: "level",
+            render: (value, promoter) => {
+              const levelItem = levelOptions.find(
+                (item) => item.value === value
+              );
+              return (
+                <Tag
+                  color={
+                    levelItem?.scene === promoter.scene
+                      ? ["green", "blue", "gold", "magenta"][value - 1]
+                      : "error"
+                  }
+                >
+                  {`${levelItem?.text}${
+                    levelItem?.scene !== promoter.scene ? "（身份异常）" : ""
+                  }`}
+                </Tag>
+              );
+            },
+          },
+        ]}
+        onChange={setPagination}
+        {...restProps}
       />
     </Card>
   );

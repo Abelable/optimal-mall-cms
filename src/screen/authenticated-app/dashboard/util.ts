@@ -7,18 +7,13 @@ import type { RangePickerProps } from "antd/es/date-picker/generatePicker/interf
 
 type RangePickerValue = RangePickerProps<dayjs.Dayjs>["value"];
 
-export const useBannerListSearchParams = () => {
-  const [params, setParams] = useUrlQueryParams([
-    "status",
-    "scene",
-    "page",
-    "limit",
-  ]);
+export const useTopPromoterListSearchParams = () => {
+  const [params, setParams] = useUrlQueryParams(["page", "limit"]);
   return [
     useMemo(
       () => ({
         page: Number(params.page) || 1,
-        limit: Number(params.limit) || 10,
+        limit: Number(params.limit) || 8,
         ...params,
       }),
       [params]
@@ -28,8 +23,8 @@ export const useBannerListSearchParams = () => {
 };
 
 export const useBannerListQueryKey = () => {
-  const [params] = useBannerListSearchParams();
-  return ["mall_banner_list", params];
+  const [params] = useTopPromoterListSearchParams();
+  return ["top_promoter_list", params];
 };
 
 export const useBannerModal = () => {

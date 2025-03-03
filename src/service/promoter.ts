@@ -8,6 +8,7 @@ import type {
   PromoterListSearchParams,
   Promoter,
 } from "types/promoter";
+import { PageParams } from "types/common";
 
 export const usePromoterList = (params: Partial<PromoterListSearchParams>) => {
   const client = useHttp();
@@ -75,5 +76,12 @@ export const usePromoterOptions = () => {
   const client = useHttp();
   return useQuery<PromoterOption[]>(["promoter_options"], () =>
     client("team/promoter/options")
+  );
+};
+
+export const useTopPromoterList = (params: Partial<PageParams>) => {
+  const client = useHttp();
+  return useQuery<PromoterListResult>(["top_promoter_list"], () =>
+    client("team/promoter/top_list", { data: params, method: "POST" })
   );
 };

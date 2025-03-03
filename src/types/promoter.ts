@@ -16,6 +16,10 @@ export interface Promoter {
   level: number;
   scene: number;
   path: number;
+  promotedUserNumber: number;
+  commissionSum: number;
+  giftCommissionSum: number;
+  teamCommissionSum: number;
   createdAt: string;
   updatedAt: string;
 }
