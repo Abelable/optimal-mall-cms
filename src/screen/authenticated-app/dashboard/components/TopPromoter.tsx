@@ -1,4 +1,4 @@
-import { Avatar, Card, Table, TablePaginationConfig, Tag } from "antd";
+import { Card, Table, TablePaginationConfig, Tag } from "antd";
 import { TableProps } from "antd/lib";
 import { OptionAvatar, PageTitle, Row } from "components/lib";
 import { UserOutlined } from "@ant-design/icons";
@@ -64,19 +64,6 @@ export const TopPromoter = ({
               </>
             ),
           },
-          // {
-          //   title: "头像",
-          //   dataIndex: "avatar",
-          //   render: (value) => <Avatar src={value} icon={<UserOutlined />} />,
-          // },
-          // {
-          //   title: "昵称",
-          //   dataIndex: "nickname",
-          // },
-          // {
-          //   title: "手机号",
-          //   dataIndex: "mobile",
-          // },
           {
             title: "推广员身份",
             dataIndex: "level",
