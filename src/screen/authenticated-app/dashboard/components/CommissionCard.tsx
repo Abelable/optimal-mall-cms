@@ -61,14 +61,24 @@ export const CommissionCard = ({
         <Tooltip
           title={`累计佣金：¥${
             commissionData
-              ? commissionData?.pendingCommissionSum +
-                commissionData?.settledCommissionSum +
-                commissionData?.pendingGiftCommissionSum +
-                commissionData?.settledGiftCommissionSum +
-                commissionData?.pendingTeamCommissionSum +
-                commissionData?.settledTeamCommissionSum
+              ? (
+                  commissionData?.pendingCommissionSum +
+                  commissionData?.settledCommissionSum +
+                  commissionData?.pendingGiftCommissionSum +
+                  commissionData?.settledGiftCommissionSum +
+                  commissionData?.pendingTeamCommissionSum +
+                  commissionData?.settledTeamCommissionSum
+                ).toFixed(2)
               : "0.00"
-          }，已提现: ¥20`}
+          }，已提现: ¥${
+            commissionData
+              ? (
+                  commissionData?.settledCommissionSum +
+                  commissionData?.settledGiftCommissionSum +
+                  commissionData?.settledTeamCommissionSum
+                ).toFixed(2)
+              : "0.00"
+          }`}
         >
           <Row style={{ width: "20rem", cursor: "pointer" }}>
             <Progress percent={30} size="small" status="active" />
