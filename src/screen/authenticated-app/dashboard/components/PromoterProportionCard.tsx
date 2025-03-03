@@ -19,9 +19,8 @@ export const PromoterProportionCard = ({
       })),
     angleField: "number",
     colorField: "name",
-    legend: false,
     innerRadius: 0.5,
-    labels: [{ text: "name", style: { fontSize: 12, fontWeight: "bold" } }],
+    labels: [{ text: "number", style: { fontSize: 12, fontWeight: "bold" } }],
     style: {
       stroke: "#fff",
       inset: 1,
