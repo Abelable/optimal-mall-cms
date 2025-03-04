@@ -145,7 +145,7 @@ const treeData: DataNode[] = [
           },
           {
             title: "商品列表",
-            key: "home_zone_activity_listactivity_limited_time_recruit_goods_list",
+            key: "activity_limited_time_recruit_goods_list",
           },
         ],
       },
