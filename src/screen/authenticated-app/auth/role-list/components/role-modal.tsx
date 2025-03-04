@@ -1,7 +1,7 @@
 import { Form, Input, Modal, Tree } from "antd";
 import { ErrorBox, ModalLoading } from "components/lib";
 
-import { useEffect } from "react";
+import { Key, useEffect, useState } from "react";
 import { useForm } from "antd/lib/form/Form";
 import { useAddRole, useEditRole } from "service/role";
 import { useRoleModal, useRolesQueryKey } from "../util";
@@ -211,6 +211,7 @@ export const RoleModal = () => {
   const [form] = useForm();
   const { roleModalOpen, editingRoleId, editingRole, isLoading, close } =
     useRoleModal();
+  const [checkedKeys, setCheckedKeys] = useState<Key[]>([]);
 
   const useMutateRole = editingRoleId ? useEditRole : useAddRole;
   const {
@@ -222,9 +223,12 @@ export const RoleModal = () => {
   useEffect(() => {
     if (editingRole) {
       const { permission = "", ...rest } = editingRole;
-      form.setFieldsValue({ permission: JSON.parse(permission), rest });
+      if (!checkedKeys.length) {
+        setCheckedKeys(JSON.parse(permission) as Key[]);
+      }
+      form.setFieldsValue({ permission: JSON.parse(permission), ...rest });
     }
-  }, [editingRole, form]);
+  }, [checkedKeys, editingRole, form]);
 
   const confirm = () => {
     form.validateFields().then(async () => {
@@ -240,6 +244,7 @@ export const RoleModal = () => {
 
   const closeModal = () => {
     form.resetFields();
+    setCheckedKeys([]);
     close();
   };
 
@@ -280,8 +285,10 @@ export const RoleModal = () => {
             <Tree
               checkable
               treeData={treeData}
+              checkedKeys={checkedKeys}
               onCheck={(checkedKeys) => {
-                form.setFieldsValue({ permission: checkedKeys }); // 手动更新表单值
+                form.setFieldsValue({ permission: checkedKeys });
+                setCheckedKeys(checkedKeys as Key[]);
               }}
             />
           </Form.Item>
