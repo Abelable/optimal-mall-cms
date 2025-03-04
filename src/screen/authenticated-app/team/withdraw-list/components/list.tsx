@@ -3,7 +3,6 @@ import {
   Avatar,
   Descriptions,
   Dropdown,
-  Menu,
   MenuProps,
   Modal,
   Table,
@@ -264,7 +263,7 @@ const More = ({ withdraw }: { withdraw: Withdraw }) => {
   }
 
   return (
-    <Dropdown overlay={<Menu items={items} />}>
+    <Dropdown menu={{ items }}>
       <ButtonNoPadding type={"link"}>...</ButtonNoPadding>
     </Dropdown>
   );

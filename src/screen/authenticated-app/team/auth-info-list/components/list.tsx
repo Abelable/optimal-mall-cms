@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import {
   Dropdown,
-  Menu,
   MenuProps,
   Modal,
   Table,
@@ -165,7 +164,7 @@ const More = ({ id, status }: { id: number; status: number }) => {
         ];
 
   return (
-    <Dropdown overlay={<Menu items={items} />}>
+    <Dropdown menu={{ items }}>
       <ButtonNoPadding type={"link"}>...</ButtonNoPadding>
     </Dropdown>
   );

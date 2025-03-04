@@ -1,7 +1,6 @@
 import {
   Avatar,
   Dropdown,
-  Menu,
   MenuProps,
   Modal,
   Popover,
@@ -184,7 +183,7 @@ const More = ({ user }: { user: User }) => {
       ];
 
   return (
-    <Dropdown overlay={<Menu items={items} />}>
+    <Dropdown menu={{ items }}>
       <ButtonNoPadding type={"link"}>...</ButtonNoPadding>
     </Dropdown>
   );

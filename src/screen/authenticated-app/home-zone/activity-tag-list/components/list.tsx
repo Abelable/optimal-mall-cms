@@ -3,7 +3,6 @@ import {
   Button,
   Dropdown,
   InputNumber,
-  Menu,
   MenuProps,
   Modal,
   Switch,
@@ -131,7 +130,7 @@ const More = ({ id }: { id: number }) => {
   ];
 
   return (
-    <Dropdown overlay={<Menu items={items} />}>
+    <Dropdown menu={{ items }}>
       <ButtonNoPadding type={"link"}>...</ButtonNoPadding>
     </Dropdown>
   );
