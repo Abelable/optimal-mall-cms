@@ -136,7 +136,6 @@ export const OrderList = () => {
       </Main>
       <Drawer
         open={!!selectedRowKeys.length}
-        style={{ position: "absolute" }}
         height={"8rem"}
         placement="bottom"
         mask={false}
