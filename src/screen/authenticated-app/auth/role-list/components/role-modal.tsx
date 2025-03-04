@@ -1,113 +1,207 @@
 import { Form, Input, Modal, Tree } from "antd";
 import { ErrorBox, ModalLoading } from "components/lib";
 
-import { Key, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "antd/lib/form/Form";
 import { useAddRole, useEditRole } from "service/role";
 import { useRoleModal, useRolesQueryKey } from "../util";
 
-import type { DataNode, TreeProps } from "antd/es/tree";
+import type { DataNode } from "antd/es/tree";
 
 const treeData: DataNode[] = [
   {
-    title: "首页",
-    key: "home",
+    title: "数据概况",
+    key: "dashboard",
   },
   {
-    title: "我的供应商",
-    key: "suppliers",
+    title: "用户列表",
+    key: "user_list",
   },
   {
-    title: "我的代理商",
-    key: "agents",
-  },
-  {
-    title: "产品管理中心",
-    key: "product",
+    title: "乡村振兴",
+    key: "team",
     children: [
       {
-        title: "产品渠道管理",
-        key: "product/channels",
+        title: "推广员列表",
+        key: "team_promoter_list",
       },
       {
-        title: "在售商品管理",
-        key: "product/sales",
+        title: "实名认证",
+        key: "team_auth_info_list",
+      },
+      {
+        title: "企业认证",
+        key: "team_enterprise_info_list",
+      },
+      {
+        title: "佣金提现",
+        key: "team_withdraw_list",
+      },
+      {
+        title: "认养专区",
+        key: "team_livestock_list",
+      },
+      {
+        title: "礼包专区",
+        key: "team_gift_goods_list",
       },
     ],
   },
   {
-    title: "订单中心",
+    title: "首页专区",
+    key: "home_zone",
+    children: [
+      {
+        title: "乡镇百谷",
+        key: "home_zone_grain_goods",
+      },
+      {
+        title: "乡集生鲜",
+        key: "home_zone_fresh_goods",
+      },
+      {
+        title: "乡村零嘴",
+        key: "home_zone_snack_goods",
+      },
+      {
+        title: "乡思礼伴",
+        key: "home_zone_gift_goods",
+      },
+      {
+        title: "诚信乡村",
+        key: "home_zone_rural",
+        children: [
+          {
+            title: "地区列表",
+            key: "home_zone_rural_region_list",
+          },
+          {
+            title: "商品列表",
+            key: "home_zone_rural_goods_list",
+          },
+        ],
+      },
+      {
+        title: "诚信臻品",
+        key: "home_zone_integrity_goods",
+      },
+      {
+        title: "商品活动",
+        key: "home_zone_activity",
+        children: [
+          {
+            title: "活动标签",
+            key: "home_zone_activity_tag_list",
+          },
+          {
+            title: "活动列表",
+            key: "home_zone_activity_list",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    title: "活动管理",
+    key: "activity",
+    children: [
+      {
+        title: "头图列表",
+        key: "activity_banner_list",
+      },
+      {
+        title: "优惠券",
+        key: "activity_coupon_list",
+      },
+      {
+        title: "年货节",
+        key: "activity_new_year",
+        children: [
+          {
+            title: "年货礼包",
+            key: "activity_new_year_goods_list",
+          },
+          {
+            title: "文创礼包",
+            key: "activity_new_year_culture_goods_list",
+          },
+          {
+            title: "地区列表",
+            key: "activity_new_year_region_list",
+          },
+          {
+            title: "地方特产",
+            key: "activity_new_year_local_goods_list",
+          },
+        ],
+      },
+      {
+        title: "限时招募",
+        key: "activity_limited_time_recruit",
+        children: [
+          {
+            title: "商品分类",
+            key: "activity_limited_time_recruit_category_list",
+          },
+          {
+            title: "商品列表",
+            key: "home_zone_activity_listactivity_limited_time_recruit_goods_list",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    title: "商品管理",
+    key: "goods",
+    children: [
+      {
+        title: "商家列表",
+        key: "goods_merchant_list",
+      },
+      {
+        title: "运费模板",
+        key: "goods_freight_template_list",
+      },
+      {
+        title: "商品分类",
+        key: "goods_category_list",
+      },
+      {
+        title: "商品列表",
+        key: "goods_list",
+      },
+    ],
+  },
+  {
+    title: "订单管理",
     key: "order",
     children: [
       {
-        title: "订单处理",
-        key: "order/handle",
+        title: "快递列表",
+        key: "order_express_list",
       },
       {
-        title: "订单处理 > 导出信息脱敏并加密码",
-        key: "order/encryption",
+        title: "订单列表",
+        key: "order_list",
       },
       {
-        title: "转单配置",
-        key: "order/convert",
-      },
-      {
-        title: "抓单管理",
-        key: "order/grab",
-      },
-      {
-        title: "回调记录",
-        key: "order/log",
+        title: "售后处理",
+        key: "order_refund",
       },
     ],
   },
   {
-    title: "生产管理中心",
-    key: "produce",
+    title: "权限管理",
+    key: "auth",
     children: [
       {
-        title: "生产发货",
-        key: "produce/deliver",
+        title: "岗位列表",
+        key: "auth_role_list",
       },
       {
-        title: "自动生产配置",
-        key: "produce/configure",
-      },
-      {
-        title: "批量导入",
-        key: "produce/import",
-      },
-    ],
-  },
-  {
-    title: "系统管理",
-    key: "system",
-    children: [
-      {
-        title: "黑名单配置",
-        key: "system/blacklist",
-      },
-      {
-        title: "地址库映射",
-        key: "system/address_list",
-      },
-      {
-        title: "下游地址库映射",
-        key: "system/shop_address_list",
-      },
-    ],
-  },
-  {
-    title: "账户管理",
-    key: "account",
-    children: [
-      {
-        title: "我的团队",
-        key: "account/member",
-      },
-      {
-        title: "岗位管理",
-        key: "account/role",
+        title: "团队列表",
+        key: "auth_admin_list",
       },
     ],
   },
@@ -124,22 +218,6 @@ export const RoleModal = () => {
     isLoading: mutateLoading,
     error,
   } = useMutateRole(useRolesQueryKey());
-
-  const [selectedKeys, setSelectedKeys] = useState<Key[]>([]);
-  const [checkedKeys, setCheckedKeys] = useState<Key[]>([]);
-  const [expandedKeys, setExpandedKeys] = useState<Key[]>([]);
-
-  const onSelect: TreeProps["onSelect"] = (selectedKeys) => {
-    setSelectedKeys(selectedKeys as Key[]);
-  };
-
-  const onCheck: TreeProps["onCheck"] = (checkedKeys) => {
-    setCheckedKeys(checkedKeys as Key[]);
-  };
-
-  const onExpand: TreeProps["onExpand"] = (expandedKeys) => {
-    setExpandedKeys(expandedKeys as Key[]);
-  };
 
   useEffect(() => {
     form.setFieldsValue(editingRole);
@@ -189,22 +267,20 @@ export const RoleModal = () => {
 
           <Form.Item
             label={"角色权限"}
-            name={"desc"}
+            name={"permission"}
             rules={[{ required: true, message: "请选择角色权限" }]}
           >
             <Tree
               checkable
-              selectedKeys={selectedKeys}
-              checkedKeys={checkedKeys}
-              expandedKeys={expandedKeys}
-              onSelect={onSelect}
-              onCheck={onCheck}
-              onExpand={onExpand}
               treeData={treeData}
+              onCheck={(checkedKeys) => {
+                form.setFieldsValue({ permission: checkedKeys }); // 手动更新表单值
+              }}
             />
           </Form.Item>
-
-          {/* <Tree
+        </Form>
+      )}
+      {/* <Tree
             checkable
             selectedKeys={selectedKeys}
             checkedKeys={checkedKeys}
@@ -214,8 +290,6 @@ export const RoleModal = () => {
             onExpand={onExpand}
             treeData={treeData}
           /> */}
-        </Form>
-      )}
     </Modal>
   );
 };
