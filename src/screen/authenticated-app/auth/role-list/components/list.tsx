@@ -33,7 +33,7 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
   return (
     <Container>
       <Header between={true}>
-        <PageTitle>角色列表</PageTitle>
+        <PageTitle>岗位列表</PageTitle>
         <Button onClick={() => open()} type={"primary"} icon={<PlusOutlined />}>
           新增
         </Button>
@@ -48,11 +48,11 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
             width: "8rem",
           },
           {
-            title: "角色名称",
+            title: "岗位名称",
             dataIndex: "name",
           },
           {
-            title: "角色描述",
+            title: "岗位描述",
             dataIndex: "desc",
           },
           {
@@ -76,7 +76,7 @@ const More = ({ id }: { id: number }) => {
 
   const confirmDelete = (id: number) => {
     Modal.confirm({
-      title: "确定删除该管理员角色吗？",
+      title: "确定删除该管理员岗位吗？",
       content: "点击确定删除",
       okText: "确定",
       cancelText: "取消",
