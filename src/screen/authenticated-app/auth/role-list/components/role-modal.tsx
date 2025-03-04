@@ -211,7 +211,7 @@ export const RoleModal = () => {
   const [form] = useForm();
   const { roleModalOpen, editingRoleId, editingRole, isLoading, close } =
     useRoleModal();
-  const [checkedKeys, setCheckedKeys] = useState<Key[]>([]);
+  const [defaultCheckedKeys, setDefaultCheckedKeys] = useState<Key[]>([]);
 
   const useMutateRole = editingRoleId ? useEditRole : useAddRole;
   const {
@@ -223,12 +223,10 @@ export const RoleModal = () => {
   useEffect(() => {
     if (editingRole) {
       const { permission = "", ...rest } = editingRole;
-      if (!checkedKeys.length) {
-        setCheckedKeys(JSON.parse(permission) as Key[]);
-      }
+      setDefaultCheckedKeys(JSON.parse(permission) as Key[]);
       form.setFieldsValue({ permission: JSON.parse(permission), ...rest });
     }
-  }, [checkedKeys, editingRole, form]);
+  }, [editingRole, form]);
 
   const confirm = () => {
     form.validateFields().then(async () => {
@@ -244,7 +242,7 @@ export const RoleModal = () => {
 
   const closeModal = () => {
     form.resetFields();
-    setCheckedKeys([]);
+    setDefaultCheckedKeys([]);
     close();
   };
 
@@ -277,21 +275,24 @@ export const RoleModal = () => {
             <Input placeholder={"请输入角色描述"} />
           </Form.Item>
 
-          <Form.Item
-            label={"角色权限"}
-            name={"permission"}
-            rules={[{ required: true, message: "请选择角色权限" }]}
-          >
-            <Tree
-              checkable
-              treeData={treeData}
-              checkedKeys={checkedKeys}
-              onCheck={(checkedKeys) => {
-                form.setFieldsValue({ permission: checkedKeys });
-                setCheckedKeys(checkedKeys as Key[]);
-              }}
-            />
-          </Form.Item>
+          {!editingRoleId || (editingRoleId && defaultCheckedKeys.length) ? (
+            <Form.Item
+              label={"角色权限"}
+              name={"permission"}
+              rules={[{ required: true, message: "请选择角色权限" }]}
+            >
+              <Tree
+                checkable
+                defaultCheckedKeys={defaultCheckedKeys}
+                treeData={treeData}
+                onCheck={(checkedKeys) => {
+                  form.setFieldsValue({ permission: checkedKeys });
+                }}
+              />
+            </Form.Item>
+          ) : (
+            <></>
+          )}
         </Form>
       )}
     </Modal>
