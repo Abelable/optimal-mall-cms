@@ -85,11 +85,11 @@ export const SearchPanel = ({
         />
       </Item>
       <Item>
-        <div>管理员岗位：</div>
+        <div>管理员角色：</div>
         <Select
           style={{ width: "20rem" }}
           value={tempParams.roleId}
-          placeholder="请选择管理员岗位"
+          placeholder="请选择管理员角色"
           allowClear
           onSelect={setRole}
           onClear={clearRole}

@@ -196,7 +196,7 @@ const treeData: DataNode[] = [
     key: "auth",
     children: [
       {
-        title: "岗位列表",
+        title: "角色列表",
         key: "auth_role_list",
       },
       {
@@ -220,13 +220,20 @@ export const RoleModal = () => {
   } = useMutateRole(useRolesQueryKey());
 
   useEffect(() => {
-    form.setFieldsValue(editingRole);
+    if (editingRole) {
+      const { permission = "", ...rest } = editingRole;
+      form.setFieldsValue({ permission: JSON.parse(permission), rest });
+    }
   }, [editingRole, form]);
 
   const confirm = () => {
-    console.log("form.getFieldsValue()", form.getFieldsValue());
     form.validateFields().then(async () => {
-      await mutateAsync({ ...editingRole, ...form.getFieldsValue() });
+      const { permission, ...rest } = form.getFieldsValue();
+      await mutateAsync({
+        ...editingRole,
+        permission: JSON.stringify(permission),
+        ...rest,
+      });
       closeModal();
     });
   };
@@ -239,7 +246,7 @@ export const RoleModal = () => {
   return (
     <Modal
       forceRender={true}
-      title={editingRoleId ? "编辑岗位" : "新增岗位"}
+      title={editingRoleId ? "编辑角色" : "新增角色"}
       open={roleModalOpen}
       confirmLoading={mutateLoading}
       onOk={confirm}
@@ -251,24 +258,24 @@ export const RoleModal = () => {
       ) : (
         <Form form={form} layout="vertical">
           <Form.Item
-            label={"岗位名称"}
+            label={"角色名称"}
             name={"name"}
-            rules={[{ required: true, message: "请输入岗位名称" }]}
+            rules={[{ required: true, message: "请输入角色名称" }]}
           >
-            <Input placeholder={"请输入岗位名称"} />
+            <Input placeholder={"请输入角色名称"} />
           </Form.Item>
           <Form.Item
-            label={"岗位描述"}
+            label={"角色描述"}
             name={"desc"}
-            rules={[{ required: true, message: "请输入岗位描述" }]}
+            rules={[{ required: true, message: "请输入角色描述" }]}
           >
-            <Input placeholder={"请输入岗位描述"} />
+            <Input placeholder={"请输入角色描述"} />
           </Form.Item>
 
           <Form.Item
-            label={"岗位权限"}
+            label={"角色权限"}
             name={"permission"}
-            rules={[{ required: true, message: "请选择岗位权限" }]}
+            rules={[{ required: true, message: "请选择角色权限" }]}
           >
             <Tree
               checkable
@@ -280,16 +287,6 @@ export const RoleModal = () => {
           </Form.Item>
         </Form>
       )}
-      {/* <Tree
-            checkable
-            selectedKeys={selectedKeys}
-            checkedKeys={checkedKeys}
-            expandedKeys={expandedKeys}
-            onSelect={onSelect}
-            onCheck={onCheck}
-            onExpand={onExpand}
-            treeData={treeData}
-          /> */}
     </Modal>
   );
 };

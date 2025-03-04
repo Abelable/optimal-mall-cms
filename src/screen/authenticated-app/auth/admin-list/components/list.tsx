@@ -68,7 +68,7 @@ export const List = ({
             dataIndex: "nickname",
           },
           {
-            title: "岗位",
+            title: "角色",
             dataIndex: "roleId",
             render: (value) => (
               <>{roleOptions.find((item) => item.id === value)?.name}</>
