@@ -22,10 +22,6 @@ export const UserCenter = () => {
       key: "security",
       label: "安全设置",
     },
-    {
-      key: "notification",
-      label: "消息设置",
-    },
   ];
   return (
     <Container>
@@ -63,10 +59,16 @@ export const UserCenter = () => {
                 更新基本信息
               </Button>
             </div>
-          ) : selectKey === "security" ? (
-            <>安全设置</>
           ) : (
-            <></>
+            <div style={{ marginTop: "2rem" }}>
+              <SecurityItem>
+                <div>
+                  <SecurityTitle>账户密码</SecurityTitle>
+                  <SecurityContent>当前密码强度：强</SecurityContent>
+                </div>
+                <Button type="link">修改</Button>
+              </SecurityItem>
+            </div>
           )}
         </Content>
       </Main>
@@ -95,4 +97,22 @@ const Title = styled.div`
   color: rgba(0, 0, 0, 0.88);
   font-size: 2rem;
   font-weight: 500;
+`;
+
+const SecurityItem = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.4rem 0;
+  border-bottom: 1px solid rgba(5, 5, 5, 0.06);
+`;
+const SecurityTitle = styled.div`
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 1.4rem;
+  font-weight: 500;
+`;
+const SecurityContent = styled.div`
+  margin-top: 1rem;
+  color: rgba(0, 0, 0, 0.45);
+  font-size: 1.4rem;
 `;
