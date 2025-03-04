@@ -239,7 +239,7 @@ export const RoleModal = () => {
   return (
     <Modal
       forceRender={true}
-      title={editingRoleId ? "编辑角色" : "新增角色"}
+      title={editingRoleId ? "编辑岗位" : "新增岗位"}
       open={roleModalOpen}
       confirmLoading={mutateLoading}
       onOk={confirm}
@@ -251,24 +251,24 @@ export const RoleModal = () => {
       ) : (
         <Form form={form} layout="vertical">
           <Form.Item
-            label={"角色名称"}
+            label={"岗位名称"}
             name={"name"}
-            rules={[{ required: true, message: "请输入角色名称" }]}
+            rules={[{ required: true, message: "请输入岗位名称" }]}
           >
-            <Input placeholder={"请输入角色名称"} />
+            <Input placeholder={"请输入岗位名称"} />
           </Form.Item>
           <Form.Item
-            label={"角色描述"}
+            label={"岗位描述"}
             name={"desc"}
-            rules={[{ required: true, message: "请输入角色描述" }]}
+            rules={[{ required: true, message: "请输入岗位描述" }]}
           >
-            <Input placeholder={"请输入角色描述"} />
+            <Input placeholder={"请输入岗位描述"} />
           </Form.Item>
 
           <Form.Item
-            label={"角色权限"}
+            label={"岗位权限"}
             name={"permission"}
-            rules={[{ required: true, message: "请选择角色权限" }]}
+            rules={[{ required: true, message: "请选择岗位权限" }]}
           >
             <Tree
               checkable

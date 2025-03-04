@@ -119,10 +119,10 @@ export const AdminModal = ({ roleOptions }: { roleOptions: RoleOption[] }) => {
             <Col span={12}>
               <Form.Item
                 name="roleId"
-                label="管理员角色"
-                rules={[{ required: true, message: "请选择管理员角色" }]}
+                label="管理员岗位"
+                rules={[{ required: true, message: "请选择管理员岗位" }]}
               >
-                <Select placeholder="请选择管理员角色">
+                <Select placeholder="请选择管理员岗位">
                   {roleOptions.map((item) => (
                     <Select.Option key={item.id} value={item.id}>
                       {item.name}
