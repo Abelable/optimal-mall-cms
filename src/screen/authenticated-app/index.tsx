@@ -43,6 +43,7 @@ import {
   TagOutlined,
   TruckOutlined,
   SunOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 import logo from "assets/images/logo.png";
 import { CouponIcon } from "assets/icon";
@@ -635,23 +636,34 @@ const User = ({
 }) => {
   const items: MenuProps["items"] = [
     {
-      label: (
-        <Button type={"link"} onClick={logout}>
-          登出
-        </Button>
-      ),
+      key: "center",
+      icon: <UserOutlined />,
+      label: <Link to="order/refund">个人中心</Link>,
+    },
+    {
       key: "logout",
+      icon: <LogoutOutlined />,
+      label: "退出登录",
     },
   ];
 
+  const onClick = (event: any) => {
+    const { key } = event;
+    if (key === "logout") {
+      logout();
+    }
+  };
+
   return (
-    <Row gap={1} style={{ cursor: "pointer" }}>
-      <Avatar src={userInfo?.avatar} />
-      <div>{userInfo?.nickname}</div>
-      <Dropdown menu={{ items }}>
-        <CaretDownOutlined style={{ fontSize: "1.2rem" }} />
-      </Dropdown>
-    </Row>
+    <Dropdown menu={{ items, onClick }}>
+      <UserInfoWrap>
+        <Avatar
+          style={{ marginRight: "0.8rem", width: "3rem", height: "3rem" }}
+          src={userInfo?.avatar}
+        />
+        <div>{userInfo?.nickname}</div>
+      </UserInfoWrap>
+    </Dropdown>
   );
 };
 
@@ -689,6 +701,20 @@ const Header = styled(Layout.Header)`
   background: #fff;
   box-shadow: 0 2px 4px rgb(0 21 41 / 8%);
   z-index: 10;
+`;
+
+const UserInfoWrap = styled.div`
+  display: flex;
+  align-items: center;
+  padding-left: 1.2rem;
+  padding-right: 1.6rem;
+  height: 4.4rem;
+  color: rgba(0, 0, 0, 0.45);
+  border-radius: 0.6rem;
+  cursor: pointer;
+  &:hover {
+    background: rgba(0, 0, 0, 0.03);
+  }
 `;
 
 const Unfold = styled(MenuUnfoldOutlined)`
