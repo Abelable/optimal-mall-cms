@@ -563,7 +563,7 @@ const MenuSider = ({
                   if (_children.length) {
                     return {
                       ...secondItem,
-                      _children,
+                      children: _children,
                     };
                   } else {
                     return null;
