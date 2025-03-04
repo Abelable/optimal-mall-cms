@@ -47,6 +47,7 @@ const breadcrumbNameMap: { [key: string]: string } = {
   "/auth": "权限管理",
   "/auth/role_list": "岗位列表",
   "/auth/admin_list": "管理员列表",
+  "/user_center": "个人中心",
 };
 
 export const NavigationBar = () => {
@@ -57,16 +58,6 @@ export const NavigationBar = () => {
     return {
       title: <Link to={url}>{breadcrumbNameMap[url]}</Link>,
     };
-    // (
-    //   <Breadcrumb.Item key={url}>
-    //     <Link to={url}>{breadcrumbNameMap[url]}</Link>
-    //   </Breadcrumb.Item>
-    // );
-    // return (
-    //   <Breadcrumb.Item key={url}>
-    //     <Link to={url}>{breadcrumbNameMap[url]}</Link>
-    //   </Breadcrumb.Item>
-    // );
   });
   return (
     <Wrap>

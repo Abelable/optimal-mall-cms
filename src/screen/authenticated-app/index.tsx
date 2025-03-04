@@ -11,7 +11,7 @@ import { useWithdrawPendingCount } from "service/withdraw";
 import { useShipOrderCount } from "service/order";
 import { useWaitingRefundCount } from "service/refund";
 
-import { Avatar, Button, Dropdown, Layout, Menu, MenuProps } from "antd";
+import { Avatar, Dropdown, Layout, Menu, MenuProps } from "antd";
 import { NavigationBar } from "components/navigation-bar";
 import { Row } from "components/lib";
 
@@ -20,7 +20,6 @@ import {
   LockOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
-  CaretDownOutlined,
   MehOutlined,
   UserOutlined,
   TeamOutlined,
@@ -82,6 +81,7 @@ import { OrderList } from "./order-management/order-list";
 import { RefundList } from "./order-management/refund-list";
 import { RoleList } from "./auth/role-list";
 import { AdminList } from "./auth/admin-list";
+import { UserCenter } from "./user-center";
 
 import type { UserInfo } from "types/auth";
 
@@ -189,6 +189,7 @@ export const AuthenticatedApp = () => {
               <Route path="order/refund" element={<RefundList />} />
               <Route path="auth/role_list" element={<RoleList />} />
               <Route path="auth/admin_list" element={<AdminList />} />
+              <Route path="user_center" element={<UserCenter />} />
               <Route
                 path={"*"}
                 element={<Navigate to={"dashboard"} replace={true} />}
@@ -638,7 +639,7 @@ const User = ({
     {
       key: "center",
       icon: <UserOutlined />,
-      label: <Link to="order/refund">个人中心</Link>,
+      label: <Link to="user_center">个人中心</Link>,
     },
     {
       key: "logout",
