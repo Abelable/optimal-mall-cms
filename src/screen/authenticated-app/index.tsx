@@ -87,12 +87,12 @@ import type { UserInfo } from "types/auth";
 export const AuthenticatedApp = () => {
   const [collapsed, setCollapsed] = useState(false);
   const { data: userInfo } = useUserInfo();
-  const { logout } = useAuth();
+  const { permission, logout } = useAuth();
 
   return (
     <Router>
       <Layout style={{ height: "100vh", overflow: "hidden" }}>
-        <MenuSider collapsed={collapsed} />
+        <MenuSider permission={permission} collapsed={collapsed} />
         <Layout>
           <Header>
             <Row>
@@ -200,7 +200,13 @@ export const AuthenticatedApp = () => {
   );
 };
 
-const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
+const MenuSider = ({
+  permission,
+  collapsed,
+}: {
+  permission: string[];
+  collapsed: boolean;
+}) => {
   const { defaultOpenKey, selectedKey } = useRouteType();
   const { data: authInfoPendingCount } = useAuthInfoPendingCount();
   const { data: enterpriseInfoPendingCount } = useEnterpriseInfoPendingCount();
@@ -539,7 +545,49 @@ const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
         },
       ],
     },
-  ];
+  ]
+    .map((item) => {
+      if (permission.includes(item.key)) {
+        return item;
+      } else {
+        if (item.children) {
+          const children = item.children
+            .map((secondItem) => {
+              if (permission.includes(secondItem.key)) {
+                return secondItem;
+              } else {
+                if ((secondItem as any).children) {
+                  const _children = (secondItem as any).children.filter(
+                    (thirdItem: any) => permission.includes(thirdItem.key)
+                  );
+                  if (_children.length) {
+                    return {
+                      ...secondItem,
+                      _children,
+                    };
+                  } else {
+                    return null;
+                  }
+                } else {
+                  return null;
+                }
+              }
+            })
+            .filter((item) => !!item);
+          if (children.length) {
+            return {
+              ...item,
+              children,
+            };
+          } else {
+            return null;
+          }
+        } else {
+          return null;
+        }
+      }
+    })
+    .filter((item) => !!item);
 
   return (
     <Layout.Sider
