@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 
-import { Form, Input, Menu } from "antd";
+import { Button, Form, Input, Menu } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { OssUpload } from "components/oss-upload";
 
@@ -40,23 +40,34 @@ export const UserCenter = () => {
           <Title>
             {menuOptions.find((item) => item.key === selectKey)?.label}
           </Title>
-          <Form
-            style={{ marginTop: "2rem", width: "40rem" }}
-            form={form}
-            layout="vertical"
-          >
-            <Form.Item
-              name="avatar"
-              label="头像"
-              valuePropName="fileList"
-              getValueFromEvent={normFile}
-            >
-              <OssUpload maxCount={1} />
-            </Form.Item>
-            <Form.Item name="nickname" label="昵称">
-              <Input placeholder="请输入昵称" />
-            </Form.Item>
-          </Form>
+          {selectKey === "base" ? (
+            <div>
+              <Form
+                style={{ marginTop: "3rem", width: "40rem" }}
+                form={form}
+                layout="vertical"
+              >
+                <Form.Item
+                  name="avatar"
+                  label="头像"
+                  valuePropName="fileList"
+                  getValueFromEvent={normFile}
+                >
+                  <OssUpload maxCount={1} />
+                </Form.Item>
+                <Form.Item name="nickname" label="昵称">
+                  <Input placeholder="请输入昵称" />
+                </Form.Item>
+              </Form>
+              <Button style={{ marginTop: "3rem" }} type={"primary"}>
+                更新基本信息
+              </Button>
+            </div>
+          ) : selectKey === "security" ? (
+            <>安全设置</>
+          ) : (
+            <></>
+          )}
         </Content>
       </Main>
     </Container>
