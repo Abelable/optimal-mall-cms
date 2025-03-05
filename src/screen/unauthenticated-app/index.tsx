@@ -21,8 +21,8 @@ export const UnauthenticatedApp = () => {
       <Background />
       <ShadowCard>
         <Title>请登录</Title>
-        <ErrorBox error={error} />
         <LoginScreen onError={setError} />
+        <ErrorBox error={error} />
       </ShadowCard>
     </Container>
   );
