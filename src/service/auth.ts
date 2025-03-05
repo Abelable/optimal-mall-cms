@@ -31,29 +31,43 @@ export const login = async (form: AuthForm) => {
 };
 
 export const logout = async () => {
-  await http("auth/logout", { token: getToken() as string });
+  await http("auth/logout", { token: getToken() as string, method: "POST" });
   removeToken();
   removePermission();
 };
 
 export const refreshToken = async () => {
-  const token = await http("auth/token_refresh");
+  const token = await http("auth/token_refresh", { method: "POST" });
   window.localStorage.setItem(localStorageKey, token);
+};
+
+export const resetPassword = async ({
+  password,
+  newPassword,
+}: {
+  password: string;
+  newPassword: string;
+}) => {
+  await http("auth/reset_password", {
+    token: getToken() as string,
+    data: { password, newPassword },
+    method: "POST",
+  });
 };
 
 export const useUserInfo = () => {
   const client = useHttp();
-  return useQuery<UserInfo>(["useInfo"], () => client("auth/me"));
+  return useQuery<UserInfo>(["user_info"], () => client("auth/base_info"));
 };
 
 export const useUpdateUserInfo = () => {
   const client = useHttp();
   return useMutation(
     (params: Partial<UserInfo>) =>
-      client("auth/update", {
+      client("auth/update_base_info", {
         data: cleanObject(params),
         method: "POST",
       }),
-    useEditAdminBaseInfoConfig(["useInfo"])
+    useEditAdminBaseInfoConfig(["user_info"])
   );
 };

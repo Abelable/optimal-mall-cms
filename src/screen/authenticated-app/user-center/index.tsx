@@ -5,6 +5,8 @@ import { useUpdateUserInfo, useUserInfo } from "service/auth";
 import { Button, Form, Input, Menu } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { OssUpload } from "components/oss-upload";
+import { PwdModal } from "./components/pwd-modal";
+import { usePwdModal } from "./util";
 
 const normFile = (e: any) => {
   if (Array.isArray(e)) return e;
@@ -28,6 +30,7 @@ export const UserCenter = () => {
 
   const { data: userInfo } = useUserInfo();
   const { mutateAsync, isLoading: mutateLoading } = useUpdateUserInfo();
+  const { open } = usePwdModal();
 
   useEffect(() => {
     if (userInfo) {
@@ -97,12 +100,15 @@ export const UserCenter = () => {
                   <SecurityTitle>账户密码</SecurityTitle>
                   <SecurityContent>当前密码强度：强</SecurityContent>
                 </div>
-                <Button type="link">修改</Button>
+                <Button type="link" onClick={open}>
+                  修改
+                </Button>
               </SecurityItem>
             </div>
           )}
         </Content>
       </Main>
+      <PwdModal />
     </Container>
   );
 };

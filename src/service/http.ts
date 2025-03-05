@@ -88,8 +88,9 @@ export const http = async (
           await auth.refreshToken();
           return fetch(endpoint, config);
         } else {
+          const result = await response.json();
           return Promise.reject({
-            message: response.statusText,
+            message: result.message || response.statusText,
           });
         }
       }
