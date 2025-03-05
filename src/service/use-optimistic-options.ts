@@ -247,3 +247,13 @@ export const useRejectWithdrawConfig = (queryKey: QueryKey) =>
         }
       : null
   );
+
+export const useEditAdminBaseInfoConfig = (queryKey: QueryKey) =>
+  useConfig(queryKey, (target, old) =>
+    old
+      ? {
+          ...old,
+          ...target,
+        }
+      : null
+  );

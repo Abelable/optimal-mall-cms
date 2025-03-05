@@ -1,6 +1,8 @@
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { AuthForm, UserInfo } from "types/auth";
 import { http, useHttp } from "./http";
+import { cleanObject } from "utils";
+import { useEditAdminBaseInfoConfig } from "./use-optimistic-options";
 
 const localStorageKey = "__auth_provider_token__";
 const localStoragePermissionKey = "__auth_provider_permission__";
@@ -42,4 +44,16 @@ export const refreshToken = async () => {
 export const useUserInfo = () => {
   const client = useHttp();
   return useQuery<UserInfo>(["useInfo"], () => client("auth/me"));
+};
+
+export const useUpdateUserInfo = () => {
+  const client = useHttp();
+  return useMutation(
+    (params: Partial<UserInfo>) =>
+      client("auth/update", {
+        data: cleanObject(params),
+        method: "POST",
+      }),
+    useEditAdminBaseInfoConfig(["useInfo"])
+  );
 };

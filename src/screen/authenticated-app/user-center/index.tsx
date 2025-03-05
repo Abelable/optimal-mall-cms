@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
+import { useUpdateUserInfo, useUserInfo } from "service/auth";
 
 import { Button, Form, Input, Menu } from "antd";
 import { useForm } from "antd/es/form/Form";
@@ -10,19 +11,44 @@ const normFile = (e: any) => {
   return e && e.fileList;
 };
 
+const menuOptions = [
+  {
+    key: "base",
+    label: "基本设置",
+  },
+  {
+    key: "security",
+    label: "安全设置",
+  },
+];
+
 export const UserCenter = () => {
   const [form] = useForm();
   const [selectKey, setSelectKey] = useState("base");
-  const menuOptions = [
-    {
-      key: "base",
-      label: "基本设置",
-    },
-    {
-      key: "security",
-      label: "安全设置",
-    },
-  ];
+
+  const { data: userInfo } = useUserInfo();
+  const { mutateAsync, isLoading: mutateLoading } = useUpdateUserInfo();
+
+  useEffect(() => {
+    if (userInfo) {
+      const { avatar, nickname } = userInfo;
+      form.setFieldsValue({
+        avatar: avatar ? [{ url: avatar }] : [],
+        nickname,
+      });
+    }
+  }, [userInfo, form]);
+
+  const submit = () => {
+    form.validateFields().then(async () => {
+      const { avatar, nickname } = form.getFieldsValue();
+      await mutateAsync({
+        avatar: avatar && avatar.length ? avatar[0].url : "",
+        nickname,
+      });
+    });
+  };
+
   return (
     <Container>
       <Main>
@@ -55,7 +81,12 @@ export const UserCenter = () => {
                   <Input placeholder="请输入昵称" />
                 </Form.Item>
               </Form>
-              <Button style={{ marginTop: "3rem" }} type={"primary"}>
+              <Button
+                style={{ marginTop: "3rem" }}
+                type={"primary"}
+                onClick={submit}
+                loading={mutateLoading}
+              >
                 更新基本信息
               </Button>
             </div>

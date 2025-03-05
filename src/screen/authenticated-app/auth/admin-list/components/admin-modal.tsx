@@ -112,7 +112,7 @@ export const AdminModal = ({ roleOptions }: { roleOptions: RoleOption[] }) => {
             <Row gutter={16}>
               <Col span={12}>
                 <Form.Item name="password" label="重置密码">
-                  <Input.Password placeholder="请输入新的密码" />
+                  <Input placeholder="请输入新的密码" />
                 </Form.Item>
               </Col>
             </Row>
@@ -133,7 +133,7 @@ export const AdminModal = ({ roleOptions }: { roleOptions: RoleOption[] }) => {
                   label="管理员账号密码"
                   rules={[{ required: true, message: "请输入管理员账号密码" }]}
                 >
-                  <Input.Password placeholder="请输入管理员账号密码" />
+                  <Input placeholder="请输入管理员账号密码" />
                 </Form.Item>
               </Col>
             </Row>
