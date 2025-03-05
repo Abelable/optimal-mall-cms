@@ -1,17 +1,23 @@
 import { useState } from "react";
-import { LoginScreen } from "./login";
-import { Card } from "antd";
 import styled from "@emotion/styled";
+
+import { Card } from "antd";
+import { LoginScreen } from "./login";
+import { ErrorBox } from "components/lib";
+
 import left from "assets/images/left.svg";
 import right from "assets/images/right.svg";
-import { ErrorBox } from "components/lib";
+import logo from "assets/images/logo.png";
 
 export const UnauthenticatedApp = () => {
   const [error, setError] = useState<Error | null>(null);
 
   return (
     <Container>
-      <Header>诚信星球管理后台</Header>
+      <Header>
+        <Logo src={logo} alt="" />
+        <div>诚信星球管理后台</div>
+      </Header>
       <Background />
       <ShadowCard>
         <Title>请登录</Title>
@@ -42,10 +48,17 @@ const Background = styled.div`
 `;
 
 const Header = styled.header`
+  display: flex;
+  align-items: center;
   padding: 5rem 0;
   font-size: 2.8rem;
   text-align: center;
   font-weight: 500;
+`;
+const Logo = styled.img`
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
 `;
 
 const ShadowCard = styled(Card)`
