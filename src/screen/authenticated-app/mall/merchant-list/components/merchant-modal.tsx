@@ -1,4 +1,4 @@
-import { Form, Input, Modal } from "antd";
+import { Button, Col, Drawer, Form, Input, Row, Space } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { ErrorBox, ModalLoading } from "components/lib";
 import { OssUpload } from "components/oss-upload";
@@ -41,7 +41,7 @@ export const MerchantModal = () => {
     }
   }, [editingMerchant, form]);
 
-  const confirm = () => {
+  const submit = () => {
     form.validateFields().then(async () => {
       const { license, ...rest } = form.getFieldsValue();
       await mutateAsync({
@@ -61,61 +61,88 @@ export const MerchantModal = () => {
   };
 
   return (
-    <Modal
+    <Drawer
       forceRender={true}
       title={editingMerchantId ? "编辑商家" : "新增商家"}
+      size={"large"}
+      onClose={closeModal}
       open={merchantModalOpen}
-      confirmLoading={mutateLoading}
-      onOk={confirm}
-      onCancel={closeModal}
+      styles={{
+        body: {
+          paddingBottom: 80,
+        },
+      }}
+      extra={
+        <Space>
+          <Button onClick={closeModal}>取消</Button>
+          <Button onClick={submit} loading={mutateLoading} type="primary">
+            提交
+          </Button>
+        </Space>
+      }
     >
       <ErrorBox error={error} />
       {isLoading ? (
         <ModalLoading />
       ) : (
         <Form form={form} layout="vertical">
-          <Form.Item
-            label={"商家名称"}
-            name={"name"}
-            rules={[{ required: true, message: "请输入商家名称" }]}
-          >
-            <Input placeholder={"请输入商家名称"} />
-          </Form.Item>
-          <Form.Item
-            label={"收件人姓名"}
-            name={"consigneeName"}
-            rules={[{ required: true, message: "请输入收件人姓名" }]}
-          >
-            <Input placeholder={"请输入收件人姓名"} />
-          </Form.Item>
-          <Form.Item
-            label={"收件人手机号"}
-            name={"mobile"}
-            rules={[{ required: true, message: "请输入收件人手机号" }]}
-          >
-            <Input placeholder={"请输入收件人手机号"} />
-          </Form.Item>
-          <Form.Item
-            label={"收件地址"}
-            name={"addressDetail"}
-            rules={[{ required: true, message: "请输入收件地址" }]}
-          >
-            <Input placeholder={"请输入收件地址"} />
-          </Form.Item>
-          <Form.Item
-            name="license"
-            label="经营资质"
-            valuePropName="fileList"
-            getValueFromEvent={normFile}
-          >
-            <OssUpload multiple />
-          </Form.Item>
-
-          <Form.Item label={"补充说明"} name={"supplement"}>
-            <Input placeholder={"选填，例：只收顺丰快递"} />
-          </Form.Item>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                label={"品牌名称"}
+                name={"name"}
+                rules={[{ required: true, message: "请输入品牌名称" }]}
+              >
+                <Input placeholder={"请输入品牌名称"} />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item label={"企业名称"} name={"companyName"}>
+                <Input placeholder={"请输入企业名称"} />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item label={"企业负责人"} name={"consigneeName"}>
+                <Input placeholder={"请输入负责人姓名"} />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item label={"负责人人手机号"} name={"mobile"}>
+                <Input placeholder={"请输入负责人人手机号"} />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item label={"企业地址"} name={"addressDetail"}>
+                <Input placeholder={"请输入企业地址"} />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={24}>
+              {" "}
+              <Form.Item
+                name="license"
+                label="经营资质"
+                valuePropName="fileList"
+                getValueFromEvent={normFile}
+              >
+                <OssUpload multiple />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={24}>
+              <Form.Item label={"补充说明"} name={"supplement"}>
+                <Input placeholder={"选填，例：只收顺丰快递"} />
+              </Form.Item>
+            </Col>
+          </Row>
         </Form>
       )}
-    </Modal>
+    </Drawer>
   );
 };
