@@ -55,11 +55,25 @@ export const RefundAddressModal = () => {
       ) : (
         <Form form={form} layout="vertical">
           <Form.Item
-            label="退货地址名称"
+            label="收件人姓名"
             name="name"
-            rules={[{ required: true, message: "请输入退货地址名称" }]}
+            rules={[{ required: true, message: "请输入收件人姓名" }]}
           >
-            <Input placeholder={"请输入退货地址名称"} />
+            <Input placeholder={"请输入收件人姓名"} />
+          </Form.Item>
+          <Form.Item
+            label="手机号"
+            name="name"
+            rules={[{ required: true, message: "请输入手机号" }]}
+          >
+            <Input placeholder={"请输入手机号"} />
+          </Form.Item>
+          <Form.Item
+            label="收件地址详情"
+            name="name"
+            rules={[{ required: true, message: "请输入收件地址详情" }]}
+          >
+            <Input placeholder={"请输入收件地址详情"} />
           </Form.Item>
         </Form>
       )}
