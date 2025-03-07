@@ -71,32 +71,32 @@ export const SearchPanel = ({ params, setParams }: SearchPanelProps) => {
   return (
     <Container>
       <Item>
-        <div>商家名称：</div>
+        <div>品牌名称：</div>
         <Input
           style={{ width: "20rem" }}
           value={tempParams.name}
           onChange={setName}
-          placeholder="请输入商家名称"
+          placeholder="请输入品牌名称"
           allowClear
         />
       </Item>
       <Item>
-        <div>收件人姓名：</div>
+        <div>企业负责人：</div>
         <Input
           style={{ width: "20rem" }}
           value={tempParams.consigneeName}
           onChange={setConsigneeName}
-          placeholder="请输入收件人姓名"
+          placeholder="请输入负责人姓名"
           allowClear
         />
       </Item>
       <Item>
-        <div>收件人手机号：</div>
+        <div>负责人手机号：</div>
         <Input
           style={{ width: "20rem" }}
           value={tempParams.mobile}
           onChange={setMobile}
-          placeholder="请输入收件人手机号"
+          placeholder="请输入负责人手机号"
           allowClear
         />
       </Item>

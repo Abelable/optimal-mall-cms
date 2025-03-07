@@ -109,13 +109,13 @@ export const MerchantModal = () => {
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item label={"负责人人手机号"} name={"mobile"}>
-                <Input placeholder={"请输入负责人人手机号"} />
+              <Form.Item label={"负责人手机号"} name={"mobile"}>
+                <Input placeholder={"请输入负责人手机号"} />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={16}>
-            <Col span={12}>
+            <Col span={24}>
               <Form.Item label={"企业地址"} name={"addressDetail"}>
                 <Input placeholder={"请输入企业地址"} />
               </Form.Item>
