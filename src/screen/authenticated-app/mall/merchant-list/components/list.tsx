@@ -14,6 +14,7 @@ import { useDeleteMerchant } from "service/merchant";
 import { Merchant, MerchantListSearchParams } from "types/merchant";
 import { useMerchantModal, useMerchantListQueryKey } from "../util";
 import { PlusOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 interface ListProps extends TableProps<Merchant> {
   params: Partial<MerchantListSearchParams>;
@@ -110,6 +111,11 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
 };
 
 const More = ({ id }: { id: number }) => {
+  const navigate = useNavigate();
+  const linkToRefundAddress = (id: number) =>
+    navigate(`/mall/merchant_list/refund_address_list?merchantId=${id}`);
+  const linkToPickupAddress = (id: number) =>
+    navigate(`/mall/merchant_list/pickup_address_list?merchantId=${id}`);
   const { startEdit } = useMerchantModal();
   const { mutate: deleteMerchant } = useDeleteMerchant(
     useMerchantListQueryKey()
@@ -129,6 +135,14 @@ const More = ({ id }: { id: number }) => {
     {
       label: <div onClick={() => startEdit(id)}>编辑</div>,
       key: "edit",
+    },
+    {
+      label: <div onClick={() => linkToRefundAddress(id)}>退货地址</div>,
+      key: "refund_address",
+    },
+    {
+      label: <div onClick={() => linkToPickupAddress(id)}>提货地址</div>,
+      key: "pickup_address",
     },
     {
       label: <div onClick={() => confirmDelete(id)}>删除</div>,

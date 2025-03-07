@@ -37,6 +37,8 @@ const breadcrumbNameMap: { [key: string]: string } = {
   "/activity/limited_time_recruit/goods_list": "商品列表",
   "/goods": "商品管理",
   "/goods/merchant_list": "商家列表",
+  "/goods/merchant_list/refund_address_list": "退货地址",
+  "/goods/merchant_list/pickup_address_list": "提货地址",
   "/goods/freight_template_list": "运费模板",
   "/goods/category_list": "商品分类",
   "/goods/list": "商品列表",
