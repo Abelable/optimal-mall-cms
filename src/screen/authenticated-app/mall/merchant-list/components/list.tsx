@@ -113,9 +113,9 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
 const More = ({ id }: { id: number }) => {
   const navigate = useNavigate();
   const linkToRefundAddress = (id: number) =>
-    navigate(`/mall/merchant_list/refund_address_list?merchantId=${id}`);
+    navigate(`/goods/merchant_list/refund_address_list?merchantId=${id}`);
   const linkToPickupAddress = (id: number) =>
-    navigate(`/mall/merchant_list/pickup_address_list?merchantId=${id}`);
+    navigate(`/goods/merchant_list/pickup_address_list?merchantId=${id}`);
   const { startEdit } = useMerchantModal();
   const { mutate: deleteMerchant } = useDeleteMerchant(
     useMerchantListQueryKey()

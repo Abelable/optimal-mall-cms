@@ -4,7 +4,7 @@ import { useRefundAddress } from "service/merchant";
 
 export const useRefundAddressListSearchParams = () => {
   const [params, setParams] = useUrlQueryParams([
-    "merchangId",
+    "merchantId",
     "page",
     "limit",
   ]);
