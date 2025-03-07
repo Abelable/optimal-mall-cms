@@ -87,7 +87,7 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
                   : "暂无经营资质"}
               </>
             ),
-            width: "30rem",
+            width: "36rem",
           },
           {
             title: "补充说明",

@@ -1,7 +1,8 @@
-import { Button, Col, Drawer, Form, Input, Row, Space } from "antd";
+import { Button, Col, Drawer, Form, Input, Row, Select, Space } from "antd";
 import { useForm } from "antd/lib/form/Form";
-import { ErrorBox, ModalLoading } from "components/lib";
+import { ErrorBox, ModalLoading, OptionAvatar } from "components/lib";
 import { OssUpload } from "components/oss-upload";
+import { UserOutlined } from "@ant-design/icons";
 
 import { useEffect } from "react";
 import { useAddMerchant, useEditMerchant } from "service/merchant";
@@ -12,7 +13,11 @@ const normFile = (e: any) => {
   return e && e.fileList;
 };
 
-export const MerchantModal = () => {
+export const MerchantModal = ({
+  userOptions,
+}: {
+  userOptions: { id: number; avatar: string; nickname: string }[];
+}) => {
   const [form] = useForm();
   const {
     merchantModalOpen,
@@ -121,6 +126,30 @@ export const MerchantModal = () => {
               </Form.Item>
             </Col>
           </Row>
+          <Row gutter={16}>
+            <Col span={24}>
+              <Form.Item name="managerIds" label="管理员">
+                <Select
+                  mode="multiple"
+                  placeholder="请选择管理员"
+                  showSearch
+                  filterOption={(input, option) =>
+                    (option!.children as any)[1].props.children
+                      .toLowerCase()
+                      .includes(input.toLowerCase())
+                  }
+                >
+                  {userOptions.map(({ id, avatar, nickname }) => (
+                    <Select.Option key={id} value={id}>
+                      <OptionAvatar src={avatar} icon={<UserOutlined />} />
+                      <span>{nickname}</span>
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
+          </Row>
+
           <Row gutter={16}>
             <Col span={24}>
               {" "}

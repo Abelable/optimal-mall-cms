@@ -1,12 +1,11 @@
 import { Form, Modal, Select } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import { ErrorBox, ModalLoading, OptionAvatar } from "components/lib";
 
+import { useEffect } from "react";
 import { useForm } from "antd/lib/form/Form";
 import { useAddPromoter, useChangeLevel } from "service/promoter";
 import { usePromoterModal, usePromoterListQueryKey } from "../util";
-
-import { ErrorBox, ModalLoading, OptionAvatar } from "components/lib";
-import { useEffect } from "react";
 
 export const PromoterModal = ({
   userOptions,

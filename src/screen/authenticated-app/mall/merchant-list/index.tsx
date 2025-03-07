@@ -5,8 +5,10 @@ import { List } from "./components/list";
 import { MerchantModal } from "./components/merchant-modal";
 import { useMerchantListSearchParams } from "./util";
 import { SearchPanel } from "./components/search-panel";
+import { useUserOptions } from "service/user";
 
 export const MerchantList = () => {
+  const { data: userOptions = [], error: userOptionsError } = useUserOptions();
   const [params, setParams] = useMerchantListSearchParams();
   const { isLoading, error, data } = useMerchantList(params);
 
@@ -17,7 +19,7 @@ export const MerchantList = () => {
         <List
           params={params}
           setParams={setParams}
-          error={error}
+          error={error || userOptionsError}
           loading={isLoading}
           dataSource={data?.list}
           pagination={{
@@ -28,7 +30,7 @@ export const MerchantList = () => {
           bordered
         />
       </Main>
-      <MerchantModal />
+      <MerchantModal userOptions={userOptions} />
     </Container>
   );
 };
