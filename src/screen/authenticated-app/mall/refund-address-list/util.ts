@@ -13,7 +13,7 @@ export const useRefundAddressListSearchParams = () => {
       () => ({
         page: Number(params.page) || 1,
         limit: Number(params.limit) || 10,
-        ...params,
+        merchantId: Number(params.merchantId) || 0,
       }),
       [params]
     ),

@@ -5,7 +5,7 @@ import { useAddRefundAddress, useEditRefundAddress } from "service/merchant";
 import { useRefundAddressModal, useRefundAddressListQueryKey } from "../util";
 import { useEffect } from "react";
 
-export const RefundAddressModal = () => {
+export const RefundAddressModal = ({ merchantId }: { merchantId: number }) => {
   const [form] = useForm();
   const {
     refundAddressModalOpen,
@@ -30,7 +30,11 @@ export const RefundAddressModal = () => {
 
   const confirm = () => {
     form.validateFields().then(async () => {
-      await mutateAsync({ ...editingRefundAddress, ...form.getFieldsValue() });
+      await mutateAsync({
+        merchantId,
+        ...editingRefundAddress,
+        ...form.getFieldsValue(),
+      });
       closeModal();
     });
   };

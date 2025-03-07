@@ -29,7 +29,7 @@ export const RefundAddressList = () => {
           }}
         />
       </Main>
-      <RefundAddressModal />
+      <RefundAddressModal merchantId={params.merchantId} />
     </Container>
   );
 };
