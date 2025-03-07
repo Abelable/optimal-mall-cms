@@ -42,29 +42,36 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
       <ErrorBox error={error} />
       <Table
         rowKey={"id"}
+        scroll={{ x: 2000 }}
         columns={[
           {
             title: "id",
             dataIndex: "id",
             width: "8rem",
+            fixed: "left",
           },
           {
-            title: "商家名称",
+            title: "品牌名称",
             dataIndex: "name",
+            width: "24rem",
+          },
+          {
+            title: "企业名称",
+            dataIndex: "companyName",
             width: "30rem",
           },
           {
-            title: "收件人姓名",
+            title: "企业负责人",
             dataIndex: "consigneeName",
             width: "14rem",
           },
           {
-            title: "收件人手机号",
+            title: "负责人手机号",
             dataIndex: "mobile",
             width: "14rem",
           },
           {
-            title: "退货地址",
+            title: "企业地址",
             dataIndex: "addressDetail",
             width: "30rem",
           },
@@ -80,7 +87,7 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
                   : "暂无经营资质"}
               </>
             ),
-            width: "20rem",
+            width: "30rem",
           },
           {
             title: "补充说明",
@@ -92,6 +99,7 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
               return <More id={merchant.id} />;
             },
             width: "8rem",
+            fixed: "right",
           },
         ]}
         onChange={setPagination}

@@ -9,6 +9,7 @@ export interface MerchantListSearchParams {
 export interface Merchant {
   id: number;
   name: string;
+  companyName: string;
   consigneeName: string;
   mobile: string;
   addressDetail: string;
