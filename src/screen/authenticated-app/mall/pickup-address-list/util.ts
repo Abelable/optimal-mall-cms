@@ -4,7 +4,7 @@ import { usePickupAddress } from "service/merchant";
 
 export const usePickupAddressListSearchParams = () => {
   const [params, setParams] = useUrlQueryParams([
-    "merchangId",
+    "merchantId",
     "page",
     "limit",
   ]);
@@ -13,7 +13,7 @@ export const usePickupAddressListSearchParams = () => {
       () => ({
         page: Number(params.page) || 1,
         limit: Number(params.limit) || 10,
-        ...params,
+        merchantId: Number(params.merchantId) || 0,
       }),
       [params]
     ),

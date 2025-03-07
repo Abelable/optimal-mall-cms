@@ -29,7 +29,7 @@ export const PickupAddressList = () => {
           }}
         />
       </Main>
-      <PickupAddressModal />
+      <PickupAddressModal merchantId={params.merchantId} />
     </Container>
   );
 };

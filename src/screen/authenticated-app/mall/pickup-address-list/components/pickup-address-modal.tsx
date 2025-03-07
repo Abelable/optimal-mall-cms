@@ -5,7 +5,7 @@ import { useAddPickupAddress, useEditPickupAddress } from "service/merchant";
 import { usePickupAddressModal, usePickupAddressListQueryKey } from "../util";
 import { useEffect } from "react";
 
-export const PickupAddressModal = () => {
+export const PickupAddressModal = ({ merchantId }: { merchantId: number }) => {
   const [form] = useForm();
   const {
     pickupAddressModalOpen,
@@ -30,7 +30,11 @@ export const PickupAddressModal = () => {
 
   const confirm = () => {
     form.validateFields().then(async () => {
-      await mutateAsync({ ...editingPickupAddress, ...form.getFieldsValue() });
+      await mutateAsync({
+        merchantId,
+        ...editingPickupAddress,
+        ...form.getFieldsValue(),
+      });
       closeModal();
     });
   };

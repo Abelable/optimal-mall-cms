@@ -185,7 +185,7 @@ export const AuthenticatedApp = () => {
                 element={<RefundAddressList />}
               />
               <Route
-                path="goods/merchant_list/pickup_address"
+                path="goods/merchant_list/pickup_address_list"
                 element={<PickupAddressList />}
               />
               <Route
