@@ -69,15 +69,11 @@ export const List = ({
             sorter: (a, b) => Number(a.id) - Number(b.id),
           },
           {
-            title: "收件人姓名",
-            dataIndex: "consigneeName",
+            title: "提货点名称",
+            dataIndex: "name",
           },
           {
-            title: "收件人手机号",
-            dataIndex: "mobile",
-          },
-          {
-            title: "收件地址",
+            title: "提货点地址详情",
             dataIndex: "addressDetail",
           },
           {
