@@ -15,6 +15,7 @@ export const useMerchantListSearchParams = () => {
       () => ({
         page: Number(params.page) || 1,
         limit: Number(params.limit) || 10,
+        ...params,
       }),
       [params]
     ),
