@@ -18,6 +18,7 @@ import {
 import { ErrorBox, ModalLoading, Row as CustomRow } from "components/lib";
 import { Map } from "components/map";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import moment from "moment";
 
 const weekDayOptions = [
   { text: "周一", value: 1 },
@@ -39,17 +40,32 @@ export const PickupAddressModal = ({ merchantId }: { merchantId: number }) => {
     close,
   } = usePickupAddressModal();
 
-  const useMutateRole = editingPickupAddressId
+  const useMutatePickupAddress = editingPickupAddressId
     ? useEditPickupAddress
     : useAddPickupAddress;
   const {
     mutateAsync,
     isLoading: mutateLoading,
     error,
-  } = useMutateRole(usePickupAddressListQueryKey());
+  } = useMutatePickupAddress(usePickupAddressListQueryKey());
 
   useEffect(() => {
-    form.setFieldsValue(editingPickupAddress);
+    if (editingPickupAddress) {
+      const { timeFrame, ...rest } = editingPickupAddress;
+      form.setFieldsValue({
+        timeFrame: timeFrame
+          ? JSON.parse(timeFrame).map((item: any) => ({
+              startWeekDay: +item.startWeekDay,
+              endWeekDay: +item.endWeekDay,
+              timeFrameList: item.timeFrameList.map((_item: any) => ({
+                openTime: moment(_item.openTime, "HH:mm"),
+                closeTime: moment(_item.closeTime, "HH:mm"),
+              })),
+            }))
+          : [],
+        ...rest,
+      });
+    }
   }, [editingPickupAddress, form]);
 
   const setLng = (longitude: number | undefined) =>
@@ -63,10 +79,20 @@ export const PickupAddressModal = ({ merchantId }: { merchantId: number }) => {
 
   const confirm = () => {
     form.validateFields().then(async () => {
+      const { timeFrame, ...rest } = form.getFieldsValue();
       await mutateAsync({
         merchantId,
         ...editingPickupAddress,
-        ...form.getFieldsValue(),
+        timeFrame: JSON.stringify(
+          timeFrame.map((item: any) => ({
+            ...item,
+            timeFrameList: item.timeFrameList.map((_item: any) => ({
+              openTime: moment(_item.openTime).format("HH:mm"),
+              closeTime: moment(_item.closeTime).format("HH:mm"),
+            })),
+          }))
+        ),
+        ...rest,
       });
       closeModal();
     });
@@ -227,7 +253,7 @@ export const PickupAddressModal = ({ merchantId }: { merchantId: number }) => {
           </Form.Item>
           <Form.Item
             label="提货点地址详情"
-            name="name"
+            name="addressDetail"
             rules={[{ required: true, message: "请输入提货点地址详情" }]}
           >
             <Input placeholder={"请输入提货点地址详情"} />
