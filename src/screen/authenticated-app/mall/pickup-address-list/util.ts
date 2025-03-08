@@ -23,7 +23,7 @@ export const usePickupAddressListSearchParams = () => {
 
 export const usePickupAddressListQueryKey = () => {
   const [params] = usePickupAddressListSearchParams();
-  return ["merchant_refund_address_list", params];
+  return ["merchant_pickup_address_list", params];
 };
 
 export const usePickupAddressModal = () => {
