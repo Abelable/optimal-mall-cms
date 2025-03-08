@@ -363,23 +363,6 @@ export const GoodsModal = ({
             </Col>
             <Col span={12}>
               <Form.Item
-                name="merchantId"
-                label="商家"
-                rules={[{ required: true, message: "请选择商家" }]}
-              >
-                <Select placeholder="请选择商家">
-                  {merchantOptions.map(({ id, name }) => (
-                    <Select.Option key={id} value={id}>
-                      {name}
-                    </Select.Option>
-                  ))}
-                </Select>
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item
                 name="freightTemplateId"
                 label="运费模板"
                 rules={[{ required: true, message: "请选择运费模板" }]}
@@ -393,6 +376,8 @@ export const GoodsModal = ({
                 </Select>
               </Form.Item>
             </Col>
+          </Row>
+          <Row gutter={16}>
             <Col span={12}>
               <Form.Item
                 name="price"
@@ -406,8 +391,6 @@ export const GoodsModal = ({
                 />
               </Form.Item>
             </Col>
-          </Row>
-          <Row gutter={16}>
             <Col span={12}>
               <Form.Item name="marketPrice" label="市场原价">
                 <InputNumber
@@ -417,6 +400,8 @@ export const GoodsModal = ({
                 />
               </Form.Item>
             </Col>
+          </Row>
+          <Row gutter={16}>
             <Col span={12}>
               <Form.Item name="commissionRate" label="佣金比例">
                 <InputNumber
@@ -428,8 +413,39 @@ export const GoodsModal = ({
                 />
               </Form.Item>
             </Col>
+            <Col span={12}>
+              <Form.Item name="numberLimit" label="限购数量">
+                <InputNumber
+                  style={{ width: "100%" }}
+                  placeholder="请填写限购数量"
+                />
+              </Form.Item>
+            </Col>
           </Row>
           <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                name="merchantId"
+                label="商家"
+                rules={[{ required: true, message: "请选择商家" }]}
+              >
+                <Select
+                  placeholder="请选择商家"
+                  showSearch
+                  filterOption={(input, option) =>
+                    (option!.children as any)[1].props.children
+                      .toLowerCase()
+                      .includes(input.toLowerCase())
+                  }
+                >
+                  {merchantOptions.map(({ id, name }) => (
+                    <Select.Option key={id} value={id}>
+                      {name}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
             <Col span={12}>
               <Form.Item
                 name="refundStatus"
@@ -443,14 +459,6 @@ export const GoodsModal = ({
                     </Select.Option>
                   ))}
                 </Select>
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item name="numberLimit" label="限购数量">
-                <InputNumber
-                  style={{ width: "100%" }}
-                  placeholder="请填写限购数量"
-                />
               </Form.Item>
             </Col>
           </Row>
