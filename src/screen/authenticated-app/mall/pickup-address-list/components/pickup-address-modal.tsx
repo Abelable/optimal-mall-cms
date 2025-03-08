@@ -18,7 +18,7 @@ import {
 import { ErrorBox, ModalLoading, Row as CustomRow } from "components/lib";
 import { Map } from "components/map";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import moment from "moment";
+import dayjs from "dayjs";
 
 const weekDayOptions = [
   { text: "周一", value: 1 },
@@ -58,8 +58,8 @@ export const PickupAddressModal = ({ merchantId }: { merchantId: number }) => {
               startWeekDay: +item.startWeekDay,
               endWeekDay: +item.endWeekDay,
               timeFrameList: item.timeFrameList.map((_item: any) => ({
-                openTime: moment(_item.openTime, "HH:mm"),
-                closeTime: moment(_item.closeTime, "HH:mm"),
+                openTime: dayjs(_item.openTime, "HH:mm"),
+                closeTime: dayjs(_item.closeTime, "HH:mm"),
               })),
             }))
           : [],
@@ -84,13 +84,15 @@ export const PickupAddressModal = ({ merchantId }: { merchantId: number }) => {
         merchantId,
         ...editingPickupAddress,
         timeFrame: JSON.stringify(
-          timeFrame.map((item: any) => ({
-            ...item,
-            timeFrameList: item.timeFrameList.map((_item: any) => ({
-              openTime: moment(_item.openTime).format("HH:mm"),
-              closeTime: moment(_item.closeTime).format("HH:mm"),
-            })),
-          }))
+          timeFrame
+            ? timeFrame.map((item: any) => ({
+                ...item,
+                timeFrameList: item.timeFrameList.map((_item: any) => ({
+                  openTime: dayjs(_item.openTime).format("HH:mm"),
+                  closeTime: dayjs(_item.closeTime).format("HH:mm"),
+                })),
+              }))
+            : []
         ),
         ...rest,
       });
