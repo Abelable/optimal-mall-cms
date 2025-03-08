@@ -89,6 +89,8 @@ export const GoodsModal = ({
         ...rest
       } = editingGoods;
 
+      setMerchantId(editingGoods.merchantId || 0);
+
       setTableSkuList(
         skuList.map(
           ({
@@ -144,7 +146,7 @@ export const GoodsModal = ({
         ...rest,
       });
     }
-  }, [editingGoods, form]);
+  }, [editingGoods, form, setMerchantId]);
 
   const submit = () => {
     form.validateFields().then(async () => {

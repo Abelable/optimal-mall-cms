@@ -101,6 +101,12 @@ export const SearchPanel = ({
           value={tempParams.merchantId}
           placeholder="请选择商家"
           allowClear
+          showSearch
+          filterOption={(input, option) =>
+            (option!.children as unknown as string)
+              .toLowerCase()
+              .includes(input.toLowerCase())
+          }
           onSelect={setMerchant}
           onClear={clearMerchant}
         >

@@ -39,7 +39,10 @@ export interface Goods {
   price: number;
   stock: number;
   commissionRate: number;
+  deliveryMethod: number;
+  pickupAddressIds: number[];
   refundStatus: number;
+  refundAddressIds: number[];
   numberLimit: number;
   specList: Spec[];
   skuList: Sku[];
