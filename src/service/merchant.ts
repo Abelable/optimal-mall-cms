@@ -138,6 +138,17 @@ export const useDeleteRefundAddress = (queryKey: QueryKey) => {
   );
 };
 
+export const useRefundAddressOptions = (merchantId: number) => {
+  const client = useHttp();
+  return useQuery<Partial<RefundAddress>[]>(
+    ["refund_address_options", merchantId],
+    () => client("merchant/refund_address/options", { data: { merchantId } }),
+    {
+      enabled: !!merchantId,
+    }
+  );
+};
+
 export const usePickupAddressList = (
   params: Partial<PickupAddressListSearchParams>
 ) => {
@@ -193,5 +204,16 @@ export const useDeletePickupAddress = (queryKey: QueryKey) => {
         method: "POST",
       }),
     useDeleteConfig(queryKey)
+  );
+};
+
+export const usePickupAddressOptions = (merchantId: number) => {
+  const client = useHttp();
+  return useQuery<Partial<PickupAddress>[]>(
+    ["pickup_address_options", merchantId],
+    () => client("merchant/pickup_address/options", { data: { merchantId } }),
+    {
+      enabled: !!merchantId,
+    }
   );
 };
