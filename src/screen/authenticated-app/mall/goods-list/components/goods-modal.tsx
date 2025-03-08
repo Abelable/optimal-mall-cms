@@ -445,7 +445,7 @@ export const GoodsModal = ({
                   placeholder="请选择商家"
                   showSearch
                   filterOption={(input, option) =>
-                    (option!.children as any)[1].props.children
+                    (option!.children as unknown as string)
                       .toLowerCase()
                       .includes(input.toLowerCase())
                   }
@@ -500,7 +500,7 @@ export const GoodsModal = ({
                         }
                       >
                         {({ getFieldValue }) =>
-                          getFieldValue("refundStatus") !== 1 && (
+                          [2, 3].includes(getFieldValue("deliveryMethod")) && (
                             <Col span={12}>
                               <Form.Item
                                 name="pickupAddressIds"
@@ -513,7 +513,7 @@ export const GoodsModal = ({
                                   mode="multiple"
                                   placeholder="请选择提货地址"
                                 >
-                                  {refundAddressOptions.map((item) => (
+                                  {pickupAddressOptions.map((item) => (
                                     <Select.Option
                                       key={item.id}
                                       value={item.id}
