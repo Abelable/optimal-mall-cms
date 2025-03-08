@@ -1,14 +1,19 @@
+import { useState } from "react";
 import styled from "@emotion/styled";
-import { GoodsModal } from "./components/goods-modal";
-import { List } from "./components/list";
-import { SearchPanel } from "./components/search-panel";
-
 import { useCategoryOptions } from "service/category";
 import { useGoodsList } from "service/goods";
 import { useFreightTemplateOptions } from "service/freightTemplate";
-import { useMerchantOptions } from "service/merchant";
+import {
+  useMerchantOptions,
+  usePickupAddressOptions,
+  useRefundAddressOptions,
+} from "service/merchant";
 import { toNumber } from "utils";
 import { useGoodsListSearchParams } from "./util";
+
+import { GoodsModal } from "./components/goods-modal";
+import { List } from "./components/list";
+import { SearchPanel } from "./components/search-panel";
 
 export const GoodsList = () => {
   const [params, setParams] = useGoodsListSearchParams();
@@ -28,6 +33,11 @@ export const GoodsList = () => {
   const { data: originalMerchantOptions = [], error: merchantOptionsError } =
     useMerchantOptions();
   const merchantOptions = [{ id: 0, name: "自营" }, ...originalMerchantOptions];
+  const [merchantId, setMerchantId] = useState(0);
+  const { data: refundAddressOptions = [], error: refundAddressOptionsError } =
+    useRefundAddressOptions(merchantId);
+  const { data: pickupAddressOptions = [], error: pickupAddressOptionsError } =
+    usePickupAddressOptions(merchantId);
 
   const statusOptions = [
     { text: "售卖中", value: 1 },
@@ -54,7 +64,9 @@ export const GoodsList = () => {
             error ||
             categoryOptionsError ||
             freightTemplateOptionsError ||
-            merchantOptionsError
+            merchantOptionsError ||
+            refundAddressOptionsError ||
+            pickupAddressOptionsError
           }
           loading={isLoading}
           dataSource={data?.list}
@@ -70,6 +82,9 @@ export const GoodsList = () => {
         categoryOptions={categoryOptions}
         freightTemplateOptions={freightTemplateOptions}
         merchantOptions={merchantOptions}
+        setMerchantId={setMerchantId}
+        refundAddressOptions={refundAddressOptions}
+        pickupAddressOptions={pickupAddressOptions}
       />
     </Container>
   );

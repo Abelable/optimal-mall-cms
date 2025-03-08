@@ -23,6 +23,7 @@ import { SpecEditor } from "./spec-editor";
 import type { CategoryOption } from "types/category";
 import type { OperatorOption } from "types/common";
 import type { Sku, Spec } from "types/goods";
+import type { PickupAddress, RefundAddress } from "types/merchant";
 
 interface TableSku extends Sku {
   [x: string]: string | number | object;
@@ -42,10 +43,16 @@ export const GoodsModal = ({
   categoryOptions,
   freightTemplateOptions,
   merchantOptions,
+  setMerchantId,
+  refundAddressOptions,
+  pickupAddressOptions,
 }: {
   categoryOptions: CategoryOption[];
   freightTemplateOptions: OperatorOption[];
   merchantOptions: OperatorOption[];
+  setMerchantId: (id: number) => void;
+  refundAddressOptions: Partial<RefundAddress>[];
+  pickupAddressOptions: Partial<PickupAddress>[];
 }) => {
   const [form] = useForm();
 
