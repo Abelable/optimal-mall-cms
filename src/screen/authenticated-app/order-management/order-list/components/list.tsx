@@ -160,8 +160,11 @@ export const List = ({
             render: (value) => (
               <>
                 {value.map(
-                  ({ id, cover, name, skuName, price, number }: OrderGoods) => (
-                    <GoodsCard key={id}>
+                  (
+                    { cover, name, skuName, price, number }: OrderGoods,
+                    index: number
+                  ) => (
+                    <GoodsCard key={index}>
                       <img src={cover} alt="" />
                       <GoodsInfo>
                         <GoodsName>{name}</GoodsName>

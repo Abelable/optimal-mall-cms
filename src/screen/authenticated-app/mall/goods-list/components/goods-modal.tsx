@@ -469,7 +469,7 @@ export const GoodsModal = ({
             }
           >
             {({ getFieldValue }) =>
-              getFieldValue("merchantId") && (
+              getFieldValue("merchantId") ? (
                 <>
                   <Row gutter={16}>
                     <Col span={12}>
@@ -574,6 +574,8 @@ export const GoodsModal = ({
                     </Form.Item>
                   </Row>
                 </>
+              ) : (
+                <></>
               )
             }
           </Form.Item>
