@@ -70,12 +70,12 @@ export const CommissionCard = ({
                   commissionData?.settledTeamCommissionSum
                 ).toFixed(2)
               : "0.00"
-          }，已提现: ¥${
+          }，未提现: ¥${
             commissionData
               ? (
-                  commissionData?.settledCommissionSum +
-                  commissionData?.settledGiftCommissionSum +
-                  commissionData?.settledTeamCommissionSum
+                  commissionData?.pendingCommissionSum +
+                  commissionData?.pendingGiftCommissionSum +
+                  commissionData?.pendingTeamCommissionSum
                 ).toFixed(2)
               : "0.00"
           }`}
