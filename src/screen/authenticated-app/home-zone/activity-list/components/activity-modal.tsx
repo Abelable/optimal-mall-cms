@@ -1,13 +1,12 @@
 import { DatePicker, Form, Input, Modal, Select } from "antd";
 import { ErrorBox, GoodsCover, ModalLoading } from "components/lib";
 
+import { useEffect } from "react";
+import dayjs from "dayjs";
 import { useForm } from "antd/lib/form/Form";
-import moment from "moment";
 import { useGoodsOptions } from "service/goods";
 import { useAddActivity, useEditActivity } from "service/activity";
 import { useActivityModal, useActivityListQueryKey } from "../util";
-
-import { useEffect } from "react";
 
 const statusOptions = [
   { text: "预告", value: 0 },
@@ -39,8 +38,8 @@ export const ActivityModal = () => {
     if (editingActivity) {
       const { startTime, endTime, ...rest } = editingActivity;
       form.setFieldsValue({
-        startTime: startTime ? moment(startTime) : startTime,
-        endTime: endTime ? moment(endTime) : endTime,
+        startTime: startTime ? dayjs(startTime) : startTime,
+        endTime: endTime ? dayjs(endTime) : endTime,
         ...rest,
       });
     }

@@ -2,8 +2,8 @@ import { DatePicker, Form, Input, InputNumber, Modal, Select } from "antd";
 import { ErrorBox, GoodsCover, ModalLoading } from "components/lib";
 
 import { useEffect } from "react";
+import dayjs from "dayjs";
 import { useForm } from "antd/lib/form/Form";
-import moment from "moment";
 import { useAddCoupon, useEditCoupon } from "service/coupon";
 import { useCouponModal, useCouponListQueryKey } from "../util";
 
@@ -31,9 +31,7 @@ export const CouponModal = ({
     if (editingCoupon) {
       const { expirationTime, goodsId, ...rest } = editingCoupon;
       form.setFieldsValue({
-        expirationTime: expirationTime
-          ? moment(expirationTime)
-          : expirationTime,
+        expirationTime: expirationTime ? dayjs(expirationTime) : expirationTime,
         goodsIds: [goodsId],
         ...rest,
       });
