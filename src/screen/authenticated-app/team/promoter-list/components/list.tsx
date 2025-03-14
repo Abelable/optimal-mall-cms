@@ -131,24 +131,26 @@ export const List = ({
           {
             title: "商品佣金",
             dataIndex: "commissionSum",
-            render: (value) => <>¥{value.toFixed(2)}</>,
+            render: (value) => <>¥{value ? value.toFixed(2) : 0}</>,
           },
           {
             title: "礼包佣金",
             dataIndex: "giftCommissionSum",
-            render: (value) => <>¥{value.toFixed(2)}</>,
+            render: (value) => <>¥{value ? value.toFixed(2) : 0}</>,
           },
 
           {
             title: "团队佣金",
             dataIndex: "teamCommissionSum",
-            render: (value) => <>¥{value.toFixed(2)}</>,
+            render: (value) => <>¥{value ? value.toFixed(2) : 0}</>,
           },
           {
             title: "已提现佣金",
             dataIndex: "settledCommissionSum",
             render: (value) => (
-              <span style={{ color: "#f56c6c" }}>-¥{value.toFixed(2)}</span>
+              <span style={{ color: "#f56c6c" }}>
+                -¥{value ? value.toFixed(2) : 0}
+              </span>
             ),
           },
 

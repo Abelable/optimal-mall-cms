@@ -107,7 +107,7 @@ export const TopPromoterCard = ({
           {
             title: "累计佣金",
             dataIndex: "totalCommission",
-            render: (value) => <>¥{value.toFixed(2)}</>,
+            render: (value) => <>¥{value ? value.toFixed(2) : 0}</>,
           },
           {
             title: "提现进度",
