@@ -64,7 +64,15 @@ export const BindModal = ({
             label="上级"
             rules={[{ required: true, message: "请选择上级" }]}
           >
-            <Select placeholder="请选择上级">
+            <Select
+              placeholder="请选择上级"
+              showSearch
+              filterOption={(input, option) =>
+                (option!.children as any)[1].props.children
+                  .toLowerCase()
+                  .includes(input.toLowerCase())
+              }
+            >
               {superiorOptions.map(({ id, avatar, nickname }) => (
                 <Select.Option key={id} value={id}>
                   <OptionAvatar src={avatar} icon={<UserOutlined />} />
