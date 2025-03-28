@@ -1,4 +1,4 @@
-import { OptionAvatar, Row } from "components/lib";
+import { OptionAvatar, OptionNickname, Row } from "components/lib";
 import { Button, Input, Select, Tag } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
@@ -108,10 +108,10 @@ export const SearchPanel = ({
           {superiorOptions?.map(({ id, avatar, nickname, level }) => (
             <Select.Option key={id} value={id}>
               <OptionAvatar src={avatar} icon={<UserOutlined />} />
+              <OptionNickname maxWidth="6.8rem">{nickname}</OptionNickname>
               <Tag color={["green", "blue", "gold", "magenta"][level - 1]}>
                 {["推广员", "C1", "C2", "C3"][level - 1]}
               </Tag>
-              <span>{nickname}</span>
             </Select.Option>
           ))}
         </Select>
