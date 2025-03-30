@@ -34,8 +34,9 @@ const statusOptions = [
   { text: "待退款", value: 202 },
   { text: "已退款", value: 203 },
   { text: "待收货", value: 301 },
-  { text: "用户签收", value: 401 },
-  { text: "系统签收", value: 402 },
+  { text: "用户确认/使用", value: 401 },
+  { text: "系统确认/使用", value: 402 },
+  { text: "管理员确认/使用", value: 403 },
   { text: "完成评价", value: 501 },
 ];
 const batchOprationOptions = [
