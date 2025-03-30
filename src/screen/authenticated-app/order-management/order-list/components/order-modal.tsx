@@ -227,6 +227,7 @@ export const OrderModal = ({
           break;
 
         case 501:
+        case 502:
           setCurrent(deliveryMode === 1 ? 5 : 4);
           setStepItems(
             deliveryMode === 1
@@ -365,7 +366,7 @@ export const OrderModal = ({
             </Descriptions>
 
             {orderInfo?.deliveryMode === 1 &&
-            [204, 301, 401, 402, 403, 501].includes(
+            [204, 301, 401, 402, 403, 501, 502].includes(
               orderInfo?.status as number
             ) ? (
               <>

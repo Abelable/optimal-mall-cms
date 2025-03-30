@@ -394,6 +394,7 @@ const More = ({ id, status }: { id: number; status: number }) => {
     case 402:
     case 403:
     case 501:
+    case 502:
       items = [
         {
           label: <div onClick={() => openOrderModal(id)}>详情</div>,

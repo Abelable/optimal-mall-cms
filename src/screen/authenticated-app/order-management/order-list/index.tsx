@@ -39,6 +39,7 @@ const statusOptions = [
   { text: "系统确认/使用", value: 402 },
   { text: "管理员确认/使用", value: 403 },
   { text: "完成评价", value: 501 },
+  { text: "系统完成", value: 502 },
 ];
 const batchOprationOptions = [
   { name: "取消订单", value: 1 },
