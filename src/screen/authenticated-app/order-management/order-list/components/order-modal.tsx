@@ -364,7 +364,10 @@ export const OrderModal = ({
               </Descriptions.Item>
             </Descriptions>
 
-            {[204, 301, 401, 402, 501].includes(orderInfo?.status as number) ? (
+            {orderInfo?.deliveryMode === 1 &&
+            [204, 301, 401, 402, 403, 501].includes(
+              orderInfo?.status as number
+            ) ? (
               <>
                 <Divider orientation="left">包裹信息</Divider>
                 <Table
@@ -448,19 +451,55 @@ export const OrderModal = ({
             ) : (
               <></>
             )}
-
-            <Divider orientation="left">收件人信息</Divider>
-            <Descriptions size={"small"} layout="vertical" bordered>
-              <Descriptions.Item label="收件人">
-                {orderInfo?.consignee}
-              </Descriptions.Item>
-              <Descriptions.Item label="手机号">
-                {orderInfo?.mobile}
-              </Descriptions.Item>
-              <Descriptions.Item label="收货地址">
-                {orderInfo?.address}
-              </Descriptions.Item>
-            </Descriptions>
+            {orderInfo?.deliveryMode === 1 ? (
+              <>
+                <Divider orientation="left">收件人信息</Divider>
+                <Descriptions size={"small"} layout="vertical" bordered>
+                  <Descriptions.Item label="收件人">
+                    {orderInfo?.consignee}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="手机号">
+                    {orderInfo?.mobile}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="收货地址">
+                    {orderInfo?.address}
+                  </Descriptions.Item>
+                </Descriptions>
+              </>
+            ) : (
+              <>
+                <Divider orientation="left">自提信息</Divider>
+                <Descriptions
+                  size={"small"}
+                  layout="vertical"
+                  bordered
+                  column={4}
+                >
+                  <Descriptions.Item label="自提点">
+                    <div>
+                      {orderInfo?.pickupAddress?.name ||
+                        orderInfo?.pickupAddress?.addressDetail}
+                    </div>
+                    {orderInfo?.pickupAddress?.name ? (
+                      <div style={{ color: "#999", fontSize: "1.2rem" }}>
+                        {orderInfo?.pickupAddress?.addressDetail}
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="自提时间">
+                    {orderInfo?.pickupTime}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="预留手机号">
+                    {orderInfo?.pickupMobile}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="核销编码">
+                    {orderInfo?.verifyCode}
+                  </Descriptions.Item>
+                </Descriptions>
+              </>
+            )}
 
             <Divider orientation="left">商品信息</Divider>
             <Table

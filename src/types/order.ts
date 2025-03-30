@@ -31,6 +31,10 @@ export interface Order {
   consignee: string;
   mobile: string;
   address: string;
+  pickupAddress: { name: string; addressDetail: string };
+  pickupTime: string;
+  pickupMobile: string;
+  verifyCode: string;
   createdAt: string;
   updatedAt: string;
 }
