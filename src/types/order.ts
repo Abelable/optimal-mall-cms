@@ -23,6 +23,7 @@ export interface Order {
   id: number;
   orderSn: string;
   status: number;
+  deliveryMode: number;
   goodsList: OrderGoods[];
   refundAmount: number;
   merchantId: number;

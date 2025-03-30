@@ -218,26 +218,6 @@ export const List = ({
             width: "20rem",
           },
           {
-            title: "收件人信息",
-            children: [
-              {
-                title: "姓名",
-                dataIndex: "consignee",
-                width: "12rem",
-              },
-              {
-                title: "手机号",
-                dataIndex: "mobile",
-                width: "14rem",
-              },
-              {
-                title: "收件地址",
-                dataIndex: "address",
-                width: "32rem",
-              },
-            ],
-          },
-          {
             title: "提交时间",
             render: (value, order) => (
               <span>
@@ -381,18 +361,43 @@ const More = ({ id, status }: { id: number; status: number }) => {
       ];
       break;
 
-    case 301:
-    case 401:
-    case 402:
-    case 501:
+    case 302:
       items = [
         {
           label: <div onClick={() => openOrderModal(id)}>详情</div>,
           key: "detail",
         },
         {
-          label: <div onClick={() => confirmReceived(id)}>确认收货</div>,
+          label: <div onClick={() => confirmRefund(id)}>退款</div>,
+          key: "refund",
+        },
+        {
+          label: <div onClick={() => confirmReceived(id)}>确认使用</div>,
           key: "confirm",
+        },
+      ];
+      break;
+
+    case 301:
+      items = [
+        {
+          label: <div onClick={() => openOrderModal(id)}>详情</div>,
+          key: "detail",
+        },
+        {
+          label: <div onClick={() => confirmReceived(id)}>确认收货/使用</div>,
+          key: "confirm",
+        },
+      ];
+      break;
+    case 401:
+    case 402:
+    case 403:
+    case 501:
+      items = [
+        {
+          label: <div onClick={() => openOrderModal(id)}>详情</div>,
+          key: "detail",
         },
       ];
       break;
