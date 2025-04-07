@@ -259,7 +259,7 @@ const MenuSider = ({
       icon: <SunOutlined />,
       children: [
         {
-          label: <Link to={"team/promoter_list"}>推广员列表</Link>,
+          label: <Link to={"team/promoter_list"}>推荐官列表</Link>,
           key: "team_promoter_list",
           icon: <UserOutlined />,
         },

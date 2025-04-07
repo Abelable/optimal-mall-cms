@@ -45,7 +45,7 @@ export const List = ({
   return (
     <Container>
       <Header between={true}>
-        <PageTitle>推广员列表</PageTitle>
+        <PageTitle>推荐官列表</PageTitle>
         <Button onClick={() => open()} type={"primary"} icon={<PlusOutlined />}>
           新增
         </Button>
@@ -76,7 +76,7 @@ export const List = ({
             dataIndex: "mobile",
           },
           {
-            title: "推广员身份",
+            title: "推荐官身份",
             dataIndex: "level",
             render: (value, promoter) => {
               const levelItem = levelOptions.find(

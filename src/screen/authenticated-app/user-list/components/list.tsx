@@ -92,7 +92,7 @@ export const List = ({
                         ["green", "blue", "gold", "magenta"][option.level - 1]
                       }
                     >
-                      {["推广员", "C1", "C2", "C3"][option.level - 1]}
+                      {["推荐官", "C1", "C2", "C3"][option.level - 1]}
                     </Tag>
                   </div>
                 </Popover>

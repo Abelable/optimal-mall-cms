@@ -206,7 +206,7 @@ export const IntroduceRow = ({
     </StatisticCard>
     <StatisticCard loading={promoterCountLoading}>
       <Statistic
-        title="推广员总数"
+        title="推荐官总数"
         value={promoterCountData?.totalCount}
         valueStyle={{ fontSize: "3rem" }}
       />

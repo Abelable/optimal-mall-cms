@@ -69,31 +69,31 @@ export const SearchPanel = ({
   return (
     <Container>
       <Item>
-        <div>推广员昵称：</div>
+        <div>推荐官昵称：</div>
         <Input
           style={{ width: "20rem" }}
           value={tempParams.nickname}
           onChange={setNickname}
-          placeholder="请输入推广员昵称"
+          placeholder="请输入推荐官昵称"
           allowClear
         />
       </Item>
       <Item>
-        <div>推广员手机号：</div>
+        <div>推荐官手机号：</div>
         <Input
           style={{ width: "20rem" }}
           value={tempParams.mobile}
           onChange={setMobile}
-          placeholder="请输入推广员手机号"
+          placeholder="请输入推荐官手机号"
           allowClear
         />
       </Item>
       <Item>
-        <div>推广员身份：</div>
+        <div>推荐官身份：</div>
         <Select
           style={{ width: "20rem" }}
           value={tempParams.level}
-          placeholder="请选择推广员身份"
+          placeholder="请选择推荐官身份"
           allowClear
           onSelect={setLevel}
           onClear={clearLevel}

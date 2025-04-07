@@ -9,7 +9,7 @@ import { useUserNormalOptions } from "service/user";
 import { PromoterModal } from "./components/promoter-modal";
 
 const levelOptions = [
-  { text: "乡村振兴推广员", value: 1, scene: 100 },
+  { text: "乡村振兴推荐官", value: 1, scene: 100 },
   { text: "乡村振兴服务商C1", value: 2, scene: 201 },
   { text: "乡村振兴服务商C2", value: 3, scene: 202 },
   { text: "乡村振兴服务商C3", value: 4, scene: 203 },

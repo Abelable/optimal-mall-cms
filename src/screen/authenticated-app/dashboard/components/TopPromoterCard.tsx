@@ -18,7 +18,7 @@ interface ListProps extends TableProps<TopPromoter> {
 }
 
 const levelOptions = [
-  { text: "乡村振兴推广员", value: 1, scene: 100 },
+  { text: "乡村振兴推荐官", value: 1, scene: 100 },
   { text: "乡村振兴服务商C1", value: 2, scene: 201 },
   { text: "乡村振兴服务商C2", value: 3, scene: 202 },
   { text: "乡村振兴服务商C3", value: 4, scene: 203 },
@@ -44,7 +44,7 @@ export const TopPromoterCard = ({
       variant="borderless"
       title={
         <Row>
-          <PageTitle>推广员排行榜</PageTitle>
+          <PageTitle>推荐官排行榜</PageTitle>
         </Row>
       }
       style={{
@@ -70,7 +70,7 @@ export const TopPromoterCard = ({
             ),
           },
           {
-            title: "推广员",
+            title: "推荐官",
             render: (value, promoter) => (
               <>
                 <OptionAvatar src={promoter.avatar} icon={<UserOutlined />} />
@@ -79,7 +79,7 @@ export const TopPromoterCard = ({
             ),
           },
           {
-            title: "推广员身份",
+            title: "推荐官身份",
             dataIndex: "level",
             render: (value, promoter) => {
               const levelItem = levelOptions.find(

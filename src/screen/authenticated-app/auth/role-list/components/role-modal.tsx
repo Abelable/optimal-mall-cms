@@ -22,7 +22,7 @@ const treeData: DataNode[] = [
     key: "team",
     children: [
       {
-        title: "推广员列表",
+        title: "推荐官列表",
         key: "team_promoter_list",
       },
       {

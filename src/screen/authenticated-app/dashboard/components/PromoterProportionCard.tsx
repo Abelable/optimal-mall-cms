@@ -14,7 +14,7 @@ export const PromoterProportionCard = ({
     data: levelsCountList
       .sort((a, b) => b.level - a.level)
       .map((item) => ({
-        name: ["推广员", "C1", "C2", "C3"][item.level - 1],
+        name: ["推荐官", "C1", "C2", "C3"][item.level - 1],
         number: item.number,
       })),
     angleField: "number",
@@ -38,7 +38,7 @@ export const PromoterProportionCard = ({
     <ChartCard
       title={
         <Row>
-          <PageTitle>推广员类别占比</PageTitle>
+          <PageTitle>推荐官类别占比</PageTitle>
         </Row>
       }
       styles={{ body: { border: "none" } }}
