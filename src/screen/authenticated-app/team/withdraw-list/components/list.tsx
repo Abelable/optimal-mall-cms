@@ -21,7 +21,9 @@ import { SearchPanelProps } from "./search-panel";
 
 import type { Withdraw } from "types/withdraw";
 
-interface ListProps extends TableProps<Withdraw>, SearchPanelProps {
+interface ListProps
+  extends TableProps<Withdraw>,
+    Omit<SearchPanelProps, "userOptions"> {
   error: Error | unknown;
 }
 

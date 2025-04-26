@@ -1,7 +1,9 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import { Row } from "components/lib";
+
 import { Button, Select } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+import { OptionAvatar, Row } from "components/lib";
 
 import type { Option } from "types/common";
 import type { WithdrawListSearchParams } from "types/withdraw";
@@ -10,6 +12,7 @@ export interface SearchPanelProps {
   statusOptions: Option[];
   sceneOptions: Option[];
   pathOptions: Option[];
+  userOptions: { id: number; avatar: string; nickname: string }[];
   params: Partial<WithdrawListSearchParams>;
   setParams: (params: Partial<WithdrawListSearchParams>) => void;
 }
@@ -18,12 +21,14 @@ const defaultParmas: Partial<WithdrawListSearchParams> = {
   status: undefined,
   scene: undefined,
   path: undefined,
+  userId: undefined,
 };
 
 export const SearchPanel = ({
   statusOptions,
   sceneOptions,
   pathOptions,
+  userOptions,
   params,
   setParams,
 }: SearchPanelProps) => {
@@ -38,6 +43,9 @@ export const SearchPanel = ({
 
   const setPath = (path: number) => setTempParams({ ...tempParams, path });
   const clearPath = () => setTempParams({ ...tempParams, path: undefined });
+
+  const setUser = (userId: number) => setTempParams({ ...tempParams, userId });
+  const clearUser = () => setTempParams({ ...tempParams, userId: undefined });
 
   const clear = () => {
     setParams({ ...params, ...defaultParmas, page: 1 });
@@ -93,6 +101,30 @@ export const SearchPanel = ({
           {pathOptions?.map(({ text, value }) => (
             <Select.Option key={value} value={value}>
               {text}
+            </Select.Option>
+          ))}
+        </Select>
+      </Item>
+      <Item>
+        <div>提现用户：</div>
+        <Select
+          style={{ width: "20rem" }}
+          value={tempParams.userId}
+          placeholder="请选择提现用户"
+          allowClear
+          onSelect={setUser}
+          onClear={clearUser}
+          showSearch
+          filterOption={(input, option) =>
+            (option!.children as any)[1].props.children
+              .toLowerCase()
+              .includes(input.toLowerCase())
+          }
+        >
+          {userOptions?.map(({ id, avatar, nickname }) => (
+            <Select.Option key={id} value={id}>
+              <OptionAvatar src={avatar} icon={<UserOutlined />} />
+              <span>{nickname}</span>
             </Select.Option>
           ))}
         </Select>

@@ -7,6 +7,7 @@ import { useWithdrawListSearchParams } from "./util";
 import { List } from "./components/list";
 import { SearchPanel } from "./components/search-panel";
 import { RejectModal } from "./components/reject-modal";
+import { usePromoterOptions } from "service/promoter";
 
 const statusOptions = [
   { text: "待审核", value: 0 },
@@ -25,6 +26,7 @@ const pathOptions = [
 ];
 
 export const WithdrawList = () => {
+  const { data: userOptions = [], error: promoterError } = usePromoterOptions();
   const [params, setParams] = useWithdrawListSearchParams();
   const { isLoading, error, data } = useWithdrawList(params);
 
@@ -35,6 +37,7 @@ export const WithdrawList = () => {
           statusOptions={statusOptions}
           sceneOptions={sceneOptions}
           pathOptions={pathOptions}
+          userOptions={userOptions}
           params={params}
           setParams={setParams}
         />
@@ -44,7 +47,7 @@ export const WithdrawList = () => {
           pathOptions={pathOptions}
           params={params}
           setParams={setParams}
-          error={error}
+          error={error || promoterError}
           loading={isLoading}
           dataSource={data?.list}
           pagination={{

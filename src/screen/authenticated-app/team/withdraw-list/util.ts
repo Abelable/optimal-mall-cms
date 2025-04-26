@@ -7,6 +7,7 @@ export const useWithdrawListSearchParams = () => {
     "status",
     "scene",
     "path",
+    "userId",
     "page",
     "limit",
   ]);
