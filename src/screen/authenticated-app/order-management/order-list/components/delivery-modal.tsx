@@ -13,7 +13,7 @@ import type { OrderGoods } from "types/order";
 interface Package {
   shipCode: string;
   shipSn: string;
-  goodsList: { goodsId: number; number: number }[];
+  goodsList: { goodsId: number; number: number; selectedSkuName: string }[];
 }
 
 export const DeliveryModal = ({
