@@ -95,7 +95,7 @@ export const IntroduceRow = ({
             <div>
               复购率{" "}
               <span style={{ color: "#1890ff" }}>
-                {orderCountData?.repurchaseRate}%
+                {userCountData?.repurchaseRate}%
               </span>
             </div>
           </div>
