@@ -96,14 +96,7 @@ export const useDeleteActivityTag = (queryKey: QueryKey) => {
 
 export const useActivityTagOptions = () => {
   const client = useHttp();
-  return useQuery<ActivityTagOption[]>(["activityTag_options"], () =>
+  return useQuery<ActivityTagOption[]>(["activity_tag_options"], () =>
     client("mall/activity/tag/options")
-  );
-};
-
-export const useFilterActivityTagOptions = () => {
-  const client = useHttp();
-  return useQuery<ActivityTagOption[]>(["filter_activityTag_options"], () =>
-    client("mall/activity/tag/filteroptions")
   );
 };
