@@ -690,6 +690,7 @@ const Logo = styled.div<{ collapsed: boolean }>`
     margin-left: 1rem;
     flex: 1;
     color: #fff;
+    white-space: nowrap;
     overflow: hidden;
     opacity: ${(props) => (props.collapsed ? 0 : 1)};
     transition: opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
