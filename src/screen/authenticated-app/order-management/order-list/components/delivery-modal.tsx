@@ -4,7 +4,7 @@ import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { useForm } from "antd/lib/form/Form";
 import styled from "@emotion/styled";
-import { useDeliveryOrder } from "service/order";
+import { useDeliveryOrder, useModifyDeliveryInfo } from "service/order";
 import { useDeliveryModal, useOrderListQueryKey } from "../util";
 
 import type { ExpressOption } from "types/express";
@@ -22,12 +22,18 @@ export const DeliveryModal = ({
   expressOptions: ExpressOption[];
 }) => {
   const [form] = useForm();
-  const { deliveryModalOpen, deliveryOrderId, orderInfo, close } =
-    useDeliveryModal();
+  const {
+    deliveryModalOpen,
+    deliveryOrderId,
+    editDeliveryOrderId,
+    orderInfo,
+    close,
+  } = useDeliveryModal();
 
-  const { mutateAsync, isLoading: mutateLoading } = useDeliveryOrder(
-    useOrderListQueryKey()
-  );
+  const { mutateAsync: deliveryOrder, isLoading: deliveryLoading } =
+    useDeliveryOrder(useOrderListQueryKey());
+  const { mutateAsync: modifyDeliveryInfo, isLoading: modifyLoading } =
+    useModifyDeliveryInfo(useOrderListQueryKey());
 
   const [optionsGoodsList, setOptionsGoodsList] = useState<OrderGoods[]>([]);
 
@@ -72,11 +78,16 @@ export const DeliveryModal = ({
         };
       });
 
-      await mutateAsync({
-        id: +deliveryOrderId,
-        isAllDelivered,
-        packageList,
-      });
+      if (deliveryOrderId) {
+        await deliveryOrder({
+          id: +deliveryOrderId,
+          isAllDelivered,
+          packageList,
+        });
+      } else {
+        await modifyDeliveryInfo({ id: +editDeliveryOrderId, packageList });
+      }
+
       closeModal();
     });
   };
@@ -89,29 +100,33 @@ export const DeliveryModal = ({
   return (
     <Modal
       forceRender={true}
-      title="订单发货"
+      title={deliveryOrderId ? "订单发货" : "修改物流"}
       open={deliveryModalOpen}
-      confirmLoading={mutateLoading}
+      confirmLoading={deliveryLoading || modifyLoading}
       onOk={confirm}
       onCancel={closeModal}
     >
       <Form form={form} layout="vertical">
-        <Form.Item
-          name="isAllDelivered"
-          label="发货状态"
-          rules={[{ required: true, message: "请选择发货状态" }]}
-        >
-          <Select placeholder="请选择发货状态">
-            {[
-              { name: "部分发货", value: 0 },
-              { name: "全部发货", value: 1 },
-            ].map((item) => (
-              <Select.Option key={item.value} value={item.value}>
-                {item.name}
-              </Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
+        {deliveryOrderId ? (
+          <Form.Item
+            name="isAllDelivered"
+            label="发货状态"
+            rules={[{ required: true, message: "请选择发货状态" }]}
+          >
+            <Select placeholder="请选择发货状态">
+              {[
+                { name: "部分发货", value: 0 },
+                { name: "全部发货", value: 1 },
+              ].map((item) => (
+                <Select.Option key={item.value} value={item.value}>
+                  {item.name}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+        ) : (
+          <></>
+        )}
 
         <Form.Item label="包裹列表" required>
           <Form.List

@@ -74,6 +74,17 @@ export interface Package {
   goodsList: PackageGoods[];
 }
 
+export interface Delivery {
+  id: number;
+  isAllDelivered: number;
+  packageList: {
+    shipChannel: string;
+    shipCode: string;
+    shipSn: string;
+    goodsList: string;
+  }[];
+}
+
 export interface OrderDetail extends Omit<Order, "goodsList"> {
   goodsList: OrderGoods[];
   packageList: Package[];

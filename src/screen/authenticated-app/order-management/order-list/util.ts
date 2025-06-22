@@ -67,24 +67,35 @@ export const useDeliveryModal = () => {
   const [{ deliveryOrderId }, setDeliveryOrderId] = useUrlQueryParams([
     "deliveryOrderId",
   ]);
+  const [{ editDeliveryOrderId }, setEditDeliveryOrderId] = useUrlQueryParams([
+    "editDeliveryOrderId",
+  ]);
   const setUrlParams = useSetUrlSearchParams();
 
-  const { data: orderInfo } = useOrder(Number(deliveryOrderId));
+  const { data: orderInfo } = useOrder(
+    Number(deliveryOrderId) || Number(editDeliveryOrderId)
+  );
 
   const open = useCallback(
     (id: number) => setDeliveryOrderId({ deliveryOrderId: `${id}` }),
     [setDeliveryOrderId]
   );
+  const edit = useCallback(
+    (id: number) => setEditDeliveryOrderId({ editDeliveryOrderId: `${id}` }),
+    [setEditDeliveryOrderId]
+  );
   const close = useCallback(
-    () => setUrlParams({ deliveryOrderId: "" }),
+    () => setUrlParams({ deliveryOrderId: "", editDeliveryOrderId: "" }),
     [setUrlParams]
   );
 
   return {
-    deliveryModalOpen: !!deliveryOrderId,
+    deliveryModalOpen: !!deliveryOrderId || !!editDeliveryOrderId,
     deliveryOrderId,
+    editDeliveryOrderId,
     orderInfo,
     open,
+    edit,
     close,
   };
 };

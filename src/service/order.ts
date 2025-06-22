@@ -9,6 +9,7 @@ import {
   useRefundOrderConfig,
 } from "./use-optimistic-options";
 import type {
+  Delivery,
   OrderDetail,
   OrderListResult,
   OrderListSearchParams,
@@ -31,27 +32,6 @@ export const useOrder = (id: number) => {
     {
       enabled: !!id,
     }
-  );
-};
-
-export const useDeliveryOrder = (queryKey: QueryKey) => {
-  const client = useHttp();
-  return useMutation(
-    (data: {
-      id: number;
-      isAllDelivered: string;
-      packageList: {
-        shipChannel: string;
-        shipCode: string;
-        shipSn: string;
-        goodsList: string;
-      }[];
-    }) =>
-      client("order/delivery", {
-        data,
-        method: "POST",
-      }),
-    useDeliveryOrderConfig(queryKey)
   );
 };
 
@@ -167,6 +147,30 @@ export const useModifyOrderAddressInfo = (queryKey: QueryKey) => {
       address: string;
     }) =>
       client("order/modify_address_info", {
+        data,
+        method: "POST",
+      }),
+    useDeliveryOrderConfig(queryKey)
+  );
+};
+
+export const useDeliveryOrder = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    (data: Delivery) =>
+      client("order/delivery", {
+        data,
+        method: "POST",
+      }),
+    useDeliveryOrderConfig(queryKey)
+  );
+};
+
+export const useModifyDeliveryInfo = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    (data: Partial<Delivery>) =>
+      client("order/modify_delivery_info", {
         data,
         method: "POST",
       }),
