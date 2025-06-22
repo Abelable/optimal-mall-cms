@@ -261,7 +261,8 @@ export const List = ({
 
 const More = ({ id, status }: { id: number; status: number }) => {
   const { open: openOrderModal } = useOrderModal();
-  const { open: openDeliveryModal } = useDeliveryModal();
+  const { open: openDeliveryModal, modify: modifyDelivery } =
+    useDeliveryModal();
   const { open: openAddressModal } = useAddressModal();
   const { mutate: cancelOrder } = useCancelOrder(useOrderListQueryKey());
   const { mutate: refundOrder } = useRefundOrder(useOrderListQueryKey());
@@ -361,6 +362,23 @@ const More = ({ id, status }: { id: number; status: number }) => {
       ];
       break;
 
+    case 301:
+      items = [
+        {
+          label: <div onClick={() => openOrderModal(id)}>详情</div>,
+          key: "detail",
+        },
+        {
+          label: <div onClick={() => modifyDelivery(id)}>修改物流</div>,
+          key: "modify_delivery",
+        },
+        {
+          label: <div onClick={() => confirmReceived(id)}>确认收货/使用</div>,
+          key: "confirm",
+        },
+      ];
+      break;
+
     case 302:
       items = [
         {
@@ -378,18 +396,6 @@ const More = ({ id, status }: { id: number; status: number }) => {
       ];
       break;
 
-    case 301:
-      items = [
-        {
-          label: <div onClick={() => openOrderModal(id)}>详情</div>,
-          key: "detail",
-        },
-        {
-          label: <div onClick={() => confirmReceived(id)}>确认收货/使用</div>,
-          key: "confirm",
-        },
-      ];
-      break;
     case 401:
     case 402:
     case 403:

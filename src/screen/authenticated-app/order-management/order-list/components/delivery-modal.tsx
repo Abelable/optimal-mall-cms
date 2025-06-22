@@ -25,7 +25,7 @@ export const DeliveryModal = ({
   const {
     deliveryModalOpen,
     deliveryOrderId,
-    editDeliveryOrderId,
+    modifyDeliveryOrderId,
     orderInfo,
     close,
   } = useDeliveryModal();
@@ -85,7 +85,7 @@ export const DeliveryModal = ({
           packageList,
         });
       } else {
-        await modifyDeliveryInfo({ id: +editDeliveryOrderId, packageList });
+        await modifyDeliveryInfo({ id: +modifyDeliveryOrderId, packageList });
       }
 
       closeModal();
