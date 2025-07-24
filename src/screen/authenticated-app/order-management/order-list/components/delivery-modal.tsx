@@ -262,14 +262,14 @@ export const DeliveryModal = ({
                                         },
                                       ]}
                                     >
-                                      <InputNumber
+                                      {/* <InputNumber
                                         style={{ width: "150px" }}
                                         placeholder="请输入商品数量"
                                         min={1}
                                         max={
                                           optionsGoodsList.find(
                                             (item) =>
-                                              item.id ===
+                                              item.goodsId ===
                                               form.getFieldValue([
                                                 "packageList",
                                                 name,
@@ -279,7 +279,59 @@ export const DeliveryModal = ({
                                               ])
                                           )?.number || 1
                                         }
-                                      />
+                                      /> */}
+                                      <Form.Item
+                                        shouldUpdate={(
+                                          prevValues,
+                                          currentValues
+                                        ) => {
+                                          const prev =
+                                            prevValues.packageList?.[name]
+                                              ?.goodsList?.[goodsName]?.goodsId;
+                                          const curr =
+                                            currentValues.packageList?.[name]
+                                              ?.goodsList?.[goodsName]?.goodsId;
+                                          return prev !== curr;
+                                        }}
+                                        noStyle
+                                      >
+                                        {({ getFieldValue }) => {
+                                          const selectedGoodsId = getFieldValue(
+                                            [
+                                              "packageList",
+                                              name,
+                                              "goodsList",
+                                              goodsName,
+                                              "goodsId",
+                                            ]
+                                          );
+                                          const maxNumber =
+                                            optionsGoodsList.find(
+                                              (item) =>
+                                                item.goodsId === selectedGoodsId
+                                            )?.number || 1;
+
+                                          return (
+                                            <Form.Item
+                                              {...goodsRestField}
+                                              name={[goodsName, "number"]}
+                                              rules={[
+                                                {
+                                                  required: true,
+                                                  message: "请输入商品数量",
+                                                },
+                                              ]}
+                                            >
+                                              <InputNumber
+                                                style={{ width: "150px" }}
+                                                placeholder="请输入商品数量"
+                                                min={1}
+                                                max={maxNumber}
+                                              />
+                                            </Form.Item>
+                                          );
+                                        }}
+                                      </Form.Item>
                                     </Form.Item>
 
                                     <MinusCircleOutlined
