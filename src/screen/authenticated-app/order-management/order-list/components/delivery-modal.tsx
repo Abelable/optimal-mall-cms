@@ -262,24 +262,6 @@ export const DeliveryModal = ({
                                         },
                                       ]}
                                     >
-                                      {/* <InputNumber
-                                        style={{ width: "150px" }}
-                                        placeholder="请输入商品数量"
-                                        min={1}
-                                        max={
-                                          optionsGoodsList.find(
-                                            (item) =>
-                                              item.goodsId ===
-                                              form.getFieldValue([
-                                                "packageList",
-                                                name,
-                                                "goodsList",
-                                                goodsName,
-                                                "goodsId",
-                                              ])
-                                          )?.number || 1
-                                        }
-                                      /> */}
                                       <Form.Item
                                         shouldUpdate={(
                                           prevValues,
