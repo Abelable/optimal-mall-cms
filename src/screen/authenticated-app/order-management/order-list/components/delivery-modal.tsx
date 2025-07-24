@@ -221,7 +221,7 @@ export const DeliveryModal = ({
                                 }) => (
                                   <Space
                                     key={goodsKey}
-                                    style={{ display: "flex" }}
+                                    style={{ display: "flex", height: "56px" }}
                                     align="baseline"
                                   >
                                     <Form.Item
