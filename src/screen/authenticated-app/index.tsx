@@ -43,6 +43,7 @@ import {
   TruckOutlined,
   SunOutlined,
   LogoutOutlined,
+  VideoCameraOutlined,
 } from "@ant-design/icons";
 import logo from "assets/images/logo.png";
 import { CouponIcon } from "assets/icon";
@@ -72,6 +73,8 @@ import { LimitedTimeRecruitCategoryList } from "./activity-management/limited-ti
 import { LimitedTimeRecruitGoodsList } from "./activity-management/limited-time-recruit/goods-list";
 import { RuralRegionList } from "./activity-management/rural/region-list";
 import { RuralGoodsList } from "./activity-management/rural/goods-list";
+import { LiveUserList } from "./live/user-list";
+import { LiveRoomList } from "./live/room-list";
 import { MerchantList } from "./mall/merchant-list";
 import { RefundAddressList } from "./mall/refund-address-list";
 import { PickupAddressList } from "./mall/pickup-address-list";
@@ -179,6 +182,8 @@ export const AuthenticatedApp = () => {
                 path="activity/limited_time_recruit/goods_list"
                 element={<LimitedTimeRecruitGoodsList />}
               />
+              <Route path="live/user_list" element={<LiveUserList />} />
+              <Route path="live/room_list" element={<LiveRoomList />} />
               <Route path="goods/merchant_list" element={<MerchantList />} />
               <Route
                 path="goods/merchant_list/refund_address_list"
@@ -461,6 +466,23 @@ const MenuSider = ({
               icon: <ShoppingOutlined />,
             },
           ],
+        },
+      ],
+    },
+    {
+      label: "直播管理",
+      key: "live",
+      icon: <VideoCameraOutlined />,
+      children: [
+        {
+          label: <Link to={"live/user_list"}>直播人员</Link>,
+          key: "live_user_list",
+          icon: <UserOutlined />,
+        },
+        {
+          label: <Link to={"live/room_list"}>直播列表</Link>,
+          key: "live_room_list",
+          icon: <UnorderedListOutlined />,
         },
       ],
     },
