@@ -1,9 +1,19 @@
-import { Table, TablePaginationConfig, TableProps, Avatar, Image } from "antd";
+import {
+  Table,
+  TablePaginationConfig,
+  TableProps,
+  Avatar,
+  Image,
+  Button,
+  Modal,
+} from "antd";
 import { ErrorBox, Row, PageTitle } from "components/lib";
 import { UserOutlined } from "@ant-design/icons";
 
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
+import { useDeleteLiveRoom } from "service/liveRoom";
+import { useLiveRoomListQueryKey } from "../util";
 
 import type { LiveRoom, LiveRoomListSearchParams } from "types/liveRoom";
 
@@ -20,6 +30,20 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
       page: pagination.current,
       limit: pagination.pageSize,
     });
+
+  const { mutate: deleteLiveUser } = useDeleteLiveRoom(
+    useLiveRoomListQueryKey()
+  );
+
+  const confirmDelete = (id: number) => {
+    Modal.confirm({
+      title: "确定删除该直播吗？",
+      content: "点击确定删除",
+      okText: "确定",
+      cancelText: "取消",
+      onOk: () => deleteLiveUser(id),
+    });
+  };
 
   return (
     <Container>
@@ -40,8 +64,8 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
             dataIndex: "status",
             width: "8rem",
             render: (value) => (
-              <div style={{ color: ["#1890ff", "#87d068"][value] }}>
-                {["预告", "直播"][value]}
+              <div style={{ color: ["", "#87d068", "#999", "#1890ff"][value] }}>
+                {["", "直播中", "已结束", "预告"][value]}
               </div>
             ),
           },
@@ -86,6 +110,21 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
             ),
             sorter: (a, b) =>
               dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf(),
+          },
+          {
+            title: "操作",
+            render(value, goods) {
+              return (
+                <Button
+                  onClick={() => confirmDelete(goods.id)}
+                  type="link"
+                  danger
+                >
+                  删除
+                </Button>
+              );
+            },
+            width: "8rem",
           },
         ]}
         onChange={setPagination}
