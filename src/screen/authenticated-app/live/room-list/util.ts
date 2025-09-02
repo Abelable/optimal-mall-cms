@@ -2,7 +2,13 @@ import { useMemo } from "react";
 import { useUrlQueryParams } from "utils/url";
 
 export const useLiveRoomListSearchParams = () => {
-  const [params, setParams] = useUrlQueryParams(["page", "limit"]);
+  const [params, setParams] = useUrlQueryParams([
+    "status",
+    "title",
+    "userId",
+    "page",
+    "limit",
+  ]);
   return [
     useMemo(
       () => ({

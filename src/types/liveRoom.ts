@@ -1,4 +1,7 @@
 export interface LiveRoomListSearchParams {
+  status: number | undefined;
+  title: string;
+  userId: number | undefined;
   page: number;
   limit: number;
 }

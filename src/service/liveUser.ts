@@ -36,3 +36,10 @@ export const useDeleteLiveUser = (queryKey: QueryKey) => {
     useDeleteConfig(queryKey)
   );
 };
+
+export const useLiveUserOptions = () => {
+  const client = useHttp();
+  return useQuery<
+    { id: number; userId: number; avatar: string; nickname: string }[]
+  >(["live_user_options"], () => client("live/user/options"));
+};
