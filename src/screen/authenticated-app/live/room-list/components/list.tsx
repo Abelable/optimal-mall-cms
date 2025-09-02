@@ -6,13 +6,18 @@ import {
   Image,
   Button,
   Modal,
+  InputNumber,
 } from "antd";
 import { ErrorBox, Row, PageTitle } from "components/lib";
 import { UserOutlined } from "@ant-design/icons";
 
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
-import { useDeleteLiveRoom } from "service/liveRoom";
+import {
+  useDeleteLiveRoom,
+  useEditPraise,
+  useEditViews,
+} from "service/liveRoom";
 import { useLiveRoomListQueryKey } from "../util";
 
 import type { LiveRoom, LiveRoomListSearchParams } from "types/liveRoom";
@@ -31,6 +36,8 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
       limit: pagination.pageSize,
     });
 
+  const { mutate: editViews } = useEditViews(useLiveRoomListQueryKey());
+  const { mutate: editPraise } = useEditPraise(useLiveRoomListQueryKey());
   const { mutate: deleteLiveUser } = useDeleteLiveRoom(
     useLiveRoomListQueryKey()
   );
@@ -53,11 +60,13 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
       <ErrorBox error={error} />
       <Table
         rowKey={"id"}
+        scroll={{ x: 2000 }}
         columns={[
           {
             title: "id",
             dataIndex: "id",
             width: "8rem",
+            fixed: "left",
           },
           {
             title: "状态",
@@ -100,23 +109,79 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
             width: "20rem",
           },
           {
-            title: "创建时间",
-            render: (value, goods) => (
+            title: "观看人数",
+            dataIndex: "views",
+            render: (value, live) => (
+              <InputNumber
+                value={value}
+                onChange={(views) => editViews({ id: live.id, views })}
+              />
+            ),
+            width: "12rem",
+          },
+          {
+            title: "点赞数",
+            dataIndex: "praiseNumber",
+            render: (value, live) => (
+              <InputNumber
+                value={value}
+                onChange={(praise) => editPraise({ id: live.id, praise })}
+              />
+            ),
+            width: "12rem",
+          },
+          {
+            title: "预告时间",
+            render: (value, live) => (
               <span>
-                {goods.createdAt
-                  ? dayjs(goods.createdAt).format("YYYY-MM-DD HH:mm:ss")
+                {live.noticeTime
+                  ? dayjs(live.noticeTime).format("YYYY-MM-DD HH:mm:ss")
+                  : ""}
+              </span>
+            ),
+            width: "20rem",
+          },
+          {
+            title: "开始时间",
+            render: (value, live) => (
+              <span>
+                {live.startTime
+                  ? dayjs(live.startTime).format("YYYY-MM-DD HH:mm:ss")
+                  : ""}
+              </span>
+            ),
+            width: "20rem",
+          },
+          {
+            title: "结束时间",
+            render: (value, live) => (
+              <span>
+                {live.endTime
+                  ? dayjs(live.endTime).format("YYYY-MM-DD HH:mm:ss")
+                  : ""}
+              </span>
+            ),
+            width: "20rem",
+          },
+          {
+            title: "创建时间",
+            render: (value, live) => (
+              <span>
+                {live.createdAt
+                  ? dayjs(live.createdAt).format("YYYY-MM-DD HH:mm:ss")
                   : "无"}
               </span>
             ),
+            width: "20rem",
             sorter: (a, b) =>
               dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf(),
           },
           {
             title: "操作",
-            render(value, goods) {
+            render(value, live) {
               return (
                 <Button
-                  onClick={() => confirmDelete(goods.id)}
+                  onClick={() => confirmDelete(live.id)}
                   type="link"
                   danger
                 >
@@ -125,6 +190,7 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
               );
             },
             width: "8rem",
+            fixed: "right",
           },
         ]}
         onChange={setPagination}
