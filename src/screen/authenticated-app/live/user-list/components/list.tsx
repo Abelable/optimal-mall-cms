@@ -66,6 +66,7 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
           {
             title: "用户id",
             dataIndex: "userId",
+            width: "8rem",
           },
           {
             title: "头像",
