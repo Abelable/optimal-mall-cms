@@ -91,7 +91,7 @@ export const SearchPanel = ({
         />
       </Item>
       <Item>
-        <div>直播用户：</div>
+        <div>直播人员：</div>
         <Select
           style={{ width: "20rem" }}
           value={tempParams.userId}
