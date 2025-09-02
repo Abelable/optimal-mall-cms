@@ -475,7 +475,7 @@ const MenuSider = ({
       icon: <VideoCameraOutlined />,
       children: [
         {
-          label: <Link to={"live/user_list"}>直播人员</Link>,
+          label: <Link to={"live/user_list"}>直播用户</Link>,
           key: "live_user_list",
           icon: <UserOutlined />,
         },

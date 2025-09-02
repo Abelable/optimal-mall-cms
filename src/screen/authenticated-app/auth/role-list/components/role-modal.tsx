@@ -156,7 +156,7 @@ const treeData: DataNode[] = [
     key: "live",
     children: [
       {
-        title: "直播人员",
+        title: "直播用户",
         key: "live_user_list",
       },
       {

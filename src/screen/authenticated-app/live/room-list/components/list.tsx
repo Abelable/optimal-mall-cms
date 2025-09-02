@@ -90,7 +90,7 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
             width: "24rem",
           },
           {
-            title: "直播人员",
+            title: "直播用户",
             dataIndex: "userInfo",
             render: (value) => (
               <>

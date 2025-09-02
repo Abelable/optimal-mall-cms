@@ -34,7 +34,7 @@ export const LiveUserModal = () => {
   return (
     <Modal
       forceRender={true}
-      title="新增直播人员"
+      title="新增直播用户"
       open={liveUserModalOpen}
       confirmLoading={mutateLoading}
       onOk={confirm}
