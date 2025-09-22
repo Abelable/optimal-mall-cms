@@ -549,7 +549,7 @@ export const OrderModal = ({
               <Descriptions.Item label="优惠券抵扣">
                 -¥{orderInfo?.couponDenomination}
               </Descriptions.Item>
-              <Descriptions.Item label="余额抵扣">
+              <Descriptions.Item label="积分抵扣">
                 -¥{orderInfo?.deductionBalance}
               </Descriptions.Item>
               <Descriptions.Item label="实付金额">
