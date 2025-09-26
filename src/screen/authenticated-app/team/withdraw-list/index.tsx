@@ -15,6 +15,7 @@ const statusOptions = [
   { text: "已驳回", value: 2 },
 ];
 const sceneOptions = [
+  { text: "自购+分享", value: 0 },
   { text: "自购", value: 1 },
   { text: "分享", value: 2 },
   { text: "礼包", value: 3 },

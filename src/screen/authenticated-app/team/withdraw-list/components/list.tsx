@@ -82,7 +82,7 @@ export const List = ({
             title: "佣金场景",
             dataIndex: "scene",
             render: (value) => (
-              <Tag color={["blue", "green", "orange"][value - 1]}>
+              <Tag color={["gold", "blue", "green", "purple"][value]}>
                 {sceneOptions.find((item) => item.value === value)?.text}
               </Tag>
             ),
