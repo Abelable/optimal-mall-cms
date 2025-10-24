@@ -76,10 +76,12 @@ export const List = ({
             render: (value) => (
               <>{themeZoneOptions.find((item) => item.id === value)?.name}</>
             ),
+            width: "10rem",
           },
           {
             title: "商品id",
             dataIndex: "goodsId",
+            width: "8rem",
           },
           {
             title: "商品封面",
@@ -112,6 +114,7 @@ export const List = ({
             ),
             sorter: (a, b) =>
               dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf(),
+            width: "18rem",
           },
           {
             title: "操作",

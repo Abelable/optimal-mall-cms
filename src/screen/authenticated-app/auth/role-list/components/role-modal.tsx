@@ -51,39 +51,39 @@ const treeData: DataNode[] = [
     title: "首页专区",
     key: "home_zone",
     children: [
+      // {
+      //   title: "乡镇百谷",
+      //   key: "home_zone_grain_goods",
+      // },
+      // {
+      //   title: "乡集生鲜",
+      //   key: "home_zone_fresh_goods",
+      // },
+      // {
+      //   title: "乡村零嘴",
+      //   key: "home_zone_snack_goods",
+      // },
+      // {
+      //   title: "乡思礼伴",
+      //   key: "home_zone_gift_goods",
+      // },
+      // {
+      //   title: "诚信臻品",
+      //   key: "home_zone_integrity_goods",
+      // },
       {
-        title: "乡镇百谷",
-        key: "home_zone_grain_goods",
-      },
-      {
-        title: "乡集生鲜",
-        key: "home_zone_fresh_goods",
-      },
-      {
-        title: "乡村零嘴",
-        key: "home_zone_snack_goods",
-      },
-      {
-        title: "乡思礼伴",
-        key: "home_zone_gift_goods",
-      },
-      {
-        title: "诚信乡村",
-        key: "home_zone_rural",
+        title: "主题专区",
+        key: "home_zone_theme_zone",
         children: [
           {
-            title: "地区列表",
-            key: "home_zone_rural_region_list",
+            title: "主题列表",
+            key: "home_zone_theme_zone_list",
           },
           {
             title: "商品列表",
-            key: "home_zone_rural_goods_list",
+            key: "home_zone_theme_zone_goods_list",
           },
         ],
-      },
-      {
-        title: "诚信臻品",
-        key: "home_zone_integrity_goods",
       },
       {
         title: "商品活动",
@@ -96,6 +96,20 @@ const treeData: DataNode[] = [
           {
             title: "活动列表",
             key: "home_zone_activity_list",
+          },
+        ],
+      },
+      {
+        title: "诚信乡村",
+        key: "home_zone_rural",
+        children: [
+          {
+            title: "地区列表",
+            key: "home_zone_rural_region_list",
+          },
+          {
+            title: "商品列表",
+            key: "home_zone_rural_goods_list",
           },
         ],
       },

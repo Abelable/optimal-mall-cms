@@ -343,31 +343,31 @@ const MenuSider = ({
       key: "home_zone",
       icon: <AppstoreOutlined />,
       children: [
-        {
-          label: <Link to={"home_zone/grain_goods"}>乡镇百谷</Link>,
-          key: "home_zone_grain_goods",
-          icon: <ShoppingOutlined />,
-        },
-        {
-          label: <Link to={"home_zone/fresh_goods"}>乡集生鲜</Link>,
-          key: "home_zone_fresh_goods",
-          icon: <ShoppingOutlined />,
-        },
-        {
-          label: <Link to={"home_zone/snack_goods"}>乡村零嘴</Link>,
-          key: "home_zone_snack_goods",
-          icon: <ShoppingOutlined />,
-        },
-        {
-          label: <Link to={"home_zone/gift_goods"}>乡思礼伴</Link>,
-          key: "home_zone_gift_goods",
-          icon: <ShoppingOutlined />,
-        },
-        {
-          label: <Link to={"home_zone/integrity_goods"}>诚信臻品</Link>,
-          key: "home_zone_integrity_goods",
-          icon: <ShoppingOutlined />,
-        },
+        // {
+        //   label: <Link to={"home_zone/grain_goods"}>乡镇百谷</Link>,
+        //   key: "home_zone_grain_goods",
+        //   icon: <ShoppingOutlined />,
+        // },
+        // {
+        //   label: <Link to={"home_zone/fresh_goods"}>乡集生鲜</Link>,
+        //   key: "home_zone_fresh_goods",
+        //   icon: <ShoppingOutlined />,
+        // },
+        // {
+        //   label: <Link to={"home_zone/snack_goods"}>乡村零嘴</Link>,
+        //   key: "home_zone_snack_goods",
+        //   icon: <ShoppingOutlined />,
+        // },
+        // {
+        //   label: <Link to={"home_zone/gift_goods"}>乡思礼伴</Link>,
+        //   key: "home_zone_gift_goods",
+        //   icon: <ShoppingOutlined />,
+        // },
+        // {
+        //   label: <Link to={"home_zone/integrity_goods"}>诚信臻品</Link>,
+        //   key: "home_zone_integrity_goods",
+        //   icon: <ShoppingOutlined />,
+        // },
         {
           label: "主题专区",
           key: "home_zone_theme_zone",
