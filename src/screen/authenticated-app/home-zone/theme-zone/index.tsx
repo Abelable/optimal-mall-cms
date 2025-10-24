@@ -9,7 +9,7 @@ import { ThemeZoneModal } from "./components/theme-zone-modal";
 const sceneOptions = [
   { text: "主题专区页", value: 1 },
   { text: "H5活动页", value: 2 },
-  { text: "原生活动页", value: 2 },
+  { text: "原生活动页", value: 3 },
 ];
 
 export const ThemeZoneList = () => {
@@ -20,6 +20,7 @@ export const ThemeZoneList = () => {
     <Container>
       <Main>
         <List
+          sceneOptions={sceneOptions}
           params={params}
           setParams={setParams}
           error={error}

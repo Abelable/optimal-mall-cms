@@ -118,7 +118,6 @@ export const ThemeZoneModal = ({
                 label="背景图"
                 valuePropName="fileList"
                 getValueFromEvent={normFile}
-                rules={[{ required: true, message: "请上传背景图" }]}
               >
                 <OssUpload maxCount={1} />
               </Form.Item>

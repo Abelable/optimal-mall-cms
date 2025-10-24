@@ -5,29 +5,33 @@ import {
   InputNumber,
   MenuProps,
   Modal,
-  Switch,
   Table,
   TablePaginationConfig,
   TableProps,
+  Image,
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
-import {
-  useDeleteThemeZone,
-  useEditSort,
-  useEditStatus,
-} from "service/themeZone";
+import { useDeleteThemeZone, useEditSort } from "service/themeZone";
 import { useThemeZoneModal, useThemeZoneListQueryKey } from "../util";
 import { PlusOutlined } from "@ant-design/icons";
 
 import type { ThemeZoneListSearchParams, ThemeZone } from "types/themeZone";
+import type { Option } from "types/common";
 
 interface ListProps extends TableProps<ThemeZone> {
+  sceneOptions: Option[];
   error: Error | unknown;
   params: Partial<ThemeZoneListSearchParams>;
   setParams: (params: Partial<ThemeZoneListSearchParams>) => void;
 }
 
-export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
+export const List = ({
+  sceneOptions,
+  error,
+  params,
+  setParams,
+  ...restProps
+}: ListProps) => {
   const { open } = useThemeZoneModal();
 
   const setPagination = (pagination: TablePaginationConfig) =>
@@ -38,7 +42,6 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
     });
 
   const { mutate: editSort } = useEditSort(useThemeZoneListQueryKey());
-  const { mutate: editStatus } = useEditStatus(useThemeZoneListQueryKey());
 
   return (
     <Container>
@@ -58,11 +61,16 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
             width: "8rem",
           },
           {
-            title: "标签名称",
+            title: "名称",
             dataIndex: "name",
           },
           {
-            title: "排序",
+            title: "封面",
+            dataIndex: "cover",
+            render: (value) => <Image width={68} src={value} />,
+          },
+          {
+            title: "位置",
             dataIndex: "sort",
             render: (value, themeZone) => (
               <InputNumber
@@ -73,15 +81,10 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
             sorter: (a, b) => a.sort - b.sort,
           },
           {
-            title: "显示",
-            dataIndex: "status",
-            render: (value, themeZone) => (
-              <Switch
-                checked={value === 1}
-                onChange={(truthy) =>
-                  editStatus({ id: themeZone.id, status: truthy ? 1 : 2 })
-                }
-              />
+            title: "跳转场景",
+            dataIndex: "scene",
+            render: (value) => (
+              <>{sceneOptions.find((item) => item.value === +value)?.text}</>
             ),
           },
           {
