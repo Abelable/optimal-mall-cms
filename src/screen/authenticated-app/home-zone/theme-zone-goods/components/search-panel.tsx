@@ -35,11 +35,11 @@ export const SearchPanel = ({
   return (
     <Container>
       <Item>
-        <div>主题专区：</div>
+        <div>主题名称：</div>
         <Select
           style={{ width: "20rem" }}
           value={tempParams.themeId}
-          placeholder="请选择主题专区"
+          placeholder="请选择主题名称"
           allowClear
           onSelect={setTheme}
           onClear={clearTheme}

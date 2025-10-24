@@ -71,7 +71,7 @@ export const List = ({
             width: "8rem",
           },
           {
-            title: "主题专区",
+            title: "主题名称",
             dataIndex: "themeId",
             render: (value) => (
               <>{themeZoneOptions.find((item) => item.id === value)?.name}</>

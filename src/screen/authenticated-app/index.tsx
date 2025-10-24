@@ -364,40 +364,23 @@ const MenuSider = ({
           icon: <ShoppingOutlined />,
         },
         {
-          label: "诚信乡村",
-          key: "home_zone_rural",
-          icon: <CloudOutlined />,
-          children: [
-            {
-              label: <Link to={"home_zone/rural/region_list"}>地区列表</Link>,
-              key: "home_zone_rural_region_list",
-              icon: <EnvironmentOutlined />,
-            },
-            {
-              label: <Link to={"home_zone/rural/goods_list"}>商品列表</Link>,
-              key: "home_zone_rural_goods_list",
-              icon: <ShoppingOutlined />,
-            },
-          ],
-        },
-        {
           label: <Link to={"home_zone/integrity_goods"}>诚信臻品</Link>,
           key: "home_zone_integrity_goods",
           icon: <ShoppingOutlined />,
         },
         {
-          label: "金刚区",
+          label: "主题专区",
           key: "home_zone_theme_zone",
-          icon: <AppstoreOutlined />,
+          icon: <FlagOutlined />,
           children: [
             {
-              label: <Link to={"home_zone/theme_zone/list"}>主题专区</Link>,
+              label: <Link to={"home_zone/theme_zone/list"}>主题列表</Link>,
               key: "home_zone_theme_zone_list",
               icon: <TagOutlined />,
             },
             {
               label: (
-                <Link to={"home_zone/theme_zone/goods_list"}>活动列表</Link>
+                <Link to={"home_zone/theme_zone/goods_list"}>商品列表</Link>
               ),
               key: "home_zone_theme_zone_goods_list",
               icon: <UnorderedListOutlined />,
@@ -418,6 +401,23 @@ const MenuSider = ({
               label: <Link to={"home_zone/activity/list"}>活动列表</Link>,
               key: "home_zone_activity_list",
               icon: <UnorderedListOutlined />,
+            },
+          ],
+        },
+        {
+          label: "诚信乡村",
+          key: "home_zone_rural",
+          icon: <CloudOutlined />,
+          children: [
+            {
+              label: <Link to={"home_zone/rural/region_list"}>地区列表</Link>,
+              key: "home_zone_rural_region_list",
+              icon: <EnvironmentOutlined />,
+            },
+            {
+              label: <Link to={"home_zone/rural/goods_list"}>商品列表</Link>,
+              key: "home_zone_rural_goods_list",
+              icon: <ShoppingOutlined />,
             },
           ],
         },

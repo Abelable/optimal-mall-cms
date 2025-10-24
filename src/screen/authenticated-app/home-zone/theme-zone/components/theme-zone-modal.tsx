@@ -66,7 +66,7 @@ export const ThemeZoneModal = ({
   return (
     <Drawer
       forceRender={true}
-      title={editingThemeZone ? "编辑主题专区" : "新增主题专区"}
+      title={editingThemeZone ? "编辑主题" : "新增主题"}
       size={"large"}
       onClose={closeModal}
       open={themeZoneModalOpen}
@@ -149,7 +149,7 @@ export const ThemeZoneModal = ({
                 }}
               >
                 {({ getFieldValue }) =>
-                  getFieldValue("scene") !== 1 ? (
+                  getFieldValue("scene") && getFieldValue("scene") !== 1 ? (
                     <Form.Item name="param" label="页面路径">
                       <Input placeholder="请输入页面路径" />
                     </Form.Item>
