@@ -61,6 +61,8 @@ import { VillageFreshGoodsList } from "./home-zone/fresh-goods";
 import { VillageSnackGoodsList } from "./home-zone/snack-goods";
 import { VillageGiftGoodsList } from "./home-zone/gift-goods";
 import { IntegrityGoodsList } from "./home-zone/integrity-goods";
+import { ThemeZoneList } from "./home-zone/theme-zone";
+import { ThemeZoneGoodsList } from "./home-zone/theme-zone-goods";
 import { ActivityTagList } from "./home-zone/activity-tag-list";
 import { ActivityList } from "./home-zone/activity-list";
 import { CouponList } from "./activity-management/coupon-list";
@@ -147,6 +149,14 @@ export const AuthenticatedApp = () => {
               <Route
                 path="home_zone/integrity_goods"
                 element={<IntegrityGoodsList />}
+              />
+              <Route
+                path="home_zone/theme_zone/list"
+                element={<ThemeZoneList />}
+              />
+              <Route
+                path="home_zone/theme_zone/goods_list"
+                element={<ThemeZoneGoodsList />}
               />
               <Route
                 path="home_zone/activity/tag_list"
@@ -374,6 +384,25 @@ const MenuSider = ({
           label: <Link to={"home_zone/integrity_goods"}>诚信臻品</Link>,
           key: "home_zone_integrity_goods",
           icon: <ShoppingOutlined />,
+        },
+        {
+          label: "金刚区",
+          key: "home_zone_theme_zone",
+          icon: <AppstoreOutlined />,
+          children: [
+            {
+              label: <Link to={"home_zone/theme_zone/list"}>主题专区</Link>,
+              key: "home_zone_theme_zone_list",
+              icon: <TagOutlined />,
+            },
+            {
+              label: (
+                <Link to={"home_zone/theme_zone/goods_list"}>活动列表</Link>
+              ),
+              key: "home_zone_theme_zone_goods_list",
+              icon: <UnorderedListOutlined />,
+            },
+          ],
         },
         {
           label: "商品活动",

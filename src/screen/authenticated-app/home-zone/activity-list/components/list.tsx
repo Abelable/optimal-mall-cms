@@ -6,7 +6,6 @@ import {
   TableProps,
   Image,
   Dropdown,
-  Menu,
   MenuProps,
   InputNumber,
   Select,
