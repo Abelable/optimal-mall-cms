@@ -5,13 +5,18 @@ import {
   InputNumber,
   MenuProps,
   Modal,
+  Switch,
   Table,
   TablePaginationConfig,
   TableProps,
   Image,
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
-import { useDeleteThemeZone, useEditSort } from "service/themeZone";
+import {
+  useDeleteThemeZone,
+  useEditSort,
+  useEditStatus,
+} from "service/themeZone";
 import { useThemeZoneModal, useThemeZoneListQueryKey } from "../util";
 import { PlusOutlined } from "@ant-design/icons";
 
@@ -42,6 +47,7 @@ export const List = ({
     });
 
   const { mutate: editSort } = useEditSort(useThemeZoneListQueryKey());
+  const { mutate: editStatus } = useEditStatus(useThemeZoneListQueryKey());
 
   return (
     <Container>
@@ -85,6 +91,18 @@ export const List = ({
             dataIndex: "scene",
             render: (value) => (
               <>{sceneOptions.find((item) => item.value === +value)?.text}</>
+            ),
+          },
+          {
+            title: "显示",
+            dataIndex: "status",
+            render: (value, themeZone) => (
+              <Switch
+                checked={value === 1}
+                onChange={(truthy) =>
+                  editStatus({ id: themeZone.id, status: truthy ? 1 : 2 })
+                }
+              />
             ),
           },
           {
